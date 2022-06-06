@@ -5,6 +5,10 @@
 body {
   background-color: $body-bg;
   font-family: $font-family !important;
+
+  a {
+    text-decoration: none !important;
+  }
 }
 
 /* From App.css */
