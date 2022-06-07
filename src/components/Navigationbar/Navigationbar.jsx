@@ -4,6 +4,8 @@ import "./Navigationbar.scss";
 import { Link, NavLink } from "react-router-dom";
 // import NavLogo from "../../../public/assets/logo/Group2.png";
 
+import Searchbar from "../Searchbar/Searchbar";
+
 const Navigationbar = () => {
   return (
     <div className="container">
@@ -25,6 +27,7 @@ const Navigationbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
+            <Searchbar />
             {/* <ul className="navbar-nav">
               <li className="nav-item">
                 <Link to="/" className="nav-link active" aria-current="page">
