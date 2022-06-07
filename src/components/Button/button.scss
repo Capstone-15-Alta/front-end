@@ -1,0 +1,32 @@
+.button-component {
+  position: relative;
+  padding: 0;
+  margin: 0;
+
+  .btn-create-new-thread {
+    margin-left: 4rem;
+    padding: 10px 10px 10px 35px;
+
+    gap: 20px;
+
+    width: 180px;
+    height: 47px;
+
+    border: 1px solid #26b893;
+    border-radius: 20px;
+
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+
+    color: #26b893 !important;
+  }
+
+  .create-icon {
+    position: absolute;
+    bottom: 13px;
+    left: 85px;
+    width: 18px;
+    height: 20px;
+  }
+}

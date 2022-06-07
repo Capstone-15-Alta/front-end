@@ -1,12 +1,16 @@
 import React from "react";
 import "./Navigationbar.scss";
 
+import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
 // import NavLogo from "../../../public/assets/logo/Group2.png";
 
 import Searchbar from "../Searchbar/Searchbar";
+import Button from "../Button/Button";
 
 const Navigationbar = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">
@@ -28,19 +32,17 @@ const Navigationbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <Searchbar />
-            {/* <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link to="/" className="nav-link active" aria-current="page">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/" className="nav-link">
-                  Features
-                </Link>
-              </li>
-              
-            </ul> */}
+            <Button
+              title="Buat Thread"
+              color="green"
+              background="white"
+              type="button"
+              className="btn-create-new-thread"
+              onClick={navigate("/buat-thread")}
+              source="/assets/icon/Vector_Create.png"
+              alt="icon create new thread"
+              iconClassName="create-icon"
+            />
           </div>
         </div>
       </nav>
