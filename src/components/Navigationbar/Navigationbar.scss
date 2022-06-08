@@ -1,3 +1,5 @@
+@use "../../scss/" as *;
+
 .customNav {
   padding: 2.406rem 6.25rem !important;
 
@@ -10,7 +12,7 @@
     font-size: 1rem;
     font-weight: 700;
     line-height: 1.2rem;
-    color: #26b893;
+    color: $main-color;
     padding-left: 2.151rem;
   }
 }
