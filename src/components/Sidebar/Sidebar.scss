@@ -31,8 +31,7 @@
     .sidebar-group{
        margin-top: 10rem;
        margin-bottom: 10rem;
-       display: flex;
-       justify-content: center;
+      margin-left: 2rem;
     
         .sidebar-bg-color{
             background-color: #88DFC9;
@@ -61,6 +60,7 @@
 
 
 .sidebar-right {
+    margin-left: 2rem;
     .saran{
         text-align: start;
         margin-top: 2rem;
