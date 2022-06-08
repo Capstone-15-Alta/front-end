@@ -39,9 +39,6 @@ const Navigationbar = () => {
               type="button"
               className="btn-create-new-thread"
               onClick={navigate("/buat-thread")}
-              source="/assets/icon/Vector_Create.png"
-              alt="icon create new thread"
-              iconClassName="create-icon"
             />
             <Link className="navbar-user-icon ms-auto" to="/">
               <img
