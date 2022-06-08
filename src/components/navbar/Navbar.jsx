@@ -9,7 +9,7 @@ const Navbar = () => {
   console.log(location);
   return (
     <>
-      {location === "/signin" || location === "/signup" ? (
+      {location === "/login" || location === "/signup" ? (
         <nav className="navbar navbar-expand-lg    ">
           <div className="container">
             <a className="navbar-brand" href="#">
