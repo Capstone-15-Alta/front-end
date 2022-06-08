@@ -43,6 +43,13 @@ const Navigationbar = () => {
               alt="icon create new thread"
               iconClassName="create-icon"
             />
+            <Link className="navbar-user-icon ms-auto" to="/">
+              <img
+                src="/assets/icon/man profil.png"
+                alt="user icon"
+                className="user-icon"
+              />
+            </Link>
           </div>
         </div>
       </nav>
