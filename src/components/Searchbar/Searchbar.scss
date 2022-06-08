@@ -1,0 +1,23 @@
+.input-search {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  margin-left: 5rem;
+
+  .input-field {
+    height: 44px;
+    width: 548px;
+    border-radius: 10px;
+    margin: 0;
+    padding-left: 84px;
+    font-size: 18px;
+  }
+
+  .icon-search {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    width: 23.89px;
+    height: 24px;
+  }
+}
