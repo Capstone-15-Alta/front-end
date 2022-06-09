@@ -2,12 +2,13 @@ import React from "react";
 import "./BuatThread.scss";
 
 import Navigationbar from "../../components/Navigationbar/Navigationbar";
+import FormPostingThread from "../../components/FormPostingThread/FormPostingThread";
 
 const BuatThread = () => {
   return (
     <div>
       <Navigationbar />
-      {/* <h1>Buat Thread</h1> */}
+      <FormPostingThread />
     </div>
   );
 };

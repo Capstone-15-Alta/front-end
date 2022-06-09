@@ -34,7 +34,7 @@ const Navigationbar = () => {
             <Searchbar />
             <Button
               title="Buat Thread"
-              color="green"
+              // color="green"
               background="white"
               type="button"
               className="btn-create-new-thread"
