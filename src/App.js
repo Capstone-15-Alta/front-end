@@ -10,7 +10,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           {routes.map((route, index) => (
-            <Route path={route.path} element={<route.component />} />
+            <Route
+              path={route.path}
+              element={<route.component />}
+              key={index}
+            />
           ))}
         </Routes>
       </BrowserRouter>
