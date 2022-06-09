@@ -34,11 +34,9 @@ const Navigationbar = () => {
             <Searchbar />
             <Button
               title="Buat Thread"
-              // color="green"
               background="white"
               type="button"
               className="btn-create-new-thread"
-              onClick={navigate("/buat-thread")}
             />
             <Link className="navbar-user-icon ms-auto" to="/">
               <img
