@@ -13,11 +13,9 @@ const FormPostingThread = () => {
   const [initSelectValue, setInitSelectValue] = useState(categories[0]);
 
   const [inputs, setInputs] = useState({
-    namaWisata: "",
+    judul: "",
     kategori: "",
-    alamat: "",
     deskripsi: "",
-    gambar: "",
   });
 
   const handleInput = (value, key) => {
@@ -34,117 +32,62 @@ const FormPostingThread = () => {
     <div className="container">
       <div className="row form-posting-thread justify-content-center">
         <div className="user-thread">
-          <div className="row">
-            <div className="col">
-              <img
-                src="/assets/icon/man profil.png"
-                alt="user icon"
-                className="user-icon"
-              />
-            </div>
-            <div className="col">
-              <h5>Muhammad Yogi</h5>
-              <p>Muhamadyogi413@gmail.com</p>
-            </div>
-            <div className="col">
-              <img
-                src="/assets/icon/check.png"
-                alt="user icon"
-                className="user-icon"
-              />
-            </div>
-            <div className="col">
-              <select
-                name="kategori"
-                className="form-select"
-                aria-label="Default select kategori wisata"
-                defaultValue=""
-                id="kategori-wisata"
-                onChange={(e) => handleInput(e.target.value, e.target.name)}
-              >
-                <option value="" hidden>
-                  Pilih Kategori
+          <div className="user-thread-icon">
+            <img
+              src="/assets/icon/man profil.png"
+              alt="user icon"
+              className="user-icon"
+            />
+          </div>
+          <div className="user-name-and-email">
+            <h5 className="user-name">Muhammad Yogi</h5>
+            <p className="user-email">Muhamadyogi413@gmail.com</p>
+          </div>
+          <div className="user-check-icon">
+            <img
+              src="/assets/icon/check.png"
+              alt="user icon"
+              className="user-check"
+            />
+          </div>
+          <div className="posting-time">
+            <p className="time-to-post">Hari ini 20:00</p>
+          </div>
+          <div className="options-thread-categories">
+            <select
+              name="kategori"
+              className="form-select shadow-none select-option-category"
+              aria-label="Default select kategori wisata"
+              defaultValue=""
+              onChange={(e) => handleInput(e.target.value, e.target.name)}
+            >
+              <option value="" hidden>
+                Pilih Kategori
+              </option>
+              {categories.map((dataCategory, dataCategoryIdx) => (
+                <option key={dataCategoryIdx} value={dataCategory}>
+                  {dataCategory}
                 </option>
-                {categories.map((dataCategory, dataCategoryIdx) => (
-                  <option key={dataCategoryIdx} value={dataCategory}>
-                    {dataCategory}
-                  </option>
-                ))}
-              </select>
-            </div>
+              ))}
+            </select>
           </div>
         </div>
         <input
           type="text"
-          className="form-control shadow-none"
-          id="exampleFormControlInput1"
+          className="form-control shadow-none thread-title"
+          name="judul"
           placeholder="Isi Judul Thread Disini"
+          value={inputs.judul}
+          onChange={(e) => handleInput(e.target.value, e.target.name)}
         />
         <textarea
-          className="form-control shadow-none"
-          id="exampleFormControlTextarea1"
+          className="form-control shadow-none thread-desc"
+          name="deskripsi"
           rows="7"
           placeholder="Apa Yang Ingin Anda Diskusikan ?"
+          value={inputs.deskripsi}
+          onChange={(e) => handleInput(e.target.value, e.target.name)}
         />
-        {/* <div className="col-md-12">
-          <div className="form-thread">
-            <div className="row">
-              <div className="col">
-                <img
-                  src="/assets/icon/man profil.png"
-                  alt="user icon"
-                  className="user-icon"
-                />
-              </div>
-              <div className="col">
-                <h5>Muhammad Yogi</h5>
-                <p>Muhamadyogi413@gmail.com</p>
-              </div>
-              <div className="col">
-                <img
-                  src="/assets/icon/check.png"
-                  alt="user icon"
-                  className="user-icon"
-                />
-              </div>
-              <div className="col">
-                <select
-                  name="kategori"
-                  className="form-select"
-                  aria-label="Default select kategori wisata"
-                  defaultValue=""
-                  id="kategori-wisata"
-                  onChange={(e) => handleInput(e.target.value, e.target.name)}
-                >
-                  <option value="" hidden>
-                    Pilih Kategori
-                  </option>
-                  {categories.map((dataCategory, dataCategoryIdx) => (
-                    <option key={dataCategoryIdx} value={dataCategory}>
-                      {dataCategory}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-          <div className="title-thread">
-            <input
-              type="text"
-              className="form-control"
-              id="exampleFormControlInput1"
-              placeholder="Isi Judul Thread Disini"
-            />
-          </div>
-          <div className="desc-thread">
-            <textarea
-              className="form-control"
-              id="exampleFormControlTextarea1"
-              rows="7"
-              placeholder="Apa Yang Ingin Anda Diskusikan ?"
-            />
-          </div>
-        </div> */}
       </div>
     </div>
   );

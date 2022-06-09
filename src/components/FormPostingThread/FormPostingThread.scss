@@ -10,24 +10,106 @@
     width: 100%;
     height: 132px;
     border-bottom: 1px solid #26b893;
+    display: flex;
+
+    .user-thread-icon {
+      margin-left: -0.8rem;
+
+      .user-icon {
+        width: 50px;
+        height: 50px;
+        margin-left: 2.841rem;
+        margin-top: 2.376rem;
+      }
+    }
+
+    .user-name-and-email {
+      text-align: left;
+
+      .user-name {
+        font-size: 1.375rem;
+        font-weight: 500;
+        line-height: 2.063rem;
+        color: black;
+        margin-top: 2.313rem;
+        margin-left: 0.851rem;
+      }
+
+      .user-email {
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1.125rem;
+        color: #ababab;
+        margin-left: 0.879rem;
+        margin-top: -0.5rem;
+      }
+    }
+
+    .user-check-icon {
+      margin-top: 2.7rem;
+      margin-left: 0.479rem;
+
+      .user-check {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .posting-time {
+      margin-top: 2.944rem;
+      margin-left: 1.181rem;
+      margin-right: 20.765rem;
+
+      .time-to-post {
+        font-weight: 500;
+        font-size: 0.938rem;
+        line-height: 22px;
+        color: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .options-thread-categories {
+      margin-top: 2.55rem;
+
+      .select-option-category {
+        width: 206px;
+        height: 45px;
+        padding-left: 1.963rem;
+        font-size: 0.938rem;
+        font-weight: 500;
+        line-height: 1.406rem;
+        color: #26b893;
+        border: 1px solid #7dd4be;
+        border-radius: 10px;
+      }
+    }
   }
 
-  input {
-    // width: 1023px;
+  .thread-title {
     width: 100%;
     height: 96px;
     border: none;
     border-bottom: 1px solid #26b893;
     border-radius: 0px;
+    padding-left: 3.063rem;
+    font-weight: 500;
+    font-size: 0.938rem;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.3);
   }
 
-  textarea {
-    // width: 1023px;
+  .thread-desc {
     width: 100%;
     height: 468px;
     border: none;
     border-bottom: 1px solid #26b893;
     border-radius: 0px;
     resize: none;
+    padding-top: 1.188rem;
+    padding-left: 3.063rem;
+    font-weight: 500;
+    font-size: 0.938rem;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.3);
   }
 }
