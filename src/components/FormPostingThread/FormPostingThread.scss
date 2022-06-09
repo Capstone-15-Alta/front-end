@@ -1,12 +1,10 @@
 .form-posting-thread {
   width: 1023px;
   height: 696px;
-  margin-top: 15rem !important;
-  margin-bottom: 5rem !important;
+  margin-top: 13.813rem !important;
   border: 1px solid #26b893;
 
   .user-thread {
-    // width: 1023px;
     width: 100%;
     height: 132px;
     border-bottom: 1px solid #26b893;
@@ -111,5 +109,36 @@
     font-size: 0.938rem;
     line-height: 22px;
     color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.button-area {
+  margin-top: 1.438rem;
+  // display: flex;
+  // justify-content: flex-end;
+  margin-left: 21.5rem;
+
+  .btn {
+    width: 169px !important;
+    height: 55px !important;
+    border-radius: 5px !important;
+    margin-bottom: 37.99rem;
+  }
+
+  .btn-kembali {
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 30px;
+    color: #26b893;
+    border: 1px solid #26b893;
+    margin-right: 2.611rem;
+  }
+
+  .btn-posting {
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 30px;
+    color: #ffffff;
+    background: #26b893;
   }
 }
