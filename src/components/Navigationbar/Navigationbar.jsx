@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router-dom";
 // import NavLogo from "../../../public/assets/logo/Group2.png";
 
 import Searchbar from "../Searchbar/Searchbar";
-import Button from "../Button/Button";
+import Button from "../button/Button";
 
 const Navigationbar = () => {
   const navigate = useNavigate();
