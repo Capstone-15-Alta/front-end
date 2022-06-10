@@ -7,6 +7,7 @@
 
 
 .sidebar-left{
+    margin-top: 10rem;
     ul {
         list-style-type: none;
         margin-left: 1rem;
@@ -38,61 +39,24 @@
             border-radius: 8px;
             height: 15rem;
             width: 15rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
     
         .sidebar-image {
             position: relative;
             bottom: 20%;
+            left: 5%;
            
         }
         button {
             background-color: #26B893;
             border: none;
             color: $white;
+            margin-left: 2rem;
+            margin-right: 2rem;
             
         }
-    }
-}
-
-
-//SIDEBAR_RIGHT
-
-
-
-.sidebar-right {
-    margin-left: 2rem;
-    .saran{
-        text-align: start;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        font-weight: 500;
-        color: #594545 !important;
-    }
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-   
-    
-
-    li p{
-        text-align: start;
-        width: 8rem;
-        height: 2rem;
-        vertical-align: middle;
-        color: #594545 !important;
-        font-weight: 300;
-    }
-
-    
-    button {
-        background-color: #26B893;
-        border: none;
-        color: $white;
-        width: 117px;
-        height: 30px;
-        border-radius: 2px;
-        
     }
 }
