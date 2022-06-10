@@ -3,7 +3,7 @@ import "./BuatThread.scss";
 
 import Navigationbar from "../../components/Navigationbar/Navigationbar";
 import FormPostingThread from "../../components/FormPostingThread/FormPostingThread";
-import Footer from "../../components/footer/Footer.js";
+import Footer from "../../components/footer/Footer";
 
 const BuatThread = () => {
   return (

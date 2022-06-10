@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./Sidebar.scss";
 import image from "./icon-sidebar/team-logo.png";
 import Plus from "./icon-sidebar/Plus.png";
@@ -7,15 +8,34 @@ import ArrowUp from "./icon-sidebar/ArrowUp.png";
 import { data } from "./SidebarData";
 
 export const SidebarLeft = () => {
+  const [localStyle, setLocalStyle] = useState(null);
+
+  useEffect(() => {
+    const test = sessionStorage.getItem("test");
+    test && setLocalStyle(parseInt(test));
+  }, []);
+
+  const handleStyle = (index) => {
+    sessionStorage.setItem("test", index);
+  };
+
   return (
     <div className="sidebar-left">
       <ul>
         <p className="menu">MENU</p>
         {data.left.map((val, index) => {
           return (
-            <li className="d-flex mb-4" key={index}>
-              <div className="pe-4">{val.icon}</div>
-              <a href={val.link} className="text-decoration-none ">
+            <li
+              key={index}
+              onClick={() => {
+                handleStyle(index);
+              }}
+              className={localStyle === index ? "li-active" : null}
+            >
+              <div className="icon">
+                {localStyle === index ? val.icon2 : val.icon}
+              </div>
+              <a href={val.link} className="">
                 <p>{val.title}</p>
               </a>
             </li>
@@ -38,21 +58,22 @@ export const SidebarLeft = () => {
 export const SidebarRight = () => {
   return (
     <div className="sidebar-right">
-      <ul>
-        <div className="d-flex align-items-center">
+
+<div className="saran-group">
           <p className="saran">SARAN</p>
           <img src={user} alt="" height={40} />
         </div>
+      <ul>
+        
 
         {data.right.map((val, index) => {
           return (
-            <li className="d-flex mb-2  text-wrap" key={index}>
-              <div className="me-2">{val.icon}</div>
+            <li className="" key={index}>
+              <div className="icon">{val.icon}</div>
 
-              <p>{val.name}</p>
+              <p className="name">{val.name}</p>
 
-              <button>
-                {" "}
+              <button className="button">
                 <img src={Plus} alt="" width={18} /> Ikuti
               </button>
             </li>

@@ -8,27 +8,35 @@ import man2 from "./icon-sidebar/man2.png";
 import man3 from "./icon-sidebar/man3.png";
 import man4 from "./icon-sidebar/man4.png";
 
+import hover1 from "./icon-sidebar/Vector (4).png";
+import hover2 from "./icon-sidebar/Vector (5).png";
+import hover3 from "./icon-sidebar/Vector (6).png";
+import hover4 from "./icon-sidebar/Vector (7).png";
 export const data = {
   left: [
     {
       title: "Home Page",
       icon: <img src={logo1} alt="" width={20} />,
-      link: "link",
+      icon2: <img src={hover1} alt="" width={20} />,
+      link: "/",
     },
     {
       title: "Notifikasi",
       icon: <img src={logo2} alt="" width={20} />,
-      link: "link",
+      icon2: <img src={hover3} alt="" width={20} />,
+      link: "buat-thread",
     },
     {
       title: "Explore Topik",
       icon: <img src={logo3} alt="" width={20} />,
-      link: "link",
+      icon2: <img src={hover4} alt="" width={20} />,
+      link: "explore-topik",
     },
     {
       title: "Profile",
       icon: <img src={logo4} alt="" width={20} />,
-      link: "link",
+      icon2: <img src={hover2} alt="" width={20} />,
+      link: "buat-thread",
     },
   ],
 
