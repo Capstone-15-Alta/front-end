@@ -24,19 +24,19 @@ export const data = {
       title: "Notifikasi",
       icon: <img src={logo2} alt="" width={20} />,
       icon2: <img src={hover3} alt="" width={20} />,
-      link: "buat-thread",
+      link: "/buat-thread",
     },
     {
       title: "Explore Topik",
       icon: <img src={logo3} alt="" width={20} />,
       icon2: <img src={hover4} alt="" width={20} />,
-      link: "explore-topik",
+      link: "/explore-topik",
     },
     {
       title: "Profile",
       icon: <img src={logo4} alt="" width={20} />,
       icon2: <img src={hover2} alt="" width={20} />,
-      link: "buat-thread",
+      link: "/buat-thread",
     },
   ],
 
@@ -44,22 +44,26 @@ export const data = {
     {
       name: "Charlie005",
       icon: <img src={man1} alt="" width={40} />,
-      link: "link",
+      follow:true,
+      link: "/link",
     },
     {
       name: "AlexBrown",
       icon: <img src={man2} alt="" width={40} />,
-      link: "link",
+      follow:false,
+      link: "/link",
     },
     {
       name: "Emma_Wright",
       icon: <img src={man3} alt="" width={40} />,
-      link: "link",
+      follow:false,
+      link: "/link",
     },
     {
       name: "Ana2007",
       icon: <img src={man4} alt="" width={40} />,
-      link: "link",
+      follow:true,
+      link: "/link",
     },
   ],
 };
