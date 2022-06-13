@@ -1,22 +1,15 @@
-import { useEffect, useState } from "react";
 import "./Sidebar.scss";
-import image from "./icon-sidebar/team-logo.png";
-import Plus from "./icon-sidebar/Plus.png";
-import user from "./icon-sidebar/user-saran.png";
-import ArrowUp from "./icon-sidebar/ArrowUp.png";
+import image from "../../images/icon-sidebar/team-logo.png";
+import Plus from "../../images/icon-sidebar/Plus.png";
+import Plus1 from "../../images/icon-sidebar/Plus (1).png";
+import user from "../../images/icon-sidebar/user-saran.png";
+import ArrowUp from "../../images/icon-sidebar/ArrowUp.png";
 
 import { data } from "./SidebarData";
 
 export const SidebarLeft = () => {
-  const [localStyle, setLocalStyle] = useState(null);
-
-  useEffect(() => {
-    const test = sessionStorage.getItem("test");
-    test && setLocalStyle(parseInt(test));
-  }, []);
-
-  const handleStyle = (index) => {
-    sessionStorage.setItem("test", index);
+  const handleStyle = (link) => {
+    window.location.pathname = link;
   };
 
   return (
@@ -28,16 +21,17 @@ export const SidebarLeft = () => {
             <li
               key={index}
               onClick={() => {
-                handleStyle(index);
+                handleStyle(val.link);
               }}
-              className={localStyle === index ? "li-active" : null}
+              className={
+                window.location.pathname === val.link ? "li-active" : null
+              }
             >
               <div className="icon">
-                {localStyle === index ? val.icon2 : val.icon}
+                {window.location.pathname === val.link ? val.icon2 : val.icon}
               </div>
-              <a href={val.link} className="">
-                <p>{val.title}</p>
-              </a>
+
+              <div className="text">{val.title}</div>
             </li>
           );
         })}
@@ -56,16 +50,16 @@ export const SidebarLeft = () => {
 };
 
 export const SidebarRight = () => {
+
+
+
   return (
     <div className="sidebar-right">
-
-<div className="saran-group">
-          <p className="saran">SARAN</p>
-          <img src={user} alt="" height={40} />
-        </div>
+      <div className="saran-group">
+        <p className="saran">SARAN</p>
+        <img src={user} alt="" height={40} />
+      </div>
       <ul>
-        
-
         {data.right.map((val, index) => {
           return (
             <li className="" key={index}>
@@ -73,8 +67,9 @@ export const SidebarRight = () => {
 
               <p className="name">{val.name}</p>
 
-              <button className="button">
-                <img src={Plus} alt="" width={18} /> Ikuti
+
+              <button className={val.follow ? "button-mengikuti" : "button"} >
+                <img src={val.follow ? Plus1:Plus} alt="" width={18} />{val.follow ? "Mengikuti" : "Ikuti"}
               </button>
             </li>
           );
