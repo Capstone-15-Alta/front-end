@@ -12,10 +12,6 @@ import HeaderProfile from "../../components/headerProfile/Index";
 
 import "./Index.scss";
 
-/* Images */
-import banner from "../../images/capung.png";
-import foto from "../../images/foto.jpg";
-
 const Profile = () => {
   const [profileData, setProfileData] = useState([
     {
