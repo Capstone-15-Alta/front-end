@@ -23,6 +23,30 @@
           margin: 0 20px;
         }
       }
+
+      .tab-section {
+        // background-color: aqua;
+        ul {
+          // background-color: bisque;
+          border-bottom: 1px solid $main-color;
+
+          li {
+            // background-color: brown;
+
+            .nav-link {
+              font-size: 22px;
+              color: $second-color;
+              border: 0;
+              background: none;
+
+              &.active {
+                font-weight: 600;
+                border-bottom: 2px solid $main-color;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
