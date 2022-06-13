@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import "./Sidebar.scss";
-import image from "./icon-sidebar/team-logo.png";
-import Plus from "./icon-sidebar/Plus.png";
-import Plus1 from "./icon-sidebar/Plus (1).png";
-import user from "./icon-sidebar/user-saran.png";
-import ArrowUp from "./icon-sidebar/ArrowUp.png";
+import image from "../../images/icon-sidebar/team-logo.png";
+import Plus from "../../images/icon-sidebar/Plus.png";
+import Plus1 from "../../images/icon-sidebar/Plus (1).png";
+import user from "../../images/icon-sidebar/user-saran.png";
+import ArrowUp from "../../images/icon-sidebar/ArrowUp.png";
 
 import { data } from "./SidebarData";
 
