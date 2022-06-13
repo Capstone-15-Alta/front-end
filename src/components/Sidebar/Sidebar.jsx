@@ -7,6 +7,9 @@ import ArrowUp from "../../images/icon-sidebar/ArrowUp.png";
 
 import { data } from "./SidebarData";
 
+
+
+
 export const SidebarLeft = () => {
   const handleStyle = (link) => {
     window.location.pathname = link;

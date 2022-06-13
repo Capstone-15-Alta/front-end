@@ -1,0 +1,9 @@
+@use "../../scss" as * ;
+
+.explore{
+    margin-top: 10rem;
+    .explore-button{
+        margin: auto;
+        width: max-content;
+    }
+}
