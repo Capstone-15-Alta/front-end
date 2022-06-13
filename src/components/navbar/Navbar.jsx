@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../images/logo.svg";
-import Button from "../Button/Button";
+import logo from "../../images/logoNavbar.svg";
+import Button from "../button/Button";
 import "./Navbar.scss";
 
 const Navbar = () => {

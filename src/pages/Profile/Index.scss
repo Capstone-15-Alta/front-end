@@ -1,0 +1,28 @@
+@use "../../scss/" as *;
+
+.profile-section {
+  //   background-color: $main-color;
+
+  .body-section {
+    .row {
+      margin-right: 0px !important;
+    }
+
+    .content-section {
+      margin-top: 10rem;
+      position: relative;
+
+      .data-number {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        color: $second-color;
+
+        & > * {
+          margin: 0 20px;
+        }
+      }
+    }
+  }
+}
