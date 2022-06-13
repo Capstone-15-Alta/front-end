@@ -1,7 +1,6 @@
 import React from "react";
 import NavbarHomepage from "../components/navbar/NavbarHomepage";
 import Grid from "@mui/material/Grid";
-import { SidebarLeft } from "../components/sidebar/Sidebar";
 import Container from "react-bootstrap/Container";
 import Footer from "../components/footer/Footer";
 import Box from "@mui/material/Box";
@@ -11,7 +10,7 @@ import CallMadeIcon from "@mui/icons-material/CallMade";
 import HomeCard from "../components/card/HomeCard";
 import Saran from "../components/card/Saran";
 import { Avatar } from "@mui/material";
-
+import { SidebarLeft, SidebarRight } from "../components/Sidebar/Sidebar";
 const Home = () => {
   const fillter = [
     { name: "Terbaru", icon: AccessTimeIcon, isActive: true },

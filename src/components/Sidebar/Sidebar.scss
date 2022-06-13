@@ -1,0 +1,98 @@
+@use "../../scss/" as *;
+
+
+
+
+// SIDEBAR_LEFT
+
+
+.sidebar-left{
+    ul {
+        list-style-type: none;
+        margin-left: 1rem;
+      }
+    
+    a p{
+        color: #594545 !important;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    
+    .menu{
+        text-align: start;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        font-weight: 500;
+        color: #594545 !important;
+    }
+    
+    
+    
+    .sidebar-group{
+       margin-top: 10rem;
+       margin-bottom: 10rem;
+      margin-left: 2rem;
+    
+        .sidebar-bg-color{
+            background-color: #88DFC9;
+            border-radius: 8px;
+            height: 15rem;
+            width: 15rem;
+        }
+    
+        .sidebar-image {
+            position: relative;
+            bottom: 20%;
+           
+        }
+        button {
+            background-color: #26B893;
+            border: none;
+            color: $white;
+            
+        }
+    }
+}
+
+
+//SIDEBAR_RIGHT
+
+
+
+.sidebar-right {
+    margin-left: 2rem;
+    .saran{
+        text-align: start;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        font-weight: 500;
+        color: #594545 !important;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+   
+    
+
+    li p{
+        text-align: start;
+        width: 8rem;
+        height: 2rem;
+        vertical-align: middle;
+        color: #594545 !important;
+        font-weight: 300;
+    }
+
+    
+    button {
+        background-color: #26B893;
+        border: none;
+        color: $white;
+        width: 117px;
+        height: 30px;
+        border-radius: 2px;
+        
+    }
+}
