@@ -36,11 +36,7 @@ export const data = {
       title: "Profile",
       icon: <img src={logo4} alt="" width={20} />,
       icon2: <img src={hover2} alt="" width={20} />,
-<<<<<<< HEAD
       link: "profile",
-=======
-      link: "/buat-thread",
->>>>>>> 9207898d1e3a9ee34dbe89e77cb4a96fa01c16f5
     },
   ],
 
@@ -48,25 +44,25 @@ export const data = {
     {
       name: "Charlie005",
       icon: <img src={man1} alt="" width={40} />,
-      follow:true,
+      follow: true,
       link: "/link",
     },
     {
       name: "AlexBrown",
       icon: <img src={man2} alt="" width={40} />,
-      follow:false,
+      follow: false,
       link: "/link",
     },
     {
       name: "Emma_Wright",
       icon: <img src={man3} alt="" width={40} />,
-      follow:false,
+      follow: false,
       link: "/link",
     },
     {
       name: "Ana2007",
       icon: <img src={man4} alt="" width={40} />,
-      follow:true,
+      follow: true,
       link: "/link",
     },
   ],
