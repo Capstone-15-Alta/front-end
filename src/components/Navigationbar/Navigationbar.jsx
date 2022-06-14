@@ -12,45 +12,41 @@ const Navigationbar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="container">
-      <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">
-        <div className="container-fluid">
-          <Link className="navbar-brand navBrand" to="/">
-            <img src="/assets/logo/Group2.png" alt="logo" className="navLogo" />
-            <span className="textLogo">Forum Group Diskusi</span>
-          </Link>
-          <button
-            className="navbar-toggler"
+    <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">
+      <div className="container-fluid">
+        <Link className="navbar-brand navBrand" to="/">
+          <img src="/assets/logo/Group2.png" alt="logo" className="navLogo" />
+          <span className="textLogo">Forum Group Diskusi</span>
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <Searchbar />
+          <Button
+            title="Buat Thread"
+            background="white"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <Searchbar />
-            <Button
-              title="Buat Thread"
-              // color="green"
-              background="white"
-              type="button"
-              className="btn-create-new-thread"
-              onClick={navigate("/buat-thread")}
+            className="btn-create-new-thread"
+          />
+          <Link className="navbar-user-icon ms-auto" to="/">
+            <img
+              src="/assets/icon/man profil.png"
+              alt="user icon"
+              className="user-icon"
             />
-            <Link className="navbar-user-icon ms-auto" to="/">
-              <img
-                src="/assets/icon/man profil.png"
-                alt="user icon"
-                className="user-icon"
-              />
-            </Link>
-          </div>
+          </Link>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 };
 

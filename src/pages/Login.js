@@ -7,11 +7,12 @@ import Typography from "@mui/material/Typography";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Footer from "../components/footer/Footer";
+import Navigationbar from "../components/Navigationbar/Navigationbar";
 
 export default function Login() {
   return (
     <>
-      <Navbar />
+      <Navigationbar />
       <Container>
         <Grid container minHeight="70vh" alignItems="center">
           <Grid item xs={12} md={6}>
