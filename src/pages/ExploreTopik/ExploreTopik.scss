@@ -1,5 +1,9 @@
 @use "../../scss" as * ;
 
+.row{
+    margin: 0 !important;
+}
+
 .explore{
     margin-top: 10rem;
     .explore-button{
