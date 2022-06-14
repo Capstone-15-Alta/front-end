@@ -1,7 +1,16 @@
 import React from "react";
 import "./button.scss";
 
-const Button = ({ title, color, background, type, className, onClick }) => {
+const Button = ({
+  title,
+  color,
+  background,
+  type,
+  className,
+  onClick,
+  iconKanan,
+  iconKiri,
+}) => {
   return (
     <button
       type={type}
@@ -9,7 +18,11 @@ const Button = ({ title, color, background, type, className, onClick }) => {
       style={{ backgroundColor: background, color: color }}
       onClick={onClick}
     >
-      {title}
+      <div className="d-flex">
+        <i className={iconKiri}></i>
+        <p style={{ marginBottom: "0px" }}> {title}</p>
+        <i className={iconKanan}></i>
+      </div>
     </button>
   );
 };
