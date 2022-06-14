@@ -1,29 +1,55 @@
+@use "../../scss/" as *;
+
 .btn-create-new-thread {
   margin-left: 4rem;
   padding: 10px 10px 10px 45px;
 
-  gap: 20px;
-
-  width: 180px;
-  height: 47px;
-
   border: 1px solid #26b893;
   border-radius: 20px;
 
-  font-weight: 400;
   font-size: 18px;
-  line-height: 27px;
-
   color: #26b893 !important;
 
-  background: url("../../../public/assets/icon/Vector_Create.png") no-repeat
-    10px center;
+  background: url("../../images/create-thread-icon.png") no-repeat 10px center;
 }
 
 .btn-create-new-thread:hover {
   background-color: #26b893 !important;
   color: white !important;
   border: 1px solid #ffffff;
-  background: url("../../../public/assets/icon/Vector_Create_Hover.png")
-    no-repeat 10px center;
+  background: url("../../images/create-thread-hover-icon.png") no-repeat 10px
+    center;
+}
+
+/* this button banner at Profile page */
+.btnChangeBanner {
+  position: absolute;
+  margin-top: 0 !important;
+  top: 5%;
+  right: 5%;
+  z-index: 999;
+
+  font-size: 18px !important;
+  border-radius: 60px !important;
+  padding: 12px 35px !important;
+
+  p {
+    margin: auto;
+  }
+
+  .iconKamera {
+    margin-right: 10px;
+    background: url("../../images/cameraIcon.svg") no-repeat center !important;
+    background-size: 30px !important;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+.btnEditProfile {
+  padding: 12px 20px !important;
+  border: 1px solid #26b893 !important;
+  border-radius: 30px !important;
+  color: $second-color !important;
 }
