@@ -4,7 +4,6 @@ import "./Navigationbar.scss";
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
 import NavLogo from "../../images/navlogo.png";
-// import IconProfile from "../../images/icon-profile.png";
 
 import IconProfile from "../IconProfile/IconProfile";
 
