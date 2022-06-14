@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 import "./FormPostingThread.scss";
 
-// import IconProfile from "../../images/icon-profile.png";
-
 import IconProfile from "../IconProfile/IconProfile";
 
 const FormPostingThread = () => {
