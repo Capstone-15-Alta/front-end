@@ -14,7 +14,7 @@ export default function Login() {
     <>
       <Navigationbar />
       <Container>
-        <Grid container minHeight="70vh" alignItems="center">
+        <Grid container minHeight="70vh" alignItems="center" marginTop="6rem">
           <Grid item xs={12} md={6}>
             <img src="/assets/icon/Login.png" alt="loginImage" />
           </Grid>

@@ -4,6 +4,7 @@ import LupaPassword from "./pages/LupaPassword";
 import BuatThread from "./pages/BuatThread/BuatThread";
 import ExploreTopik from "./pages/ExploreTopik/ExploreTopik";
 import Profile from "./pages/Profile/Index";
+import Signup from "./pages/Signup/Index";
 
 const routes = [
   {
@@ -29,6 +30,10 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
+  },
+  {
+    path: "/signup",
+    component: Signup,
   },
 ];
 
