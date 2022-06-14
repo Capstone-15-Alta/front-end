@@ -5,6 +5,18 @@
 
 .sidebar-left{
     margin-top: 10rem;
+
+    
+    .menu{
+        text-align: start;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        margin-left: 64px ;
+        font-weight: 500;
+        font-size: 20px;
+        color: #594545 !important;
+    }
+    
     ul {
         list-style-type: none;
         padding-left: 0;
@@ -16,12 +28,13 @@
         padding-left: 64px;
         display: flex;
         align-items: center;
+        cursor: pointer;
     }
 
     .li-active{
         background: linear-gradient(90deg, #26B893 10px, rgba(38, 184, 147, 0.6) 0%);
 
-        a p {
+        .text{
             color: white;
         }
     }
@@ -31,23 +44,13 @@
    .icon{
     margin-right: 1rem;
    }
-    a p{
+   .text{
         color: #594545 ;
         font-weight: 500;
-        cursor: pointer;
         font-size: 20px;
        margin-bottom: 0%;
     }
     
-    .menu{
-        text-align: start;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        margin-left: 64px ;
-        font-weight: 500;
-        font-size: 20px;
-        color: #594545 !important;
-    }
     
     
     
@@ -134,6 +137,15 @@
         border: none;
         color: white;
         width: 117px;
+        height: 40px;
+        border-radius: 5px;
+    }
+
+    .button-mengikuti{
+        background-color: #26B893;
+        border: none;
+        color: white;
+        width: 130px;
         height: 40px;
         border-radius: 5px;
     }
