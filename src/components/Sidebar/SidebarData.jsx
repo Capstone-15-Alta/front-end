@@ -36,7 +36,7 @@ export const data = {
       title: "Profile",
       icon: <img src={logo4} alt="" width={20} />,
       icon2: <img src={hover2} alt="" width={20} />,
-      link: "profile",
+      link: "/profile",
     },
   ],
 
