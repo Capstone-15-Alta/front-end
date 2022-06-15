@@ -1,9 +1,10 @@
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import LupaPassword from "./pages/LupaPassword";
-import BuatThread from "./pages/BuatThread/BuatThread";
+import Login from "./pages/Signin/Login";
+import LupaPassword from "./pages/ForgotPassword";
+import BuatThread from "./pages/BuatThread";
 import ExploreTopik from "./pages/ExploreTopik/ExploreTopik";
 import Profile from "./pages/Profile/Index";
+import Signup from "./pages/Signup/Index";
 
 const routes = [
   {
@@ -29,6 +30,10 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
+  },
+  {
+    path: "/signup",
+    component: Signup,
   },
 ];
 
