@@ -3,14 +3,14 @@ import "./Navigationbar.scss";
 
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
-import NavLogo from "../../images/navlogo.png";
+import NavLogo from "../../assets/images/navlogo.png";
 
 import IconProfile from "../IconProfile/IconProfile";
 
-import Searchbar from "../Searchbar/Searchbar";
+import Searchbar from "../Searchbar";
 import Button from "../button/Button";
 
-const Navigationbar = () => {
+const Navbar = () => {
   const navigate = useNavigate();
 
   return (
@@ -33,11 +33,13 @@ const Navigationbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <Searchbar />
+
           <Button
             title="Buat Thread"
             background="white"
             type="button"
             className="btn-create-new-thread"
+            iconKiri="iconCreate"
           />
           <Link className="navbar-user-icon ms-auto" to="/">
             {/* <img src={IconProfile} alt="user icon" className="user-icon" /> */}
@@ -49,4 +51,4 @@ const Navigationbar = () => {
   );
 };
 
-export default Navigationbar;
+export default Navbar;

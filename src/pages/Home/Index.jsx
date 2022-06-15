@@ -1,7 +1,5 @@
 import React from "react";
-import NavbarHomepage from "../../components/navbar/NavbarHomepage";
 import Grid from "@mui/material/Grid";
-import Container from "react-bootstrap/Container";
 import Footer from "../../components/footer/Footer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -10,8 +8,9 @@ import CallMadeIcon from "@mui/icons-material/CallMade";
 import HomeCard from "../../components/card/HomeCard";
 import Saran from "../../components/card/Saran";
 import { Avatar } from "@mui/material";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar/Sidebar";
-import Navigationbar from "../../components/Navigationbar/Navigationbar";
+import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
+import Navigationbar from "../../components/Navbar";
+
 const Home = () => {
   const fillter = [
     { name: "Terbaru", icon: AccessTimeIcon, isActive: true },
@@ -70,7 +69,7 @@ const Home = () => {
     <>
       <Navigationbar />
       {/* <NavbarHomepage /> */}
-      <Grid container minHeight="80vh" pt="2vh" mt="10rem">
+      <Grid container minHeight="80vh" pt="2vh">
         <Grid item md={3}>
           <SidebarLeft />
         </Grid>

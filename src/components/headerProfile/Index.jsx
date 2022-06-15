@@ -1,11 +1,11 @@
 import React from "react";
-import Button from "../../components/button/Button";
+import Button from "../button/Button";
 
 import "./Index.scss";
 
 /* Images */
-import banner from "../../images/capung.png";
-import foto from "../../images/foto.jpg";
+import banner from "../../assets/images/capung.png";
+import foto from "../../assets/images/foto.jpg";
 
 const HeaderProfile = () => {
   return (

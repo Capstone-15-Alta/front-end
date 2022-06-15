@@ -3,12 +3,12 @@ import React, { useState } from "react";
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
 
-import Navigationbar from "../../components/Navigationbar/Navigationbar";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar/Sidebar";
+import Navigationbar from "../../components/Navbar";
+import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
 import Footer from "../../components/footer/Footer";
 import HomeCard from "../../components/card/HomeCard";
 
-import HeaderProfile from "../../components/headerProfile/Index";
+import HeaderProfile from "../../components/headerProfile";
 
 import "./Index.scss";
 

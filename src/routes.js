@@ -1,10 +1,10 @@
-import Home from "./pages/Home/Index";
+import Home from "./pages/Home";
 import Login from "./pages/Signin/Login";
-import LupaPassword from "./pages/LupaPassword";
-import BuatThread from "./pages/BuatThread/BuatThread";
+import LupaPassword from "./pages/ForgotPassword";
+import BuatThread from "./pages/BuatThread";
 import ExploreTopik from "./pages/ExploreTopik/ExploreTopik";
-import Profile from "./pages/Profile/Index";
-import Signup from "./pages/Signup/Index";
+import Profile from "./pages/Profile";
+import Signup from "./pages/Signup";
 
 const routes = [
   {

@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../components/navbar/Navbar";
+import Navbar from "../../components/Navbar";
 import Container from "react-bootstrap/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -7,12 +7,11 @@ import Typography from "@mui/material/Typography";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Footer from "../../components/footer/Footer";
-import Navigationbar from "../../components/Navigationbar/Navigationbar";
 
 export default function Login() {
   return (
     <>
-      <Navigationbar />
+      <Navbar />
       <Container>
         <Grid container minHeight="70vh" alignItems="center" marginTop="6rem">
           <Grid item xs={12} md={6}>
