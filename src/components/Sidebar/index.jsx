@@ -5,7 +5,7 @@ import Plus1 from "../../assets/icon-sidebar/Plus (1).png";
 import user from "../../assets/icon-sidebar/user-saran.png";
 import ArrowUp from "../../assets/icon-sidebar/ArrowUp.png";
 
-import { data } from "./SidebarData";
+import { data } from "../SidebarData/SidebarData";
 
 export const SidebarLeft = () => {
   const handleStyle = (link) => {

@@ -8,7 +8,7 @@ import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
 import Footer from "../../components/footer/Footer";
 import HomeCard from "../../components/card/HomeCard";
 
-import HeaderProfile from "../../components/headerProfile";
+import HeaderProfile from "../../components/headerProfile/Index";
 
 import "./Index.scss";
 

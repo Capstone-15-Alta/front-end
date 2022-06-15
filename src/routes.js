@@ -3,8 +3,8 @@ import Login from "./pages/Signin/Login";
 import LupaPassword from "./pages/ForgotPassword";
 import BuatThread from "./pages/BuatThread";
 import ExploreTopik from "./pages/ExploreTopik/ExploreTopik";
-import Profile from "./pages/Profile";
-import Signup from "./pages/Signup";
+import Profile from "./pages/Profile/Index";
+import Signup from "./pages/Signup/Index";
 
 const routes = [
   {

@@ -10,7 +10,7 @@ import man4 from "../../assets/icon-sidebar/man4.png";
 
 import hover1 from "../../assets/icon-sidebar/Vector (4).png";
 import hover2 from "../../assets/icon-sidebar/Vector (5).png";
-import hover3 from "../../assets/icon-siSdebar/Vector (6).png";
+import hover3 from "../../assets/icon-sidebar/Vector (6).png";
 import hover4 from "../../assets/icon-sidebar/Vector (7).png";
 export const data = {
   left: [
