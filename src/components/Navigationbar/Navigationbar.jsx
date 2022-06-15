@@ -3,9 +3,15 @@ import "./Navigationbar.scss";
 
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
+<<<<<<< HEAD
 
 import iconMan from "../../images/icon/manProfile.png";
 import logo from "../../images/logo/Group2.png";
+=======
+import NavLogo from "../../images/navlogo.png";
+
+import IconProfile from "../IconProfile/IconProfile";
+>>>>>>> a8e27c650a502e40f9612f8548770d0018220e52
 
 import Searchbar from "../Searchbar/Searchbar";
 import Button from "../button/Button";
@@ -17,7 +23,11 @@ const Navigationbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">
       <div className="container-fluid">
         <Link className="navbar-brand navBrand" to="/">
+<<<<<<< HEAD
           <img src={logo} alt="logo" className="navLogo" />
+=======
+          <img src={NavLogo} alt="logo" className="navLogo" />
+>>>>>>> a8e27c650a502e40f9612f8548770d0018220e52
           <span className="textLogo">Forum Group Diskusi</span>
         </Link>
         <button
@@ -40,7 +50,12 @@ const Navigationbar = () => {
             className="btn-create-new-thread"
           />
           <Link className="navbar-user-icon ms-auto" to="/">
+<<<<<<< HEAD
             <img src={iconMan} alt="user icon" className="user-icon" />
+=======
+            {/* <img src={IconProfile} alt="user icon" className="user-icon" /> */}
+            <IconProfile />
+>>>>>>> a8e27c650a502e40f9612f8548770d0018220e52
           </Link>
         </div>
       </div>

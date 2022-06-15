@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import "./FormPostingThread.scss";
 
+import IconProfile from "../IconProfile/IconProfile";
+
 const FormPostingThread = () => {
   const [categories, setCategories] = useState([
     "Olahraga",
@@ -46,11 +48,8 @@ const FormPostingThread = () => {
         <div className="row form-posting-thread">
           <div className="user-thread">
             <div className="user-thread-icon">
-              <img
-                src="/assets/icon/man profil.png"
-                alt="user icon"
-                className="user-icon"
-              />
+              {/* <img src={IconProfile} alt="user icon" className="user-icon" /> */}
+              <IconProfile />
             </div>
             <div className="user-name-and-email">
               <h5 className="user-name">Muhammad Yogi</h5>
