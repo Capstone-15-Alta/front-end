@@ -6,12 +6,42 @@ import { Tabs, Tab } from "react-bootstrap";
 import Navigationbar from "../../components/Navigationbar/Navigationbar";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/Sidebar";
 import Footer from "../../components/footer/Footer";
+import HomeCard from "../../components/card/HomeCard";
 
 import HeaderProfile from "../../components/headerProfile/Index";
 
 import "./Index.scss";
 
 const Profile = () => {
+  const dataHomepage = [
+    {
+      username: "Albert Flores",
+      email: "Albert Flores@gmail.com",
+      isVerified: true,
+      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
+      timePost: "03:00 pm",
+      view: "120",
+      profile: "/assets/icon/manprofil.png",
+    },
+    {
+      username: "Albert Flores",
+      email: "Albert Flores@gmail.com",
+      isVerified: true,
+      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
+      timePost: "03:00 pm",
+      view: "120",
+      profile: "/assets/icon/manprofil.png",
+    },
+    {
+      username: "Albert Flores",
+      email: "Albert Flores@gmail.com",
+      isVerified: true,
+      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
+      timePost: "03:00 pm",
+      view: "120",
+      profile: "/assets/icon/manprofil.png",
+    },
+  ];
   const [profileData, setProfileData] = useState([
     {
       title: "Pengikut",
@@ -71,13 +101,18 @@ const Profile = () => {
                       </Tab>
                       <Tab eventKey="thread" title="Thread">
                         <div className="tab-item-wrapper">
-                          <h4>Name : Thread</h4>
+                          {/* <h4>Name : Thread</h4>
                           <h5>Profession : FrontEnd Developer</h5>
                           <p>
                             Lorem ipsum dolor, sit amet consectetur adipisicing
                             elit. Maxime libero vitae quia unde ex ducimus qui
                             reiciendis dolore, cumque possimus.
-                          </p>
+                          </p> */}{" "}
+                          {dataHomepage.map((item) => (
+                            <div className="card">
+                              <HomeCard data={item} />
+                            </div>
+                          ))}
                         </div>
                       </Tab>
                     </Tabs>

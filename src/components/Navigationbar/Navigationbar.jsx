@@ -3,7 +3,9 @@ import "./Navigationbar.scss";
 
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
-// import NavLogo from "../../../public/assets/logo/Group2.png";
+
+import iconMan from "../../images/icon/manProfile.png";
+import logo from "../../images/logo/Group2.png";
 
 import Searchbar from "../Searchbar/Searchbar";
 import Button from "../button/Button";
@@ -15,7 +17,7 @@ const Navigationbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">
       <div className="container-fluid">
         <Link className="navbar-brand navBrand" to="/">
-          <img src="/assets/logo/Group2.png" alt="logo" className="navLogo" />
+          <img src={logo} alt="logo" className="navLogo" />
           <span className="textLogo">Forum Group Diskusi</span>
         </Link>
         <button
@@ -38,11 +40,7 @@ const Navigationbar = () => {
             className="btn-create-new-thread"
           />
           <Link className="navbar-user-icon ms-auto" to="/">
-            <img
-              src="/assets/icon/man profil.png"
-              alt="user icon"
-              className="user-icon"
-            />
+            <img src={iconMan} alt="user icon" className="user-icon" />
           </Link>
         </div>
       </div>

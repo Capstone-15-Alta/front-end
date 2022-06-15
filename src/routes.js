@@ -1,5 +1,5 @@
-import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Home from "./pages/Home/Index";
+import Login from "./pages/Signin/Login";
 import LupaPassword from "./pages/LupaPassword";
 import BuatThread from "./pages/BuatThread/BuatThread";
 import ExploreTopik from "./pages/ExploreTopik/ExploreTopik";
