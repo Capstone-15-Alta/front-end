@@ -111,24 +111,7 @@ const Home = () => {
             ))}
           </Box>
         </Grid>
-        <Grid item md={3} mt="9rem">
-          {/* <Grid container>
-            <Grid item xs>
-              <h4>SARAN</h4>
-            </Grid>
-            <Grid item>
-              <Grid container mr="3vw">
-                {saranData.map((data) => (
-                  <Grid item ml="-1.8vw">
-                    <Avatar alt={data.username} src={data.profile} />
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
-          </Grid>
-          {saranData.map((item) => (
-            <Saran data={item} />
-          ))} */}
+        <Grid item md={3} pl="2vw" mt="5rem">
           <SidebarRight />
         </Grid>
       </Grid>
