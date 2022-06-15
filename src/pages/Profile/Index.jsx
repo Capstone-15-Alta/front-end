@@ -6,7 +6,6 @@ import { Tabs, Tab } from "react-bootstrap";
 import Navigationbar from "../../components/Navigationbar/Navigationbar";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/Sidebar";
 import Footer from "../../components/footer/Footer";
-import Button from "../../components/Button/Button";
 
 import HeaderProfile from "../../components/headerProfile/Index";
 
