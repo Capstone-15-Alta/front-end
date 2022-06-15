@@ -23,11 +23,7 @@ const Navigationbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">
       <div className="container-fluid">
         <Link className="navbar-brand navBrand" to="/">
-<<<<<<< HEAD
-          <img src={logo} alt="logo" className="navLogo" />
-=======
           <img src={NavLogo} alt="logo" className="navLogo" />
->>>>>>> a8e27c650a502e40f9612f8548770d0018220e52
           <span className="textLogo">Forum Group Diskusi</span>
         </Link>
         <button
