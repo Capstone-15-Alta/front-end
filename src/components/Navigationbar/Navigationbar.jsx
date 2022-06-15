@@ -3,15 +3,9 @@ import "./Navigationbar.scss";
 
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
-<<<<<<< HEAD
-
-import iconMan from "../../images/icon/manProfile.png";
-import logo from "../../images/logo/Group2.png";
-=======
 import NavLogo from "../../images/navlogo.png";
 
 import IconProfile from "../IconProfile/IconProfile";
->>>>>>> a8e27c650a502e40f9612f8548770d0018220e52
 
 import Searchbar from "../Searchbar/Searchbar";
 import Button from "../button/Button";
@@ -46,12 +40,8 @@ const Navigationbar = () => {
             className="btn-create-new-thread"
           />
           <Link className="navbar-user-icon ms-auto" to="/">
-<<<<<<< HEAD
-            <img src={iconMan} alt="user icon" className="user-icon" />
-=======
             {/* <img src={IconProfile} alt="user icon" className="user-icon" /> */}
             <IconProfile />
->>>>>>> a8e27c650a502e40f9612f8548770d0018220e52
           </Link>
         </div>
       </div>
