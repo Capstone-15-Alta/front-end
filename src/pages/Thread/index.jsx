@@ -3,8 +3,8 @@ import React, { useState } from "react";
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
 
-import Navigationbar from "../../components/Navigationbar/Navigationbar";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar/Sidebar";
+import Navigationbar from "../../components/navbar";
+import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
 import HomeCard from "../../components/card/HomeCard";
 import Footer from "../../components/footer/Footer";
 import Button from "../../components/Button/Button";

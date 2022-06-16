@@ -1,6 +1,8 @@
 import React from "react";
 import "./Searchbar.scss";
 
+import iconSearch from "../../assets/icon/iconSearch.png";
+
 const Searchbar = () => {
   return (
     <div className="input-search">
@@ -11,11 +13,7 @@ const Searchbar = () => {
         placeholder="Cari Topik Diskusi Disini Yuk"
         autoComplete="off"
       />
-      <img
-        src="/assets/icon/Vector search.png"
-        alt="icon search"
-        className="icon-search"
-      />
+      <img src={iconSearch} alt="icon search" className="icon-search" />
     </div>
   );
 };
