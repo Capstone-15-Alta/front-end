@@ -1,10 +1,10 @@
 import React from "react";
 import "./BuatThread.scss";
 
-import Navigationbar from "../../components/navbar";
+import Navigationbar from "../../components/Navbar";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
 import FormPostingThread from "../../components/FormPostingThread";
-import Footer from "../../components/footer/Footer";
+import Footer from "../../components/Footer";
 
 const BuatThread = () => {
   return (

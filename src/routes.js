@@ -2,10 +2,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Signin";
 import LupaPassword from "./pages/ForgotPassword";
 import BuatThread from "./pages/BuatThread";
-import Thread from "./pages/Thread";
-import ExploreTopik from "./pages/ExploreTopik/ExploreTopik";
+import ExploreTopik from "./pages/ExploreTopik";
 import Profile from "./pages/Profile";
-import Signup from "./pages/Signup/Index";
+import Signup from "./pages/Signup";
 
 const routes = [
   {
@@ -23,10 +22,6 @@ const routes = [
   {
     path: "/buat-thread",
     component: BuatThread,
-  },
-  {
-    path: "/thread",
-    component: Thread,
   },
   {
     path: "/explore-topik",

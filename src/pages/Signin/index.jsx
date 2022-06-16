@@ -1,12 +1,12 @@
 import React from "react";
-import Navbar from "../../components/navbar";
+import Navbar from "../../components/Navbar";
 import Container from "react-bootstrap/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Footer from "../../components/footer/Footer";
+import Footer from "../../components/Footer";
 
 export default function Login() {
   return (

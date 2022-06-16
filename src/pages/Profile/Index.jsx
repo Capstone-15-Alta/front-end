@@ -3,14 +3,14 @@ import React, { useState } from "react";
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
 
-import Navigationbar from "../../components/navbar";
+import Navigationbar from "../../components/Navbar";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
-import Footer from "../../components/footer/Footer";
-import HomeCard from "../../components/card/HomeCard";
+import Footer from "../../components/Footer";
+import HomeCard from "../../components/Card/HomeCard";
 
-import HeaderProfile from "../../components/headerProfile/Index";
+import HeaderProfile from "../../components/HeaderProfile";
 
-import "./Index.scss";
+import "./Profile.scss";
 
 const Profile = () => {
   const dataHomepage = [
