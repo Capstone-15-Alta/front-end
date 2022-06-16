@@ -101,15 +101,8 @@ const Profile = () => {
                       </Tab>
                       <Tab eventKey="thread" title="Thread">
                         <div className="tab-item-wrapper">
-                          {/* <h4>Name : Thread</h4>
-                          <h5>Profession : FrontEnd Developer</h5>
-                          <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing
-                            elit. Maxime libero vitae quia unde ex ducimus qui
-                            reiciendis dolore, cumque possimus.
-                          </p> */}{" "}
                           {dataHomepage.map((item) => (
-                            <div className="card">
+                            <div className="card-threads">
                               <HomeCard data={item} />
                             </div>
                           ))}
