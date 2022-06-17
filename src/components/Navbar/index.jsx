@@ -1,11 +1,11 @@
 import React from "react";
-import "./Navigationbar.scss";
+import "./Navbar.scss";
 
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
 import NavLogo from "../../assets/images/navlogo.png";
 
-import IconProfile from "../IconProfile/IconProfile";
+import IconProfile from "../IconProfile";
 
 import Searchbar from "../Searchbar";
 import Button from "../button/Button";

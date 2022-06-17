@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../button/Button";
 
-import "./Index.scss";
+import "./HeaderProfile.scss";
 
 /* Images */
 import banner from "../../assets/images/capung.png";
