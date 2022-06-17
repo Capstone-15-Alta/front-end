@@ -87,7 +87,7 @@ function ExploreTopik() {
             <div className="explore-button">
               {data &&
                 data.map((val, index) => {
-                  return <Button title={val.category_name} onClick={() =>{handleCategory(val.category_name)}} />;
+                  return <Button title={val.category_name} className="button" onClick={() =>{handleCategory(val.category_name)}} />;
                 })}
             </div>
             <div className="explore-thread">

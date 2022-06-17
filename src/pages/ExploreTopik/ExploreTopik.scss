@@ -5,6 +5,10 @@
     margin: 0 !important;
 }
 
+.col-3{
+    padding: 0  !important;
+}
+
 .explore{
     margin-top: 10rem;
 
@@ -13,7 +17,7 @@
         justify-content: space-around;
     }
 
-    Button{
+    .button{
         color: white;
         background-color: $main-color;
         border: none;
