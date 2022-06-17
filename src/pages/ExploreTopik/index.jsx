@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navigationbar from "../../components/Navbar";
 import Footer from "../../components/footer";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
+import { SidebarLeft, SidebarRight } from "../../components/Navbar/Sidebar";
 import HomeCard from "../../components/card/HomeCard";
 import "./ExploreTopik.scss";
 import Button from "../../components/button/Button";

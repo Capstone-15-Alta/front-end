@@ -2,7 +2,7 @@ import React from "react";
 import "./BuatThread.scss";
 
 import Navigationbar from "../../components/Navbar";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
+import { SidebarLeft, SidebarRight } from "../../components/Navbar/Sidebar";
 import FormPostingThread from "../../components/FormPostingThread";
 import Footer from "../../components/footer/";
 

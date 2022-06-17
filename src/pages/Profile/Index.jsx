@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 
 import Navigationbar from "../../components/Navbar";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
+import { SidebarLeft, SidebarRight } from "../../components/Navbar/Sidebar";
 import Footer from "../../components/footer";
 import HomeCard from "../../components/card/HomeCard";
 

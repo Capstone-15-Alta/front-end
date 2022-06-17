@@ -9,7 +9,10 @@ import CallMadeIcon from "@mui/icons-material/CallMade";
 import HomeCard from "../../components/card/HomeCard";
 import Saran from "../../components/card/Saran";
 import { Avatar } from "@mui/material";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
+import {
+  SidebarLeft,
+  SidebarRight,
+} from "../../components/Navbar/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 
 const Home = () => {
