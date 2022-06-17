@@ -46,7 +46,13 @@ export default function HomeCard({ data }) {
   ];
   return (
     <>
-      <Box borderRadius="20px" py="1vh" px="2vw" boxShadow={1}>
+      <Box
+        // borderRadius="5px"
+        py="2rem"
+        px="2vw"
+        sx={{ borderBottom: 1, borderColor: "grey.500" }}
+        /*boxShadow={1}*/
+      >
         <Grid container>
           <Grid item>
             <Avatar alt={data.username} src={data.profile} />
@@ -57,7 +63,7 @@ export default function HomeCard({ data }) {
                 <Box display="flex">
                   <Box>
                     <h5>{data.username}</h5>
-                    <Box mt="-1vw">
+                    <Box mt="-10px">
                       <Typography variant="caption">{data.email}</Typography>
                     </Box>
                   </Box>

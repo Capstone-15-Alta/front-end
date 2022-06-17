@@ -1,10 +1,10 @@
-import React ,{useState,useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import Navigationbar from "../../components/Navbar";
-import Footer from "../../components/footer/Footer";
+import Footer from "../../components/footer";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
 import HomeCard from "../../components/card/HomeCard";
 import "./ExploreTopik.scss";
-import Button from "../../components/Button/Button";
+import Button from "../../components/button/Button";
 function ExploreTopik() {
   const [data, setData] = useState([]);
 
@@ -25,26 +25,21 @@ function ExploreTopik() {
   }, []);
   console.log(data);
 
-  const [category , setCategory] = useState(
-    {
-      menu:[],
-      categoryYangDipilih: ''
-    }
-  )
+  const [category, setCategory] = useState({
+    menu: [],
+    categoryYangDipilih: "",
+  });
 
-  const handleCategory =(value)=>{
-    setCategory({ 
-      menu:[],
-      categoryYangDipilih: value})
+  const handleCategory = (value) => {
+    setCategory({
+      menu: [],
+      categoryYangDipilih: value,
+    });
 
+    //handle kategori yang akan ditampilkan
+  };
 
-      //handle kategori yang akan ditampilkan
-
-
-  }
-
-  console.log(category)
-
+  console.log(category);
 
   const dataHomepage = [
     {
@@ -87,15 +82,21 @@ function ExploreTopik() {
             <div className="explore-button">
               {data &&
                 data.map((val, index) => {
-                  return <Button title={val.category_name} className="button" onClick={() =>{handleCategory(val.category_name)}} />;
+                  return (
+                    <Button
+                      title={val.category_name}
+                      className="button"
+                      onClick={() => {
+                        handleCategory(val.category_name);
+                      }}
+                    />
+                  );
                 })}
             </div>
             <div className="explore-thread">
-            {dataHomepage.map((item) => (
-           
+              {dataHomepage.map((item) => (
                 <HomeCard data={item} />
-              
-            ))}
+              ))}
             </div>
           </div>
         </div>
