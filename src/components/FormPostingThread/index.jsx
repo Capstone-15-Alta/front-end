@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./FormPostingThread.scss";
 
-import IconProfile from "../IconProfile/IconProfile";
+import IconProfile from "../IconProfile";
 
 const FormPostingThread = () => {
   const [categories, setCategories] = useState([
