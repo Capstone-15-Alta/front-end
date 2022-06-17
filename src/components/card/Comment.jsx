@@ -11,7 +11,7 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import CostumeButton from "../button/CostumeButton";
+import CostumeButton from "../Button/CostumeButton";
 
 export default function Comment({ data }) {
   const greyColor = { color: "#9E9E9E" };

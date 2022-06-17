@@ -4,7 +4,7 @@ import Footer from "../../components/footer";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
 import HomeCard from "../../components/card/HomeCard";
 import "./ExploreTopik.scss";
-import Button from "../../components/button/Button";
+import Button from "../../components/Button/Button";
 function ExploreTopik() {
   const [data, setData] = useState([]);
 

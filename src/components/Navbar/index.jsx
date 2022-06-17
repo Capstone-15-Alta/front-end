@@ -8,7 +8,7 @@ import NavLogo from "../../assets/images/navlogo.png";
 import IconProfile from "../IconProfile";
 
 import Searchbar from "../Searchbar";
-import Button from "../button/Button";
+import Button from "../Button/Button";
 
 const Navbar = () => {
   const navigate = useNavigate();
