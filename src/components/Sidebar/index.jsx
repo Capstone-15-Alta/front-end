@@ -5,8 +5,8 @@ import Plus1 from "../../assets/icon-sidebar/Plus (1).png";
 import user from "../../assets/icon-sidebar/user-saran.png";
 import ArrowUp from "../../assets/icon-sidebar/ArrowUp.png";
 
-import { data } from "../SidebarData";
-
+import { data } from "../SidebarData/SidebarData";
+import { Link } from "react-router-dom";
 export const SidebarLeft = () => {
   const handleStyle = (link) => {
     window.location.pathname = link;
@@ -18,21 +18,20 @@ export const SidebarLeft = () => {
         <p className="menu">MENU</p>
         {data.left.map((val, index) => {
           return (
-            <li
-              key={index}
-              onClick={() => {
-                handleStyle(val.link);
-              }}
-              className={
-                window.location.pathname === val.link ? "li-active" : null
-              }
-            >
-              <div className="icon">
-                {window.location.pathname === val.link ? val.icon2 : val.icon}
-              </div>
+            <Link to={val.link}>
+              <li
+                key={index}
+                className={
+                  window.location.pathname === val.link ? "li-active" : null
+                }
+              >
+                <div className="icon">
+                  {window.location.pathname === val.link ? val.icon2 : val.icon}
+                </div>
 
-              <div className="text">{val.title}</div>
-            </li>
+                <div className="text">{val.title}</div>
+              </li>
+            </Link>
           );
         })}
       </ul>
