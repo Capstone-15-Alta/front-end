@@ -20,7 +20,13 @@ const Button = ({
     >
       <div className="d-flex">
         <i className={iconKiri}></i>
-        <p style={{ marginBottom: "0px" }}> {title}</p>
+        <p
+          style={{
+            marginBottom: "0px",
+          }}
+        >
+          {title}
+        </p>
         <i className={iconKanan}></i>
       </div>
     </button>
