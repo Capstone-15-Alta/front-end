@@ -53,16 +53,16 @@ const Signup = () => {
       })
     );
     // console.log(inputs[2].value === inputs[3].value);
+  };
+
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
     console.log({
       nama: inputs[0].value,
       nomor: inputs[1].value,
       password: inputs[2].value,
       repassword: inputs[3].value,
     });
-  };
-
-  const handleSubmitForm = async (e) => {
-    e.preventDefault();
   };
 
   return (
@@ -97,11 +97,35 @@ const Signup = () => {
                             />
                           </div>
                         ))}
+                        {inputs[2].value === "" ? (
+                          <></>
+                        ) : inputs[2].value !== inputs[3].value ? (
+                          <>
+                            <p className="text-danger mb-2">
+                              **password tidak sama
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <p className="text-success mb-2">
+                              **password sama{" "}
+                            </p>
+                          </>
+                        )}
                         <Button
                           onClick={handleSubmitForm}
                           title="Daftar"
-                          type="button"
-                          className="submit-regist btn btn-primary"
+                          type="submit"
+                          className={`submit-regist btn  ${
+                            inputs[0].value === "" ||
+                            inputs[1].value === "" ||
+                            inputs[2].value === "" ||
+                            inputs[3].value === ""
+                              ? "disabled"
+                              : inputs[2].value !== inputs[3].value
+                              ? "disabled"
+                              : " "
+                          }`}
                         />
                       </form>
                       <p style={{ color: "#959AA1" }} className="text-center">

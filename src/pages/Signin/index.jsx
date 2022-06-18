@@ -36,14 +36,15 @@ export default function Login() {
         return input;
       })
     );
-    console.log({
-      nomor: inputs[0].value,
-      password: inputs[1].value,
-    });
   };
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
+
+    console.log({
+      nomor: inputs[0].value,
+      password: inputs[1].value,
+    });
   };
 
   return (
@@ -90,6 +91,7 @@ export default function Login() {
                         name={input.name}
                         type={input.type}
                         placeholder={input.placeholder}
+                        autoComplete="on"
                       />
                     </Form.Group>
                   ))}
