@@ -1,21 +1,19 @@
 import React from "react";
 
-const Form = ({ input, submit, changeHandler, type, key }) => {
+const Form = ({ inputs, submit, changeHandler, btnTitle, type }) => {
   return (
     <>
-      <div key={key} className="konten-form">
-        <label>{input.label}</label>
-        <br />
-        <input
-          required
-          onChange={changeHandler}
-          type={input.type}
-          placeholder={input.placeholder}
-          value={input.value}
-          name={input.name}
-          autoComplete="on"
-        />
-      </div>
+      <label>{inputs.label}</label>
+      <br />
+      <input
+        required
+        onChange={changeHandler}
+        type={inputs.type}
+        placeholder={inputs.placeholder}
+        value={inputs.value}
+        name={inputs.name}
+        autoComplete="on"
+      />
     </>
   );
 };

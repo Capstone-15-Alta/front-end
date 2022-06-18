@@ -66,3 +66,14 @@
   border-radius: 30px !important;
   color: $second-color !important;
 }
+
+/* Signup */
+.submit-regist {
+  background-color: $main-color !important;
+  color: #ffffff !important;
+
+  width: 100%;
+  p {
+    margin: auto;
+  }
+}
