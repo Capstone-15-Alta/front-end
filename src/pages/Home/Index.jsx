@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "react-bootstrap/Container";
 import Footer from "../../components/footer";
@@ -11,6 +11,10 @@ import Saran from "../../components/card/Saran";
 import { Avatar } from "@mui/material";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
+
+import axios from "axios";
+
+import fgdApi from "../../api/fgdApi";
 
 const Home = () => {
   const fillter = [
@@ -66,6 +70,17 @@ const Home = () => {
       profile: "/assets/icon/manProfile.png",
     },
   ];
+
+  useEffect(() => {
+    const getUser = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getUser(params);
+      console.log(res.data);
+    };
+    getUser();
+  });
+
   return (
     <>
       <Navigationbar />
@@ -75,8 +90,9 @@ const Home = () => {
         </Grid>
         <Grid item md={6} mt="9rem">
           <Box display="flex">
-            {fillter.map((item) => (
+            {fillter.map((item, itemIdx) => (
               <Button
+                key={itemIdx}
                 variant={item.isActive === true ? "contained" : "outlined"}
                 sx={{
                   textTransform: "none",
@@ -104,8 +120,8 @@ const Home = () => {
             </Button>
           </Box>
           <Box pt="3vh">
-            {dataHomepage.map((item) => (
-              <Box py="4vh">
+            {dataHomepage.map((item, itemIdx) => (
+              <Box key={itemIdx} py="4vh">
                 <HomeCard data={item} />
               </Box>
             ))}

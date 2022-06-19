@@ -9,13 +9,15 @@ import Button from "react-bootstrap/Button";
 import Footer from "../../components/footer";
 import { Link } from "react-router-dom";
 
+import axios from "axios";
+
 export default function Login() {
   const [inputs, setInputs] = useState([
     {
-      label: "Nomor Handphone",
-      type: "number",
-      placeholder: "+62 | Masukan Nomor Handphone",
-      name: "noHandphone",
+      label: "Email",
+      type: "email",
+      placeholder: "Email",
+      name: "email",
       value: "",
     },
     {
@@ -41,10 +43,17 @@ export default function Login() {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    console.log({
-      nomor: inputs[0].value,
+    const res = await axios.post("http://34.87.175.218/api/v1/auth/login", {
+      username: inputs[0].value,
       password: inputs[1].value,
     });
+    console.log(
+      {
+        email: inputs[0].value,
+        password: inputs[1].value,
+      },
+      res.data
+    );
   };
 
   return (
