@@ -26,6 +26,7 @@
 
       .tab-section {
         // background-color: aqua;
+        max-width: 72vmax;
         ul {
           // background-color: bisque;
           border-bottom: 1px solid $main-color;
@@ -43,6 +44,19 @@
                 font-weight: 600;
                 border-bottom: 2px solid $main-color;
               }
+            }
+          }
+        }
+
+        .tab-content {
+          max-width: 50vmax;
+
+          .card-threads {
+            // height: 245px;
+            margin-bottom: 2.203rem;
+            /* Styling for mui */
+            .css-eznesa {
+              // height: 288.01px;
             }
           }
         }

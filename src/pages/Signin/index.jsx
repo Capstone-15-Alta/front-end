@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
 import Container from "react-bootstrap/Container";
 import Grid from "@mui/material/Grid";
@@ -6,9 +6,56 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Footer from "../../components/footer/Footer";
+import Footer from "../../components/footer";
+import { Link } from "react-router-dom";
+
+import axios from "axios";
 
 export default function Login() {
+  const [inputs, setInputs] = useState([
+    {
+      label: "Email",
+      type: "email",
+      placeholder: "Email",
+      name: "email",
+      value: "",
+    },
+    {
+      label: "Kata Sandi",
+      type: "password",
+      placeholder: "Type your password",
+      name: "password",
+      value: "",
+    },
+  ]);
+
+  const onChangeHandler = (e) => {
+    setInputs(
+      inputs.map((input) => {
+        if (input.name === e.target.name) {
+          input.value = e.target.value;
+        }
+        return input;
+      })
+    );
+  };
+
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
+    const res = await axios.post("http://34.87.175.218/api/v1/auth/login", {
+      username: inputs[0].value,
+      password: inputs[1].value,
+    });
+    console.log(
+      {
+        email: inputs[0].value,
+        password: inputs[1].value,
+      },
+      res.data
+    );
+  };
+
   return (
     <>
       <Navbar />
@@ -41,26 +88,23 @@ export default function Login() {
                 Halo lagi, Anda telah dirindukan!
               </Typography>
               <Box pt="1vw">
-                <Form>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label style={{ color: "#26B893" }}>
-                      Nomor Handphone
-                    </Form.Label>
-                    <Form.Control
-                      type="number"
-                      placeholder="+62 | Masukan Nomor Handphone"
-                    />
-                  </Form.Group>
+                <Form onSubmit={handleSubmitForm}>
+                  {inputs.map((input, inputIdx) => (
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label style={{ color: "#26B893" }}>
+                        {input.label}
+                      </Form.Label>
+                      <Form.Control
+                        onChange={onChangeHandler}
+                        value={input.value}
+                        name={input.name}
+                        type={input.type}
+                        placeholder={input.placeholder}
+                        autoComplete="on"
+                      />
+                    </Form.Group>
+                  ))}
 
-                  <Form.Group className="mb-2" controlId="formBasicPassword">
-                    <Form.Label style={{ color: "#26B893" }}>
-                      Kata Sandi
-                    </Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Enter your password"
-                    />
-                  </Form.Group>
                   <a
                     href="/lupa-password"
                     style={{ textDecoration: "none", color: "#26B893" }}
@@ -78,9 +122,9 @@ export default function Login() {
                   <center>
                     <p style={{ color: "#959AA1" }}>
                       Belum punya akun ?{" "}
-                      <a style={{ color: "#26B893" }} href="/register">
+                      <Link style={{ color: "#26B893" }} to="/register">
                         Daftar
-                      </a>
+                      </Link>
                     </p>
                   </center>
                 </Form>
