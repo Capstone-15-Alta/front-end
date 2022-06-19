@@ -12,31 +12,31 @@ const Footer = () => {
             <div class="col-12">
               <div class="row">
                 <div class="col-12 col-lg-6 m-auto">
-                  <div className="d-flex">
-                    <a className="logo me-3" href="#">
+                  <div className="d-flex justify-content-center">
+                    <a className="logo me-3 col-lg-6 " href="#">
                       <img src={logo} alt="logo" />
                     </a>{" "}
-                    <div className="copy mt-3">
+                    <div className="copy mt-3 col-lg-6 ">
                       Copyright UI/UX Designer 2022 || Muhammad Yogi
                     </div>
                   </div>
                 </div>
 
                 <div class="col-12 col-lg-5 konten m-auto">
-                  <div className="d-flex">
-                    <Link className="me-3 col-lg-2" to="/#">
+                  <div className="d-flex justify-content-center">
+                    <Link className=" col-lg-2 col-2" to="/#">
                       Home
                     </Link>
-                    <Link className="me-3 col-lg-2" to="/#">
+                    <Link className="me-3 col-lg-2 col-2" to="/#">
                       Trending
                     </Link>
-                    <Link className="me-3 col-lg-2" to="/#">
+                    <Link className="me-3 col-lg-2 col-2" to="/#">
                       Notifikasi
                     </Link>
-                    <Link className="me-3 col-lg-3" to="/#">
+                    <Link className="me-3 col-lg-3 col-2" to="/#">
                       Explore Topik
                     </Link>
-                    <Link className="me-3 col-lg-2" to="/#">
+                    <Link className="col-lg-2 col-2" to="/#">
                       Terbaru
                     </Link>
                   </div>

@@ -8,6 +8,12 @@
     width: 100%;
   }
 
+  @include mobile {
+    .navBrand {
+      width: 70%;
+    }
+  }
+
   @include tablet {
     padding: 2.406rem 2rem !important;
 

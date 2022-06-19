@@ -13,4 +13,18 @@
       color: white;
     }
   }
+
+  @include mobile {
+    .copy {
+      display: none;
+    }
+  }
+  @include tablet {
+    .konten {
+      margin-top: 20px !important;
+      a {
+        font-size: 13px;
+      }
+    }
+  }
 }

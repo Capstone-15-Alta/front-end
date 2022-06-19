@@ -60,4 +60,10 @@
       }
     }
   }
+
+  @include tablet {
+    .kiri {
+      display: none !important;
+    }
+  }
 }
