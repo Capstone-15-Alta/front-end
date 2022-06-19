@@ -4,16 +4,46 @@
   padding: 2.406rem 6.25rem !important;
   background-color: white;
 
-  img .navLogo {
-    width: 34.59px;
-    height: 48px;
+  .navLogo {
+    width: 100%;
   }
 
-  .textLogo {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.2rem;
-    color: $main-color;
-    padding-left: 2.151rem;
+  @include tablet {
+    padding: 2.406rem 2rem !important;
+
+    // background-color: aqua;
+
+    .navbar-nav {
+      & > * {
+        margin-bottom: 5px;
+      }
+      .input-search {
+        margin-top: 10px;
+        .input-field {
+          width: 100%;
+          border-radius: 20px !important;
+        }
+      }
+
+      .btn-create-new-thread {
+        margin-left: 0;
+        width: 100%;
+        border-radius: 20px;
+
+        .iconCreate {
+          display: none;
+        }
+
+        p {
+          margin: auto;
+          font-size: 16px;
+        }
+      }
+    }
+    .navbar-user-icon {
+      img {
+        justify-content: center;
+      }
+    }
   }
 }
