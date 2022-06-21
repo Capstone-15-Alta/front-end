@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./FormPostingThread.scss";
 
 import IconProfile from "../IconProfile";
+import { Box } from "@mui/material";
 
 const FormPostingThread = () => {
   const [categories, setCategories] = useState([
@@ -39,7 +40,7 @@ const FormPostingThread = () => {
   };
 
   return (
-    <div className="container">
+    <Box className="container" mt="10rem">
       <form
         onSubmit={handleSubmit}
         onReset={handleReset}
@@ -110,7 +111,7 @@ const FormPostingThread = () => {
           </button>
         </div>
       </form>
-    </div>
+    </Box>
   );
 };
 

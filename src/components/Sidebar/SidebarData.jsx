@@ -24,7 +24,7 @@ export const data = {
       title: "Notifikasi",
       icon: <img src={logo2} alt="" width={20} />,
       icon2: <img src={hover3} alt="" width={20} />,
-      link: "/buat-thread",
+      link: "/notifikasi",
     },
     {
       title: "Explore Topik",
