@@ -7,10 +7,21 @@ import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/footer";
 import HomeCard from "../../components/card/HomeCard";
+import CardPost from "../../components/CardPost";
 
 import HeaderProfile from "../../components/headerProfile";
 
 import "./Profile.scss";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 
 const Profile = () => {
   const dataHomepage = [
@@ -90,13 +101,44 @@ const Profile = () => {
                     >
                       <Tab eventKey="post" title="Post" className="ini-tes">
                         <div className="tab-item-wrapper">
-                          <h4>Name : Post</h4>
-                          <h5>Profession : FrontEnd Developer</h5>
-                          <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing
-                            elit. Maxime libero vitae quia unde ex ducimus qui
-                            reiciendis dolore, cumque possimus.
-                          </p>
+                          <div className="card-threads">
+                            <CardPost
+                              title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                              name="Gde Agung Mandala"
+                              dateTime="31-05-2022 19:56"
+                              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                            />
+                            <CardPost
+                              title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                              name="Gde Agung Mandala"
+                              dateTime="31-05-2022 19:56"
+                              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                            />
+                            <CardPost
+                              title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                              name="Gde Agung Mandala"
+                              dateTime="31-05-2022 19:56"
+                              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                            />
+                          </div>
                         </div>
                       </Tab>
                       <Tab eventKey="thread" title="Thread">

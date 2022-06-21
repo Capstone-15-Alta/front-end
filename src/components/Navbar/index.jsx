@@ -36,13 +36,15 @@ const Navbar = () => {
               <Searchbar />
             </li>
             <li class="nav-item">
-              <Button
-                title="Buat Thread"
-                background="white"
-                type="button"
-                className="btn-create-new-thread"
-                iconKiri="iconCreate"
-              />
+              <Link to="/buat-thread">
+                <Button
+                  title="Buat Thread"
+                  background="white"
+                  type="button"
+                  className="btn-create-new-thread"
+                  iconKiri="iconCreate"
+                />
+              </Link>
             </li>
           </ul>
 
