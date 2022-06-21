@@ -34,6 +34,71 @@
   }
 }
 
+.btn-nav-masuk {
+  padding: 0.594rem 2.688rem;
+  font-weight: 500;
+  font-size: 18px;
+  color: $main-color;
+  background-color: $txt-color;
+  border: 1px solid #26b893;
+  border-radius: 8px;
+  margin-right: 2.188rem;
+
+  &:hover {
+    background-color: #26b893 !important;
+    color: white !important;
+  }
+}
+
+.btn-nav-daftar {
+  padding: 0.594rem 2.781rem;
+  font-weight: 500;
+  font-size: 18px;
+  color: $txt-color;
+  background-color: $main-color;
+  border: 1px solid #26b893;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: #ffffff !important;
+    color: #26b893 !important;
+  }
+}
+
+/* this button at form post thread */
+.btn-form-kembali {
+  padding: 0.875rem 2.188rem;
+  font-weight: 500;
+  font-size: 18px;
+  color: $main-color;
+  background-color: $txt-color;
+  border: 1px solid #26b893;
+  border-radius: 8px;
+  margin-right: 2.188rem;
+  margin-top: 1.438rem;
+
+  &:hover {
+    background-color: #26b893 !important;
+    color: white !important;
+  }
+}
+
+.btn-form-posting {
+  padding: 0.781rem 2.906rem;
+  font-weight: 500;
+  font-size: 18px;
+  color: $txt-color;
+  background-color: $main-color;
+  border: 1px solid #26b893;
+  border-radius: 8px;
+  margin-top: 1.438rem;
+
+  &:hover {
+    background-color: #ffffff !important;
+    color: #26b893 !important;
+  }
+}
+
 /* this button banner at Profile page */
 .btnChangeBanner {
   position: absolute;

@@ -62,17 +62,19 @@ export default function HomeCard({ data }) {
               <Grid item xs>
                 <Box display="flex">
                   <Box>
-                    <h5>{data.username}</h5>
+                    <h5>{data.user.username}</h5>
                     <Box mt="-10px">
-                      <Typography variant="caption">{data.email}</Typography>
+                      <Typography variant="caption">
+                        {data.user.email}
+                      </Typography>
                     </Box>
                   </Box>
                   {data.isVerified && (
                     <img src="assets/icon/verified.png" height="20vh" />
                   )}
                 </Box>
-                <h4 style={{ marginTop: "3vh" }}>{data.content}</h4>
-                <Typography variant="caption">{data.timePost}</Typography>
+                <h4 style={{ marginTop: "3vh" }}>{data.title}</h4>
+                <Typography variant="caption">{data.created_at}</Typography>
               </Grid>
               <Grid item>
                 <Button

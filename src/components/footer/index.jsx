@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <>
-      <footer class="section-footer mt-5 ">
-        <div class="container pt-5 pb-5">
-          <div class="row">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12 col-lg-6 m-auto">
+      <footer className="section-footer mt-5 ">
+        <div className="container pt-5 pb-5">
+          <div className="row">
+            <div className="col-12">
+              <div className="row">
+                <div className="col-12 col-lg-6 m-auto">
                   <div className="d-flex justify-content-center">
                     <a className="logo me-3 col-lg-6 " href="#">
                       <img src={logo} alt="logo" />
@@ -22,7 +22,7 @@ const Footer = () => {
                   </div>
                 </div>
 
-                <div class="col-12 col-lg-5 konten m-auto">
+                <div className="col-12 col-lg-5 konten m-auto">
                   <div className="d-flex justify-content-center">
                     <Link className=" col-lg-2 col-2" to="/#">
                       Home

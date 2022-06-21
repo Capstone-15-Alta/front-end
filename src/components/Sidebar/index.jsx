@@ -18,7 +18,7 @@ export const SidebarLeft = () => {
         <p className="menu">MENU</p>
         {data.left.map((val, index) => {
           return (
-            <Link to={val.link}>
+            <Link to={val.link} key={index}>
               <li
                 key={index}
                 className={

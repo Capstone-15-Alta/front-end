@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
 
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
-import Footer from "../../components/footer";
-import HomeCard from "../../components/card/HomeCard";
+import Footer from "../../components/Footer";
+import HomeCard from "../../components/Card/HomeCard";
 
-import HeaderProfile from "../../components/headerProfile";
+import HeaderProfile from "../../components/HeaderProfile";
 
 import "./Profile.scss";
 

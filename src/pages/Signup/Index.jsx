@@ -3,7 +3,7 @@ import imgbanner from "../../assets/icon/Login.png";
 import { Link, useNavigate } from "react-router-dom";
 import Form from "../../components/Form";
 import Navigationbar from "../../components/Navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import Button from "../../components/Button/Button";
 
 import "./Signup.scss";
@@ -19,10 +19,10 @@ const Signup = () => {
       value: "",
     },
     {
-      label: "Nomor Handphone",
-      type: "number",
-      placeholder: "+62 | Masukan Nomor Handphone",
-      name: "noHandphone",
+      label: "Email",
+      type: "email",
+      placeholder: "Masukan email anda",
+      name: "email",
       value: "",
     },
     {

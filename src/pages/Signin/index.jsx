@@ -6,18 +6,31 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
+import { submitLogin } from "../../store/Login";
 
 export default function Login() {
+  const dispatch = useDispatch();
+
+  const { token } = useSelector((state) => state.login);
+
+  console.log(token);
+
+  const navigate = useNavigate();
+
   const [inputs, setInputs] = useState([
     {
-      label: "Email",
-      type: "email",
-      placeholder: "Email",
-      name: "email",
+      label: "Username",
+      type: "text",
+      placeholder: "Username",
+      name: "username",
       value: "",
     },
     {
@@ -42,18 +55,23 @@ export default function Login() {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-
     const res = await axios.post("http://34.87.175.218/api/v1/auth/login", {
       username: inputs[0].value,
       password: inputs[1].value,
     });
-    console.log(
-      {
-        email: inputs[0].value,
-        password: inputs[1].value,
-      },
-      res.data
-    );
+    // console.log(
+    //   {
+    //     email: inputs[0].value,
+    //     password: inputs[1].value,
+    //   },
+    //   res.data
+    // );
+
+    const token = res.data.data.token;
+
+    dispatch(submitLogin(token));
+
+    navigate("/buat-thread");
   };
 
   return (

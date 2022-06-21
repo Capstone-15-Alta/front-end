@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navigationbar from "../../components/Navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
-import HomeCard from "../../components/card/HomeCard";
+import HomeCard from "../../components/Card/HomeCard";
 import "./ExploreTopik.scss";
 import Button from "../../components/Button/Button";
 function ExploreTopik() {
