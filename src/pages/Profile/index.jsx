@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
@@ -9,7 +10,7 @@ import Footer from "../../components/footer";
 import HomeCard from "../../components/card/HomeCard";
 import CardPost from "../../components/CardPost";
 
-import HeaderProfile from "../../components/headerProfile";
+import HeaderProfile from "../../components/HeaderProfile";
 
 import "./Profile.scss";
 import {

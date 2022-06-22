@@ -1,27 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./BuatThread.scss";
 
 import Navigationbar from "../../components/Navbar";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
+import { SidebarLeft } from "../../components/Sidebar";
 import FormPostingThread from "../../components/FormPostingThread";
-import Footer from "../../components/footer/";
+import Footer from "../../components/Footer";
+
+import { useSelector } from "react-redux";
 
 const BuatThread = () => {
+  const { token } = useSelector((state) => state.login);
+
+  console.log(token);
+
   return (
     <div>
       <Navigationbar />
       <div className="row">
-        <div className="col">
+        <div className="col-lg-3">
           <SidebarLeft />
         </div>
-        <div className="col">
+        <div className="col-lg-7">
           <FormPostingThread />
         </div>
-        <div className="col">
-          <SidebarRight />
-        </div>
       </div>
-
       <Footer />
     </div>
   );
