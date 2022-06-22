@@ -14,13 +14,13 @@
 
     .explore-button{
         display: flex;
-        justify-content: space-around;
+        justify-content:space-between;
     }
 
     .button{
-        color: white;
-        background-color: $main-color;
-        border: none;
+        color: $main-color;
+        background-color: white ;
+        border:$main-color solid;
         border-radius: 5px;
         height: 2.5rem;
     }
