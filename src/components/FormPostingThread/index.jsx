@@ -2,12 +2,17 @@ import React, { useState } from "react";
 
 import "./FormPostingThread.scss";
 
+<<<<<<< HEAD
 import Users from "../Users";
 
 import Button from "../Button/Button";
 
 import axios from "axios";
 import fgdApi from "../../api/fgdApi";
+=======
+import IconProfile from "../IconProfile";
+import { Box } from "@mui/material";
+>>>>>>> development
 
 const FormPostingThread = () => {
   const [categories, setCategories] = useState([
@@ -50,6 +55,7 @@ const FormPostingThread = () => {
   };
 
   return (
+<<<<<<< HEAD
     <form
       onSubmit={handleSubmit}
       onReset={handleReset}
@@ -79,8 +85,55 @@ const FormPostingThread = () => {
                 </option>
               ))}
             </select>
+=======
+    <Box className="container" mt="10rem">
+      <form
+        onSubmit={handleSubmit}
+        onReset={handleReset}
+        className="form-post-user-thread"
+      >
+        <div className="row form-posting-thread">
+          <div className="user-thread">
+            <div className="user-thread-icon">
+              {/* <img src={IconProfile} alt="user icon" className="user-icon" /> */}
+              <IconProfile />
+            </div>
+            <div className="user-name-and-email">
+              <h5 className="user-name">Muhammad Yogi</h5>
+              <p className="user-email">Muhamadyogi413@gmail.com</p>
+            </div>
+            <div className="user-check-icon">
+              <img
+                src="/assets/icon/check.png"
+                alt="user icon"
+                className="user-check"
+              />
+            </div>
+            <div className="posting-time">
+              <p className="time-to-post">Hari ini 20:00</p>
+            </div>
+            <div className="options-thread-categories">
+              <select
+                name="kategori"
+                className="form-select shadow-none select-option-category"
+                aria-label="Default select kategori wisata"
+                defaultValue=""
+                onChange={(e) => handleInput(e.target.value, e.target.name)}
+              >
+                <option value="" hidden>
+                  Pilih Kategori
+                </option>
+                {categories.map((dataCategory, dataCategoryIdx) => (
+                  <option key={dataCategoryIdx} value={dataCategory}>
+                    {dataCategory}
+                  </option>
+                ))}
+              </select>
+            </div>
+>>>>>>> development
           </div>
         </div>
+<<<<<<< HEAD
       </div>
       <div className="input-thread">
         <input
@@ -104,6 +157,18 @@ const FormPostingThread = () => {
       <Button title="Kembali" type="reset" className="btn-form-kembali" />
       <Button title="Posting" type="submit" className="btn-form-posting" />
     </form>
+=======
+        <div className="button-area">
+          <button type="reset" className="btn btn-kembali">
+            Kembali
+          </button>
+          <button type="submit" className="btn btn-posting">
+            Posting
+          </button>
+        </div>
+      </form>
+    </Box>
+>>>>>>> development
   );
 };
 

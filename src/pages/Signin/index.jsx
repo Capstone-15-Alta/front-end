@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { submitLogin } from "../../store/Login";
+import fgdApi from "../../api/fgdApi";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function Login() {
     {
       label: "Username",
       type: "text",
-      placeholder: "Username",
+      placeholder: "Masukkan username",
       name: "username",
       value: "",
     },
@@ -55,23 +56,23 @@ export default function Login() {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    const res = await axios.post("http://34.87.175.218/api/v1/auth/login", {
-      username: inputs[0].value,
-      password: inputs[1].value,
-    });
-    // console.log(
-    //   {
-    //     email: inputs[0].value,
-    //     password: inputs[1].value,
-    //   },
-    //   res.data
-    // );
 
-    const token = res.data.data.token;
+    // const res = await axios.post("http://34.87.175.218/api/v1/auth/login", {
+    //   username: inputs[0].value,
+    //   password: inputs[1].value,
+    // });
 
-    dispatch(submitLogin(token));
+    const getLogin = async () => {
+      let res = null;
 
-    navigate("/buat-thread");
+      const params = {
+        username: inputs[0].value,
+        password: inputs[1].value,
+      };
+      res = await fgdApi.login(params);
+      console.log(res.data);
+    };
+    getLogin();
   };
 
   return (
@@ -108,7 +109,11 @@ export default function Login() {
               <Box pt="1vw">
                 <Form onSubmit={handleSubmitForm}>
                   {inputs.map((input, inputIdx) => (
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group
+                      key={inputIdx}
+                      className="mb-3"
+                      controlId="formBasicEmail"
+                    >
                       <Form.Label style={{ color: "#26B893" }}>
                         {input.label}
                       </Form.Label>
