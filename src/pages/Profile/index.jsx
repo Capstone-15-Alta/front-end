@@ -7,22 +7,24 @@ import { Tabs, Tab } from "react-bootstrap";
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/Footer";
-import HomeCard from "../../components/Card/HomeCard";
 import CardPost from "../../components/CardPost";
+import HomeCard from "../../components/Card/HomeCard";
+
+import fgdApi from "../../api/fgdApi";
 
 import HeaderProfile from "../../components/HeaderProfile";
 
 import "./Profile.scss";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  IconButton,
-  Typography,
-} from "@mui/material";
+// import {
+//   Box,
+//   Button,
+//   Card,
+//   CardContent,
+//   CardHeader,
+//   Grid,
+//   IconButton,
+//   Typography,
+// } from "@mui/material";
 
 const Profile = () => {
   const dataHomepage = [
@@ -72,6 +74,21 @@ const Profile = () => {
       number: 20,
     },
   ]);
+
+  const [listThread, setListThread] = useState([]);
+
+  useEffect(() => {
+    const getThread = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getThread(params);
+      //console.log(res.data);
+      setListThread(res?.data);
+    };
+
+    getThread();
+    console.log(listThread);
+  }, []);
 
   return (
     <>
@@ -144,8 +161,8 @@ const Profile = () => {
                       </Tab>
                       <Tab eventKey="thread" title="Thread">
                         <div className="tab-item-wrapper">
-                          {dataHomepage.map((item) => (
-                            <div className="card-threads">
+                          {listThread.map((item, itemIdx) => (
+                            <div key={itemIdx} className="card-threads">
                               <HomeCard data={item} />
                             </div>
                           ))}
