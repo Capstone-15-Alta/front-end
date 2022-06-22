@@ -6,8 +6,8 @@ import { Tabs, Tab } from "react-bootstrap";
 
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
-import Footer from "../../components/footer";
-import HomeCard from "../../components/card/HomeCard";
+import Footer from "../../components/Footer";
+import HomeCard from "../../components/Card/HomeCard";
 import CardPost from "../../components/CardPost";
 
 import HeaderProfile from "../../components/HeaderProfile";

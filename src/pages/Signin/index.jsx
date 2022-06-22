@@ -70,9 +70,14 @@ export default function Login() {
         password: inputs[1].value,
       };
       res = await fgdApi.login(params);
-      console.log(res.data);
+      console.log(res);
+
+      const token = res.data.token;
+      dispatch(submitLogin(token));
     };
     getLogin();
+
+    navigate("/buat-thread");
   };
 
   return (
