@@ -21,9 +21,9 @@ const fgdApi = {
     const url = "category/";
     return axiosClient.get(url, params);
   },
-  postThread: (params) => {
-    const url = "thread/";
-    return axiosClient.post(url, params);
+  postThread: (params, token) => {
+    const url = "thread";
+    return axiosClient.post(url, params, token);
   },
 };
 
