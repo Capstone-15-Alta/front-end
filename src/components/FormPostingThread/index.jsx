@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./FormPostingThread.scss";
 
@@ -12,6 +12,23 @@ import IconProfile from "../IconProfile";
 import { Box } from "@mui/material";
 
 const FormPostingThread = () => {
+  const [threadCategory, setThreadCategory] = useState([]);
+
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    const getCategory = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getCategory(params);
+      setThreadCategory(res.data);
+      console.log("ini res data", res.data);
+    };
+
+    getCategory();
+    console.log(threadCategory);
+  }, []);
+
   const [categories, setCategories] = useState([
     "Olahraga",
     "Hobi",
@@ -23,7 +40,7 @@ const FormPostingThread = () => {
 
   const [inputs, setInputs] = useState({
     judul: "",
-    // kategori: "",
+    kategori: "",
     deskripsi: "",
   });
 
@@ -36,13 +53,20 @@ const FormPostingThread = () => {
 
     setInputs(newInputs);
 
-    console.log(inputs);
+    console.log(newInputs);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token =
+      "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkFETUlOIiwiaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NTU4OTA4NDQsImV4cCI6MTY1NjI1MDg0NH0.wHKnnNzkBORZasHxTqQkfx-6KJKxJhIJkvhEJ1n3glc";
 
-    const res = await axios.post("https://reqres.in/api/", inputs);
+    // const res = await axios.post("https://reqres.in/api/", inputs);
+    const res = await axios.post(
+      "https://34.87.175.218/api/v1/thread",
+      inputs,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
     console.log(res);
   };
@@ -75,9 +99,9 @@ const FormPostingThread = () => {
               <option value="" hidden>
                 Pilih Kategori
               </option>
-              {categories.map((dataCategory, dataCategoryIdx) => (
-                <option key={dataCategoryIdx} value={dataCategory}>
-                  {dataCategory}
+              {threadCategory.map((item, itemIdx) => (
+                <option key={itemIdx} value={item.category_name}>
+                  {item.category_name}
                 </option>
               ))}
             </select>
