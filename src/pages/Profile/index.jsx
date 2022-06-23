@@ -76,6 +76,7 @@ const Profile = () => {
   ]);
 
   const [listThread, setListThread] = useState([]);
+  console.log(listThread);
 
   useEffect(() => {
     const getThread = async () => {
@@ -161,11 +162,12 @@ const Profile = () => {
                       </Tab>
                       <Tab eventKey="thread" title="Thread">
                         <div className="tab-item-wrapper">
-                          {listThread.map((item, itemIdx) => (
-                            <div key={itemIdx} className="card-threads">
-                              <HomeCard data={item} />
-                            </div>
-                          ))}
+                          {" "}
+                          <div className="card-threads">
+                            {listThread.map((item, itemIdx) => (
+                              <HomeCard key={itemIdx} data={item} />
+                            ))}
+                          </div>
                         </div>
                       </Tab>
                     </Tabs>

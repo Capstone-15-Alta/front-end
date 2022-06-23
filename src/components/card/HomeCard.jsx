@@ -55,7 +55,8 @@ export default function HomeCard({ data }) {
       >
         <Grid container>
           <Grid item>
-            <Avatar alt={data.username} src={data.profile} />
+            {/* <Avatar alt={data.username} src={data.profile} /> */}
+            <Avatar alt={data.username} src="/assets/icon/manprofil.png" />
           </Grid>
           <Grid item xs pl="1vw">
             <Grid container>
@@ -109,7 +110,7 @@ export default function HomeCard({ data }) {
                   <IconButton aria-label="view">
                     <VisibilityOutlinedIcon />
                     <Typography variant="caption" sx={{ ml: "1vw" }}>
-                      {data.view}
+                      {/* {data.view} */}120
                     </Typography>
                   </IconButton>
                   <IconButton aria-label="reply">

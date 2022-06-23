@@ -6,6 +6,7 @@ import Navigationbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button/Button";
 
+import fgdApi from "../../api/fgdApi";
 import "./Signup.scss";
 
 const Signup = () => {
@@ -16,6 +17,13 @@ const Signup = () => {
       type: "text",
       placeholder: "Masukkan nama lengkap anda",
       name: "fullname",
+      value: "",
+    },
+    {
+      label: "Username",
+      type: "text",
+      placeholder: "Masukkan username anda ",
+      name: "username",
       value: "",
     },
     {
@@ -57,12 +65,22 @@ const Signup = () => {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    console.log({
-      nama: inputs[0].value,
-      nomor: inputs[1].value,
-      password: inputs[2].value,
-      repassword: inputs[3].value,
-    });
+
+    const getRegister = async () => {
+      let res = null;
+
+      const params = {
+        email: inputs[2].value,
+        password: inputs[3].value,
+        total_user_followers: 0,
+        username: inputs[1].value,
+      };
+      res = await fgdApi.register(params);
+      console.log(res.message);
+    };
+    getRegister();
+
+    // navigate("/login");
   };
 
   return (
@@ -97,9 +115,9 @@ const Signup = () => {
                             />
                           </div>
                         ))}
-                        {inputs[2].value === "" ? (
+                        {inputs[3].value === "" ? (
                           <></>
-                        ) : inputs[2].value !== inputs[3].value ? (
+                        ) : inputs[3].value !== inputs[4].value ? (
                           <>
                             <p className="text-danger mb-2">
                               **password tidak sama
@@ -120,9 +138,10 @@ const Signup = () => {
                             inputs[0].value === "" ||
                             inputs[1].value === "" ||
                             inputs[2].value === "" ||
-                            inputs[3].value === ""
+                            inputs[3].value === "" ||
+                            inputs[4].value === ""
                               ? "disabled"
-                              : inputs[2].value !== inputs[3].value
+                              : inputs[3].value !== inputs[4].value
                               ? "disabled"
                               : " "
                           }`}
