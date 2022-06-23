@@ -22,11 +22,11 @@ const FormPostingThread = () => {
       const params = {};
       res = await fgdApi.getCategory(params);
       setThreadCategory(res.data);
-      console.log("ini res data", res.data);
+      // console.log("ini res data", res.data);
     };
 
     getCategory();
-    console.log(threadCategory);
+    // console.log(threadCategory);
   }, []);
 
   // const [categories, setCategories] = useState([
@@ -64,15 +64,20 @@ const FormPostingThread = () => {
     const token =
       "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkFETUlOIiwiaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NTU5OTYzMjcsImV4cCI6MTY1NjM1NjMyN30.ntPY2FF8YB0M12PMicRidqM1gwWW3a6-7QUPd_xNHnM";
 
-    // const res = await axios.post("https://reqres.in/api/", inputs);
+    const formData = new FormData();
+    formData.set("json", JSON.stringify(inputs));
+    // formData.set("file", ...); // BUAT FILE
 
-    const res = await axios.post("http://34.87.175.218/api/v1/thread", inputs, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
+    const res = await axios.post(
+      "http://34.87.175.218/api/v1/thread",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(inputs);
     console.log(res);
 
     // const response = await axios({
