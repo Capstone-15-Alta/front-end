@@ -1,6 +1,6 @@
 @use "../../scss/" as *;
 
-.header-section {
+.headersss {
   .banner {
     position: relative; //untuk button
     margin-bottom: 100+50px;
@@ -13,11 +13,11 @@
     }
     /* changeButton styling in button.scss */
   }
-  .profile {
+  .profile-zzz {
     display: flex;
     position: absolute;
-    top: 13%;
-    left: 3%;
+    top: 120px;
+    left: 50px;
 
     .foto {
       // position: absolute;

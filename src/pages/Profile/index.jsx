@@ -6,13 +6,13 @@ import { Tabs, Tab } from "react-bootstrap";
 
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import CardPost from "../../components/CardPost";
-import HomeCard from "../../components/card/HomeCard";
+import HomeCard from "../../components/Card/HomeCard";
 
 import fgdApi from "../../api/fgdApi";
 
-import HeaderProfile from "../../components/headerProfile";
+import HeaderProfile from "../../components/HeaderProfile";
 
 import "./Profile.scss";
 // import {
@@ -76,6 +76,7 @@ const Profile = () => {
   ]);
 
   const [listThread, setListThread] = useState([]);
+  console.log(listThread);
 
   useEffect(() => {
     const getThread = async () => {
@@ -161,11 +162,12 @@ const Profile = () => {
                       </Tab>
                       <Tab eventKey="thread" title="Thread">
                         <div className="tab-item-wrapper">
-                          {listThread.map((item, itemIdx) => (
-                            <div key={itemIdx} className="card-threads">
-                              <HomeCard data={item} />
-                            </div>
-                          ))}
+                          {" "}
+                          <div className="card-threads">
+                            {listThread.map((item, itemIdx) => (
+                              <HomeCard key={itemIdx} data={item} />
+                            ))}
+                          </div>
                         </div>
                       </Tab>
                     </Tabs>

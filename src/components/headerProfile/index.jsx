@@ -10,7 +10,7 @@ import foto from "../../assets/images/foto.jpg";
 const HeaderProfile = () => {
   return (
     <>
-      <div className="header-section">
+      <div className="headersss">
         <div className="banner">
           <div
             style={{ backgroundImage: `url(${banner})` }}
@@ -25,7 +25,7 @@ const HeaderProfile = () => {
             iconKiri="iconKamera"
           />
         </div>
-        <div className="profile">
+        <div className="profile-zzz">
           <div style={{ backgroundImage: `url(${foto})` }} className="foto">
             {/* <img
                         src={foto}

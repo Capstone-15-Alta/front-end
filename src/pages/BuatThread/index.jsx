@@ -4,7 +4,7 @@ import "./BuatThread.scss";
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
 import FormPostingThread from "../../components/FormPostingThread";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 
 import { useSelector } from "react-redux";
 

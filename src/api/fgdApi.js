@@ -1,13 +1,17 @@
 import axiosClient from "./axiosClient";
 
 const fgdApi = {
-  getUser: (params) => {
-    const url = "user";
-    return axiosClient.get(url, params);
-  },
   login: (params) => {
     const url = "auth/login";
     return axiosClient.post(url, params);
+  },
+  register: (params) => {
+    const url = "auth/register";
+    return axiosClient.post(url, params);
+  },
+  getUser: (params) => {
+    const url = "user";
+    return axiosClient.get(url, params);
   },
   getThread: (params) => {
     const url = "thread/";

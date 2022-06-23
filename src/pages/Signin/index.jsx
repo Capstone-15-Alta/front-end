@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
