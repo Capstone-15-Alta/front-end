@@ -29,27 +29,29 @@ const FormPostingThread = () => {
     console.log(threadCategory);
   }, []);
 
-  const [categories, setCategories] = useState([
-    "Olahraga",
-    "Hobi",
-    "Otomotoif",
-    "Game",
-  ]);
+  // const [categories, setCategories] = useState([
+  //   "Olahraga",
+  //   "Hobi",
+  //   "Otomotoif",
+  //   "Game",
+  // ]);
 
-  const [initSelectValue, setInitSelectValue] = useState(categories[0]);
+  // const [initSelectValue, setInitSelectValue] = useState(categories[0]);
 
   const [inputs, setInputs] = useState({
-    judul: "",
-    kategori: "",
-    deskripsi: "",
+    title: "",
+    description: "",
+    category_id: "",
   });
+
+  const [message, setMessage] = useState("");
 
   const handleInput = (value, key) => {
     const newInputs = { ...inputs };
 
     newInputs[key] = value;
 
-    setInitSelectValue(value);
+    // setInitSelectValue(value);
 
     setInputs(newInputs);
 
@@ -58,17 +60,31 @@ const FormPostingThread = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const token =
-      "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkFETUlOIiwiaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NTU4OTA4NDQsImV4cCI6MTY1NjI1MDg0NH0.wHKnnNzkBORZasHxTqQkfx-6KJKxJhIJkvhEJ1n3glc";
+      "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkFETUlOIiwiaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NTU5OTYzMjcsImV4cCI6MTY1NjM1NjMyN30.ntPY2FF8YB0M12PMicRidqM1gwWW3a6-7QUPd_xNHnM";
 
     // const res = await axios.post("https://reqres.in/api/", inputs);
-    const res = await axios.post(
-      "https://34.87.175.218/api/v1/thread",
-      inputs,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+
+    const res = await axios.post("http://34.87.175.218/api/v1/thread", inputs, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     console.log(res);
+
+    // const response = await axios({
+    //   method: "post",
+    //   url: "http://34.87.175.218/api/v1/thread",
+    //   data: inputs,
+    //   headers: {
+    //     "Content-Type": `multipart/form-data`,
+    //   },
+    // });
+
+    // console.log(response);
   };
 
   const handleReset = (e) => {
@@ -90,9 +106,9 @@ const FormPostingThread = () => {
           </div>
           <div className="col-3 options-thread-categories">
             <select
-              name="kategori"
+              name="category_id"
               className="form-select shadow-none select-option-category"
-              aria-label="Default select kategori wisata"
+              aria-label="Default select kategori thread"
               defaultValue=""
               onChange={(e) => handleInput(e.target.value, e.target.name)}
             >
@@ -100,7 +116,7 @@ const FormPostingThread = () => {
                 Pilih Kategori
               </option>
               {threadCategory.map((item, itemIdx) => (
-                <option key={itemIdx} value={item.category_name}>
+                <option key={itemIdx} value={item.id}>
                   {item.category_name}
                 </option>
               ))}
@@ -112,17 +128,17 @@ const FormPostingThread = () => {
         <input
           type="text"
           className="form-control shadow-none thread-title"
-          name="judul"
+          name="title"
           placeholder="Isi Judul Thread Disini"
-          value={inputs.judul}
+          value={inputs.title}
           onChange={(e) => handleInput(e.target.value, e.target.name)}
         />
         <textarea
           className="form-control shadow-none thread-desc"
-          name="deskripsi"
+          name="description"
           rows="7"
           placeholder="Apa Yang Ingin Anda Diskusikan ?"
-          value={inputs.deskripsi}
+          value={inputs.description}
           onChange={(e) => handleInput(e.target.value, e.target.name)}
         />
       </div>
