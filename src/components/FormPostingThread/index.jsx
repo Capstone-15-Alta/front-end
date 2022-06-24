@@ -14,29 +14,16 @@ import { Box } from "@mui/material";
 const FormPostingThread = () => {
   const [threadCategory, setThreadCategory] = useState([]);
 
-  const [list, setList] = useState([]);
-
   useEffect(() => {
     const getCategory = async () => {
       let res = null;
       const params = {};
       res = await fgdApi.getCategory(params);
       setThreadCategory(res.data);
-      // console.log("ini res data", res.data);
     };
 
     getCategory();
-    // console.log(threadCategory);
   }, []);
-
-  // const [categories, setCategories] = useState([
-  //   "Olahraga",
-  //   "Hobi",
-  //   "Otomotoif",
-  //   "Game",
-  // ]);
-
-  // const [initSelectValue, setInitSelectValue] = useState(categories[0]);
 
   const [inputs, setInputs] = useState({
     title: "",
@@ -46,12 +33,12 @@ const FormPostingThread = () => {
 
   const [message, setMessage] = useState("");
 
+  const [fileName, setFileName] = useState();
+
   const handleInput = (value, key) => {
     const newInputs = { ...inputs };
 
     newInputs[key] = value;
-
-    // setInitSelectValue(value);
 
     setInputs(newInputs);
 
@@ -65,8 +52,11 @@ const FormPostingThread = () => {
       "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkFETUlOIiwiaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NTU5OTYzMjcsImV4cCI6MTY1NjM1NjMyN30.ntPY2FF8YB0M12PMicRidqM1gwWW3a6-7QUPd_xNHnM";
 
     const formData = new FormData();
-    formData.set("json", JSON.stringify(inputs));
+    // formData.set("json", JSON.stringify(inputs));
     // formData.set("file", ...); // BUAT FILE
+
+    formData.append("json", JSON.stringify(inputs));
+    formData.append("file", fileName);
 
     const res = await axios.post(
       "http://34.87.175.218/api/v1/thread",
@@ -79,17 +69,6 @@ const FormPostingThread = () => {
     );
     console.log(inputs);
     console.log(res);
-
-    // const response = await axios({
-    //   method: "post",
-    //   url: "http://34.87.175.218/api/v1/thread",
-    //   data: inputs,
-    //   headers: {
-    //     "Content-Type": `multipart/form-data`,
-    //   },
-    // });
-
-    // console.log(response);
   };
 
   const handleReset = (e) => {
@@ -146,6 +125,30 @@ const FormPostingThread = () => {
           value={inputs.description}
           onChange={(e) => handleInput(e.target.value, e.target.name)}
         />
+      </div>
+
+      <div className="row mb-3">
+        <div className="col-sm-10">
+          <input
+            className="form-control"
+            id="gambar-wisata"
+            required
+            type="file"
+            onChange={(e) => setFileName(e.target.files[0])}
+          />
+        </div>
+      </div>
+
+      <div className="row mb-3">
+        <div className="col-sm-10">
+          <img
+            src={fileName}
+            height="300px"
+            width="100%"
+            alt="...."
+            style={{ borderRadius: "15px" }}
+          />
+        </div>
       </div>
 
       <Button title="Kembali" type="reset" className="btn-form-kembali" />
