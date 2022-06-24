@@ -19,10 +19,21 @@
 
     .button{
         color: $main-color;
-        background-color: white ;
-        border:$main-color solid;
+        background-color: white;
+        border: solid $main-color;
+        border-width: 2px;
         border-radius: 5px;
-        height: 2.5rem;
+        margin-right: 1rem;
+        text-align: center;
+    }
+    .button-active{
+        color:white;
+        background-color: $main-color;
+        border: solid $main-color;
+        border-width: 2px;
+        border-radius: 5px;
+        width: 8rem;
+        height: 3rem;
     }
     
 }

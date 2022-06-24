@@ -11,6 +11,28 @@ import categoryApi from "../../api/categoryApi";
 
 function ExploreTopik() {
   const [data, setData] = useState([]);
+  const [listThread, setListThread] = useState([]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getUser(params);
+      console.log(res.data);
+    };
+
+    const getThreadCategory = async () => {
+      let res = null;
+      const params = {};
+      res = await categoryApi.getThreadCategory(params);
+      console.log(res.data);
+      setListThread(res?.data);
+    };
+
+    getUser();
+    getThreadCategory();
+    console.log(listThread);
+  }, []);
 
   useEffect(() => {
     const getCategory = async () => {
@@ -40,28 +62,7 @@ function ExploreTopik() {
 
   console.log(category);
 
-  const [listThread, setListThread] = useState([]);
-
-  useEffect(() => {
-    const getUser = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getUser(params);
-      console.log(res.data);
-    };
-
-    const getThread = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getThread(params);
-      console.log(res.data);
-      setListThread(res?.data);
-    };
-
-    getUser();
-    getThread();
-    console.log(listThread);
-  }, []);
+ 
   return (
     <>
       <Navigationbar />
@@ -87,9 +88,7 @@ function ExploreTopik() {
             </div>
             <div className="explore-thread">
               {listThread.map((item, itemIdx) => (
-                <Box key={itemIdx} py="4vh">
-                  <HomeCard data={item} />
-                </Box>
+                <div>{item.title}</div>
               ))}
             </div>
           </div>
