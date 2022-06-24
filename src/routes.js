@@ -5,6 +5,7 @@ import BuatThread from "./pages/BuatThread";
 import ExploreTopik from "./pages/ExploreTopik";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
+import EditProfile from "./pages/EditProfile";
 
 const routes = [
   {
@@ -30,6 +31,10 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
+  },
+  {
+    path: "/edit-profile",
+    component: EditProfile,
   },
   {
     path: "/register",
