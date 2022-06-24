@@ -1,9 +1,11 @@
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import LupaPassword from "./pages/LupaPassword";
-import BuatThread from "./pages/BuatThread/BuatThread";
-import ExploreTopik from "./pages/ExploreTopik/ExploreTopik";
-import Profile from "./pages/Profile/Index";
+import Login from "./pages/Signin";
+import LupaPassword from "./pages/ForgotPassword";
+import BuatThread from "./pages/BuatThread";
+import ExploreTopik from "./pages/ExploreTopik";
+import Profile from "./pages/Profile";
+import Signup from "./pages/Signup";
+import EditProfile from "./pages/EditProfile";
 
 const routes = [
   {
@@ -29,6 +31,14 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
+  },
+  {
+    path: "/edit-profile",
+    component: EditProfile,
+  },
+  {
+    path: "/register",
+    component: Signup,
   },
 ];
 

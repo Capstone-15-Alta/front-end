@@ -1,0 +1,33 @@
+@use "../../scss/" as *;
+
+
+.row{
+    margin: 0 !important;
+}
+
+.col-3{
+    padding: 0  !important;
+}
+
+.explore{
+    margin-top: 10rem;
+
+    .explore-button{
+        display: flex;
+        justify-content:space-between;
+    }
+
+    .button{
+        color: $main-color;
+        background-color: white ;
+        border:$main-color solid;
+        border-radius: 5px;
+        height: 2.5rem;
+    }
+    
+}
+
+
+.explore-thread{
+    margin-top: 5rem;
+}
