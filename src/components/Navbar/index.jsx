@@ -7,6 +7,8 @@ import logo from "../../assets/images/logoNavbar.svg";
 
 import IconProfile from "../IconProfile";
 
+import Cookies from "js-cookie";
+
 import Searchbar from "../Searchbar";
 import Button from "../Button/Button";
 
@@ -14,6 +16,13 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      setIsLogin(!isLogin);
+    }
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">

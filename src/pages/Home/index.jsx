@@ -13,10 +13,14 @@ import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 import fgdApi from "../../api/fgdApi";
 
 const Home = () => {
+  const { token } = useSelector((state) => state.login);
+
+  console.log(token);
   const fillter = [
     { name: "Terbaru", icon: AccessTimeIcon, isActive: true },
     { name: "Trending", icon: CallMadeIcon, isActive: false },

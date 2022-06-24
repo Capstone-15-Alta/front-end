@@ -82,7 +82,7 @@ export default function Login() {
           icon: "success",
         });
         setTimeout(() => {
-          navigate("/buat-thread");
+          navigate("/");
         }, 2000);
       }
     };
