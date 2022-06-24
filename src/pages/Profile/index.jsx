@@ -15,16 +15,6 @@ import fgdApi from "../../api/fgdApi";
 import HeaderProfile from "../../components/HeaderProfile";
 
 import "./Profile.scss";
-// import {
-//   Box,
-//   Button,
-//   Card,
-//   CardContent,
-//   CardHeader,
-//   Grid,
-//   IconButton,
-//   Typography,
-// } from "@mui/material";
 
 const Profile = () => {
   const dataHomepage = [
@@ -60,18 +50,22 @@ const Profile = () => {
     {
       title: "Pengikut",
       number: 5,
+      key: "followers",
     },
     {
       title: "Mengikuti",
       number: 5,
+      key: "following",
     },
     {
       title: "Post",
       number: 11,
+      key: "post",
     },
     {
       title: "Thread",
       number: 20,
+      key: "thread",
     },
   ]);
 
@@ -104,12 +98,94 @@ const Profile = () => {
               <div className="col-12">
                 <HeaderProfile />
                 <div className="data-number row justify-content-center mb-5">
-                  {profileData.map((data, dataIdx) => (
+                  <Tabs
+                    defaultActiveKey="post"
+                    id="uncontrolled-tab-example"
+                    className="mb-3 tes"
+                  >
+                    <Tab
+                      eventKey={profileData[0].key}
+                      title={
+                        <>
+                          {" "}
+                          <p>{profileData[0].title}</p>
+                          <p>{profileData[0].number}</p>
+                        </>
+                      }
+                    >
+                      <div className="tab-item-wrapper">
+                        {" "}
+                        <div className="card-threads">
+                          {listThread.map((item, itemIdx) => (
+                            <HomeCard key={itemIdx} data={item} />
+                          ))}
+                        </div>
+                      </div>
+                    </Tab>
+                    <Tab
+                      eventKey={profileData[1].key}
+                      title={
+                        <>
+                          {" "}
+                          <p>{profileData[1].title}</p>
+                          <p>{profileData[1].number}</p>
+                        </>
+                      }
+                    >
+                      <div className="tab-item-wrapper">
+                        {" "}
+                        <div className="card-threads">
+                          {listThread.map((item, itemIdx) => (
+                            <HomeCard key={itemIdx} data={item} />
+                          ))}
+                        </div>
+                      </div>
+                    </Tab>
+                    <Tab
+                      eventKey={profileData[2].key}
+                      title={
+                        <>
+                          {" "}
+                          <p>{profileData[2].title}</p>
+                          <p>{profileData[2].number}</p>
+                        </>
+                      }
+                    >
+                      <div className="tab-item-wrapper">
+                        {" "}
+                        <div className="card-threads">
+                          {listThread.map((item, itemIdx) => (
+                            <HomeCard key={itemIdx} data={item} />
+                          ))}
+                        </div>
+                      </div>
+                    </Tab>
+                    <Tab
+                      eventKey={profileData[3].key}
+                      title={
+                        <>
+                          {" "}
+                          <p>{profileData[3].title}</p>
+                          <p>{profileData[3].number}</p>
+                        </>
+                      }
+                    >
+                      <div className="tab-item-wrapper">
+                        {" "}
+                        <div className="card-threads">
+                          {listThread.map((item, itemIdx) => (
+                            <HomeCard key={itemIdx} data={item} />
+                          ))}
+                        </div>
+                      </div>
+                    </Tab>
+                  </Tabs>
+                  {/* {profileData.map((data, dataIdx) => (
                     <div className="col-md-1 text-center " key={dataIdx}>
                       <p>{data.title}</p>
                       <p>{data.number}</p>
                     </div>
-                  ))}
+                  ))} */}
                 </div>
                 <section className="tab-section">
                   <div className="col-12">

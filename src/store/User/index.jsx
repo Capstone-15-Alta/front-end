@@ -5,17 +5,17 @@ const initialState = {
   token: "",
 };
 
-export const loginReducer = createSlice({
-  name: "login",
+export const userReducer = createSlice({
+  name: "user",
   initialState,
   reducers: {
-    submitLogin: (state, action) => {
+    setUser: (state, action) => {
       Cookies.set("token", action.payload, { expires: 2 });
       return { ...state, token: action.payload };
     },
   },
 });
 
-export const { submitLogin } = loginReducer.actions;
+export const { setUser } = userReducer.actions;
 
-export default loginReducer.reducer;
+export default userReducer.reducer;
