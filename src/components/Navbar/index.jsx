@@ -61,14 +61,22 @@ const Navbar = () => {
           ) : (
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Button title="Masuk" type="button" className="btn-nav-masuk" />
+                <Link to="/login">
+                  <Button
+                    title="Masuk"
+                    type="button"
+                    className="btn-nav-masuk"
+                  />
+                </Link>
               </li>
               <li className="nav-item">
-                <Button
-                  title="Daftar"
-                  type="button"
-                  className="btn-nav-daftar"
-                />
+                <Link to="/register">
+                  <Button
+                    title="Daftar"
+                    type="button"
+                    className="btn-nav-daftar"
+                  />
+                </Link>
               </li>
             </ul>
           )}

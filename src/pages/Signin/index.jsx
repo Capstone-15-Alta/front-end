@@ -16,13 +16,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { submitLogin } from "../../store/Login";
 import fgdApi from "../../api/fgdApi";
+import SweetAlert from "../../components/SweetAlert";
 
 export default function Login() {
   const dispatch = useDispatch();
 
   const { token } = useSelector((state) => state.login);
 
-  console.log(token);
+  // console.log(token);
 
   const navigate = useNavigate();
 
@@ -74,10 +75,18 @@ export default function Login() {
 
       const token = res.data.token;
       dispatch(submitLogin(token));
+      if (res.message === "Success!") {
+        SweetAlert({
+          title: "Success",
+          text: "Login Berhasil",
+          icon: "success",
+        });
+        setTimeout(() => {
+          navigate("/buat-thread");
+        }, 2000);
+      }
     };
     getLogin();
-
-    navigate("/buat-thread");
   };
 
   return (
