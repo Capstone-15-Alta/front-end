@@ -12,21 +12,21 @@
       margin-top: 10rem;
       position: relative;
 
-      .data-number {
-        font-family: "Poppins";
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-        color: $second-color;
-
-        & > * {
-          margin: 0 20px;
-        }
-      }
-
       .tab-section {
         // background-color: aqua;
         max-width: 72vmax;
+
+        .data-number {
+          font-family: "Poppins";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          color: $second-color;
+          // background-color: red !important;
+          & > * {
+            margin: 0 20px;
+          }
+        }
         ul {
           // background-color: bisque;
           border-bottom: 1px solid $main-color;
@@ -41,6 +41,7 @@
               background: none;
 
               &.active {
+                color: $main-color;
                 font-weight: 600;
                 border-bottom: 2px solid $main-color;
               }
@@ -49,7 +50,8 @@
         }
 
         .tab-content {
-          max-width: 50vmax;
+          max-width: 60vmax;
+          margin: auto;
 
           .card-threads {
             // height: 245px;

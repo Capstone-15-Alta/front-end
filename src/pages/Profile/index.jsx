@@ -97,11 +97,11 @@ const Profile = () => {
             <div className="content-section col-9 container-fluid">
               <div className="col-12">
                 <HeaderProfile />
-                <div className="data-number row justify-content-center mb-5">
+                <div className=" tab-section row  mb-5">
                   <Tabs
                     defaultActiveKey="post"
                     id="uncontrolled-tab-example"
-                    className="mb-3 tes"
+                    className="mb-3 data-number justify-content-center"
                   >
                     <Tab
                       eventKey={profileData[0].key}
@@ -113,12 +113,10 @@ const Profile = () => {
                         </>
                       }
                     >
-                      <div className="tab-item-wrapper">
+                      <div className="tab-item-wrapper ">
                         {" "}
-                        <div className="card-threads">
-                          {listThread.map((item, itemIdx) => (
-                            <HomeCard key={itemIdx} data={item} />
-                          ))}
+                        <div className="card-threads text-center">
+                          BELOM ADA DATA
                         </div>
                       </div>
                     </Tab>
@@ -134,10 +132,8 @@ const Profile = () => {
                     >
                       <div className="tab-item-wrapper">
                         {" "}
-                        <div className="card-threads">
-                          {listThread.map((item, itemIdx) => (
-                            <HomeCard key={itemIdx} data={item} />
-                          ))}
+                        <div className="card-threads text-center">
+                          BELOM ADA DATA
                         </div>
                       </div>
                     </Tab>
@@ -154,9 +150,42 @@ const Profile = () => {
                       <div className="tab-item-wrapper">
                         {" "}
                         <div className="card-threads">
-                          {listThread.map((item, itemIdx) => (
-                            <HomeCard key={itemIdx} data={item} />
-                          ))}
+                          <CardPost
+                            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                            name="Gde Agung Mandala"
+                            dateTime="31-05-2022 19:56"
+                            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                          />
+                          <CardPost
+                            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                            name="Gde Agung Mandala"
+                            dateTime="31-05-2022 19:56"
+                            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                          />
+                          <CardPost
+                            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                            name="Gde Agung Mandala"
+                            dateTime="31-05-2022 19:56"
+                            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                          />
                         </div>
                       </div>
                     </Tab>
@@ -187,68 +216,6 @@ const Profile = () => {
                     </div>
                   ))} */}
                 </div>
-                <section className="tab-section">
-                  <div className="col-12">
-                    <Tabs
-                      defaultActiveKey="post"
-                      id="uncontrolled-tab-example"
-                      className="mb-3 tes"
-                    >
-                      <Tab eventKey="post" title="Post" className="ini-tes">
-                        <div className="tab-item-wrapper">
-                          <div className="card-threads">
-                            <CardPost
-                              title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                              name="Gde Agung Mandala"
-                              dateTime="31-05-2022 19:56"
-                              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                            />
-                            <CardPost
-                              title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                              name="Gde Agung Mandala"
-                              dateTime="31-05-2022 19:56"
-                              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                            />
-                            <CardPost
-                              title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                              name="Gde Agung Mandala"
-                              dateTime="31-05-2022 19:56"
-                              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                            />
-                          </div>
-                        </div>
-                      </Tab>
-                      <Tab eventKey="thread" title="Thread">
-                        <div className="tab-item-wrapper">
-                          {" "}
-                          <div className="card-threads">
-                            {listThread.map((item, itemIdx) => (
-                              <HomeCard key={itemIdx} data={item} />
-                            ))}
-                          </div>
-                        </div>
-                      </Tab>
-                    </Tabs>
-                  </div>
-                </section>
               </div>
             </div>
           </div>
