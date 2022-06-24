@@ -6,8 +6,10 @@ const categoryApi = {
     return axiosClient.get(url, params);
   },
   getThreadCategory: (params) => {
-    const url = "thread/category";
-    return axiosClient.get(url, params);
+    const url = "thread";
+    console.log(params.categoryYangDipilih)
+    const category = params.categoryYangDipilih
+    return axiosClient.get(url + `/category/${category}`);
   }
 };
 

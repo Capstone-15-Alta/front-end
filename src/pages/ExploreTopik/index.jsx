@@ -12,29 +12,27 @@ import categoryApi from "../../api/categoryApi";
 function ExploreTopik() {
   const [data, setData] = useState([]);
   const [listThread, setListThread] = useState([]);
+  const [category, setCategory] = useState({
+    menu: [],
+    categoryYangDipilih: "",
+  });
 
   useEffect(() => {
     const getUser = async () => {
       let res = null;
       const params = {};
       res = await fgdApi.getUser(params);
-      console.log(res.data);
+      
     };
 
     const getThreadCategory = async () => {
       let res = null;
-      const params = {};
+      const params = category
       res = await categoryApi.getThreadCategory(params);
       console.log(res.data);
       setListThread(res?.data);
     };
-
-    getUser();
-    getThreadCategory();
-    console.log(listThread);
-  }, []);
-
-  useEffect(() => {
+    
     const getCategory = async () => {
       let res = null;
       const params = {};
@@ -44,12 +42,14 @@ function ExploreTopik() {
 
     getCategory();
     console.log(data);
-  }, []);
 
-  const [category, setCategory] = useState({
-    menu: [],
-    categoryYangDipilih: "",
-  });
+    getUser();
+    getThreadCategory();
+    console.log(listThread);
+  }, [category]);
+
+
+  
 
   const handleCategory = (value) => {
     setCategory({
@@ -60,7 +60,7 @@ function ExploreTopik() {
     //handle kategori yang akan ditampilkan
   };
 
-  console.log(category);
+  
 
  
   return (
@@ -78,7 +78,7 @@ function ExploreTopik() {
                   return (
                     <Button
                       title={val.category_name}
-                      className="button"
+                      className={val.category_name === category.categoryYangDipilih? "button-active":"button"}
                       onClick={() => {
                         handleCategory(val.category_name);
                       }}
