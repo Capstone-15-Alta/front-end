@@ -142,7 +142,7 @@ const FormPostingThread = () => {
       <div className="row mb-3">
         <div className="col-sm-10">
           <img
-            src={fileName}
+            src={fileName.name}
             height="300px"
             width="100%"
             alt="...."
