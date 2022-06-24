@@ -6,6 +6,7 @@ import "./HeaderProfile.scss";
 /* Images */
 import banner from "../../assets/images/capung.png";
 import foto from "../../assets/images/foto.jpg";
+import { Link } from "react-router-dom";
 
 const HeaderProfile = () => {
   const bannerRef = useRef(null);
@@ -56,11 +57,13 @@ const HeaderProfile = () => {
                 <p className="mail">yogs23@jordan.us</p>
               </div>
               <div className="editBtn">
-                <Button
-                  type="button"
-                  className="btn btnEditProfile"
-                  title="Edit Profile"
-                />
+                <Link to="/edit-profile">
+                  <Button
+                    type="button"
+                    className="btn btnEditProfile"
+                    title="Edit Profile"
+                  />
+                </Link>
               </div>
             </div>
           </div>
