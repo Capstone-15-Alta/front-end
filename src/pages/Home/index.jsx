@@ -11,7 +11,7 @@ import Saran from "../../components/Card/Saran";
 import { Avatar } from "@mui/material";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
-
+import Pagination from "../../components/Pagination";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -82,14 +82,14 @@ const Home = () => {
       let res = null;
       const params = {};
       res = await fgdApi.getUser(params);
-      console.log(res.data);
+      // console.log(res.data);
     };
 
     const getThread = async () => {
       let res = null;
       const params = {};
       res = await fgdApi.getThread(params);
-      //console.log(res.data);
+      console.log(res.data);
       setListThread(res?.data);
     };
 
@@ -98,6 +98,22 @@ const Home = () => {
     console.log(listThread);
   }, []);
 
+  const handlePageClick = (data) => {
+    
+    let curentPage = data.selected
+    
+    const getThread = async () => {
+      let res = null;
+      const params = {curentPage};
+      res = await fgdApi.getThread(params);
+      console.log(res.data);
+      setListThread(res?.data);
+      
+    };
+    getThread()
+    
+  };
+  
   return (
     <>
       <Navigationbar />
@@ -148,6 +164,9 @@ const Home = () => {
           <SidebarRight />
         </Grid>
       </Grid>
+      <div>
+        <Pagination handlePageClick={handlePageClick} pageCount={listThread.length}/>
+      </div>
       <Footer />
     </>
   );

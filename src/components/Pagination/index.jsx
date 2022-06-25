@@ -1,22 +1,34 @@
-import React from 'react'
+import React from "react";
+import ReactPaginate from "react-paginate";
+import "./Pagination.scss"
+
 
 const Pagination = (props) => {
-    console.log(props.length)
-    const length = props.length
+  
   return (
-    <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a className="page-link" href='-'>Previous</a>
-    </li>
-    <li class="page-item">1</li>
-    
-    <li class="page-item">
-      <a class="page-link" href="-">Next</a>
-    </li>
-  </ul>
-</nav>
-  )
-}
+    <>
+      <ReactPaginate
+        previousLabel={"previouse"}
+        nextLabel={"next"}
+        pageCount={20}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={props.handlePageClick}
+        containerClassName={"pagination"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"page-item active"}
+        activeLinkClassName={"page-link active"}
+        className="pagination"
+      />
+    </>
+  );
+};
 
-export default Pagination
+export default Pagination;

@@ -15,7 +15,8 @@ const fgdApi = {
   },
   getThread: (params) => {
     const url = "thread/";
-    return axiosClient.get(url, params);
+    console.log(params)
+    return axiosClient.get(url + `pages?size=5&page=${params.curentPage}`);
   },
   getCategory: (params) => {
     const url = "category/";
