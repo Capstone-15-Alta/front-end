@@ -30,6 +30,7 @@ const Navbar = () => {
         <Link className="navbar-brand navBrand" to="/">
           <img src={logo} alt="logo" className="navLogo" />
         </Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -55,6 +56,17 @@ const Navbar = () => {
                     type="button"
                     className="btn-create-new-thread"
                     iconKiri="iconCreate"
+                  />
+                  <Button
+                    title="Logout"
+                    type="button"
+                    background="#ff0000"
+                    color="white"
+                    className="btn-nav-masuk"
+                    onClick={() => {
+                      Cookies.remove("token");
+                      navigate("/login");
+                    }}
                   />
                 </li>
               </ul>

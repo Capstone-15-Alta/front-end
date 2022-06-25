@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 
 const initialState = {
-  token: "",
+  username: "",
 };
 
 export const userReducer = createSlice({

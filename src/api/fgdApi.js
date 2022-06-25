@@ -9,8 +9,12 @@ const fgdApi = {
     const url = "auth/register";
     return axiosClient.post(url, params);
   },
-  getUser: (params) => {
+  getAllUser: (params) => {
     const url = "user";
+    return axiosClient.get(url, params);
+  },
+  getUserById: (id, params) => {
+    const url = `user/${id}`;
     return axiosClient.get(url, params);
   },
   getThread: (params) => {

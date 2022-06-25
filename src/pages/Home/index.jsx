@@ -16,10 +16,12 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 import fgdApi from "../../api/fgdApi";
+import Cookies from "js-cookie";
 
 const Home = () => {
   const { token } = useSelector((state) => state.login);
-
+  const tokenCookies = Cookies.get("token");
+  console.log(tokenCookies);
   console.log(token);
   const fillter = [
     { name: "Terbaru", icon: AccessTimeIcon, isActive: true },

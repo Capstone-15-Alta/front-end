@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
@@ -15,8 +16,10 @@ import fgdApi from "../../api/fgdApi";
 import HeaderProfile from "../../components/HeaderProfile";
 
 import "./Profile.scss";
+import Cookies from "js-cookie";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const dataHomepage = [
     {
       username: "Albert Flores",
