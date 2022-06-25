@@ -21,8 +21,8 @@ import Cookies from "js-cookie";
 const Home = () => {
   const { token } = useSelector((state) => state.login);
   const tokenCookies = Cookies.get("token");
-  console.log(tokenCookies);
-  console.log(token);
+  // console.log(tokenCookies);
+  // console.log(token);
   const fillter = [
     { name: "Terbaru", icon: AccessTimeIcon, isActive: true },
     { name: "Trending", icon: CallMadeIcon, isActive: false },
@@ -84,7 +84,7 @@ const Home = () => {
       let res = null;
       const params = {};
       res = await fgdApi.getAllUser(params);
-      console.log(res.data);
+      // console.log(res.data);
     };
 
     const getThread = async () => {
@@ -97,7 +97,7 @@ const Home = () => {
 
     getUser();
     getThread();
-    console.log(listThread);
+    // console.log(listThread);
   }, []);
 
   return (

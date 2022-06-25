@@ -8,7 +8,7 @@ import banner from "../../assets/images/capung.png";
 import foto from "../../assets/images/foto.jpg";
 import { Link } from "react-router-dom";
 
-const HeaderProfile = () => {
+const HeaderProfile = ({ data }) => {
   const bannerRef = useRef(null);
   const [bannerImg, setBannerImg] = useState(banner);
 
@@ -53,8 +53,8 @@ const HeaderProfile = () => {
           <div className="dataProfile">
             <div className="nickname d-flex ">
               <div className="name-email">
-                <p className="name">Muhammad Yogi</p>
-                <p className="mail">yogs23@jordan.us</p>
+                <p className="name">{data.username}</p>
+                <p className="mail">{data.email}</p>
               </div>
               <div className="editBtn">
                 <Link to="/edit-profile">

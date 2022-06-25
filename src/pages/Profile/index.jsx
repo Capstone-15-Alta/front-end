@@ -71,33 +71,35 @@ const Profile = () => {
       key: "thread",
     },
   ]);
-  const [userAttribute, setUserAttribute] = useState();
+  const [userAttribute, setUserAttribute] = useState({});
+  const [listThread, setListThread] = useState([]);
 
   const userId = Cookies.get("id");
   console.log(userId);
-  // console.log(listThread);
 
   useEffect(() => {
-    // const getThread = async () => {
-    //   let res = null;
-    //   const params = {};
-    //   res = await fgdApi.getThread(params);
-    //   //console.log(res.data);
-    //   setListThread(res?.data);
-    // };
+    const getThread = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getThread(params);
+      //console.log(res.data);
+      const data = res?.data;
+      setListThread(data);
+      console.log(data);
+    };
     const getUserById = async (id) => {
       let res = null;
       res = await fgdApi.getUserById(id);
 
-      console.log(res.data.threads);
-      setUserAttribute(res.data);
-      return res.data;
+      const data = res?.data;
+      console.log(data);
+      setUserAttribute(data);
+      // return res.data;
+      // console.log(userAttribute);
     };
 
-    const userData = getUserById(userId);
-    console.log(userData);
-    // getThread();
-    // console.log(listThread);
+    getUserById(userId);
+    getThread();
   }, []);
 
   return (
@@ -111,7 +113,7 @@ const Profile = () => {
             </div>
             <div className="content-section col-9 container-fluid">
               <div className="col-12">
-                <HeaderProfile />
+                <HeaderProfile data={userAttribute} />
                 <div className=" tab-section row  mb-5">
                   <Tabs
                     defaultActiveKey="post"
@@ -124,7 +126,7 @@ const Profile = () => {
                         <>
                           {" "}
                           <p>{profileData[0].title}</p>
-                          <p>{profileData[0].number}</p>
+                          <p>{userAttribute.total_user_followers}</p>
                         </>
                       }
                     >
@@ -210,16 +212,16 @@ const Profile = () => {
                         <>
                           {" "}
                           <p>{profileData[3].title}</p>
-                          <p>{profileData[3].number}</p>
+                          <p>{userAttribute.threads?.length}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
                         {" "}
                         <div className="card-threads">
-                          {/* {listThread.map((item, itemIdx) => (
+                          {listThread?.map((item, itemIdx) => (
                             <HomeCard key={itemIdx} data={item} />
-                          ))} */}
+                          ))}
                         </div>
                       </div>
                     </Tab>
