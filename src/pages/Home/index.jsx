@@ -83,7 +83,7 @@ const Home = () => {
     const getUser = async () => {
       let res = null;
       const params = {};
-      res = await fgdApi.getUser(params);
+      res = await fgdApi.getAllUser(params);
       console.log(res.data);
     };
 

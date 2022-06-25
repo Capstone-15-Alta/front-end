@@ -16,9 +16,7 @@ import hover4 from "../../assets/icon-sidebar/Vector (7).png";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-const token = Cookies.get("token");
-console.log(token);
-export const data = {
+export let data = {
   left: [
     {
       title: "Home Page",
@@ -42,7 +40,7 @@ export const data = {
       title: "Profile",
       icon: <img src={logo4} alt="" width={20} />,
       icon2: <img src={hover2} alt="" width={20} />,
-      link: token ? "/profile" : "/login",
+      link: "/profile",
     },
   ],
 

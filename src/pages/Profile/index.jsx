@@ -71,21 +71,33 @@ const Profile = () => {
       key: "thread",
     },
   ]);
+  const [userAttribute, setUserAttribute] = useState();
 
-  const [listThread, setListThread] = useState([]);
-  console.log(listThread);
+  const userId = Cookies.get("id");
+  console.log(userId);
+  // console.log(listThread);
 
   useEffect(() => {
-    const getThread = async () => {
+    // const getThread = async () => {
+    //   let res = null;
+    //   const params = {};
+    //   res = await fgdApi.getThread(params);
+    //   //console.log(res.data);
+    //   setListThread(res?.data);
+    // };
+    const getUserById = async (id) => {
       let res = null;
-      const params = {};
-      res = await fgdApi.getThread(params);
-      //console.log(res.data);
-      setListThread(res?.data);
+      res = await fgdApi.getUserById(id);
+
+      console.log(res.data.threads);
+      setUserAttribute(res.data);
+      return res.data;
     };
 
-    getThread();
-    console.log(listThread);
+    const userData = getUserById(userId);
+    console.log(userData);
+    // getThread();
+    // console.log(listThread);
   }, []);
 
   return (
@@ -205,9 +217,9 @@ const Profile = () => {
                       <div className="tab-item-wrapper">
                         {" "}
                         <div className="card-threads">
-                          {listThread.map((item, itemIdx) => (
+                          {/* {listThread.map((item, itemIdx) => (
                             <HomeCard key={itemIdx} data={item} />
-                          ))}
+                          ))} */}
                         </div>
                       </div>
                     </Tab>

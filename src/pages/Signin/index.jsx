@@ -56,11 +56,6 @@ export default function Login() {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    // const res = await axios.post("http://34.87.175.218/api/v1/auth/login", {
-    //   username: inputs[0].value,
-    //   password: inputs[1].value,
-    // });
-
     const getUserById = async (id) => {
       let res = null;
       res = await fgdApi.getUserById(id);
@@ -79,14 +74,20 @@ export default function Login() {
         console.log(res);
 
         const token = res.data.token;
-        dispatch(submitLogin(token));
+        const userId = res.data.id;
+        dispatch(submitLogin({ token: token, id: userId }));
         Swal.fire({
           title: "Success",
           text: "Yeay login berhasil",
           icon: "success",
           confirmButtonText: "OK",
         });
+
         getUserById(res.data.id);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
       } catch (error) {
         Swal.fire({
           title: "Failed",

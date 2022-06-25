@@ -65,6 +65,8 @@ const Navbar = () => {
                     className="btn-nav-masuk"
                     onClick={() => {
                       Cookies.remove("token");
+                      Cookies.remove("id");
+
                       navigate("/login");
                     }}
                   />
