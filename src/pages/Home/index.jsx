@@ -148,7 +148,7 @@ const Home = () => {
                 color: "#26B893",
               }}
             >
-              <img src="/assets/icon/vector-kategori.png" />
+              <img src="/assets/icon/vector-kategori.png" alt="-" />
               <span style={{ marginLeft: "1vw" }}>Kategori</span>
             </Button>
           </Box>
@@ -158,15 +158,17 @@ const Home = () => {
                 <HomeCard data={item} />
               </Box>
             ))}
+            <div>
+        <Pagination handlePageClick={handlePageClick} pageCount={listThread.length}/>
+      </div>
           </Box>
         </Grid>
+        
         <Grid item md={3} pl="2vw" mt="5rem">
           <SidebarRight />
         </Grid>
       </Grid>
-      <div>
-        <Pagination handlePageClick={handlePageClick} pageCount={listThread.length}/>
-      </div>
+      
       <Footer />
     </>
   );
