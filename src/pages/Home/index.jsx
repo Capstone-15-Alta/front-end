@@ -11,7 +11,7 @@ import Saran from "../../components/Card/Saran";
 import { Avatar } from "@mui/material";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
-
+import Pagination from "../../components/Pagination";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -91,7 +91,7 @@ const Home = () => {
       let res = null;
       const params = {};
       res = await fgdApi.getThread(params);
-      //console.log(res.data);
+      console.log(res.data);
       setListThread(res?.data);
     };
 
@@ -99,6 +99,19 @@ const Home = () => {
     getThread();
     // console.log(listThread);
   }, []);
+
+  const handlePageClick = (data) => {
+    let curentPage = data.selected;
+
+    const getThread = async () => {
+      let res = null;
+      const params = { curentPage };
+      res = await fgdApi.getThread(params);
+      console.log(res.data);
+      setListThread(res?.data);
+    };
+    getThread();
+  };
 
   return (
     <>
@@ -134,7 +147,7 @@ const Home = () => {
                 color: "#26B893",
               }}
             >
-              <img src="/assets/icon/vector-kategori.png" />
+              <img src="/assets/icon/vector-kategori.png" alt="-" />
               <span style={{ marginLeft: "1vw" }}>Kategori</span>
             </Button>
           </Box>
@@ -144,12 +157,20 @@ const Home = () => {
                 <HomeCard data={item} />
               </Box>
             ))}
+            <div>
+              <Pagination
+                handlePageClick={handlePageClick}
+                pageCount={listThread.length}
+              />
+            </div>
           </Box>
         </Grid>
+
         <Grid item md={3} pl="2vw" mt="5rem">
           <SidebarRight />
         </Grid>
       </Grid>
+
       <Footer />
     </>
   );
