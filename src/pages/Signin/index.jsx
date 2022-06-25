@@ -6,18 +6,33 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
+import { submitLogin } from "../../store/Login";
+import fgdApi from "../../api/fgdApi";
+import SweetAlert from "../../components/SweetAlert";
 
 export default function Login() {
+  const dispatch = useDispatch();
+
+  const { token } = useSelector((state) => state.login);
+
+  // console.log(token);
+
+  const navigate = useNavigate();
+
   const [inputs, setInputs] = useState([
     {
-      label: "Email",
-      type: "email",
-      placeholder: "Email",
-      name: "email",
+      label: "Username",
+      type: "text",
+      placeholder: "Masukkan username",
+      name: "username",
       value: "",
     },
     {
@@ -43,17 +58,35 @@ export default function Login() {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post("http://34.87.175.218/api/v1/auth/login", {
-      username: inputs[0].value,
-      password: inputs[1].value,
-    });
-    console.log(
-      {
-        email: inputs[0].value,
+    // const res = await axios.post("http://34.87.175.218/api/v1/auth/login", {
+    //   username: inputs[0].value,
+    //   password: inputs[1].value,
+    // });
+
+    const getLogin = async () => {
+      let res = null;
+
+      const params = {
+        username: inputs[0].value,
         password: inputs[1].value,
-      },
-      res.data
-    );
+      };
+      res = await fgdApi.login(params);
+      console.log(res);
+
+      const token = res.data.token;
+      dispatch(submitLogin(token));
+      if (res.message === "Success!") {
+        SweetAlert({
+          title: "Success",
+          text: "Login Berhasil",
+          icon: "success",
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      }
+    };
+    getLogin();
   };
 
   return (
@@ -90,7 +123,11 @@ export default function Login() {
               <Box pt="1vw">
                 <Form onSubmit={handleSubmitForm}>
                   {inputs.map((input, inputIdx) => (
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group
+                      key={inputIdx}
+                      className="mb-3"
+                      controlId="formBasicEmail"
+                    >
                       <Form.Label style={{ color: "#26B893" }}>
                         {input.label}
                       </Form.Label>

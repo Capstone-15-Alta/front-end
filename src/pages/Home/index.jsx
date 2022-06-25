@@ -1,22 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "react-bootstrap/Container";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
-import HomeCard from "../../components/card/HomeCard";
-import Saran from "../../components/card/Saran";
+import HomeCard from "../../components/Card/HomeCard";
+import Saran from "../../components/Card/Saran";
 import { Avatar } from "@mui/material";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 import fgdApi from "../../api/fgdApi";
 
 const Home = () => {
+  const { token } = useSelector((state) => state.login);
+
+  console.log(token);
   const fillter = [
     { name: "Terbaru", icon: AccessTimeIcon, isActive: true },
     { name: "Trending", icon: CallMadeIcon, isActive: false },
@@ -71,6 +75,8 @@ const Home = () => {
     },
   ];
 
+  const [listThread, setListThread] = useState([]);
+
   useEffect(() => {
     const getUser = async () => {
       let res = null;
@@ -78,8 +84,19 @@ const Home = () => {
       res = await fgdApi.getUser(params);
       console.log(res.data);
     };
+
+    const getThread = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getThread(params);
+      //console.log(res.data);
+      setListThread(res?.data);
+    };
+
     getUser();
-  });
+    getThread();
+    console.log(listThread);
+  }, []);
 
   return (
     <>
@@ -120,7 +137,7 @@ const Home = () => {
             </Button>
           </Box>
           <Box pt="3vh">
-            {dataHomepage.map((item, itemIdx) => (
+            {listThread.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
                 <HomeCard data={item} />
               </Box>

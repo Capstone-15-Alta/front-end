@@ -3,26 +3,29 @@ import imgbanner from "../../assets/icon/Login.png";
 import { Link, useNavigate } from "react-router-dom";
 import Form from "../../components/Form";
 import Navigationbar from "../../components/Navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import Button from "../../components/Button/Button";
 
+import SweetAlert from "../../components/SweetAlert";
+
+import fgdApi from "../../api/fgdApi";
 import "./Signup.scss";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState([
     {
-      label: "Nama Lengkap",
+      label: "Username",
       type: "text",
-      placeholder: "Masukkan nama lengkap anda",
-      name: "fullname",
+      placeholder: "Masukkan username anda ",
+      name: "username",
       value: "",
     },
     {
-      label: "Nomor Handphone",
-      type: "number",
-      placeholder: "+62 | Masukan Nomor Handphone",
-      name: "noHandphone",
+      label: "Email",
+      type: "email",
+      placeholder: "Masukan email anda",
+      name: "email",
       value: "",
     },
     {
@@ -57,12 +60,29 @@ const Signup = () => {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    console.log({
-      nama: inputs[0].value,
-      nomor: inputs[1].value,
-      password: inputs[2].value,
-      repassword: inputs[3].value,
-    });
+
+    const getRegister = async () => {
+      let res = null;
+
+      const params = {
+        email: inputs[1].value,
+        password: inputs[2].value,
+        total_user_followers: 0,
+        username: inputs[0].value,
+      };
+      res = await fgdApi.register(params);
+      console.log(res.message);
+
+      if (res.message === "Success!") {
+        SweetAlert({
+          title: "Success",
+          text: "Login Berhasil",
+          icon: "success",
+        });
+        navigate("/login");
+      }
+    };
+    getRegister();
   };
 
   return (

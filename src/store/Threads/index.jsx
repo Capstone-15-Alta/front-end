@@ -4,11 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 const initialValue = [
   {
     id: uuidv4(),
-    title: "SELAMAT DATANG DI WONDERFUL BANTEN",
-    subtitle:
-      "Keindahan alam yang diakui Dunia dapat kamu lihat di Provinsi Banten",
-    description:
-      "Keindahan alam yang dimiliki Provinsi Banten menjadikannya sebagai wilayah yang masuk rekomendasi untuk dikunjungi saat liburan. Memiliki Pantai, Gunung, Tempat Bersejarah dan Wahana Atraksi yang ada di Provinsi Banten yang siap kalian kunjungi kapan saja.",
   },
 ];
 

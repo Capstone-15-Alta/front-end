@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from "react";
 import Navigationbar from "../../components/Navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
-import HomeCard from "../../components/card/HomeCard";
+import HomeCard from "../../components/Card/HomeCard";
 import "./ExploreTopik.scss";
 import Button from "../../components/Button/Button";
+import Box from "@mui/material/Box";
+import fgdApi from "../../api/fgdApi";
+import categoryApi from "../../api/categoryApi";
+
 function ExploreTopik() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("https://6291e6b7cd0c91932b69e924.mockapi.io/api/category", {
-      method: "GET", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    const getCategory = async () => {
+      let res = null;
+      const params = {};
+      res = await categoryApi.getCategory(params);
+      setData(res?.data);
+    };
+
+    getCategory();
+    console.log(data);
   }, []);
-  console.log(data);
 
   const [category, setCategory] = useState({
     menu: [],
@@ -41,35 +40,28 @@ function ExploreTopik() {
 
   console.log(category);
 
-  const dataHomepage = [
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-  ];
+  const [listThread, setListThread] = useState([]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getUser(params);
+      console.log(res.data);
+    };
+
+    const getThread = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getThread(params);
+      console.log(res.data);
+      setListThread(res?.data);
+    };
+
+    getUser();
+    getThread();
+    console.log(listThread);
+  }, []);
   return (
     <>
       <Navigationbar />
@@ -94,8 +86,10 @@ function ExploreTopik() {
                 })}
             </div>
             <div className="explore-thread">
-              {dataHomepage.map((item) => (
-                <HomeCard data={item} />
+              {listThread.map((item, itemIdx) => (
+                <Box key={itemIdx} py="4vh">
+                  <HomeCard data={item} />
+                </Box>
               ))}
             </div>
           </div>

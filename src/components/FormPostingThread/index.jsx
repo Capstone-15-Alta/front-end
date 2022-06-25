@@ -1,37 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./FormPostingThread.scss";
 
+import { useSelector } from "react-redux";
+
+import Cookies from "js-cookie";
+
+import Users from "../Users";
+
+import Button from "../Button/Button";
+
+import axios from "axios";
+import fgdApi from "../../api/fgdApi";
 import IconProfile from "../IconProfile";
+import { Box } from "@mui/material";
 
 const FormPostingThread = () => {
-  const [categories, setCategories] = useState([
-    "Olahraga",
-    "Hobi",
-    "Otomotoif",
-    "Game",
-  ]);
+  const [threadCategory, setThreadCategory] = useState([]);
+  // const { token } = useSelector((state) => state.login);
 
-  const [initSelectValue, setInitSelectValue] = useState(categories[0]);
+  // console.log(token);
+  const token = Cookies.get("token");
+
+  useEffect(() => {
+    const getCategory = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getCategory(params);
+      setThreadCategory(res.data);
+    };
+
+    console.log(token);
+
+    getCategory();
+  }, []);
 
   const [inputs, setInputs] = useState({
-    judul: "",
-    kategori: "",
-    deskripsi: "",
+    title: "",
+    description: "",
+    category_id: "",
   });
+
+  const [message, setMessage] = useState("");
+
+  const [fileName, setFileName] = useState();
 
   const handleInput = (value, key) => {
     const newInputs = { ...inputs };
 
     newInputs[key] = value;
 
-    setInitSelectValue(value);
-
     setInputs(newInputs);
+
+    console.log(newInputs);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    // formData.set("json", JSON.stringify(inputs));
+    // formData.set("file", ...); // BUAT FILE
+
+    formData.append("json", JSON.stringify(inputs));
+    formData.append("file", fileName);
+
+    const res = await axios.post(
+      "http://34.87.175.218/api/v1/thread",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(inputs);
+    console.log(res);
   };
 
   const handleReset = (e) => {
@@ -39,78 +83,84 @@ const FormPostingThread = () => {
   };
 
   return (
-    <div className="container">
-      <form
-        onSubmit={handleSubmit}
-        onReset={handleReset}
-        className="form-post-user-thread"
-      >
-        <div className="row form-posting-thread">
-          <div className="user-thread">
-            <div className="user-thread-icon">
-              {/* <img src={IconProfile} alt="user icon" className="user-icon" /> */}
-              <IconProfile />
-            </div>
-            <div className="user-name-and-email">
-              <h5 className="user-name">Muhammad Yogi</h5>
-              <p className="user-email">Muhamadyogi413@gmail.com</p>
-            </div>
-            <div className="user-check-icon">
-              <img
-                src="/assets/icon/check.png"
-                alt="user icon"
-                className="user-check"
-              />
-            </div>
-            <div className="posting-time">
-              <p className="time-to-post">Hari ini 20:00</p>
-            </div>
-            <div className="options-thread-categories">
-              <select
-                name="kategori"
-                className="form-select shadow-none select-option-category"
-                aria-label="Default select kategori wisata"
-                defaultValue=""
-                onChange={(e) => handleInput(e.target.value, e.target.name)}
-              >
-                <option value="" hidden>
-                  Pilih Kategori
-                </option>
-                {categories.map((dataCategory, dataCategoryIdx) => (
-                  <option key={dataCategoryIdx} value={dataCategory}>
-                    {dataCategory}
-                  </option>
-                ))}
-              </select>
-            </div>
+    <form
+      onSubmit={handleSubmit}
+      onReset={handleReset}
+      className="form-post-user-thread"
+    >
+      <div className="user-profile-section">
+        <div className="row user-form-post-thread">
+          <Users />
+
+          <div className="col-2 time-post">
+            <p className="time-to-post">Hari ini 20:00</p>
           </div>
+          <div className="col-3 options-thread-categories">
+            <select
+              name="category_id"
+              className="form-select shadow-none select-option-category"
+              aria-label="Default select kategori thread"
+              defaultValue=""
+              onChange={(e) => handleInput(e.target.value, e.target.name)}
+            >
+              <option value="" hidden>
+                Pilih Kategori
+              </option>
+              {threadCategory.map((item, itemIdx) => (
+                <option key={itemIdx} value={item.id}>
+                  {item.category_name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div className="input-thread">
+        <input
+          type="text"
+          className="form-control shadow-none thread-title"
+          name="title"
+          placeholder="Isi Judul Thread Disini"
+          value={inputs.title}
+          onChange={(e) => handleInput(e.target.value, e.target.name)}
+        />
+        <textarea
+          className="form-control shadow-none thread-desc"
+          name="description"
+          rows="7"
+          placeholder="Apa Yang Ingin Anda Diskusikan ?"
+          value={inputs.description}
+          onChange={(e) => handleInput(e.target.value, e.target.name)}
+        />
+      </div>
+
+      <div className="row mb-3">
+        <div className="col-sm-10">
           <input
-            type="text"
-            className="form-control shadow-none thread-title"
-            name="judul"
-            placeholder="Isi Judul Thread Disini"
-            value={inputs.judul}
-            onChange={(e) => handleInput(e.target.value, e.target.name)}
-          />
-          <textarea
-            className="form-control shadow-none thread-desc"
-            name="deskripsi"
-            rows="7"
-            placeholder="Apa Yang Ingin Anda Diskusikan ?"
-            value={inputs.deskripsi}
-            onChange={(e) => handleInput(e.target.value, e.target.name)}
+            className="form-control"
+            id="gambar-wisata"
+            required
+            type="file"
+            onChange={(e) => setFileName(e.target.files[0])}
           />
         </div>
-        <div className="button-area">
-          <button type="reset" className="btn btn-kembali">
-            Kembali
-          </button>
-          <button type="submit" className="btn btn-posting">
-            Posting
-          </button>
+      </div>
+
+      <div className="row mb-3">
+        <div className="col-sm-10">
+          <img
+            src={fileName}
+            height="300px"
+            width="100%"
+            alt="...."
+            style={{ borderRadius: "15px" }}
+          />
         </div>
-      </form>
-    </div>
+      </div>
+
+      <Button title="Kembali" type="reset" className="btn-form-kembali" />
+      <Button title="Posting" type="submit" className="btn-form-posting" />
+    </form>
   );
 };
 
