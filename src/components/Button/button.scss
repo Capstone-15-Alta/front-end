@@ -142,3 +142,68 @@
     margin: auto;
   }
 }
+
+// Notification
+
+.btn-notif {
+  padding: 0.594rem 0.781rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 27px;
+  border: 1px solid #26b893;
+  margin-bottom: 1.25rem;
+  margin-top: 3rem;
+}
+
+.btn-notif-semua {
+  padding: 0.594rem 2.631rem;
+  background: #26b893;
+  color: #ffffff;
+}
+
+.btn-notif-belum-dibaca,
+.btn-notif-baca-semua {
+  margin-left: 1.188rem;
+  color: #26b893;
+  background: #ffffff;
+}
+
+.btn-notif-hapus-semua {
+  float: right;
+  color: #26b893;
+  background: #ffffff;
+}
+
+.btn-follow-terima {
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 27px;
+  color: #ffffff;
+  padding: 0.406rem 2.594rem;
+  background: #26b893;
+  border-radius: 8px;
+  border: 1px solid #26b893;
+
+  &:hover {
+    background: #ffffff;
+    color: #26b893;
+  }
+}
+
+.btn-follow-tolak {
+  margin-left: 1.313rem;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 27px;
+  color: #ffffff;
+  padding: 0.406rem 3.063rem;
+  background: #e11d4c;
+  border-radius: 8px;
+  border: 1px solid #e11d4c;
+
+  &:hover {
+    background: #ffffff;
+    color: #e11d4c;
+  }
+}
