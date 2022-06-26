@@ -11,18 +11,19 @@ import Cookies from "js-cookie";
 
 import Searchbar from "../Searchbar";
 import Button from "../Button/Button";
+import { NavDropdown } from "react-bootstrap";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
-  useEffect(() => {
-    const token = Cookies.get("token");
-    if (token) {
-      setIsLogin(!isLogin);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = Cookies.get("token");
+  //   if (token) {
+  //     setIsLogin(!isLogin);
+  //   }
+  // }, []);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">
@@ -30,6 +31,7 @@ const Navbar = () => {
         <Link className="navbar-brand navBrand" to="/">
           <img src={logo} alt="logo" className="navLogo" />
         </Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -61,9 +63,21 @@ const Navbar = () => {
 
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item ">
-                  <Link className="navbar-user-icon" to="/buat-thread">
-                    <IconProfile />
-                  </Link>
+                  <NavDropdown title={<IconProfile />} id="basic-nav-dropdown">
+                    <NavDropdown.Item href="/profile">
+                      My Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      onClick={() => {
+                        Cookies.remove("token");
+                        Cookies.remove("id");
+
+                        navigate("/login");
+                      }}
+                    >
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 </li>
               </ul>
             </>

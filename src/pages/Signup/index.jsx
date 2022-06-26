@@ -6,10 +6,9 @@ import Navigationbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button/Button";
 
-import SweetAlert from "../../components/SweetAlert";
-
 import fgdApi from "../../api/fgdApi";
 import "./Signup.scss";
+import Swal from "sweetalert2";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -63,24 +62,31 @@ const Signup = () => {
 
     const getRegister = async () => {
       let res = null;
-
       const params = {
         email: inputs[1].value,
         password: inputs[2].value,
         total_user_followers: 0,
         username: inputs[0].value,
       };
-      res = await fgdApi.register(params);
-      console.log(res.message);
+      try {
+        res = await fgdApi.register(params);
+        console.log(res.message);
 
-      if (res.message === "Success!") {
-        SweetAlert({
+        Swal.fire({
           title: "Success",
-          text: "Login Berhasil",
+          text: "Yeay akun berhasil terdaftar",
           icon: "success",
+          confirmButtonText: "OK",
         });
-        navigate("/login");
+      } catch (error) {
+        Swal.fire({
+          title: "Failed",
+          text: error.response.data.data,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
+      navigate("/login");
     };
     getRegister();
   };

@@ -9,21 +9,19 @@ import Button from "react-bootstrap/Button";
 import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
 
+import Swal from "sweetalert2";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
 import { submitLogin } from "../../store/Login";
 import fgdApi from "../../api/fgdApi";
-import SweetAlert from "../../components/SweetAlert";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const dispatch = useDispatch();
-
   const { token } = useSelector((state) => state.login);
-
-  // console.log(token);
 
   const navigate = useNavigate();
 
@@ -58,32 +56,45 @@ export default function Login() {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    // const res = await axios.post("http://34.87.175.218/api/v1/auth/login", {
-    //   username: inputs[0].value,
-    //   password: inputs[1].value,
-    // });
+    const getUserById = async (id) => {
+      let res = null;
+      res = await fgdApi.getUserById(id);
+
+      console.log(res.data);
+    };
 
     const getLogin = async () => {
       let res = null;
-
       const params = {
         username: inputs[0].value,
         password: inputs[1].value,
       };
-      res = await fgdApi.login(params);
-      console.log(res);
+      try {
+        res = await fgdApi.login(params);
+        console.log(res);
 
-      const token = res.data.token;
-      dispatch(submitLogin(token));
-      if (res.message === "Success!") {
-        SweetAlert({
+        const token = res.data.token;
+        const userId = res.data.id;
+        dispatch(submitLogin({ token: token, id: userId }));
+        Swal.fire({
           title: "Success",
-          text: "Login Berhasil",
+          text: "Yeay login berhasil",
           icon: "success",
+          confirmButtonText: "OK",
         });
+
+        getUserById(res.data.id);
+
         setTimeout(() => {
           navigate("/");
-        }, 2000);
+        }, 1500);
+      } catch (error) {
+        Swal.fire({
+          title: "Failed",
+          text: "Akun tidak terdaftar / Password salah",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
     };
     getLogin();

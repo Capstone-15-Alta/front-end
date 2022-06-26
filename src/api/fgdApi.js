@@ -9,13 +9,18 @@ const fgdApi = {
     const url = "auth/register";
     return axiosClient.post(url, params);
   },
-  getUser: (params) => {
+  getAllUser: (params) => {
     const url = "user";
+    return axiosClient.get(url, params);
+  },
+  getUserById: (id, params) => {
+    const url = `user/${id}`;
     return axiosClient.get(url, params);
   },
   getThread: (params) => {
     const url = "thread/";
-    return axiosClient.get(url, params);
+    console.log(params)
+    return axiosClient.get(url + `pages?size=5&page=${params.curentPage}`);
   },
   getCategory: (params) => {
     const url = "category/";

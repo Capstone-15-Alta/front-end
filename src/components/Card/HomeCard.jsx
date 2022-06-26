@@ -63,10 +63,10 @@ export default function HomeCard({ data }) {
               <Grid item xs>
                 <Box display="flex">
                   <Box>
-                    <h5>{data.user.username}</h5>
+                    <h5>{data.user?.username}</h5>
                     <Box mt="-10px">
                       <Typography variant="caption">
-                        {data.user.email}
+                        {data.user?.email}
                       </Typography>
                     </Box>
                   </Box>

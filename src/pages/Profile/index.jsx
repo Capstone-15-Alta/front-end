@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
@@ -15,8 +16,10 @@ import fgdApi from "../../api/fgdApi";
 import HeaderProfile from "../../components/HeaderProfile";
 
 import "./Profile.scss";
+import Cookies from "js-cookie";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const dataHomepage = [
     {
       username: "Albert Flores",
@@ -68,9 +71,11 @@ const Profile = () => {
       key: "thread",
     },
   ]);
-
+  const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
-  console.log(listThread);
+
+  const userId = Cookies.get("id");
+  console.log(userId);
 
   useEffect(() => {
     const getThread = async () => {
@@ -78,11 +83,23 @@ const Profile = () => {
       const params = {};
       res = await fgdApi.getThread(params);
       //console.log(res.data);
-      setListThread(res?.data);
+      const data = res?.data;
+      setListThread(data);
+      console.log(data);
+    };
+    const getUserById = async (id) => {
+      let res = null;
+      res = await fgdApi.getUserById(id);
+
+      const data = res?.data;
+      console.log(data);
+      setUserAttribute(data);
+      // return res.data;
+      // console.log(userAttribute);
     };
 
+    getUserById(userId);
     getThread();
-    console.log(listThread);
   }, []);
 
   return (
@@ -96,7 +113,7 @@ const Profile = () => {
             </div>
             <div className="content-section col-9 container-fluid">
               <div className="col-12">
-                <HeaderProfile />
+                <HeaderProfile data={userAttribute} />
                 <div className=" tab-section row  mb-5">
                   <Tabs
                     defaultActiveKey="post"
@@ -109,7 +126,7 @@ const Profile = () => {
                         <>
                           {" "}
                           <p>{profileData[0].title}</p>
-                          <p>{profileData[0].number}</p>
+                          <p>{userAttribute.total_user_followers}</p>
                         </>
                       }
                     >
@@ -195,14 +212,14 @@ const Profile = () => {
                         <>
                           {" "}
                           <p>{profileData[3].title}</p>
-                          <p>{profileData[3].number}</p>
+                          <p>{userAttribute.threads?.length}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
                         {" "}
                         <div className="card-threads">
-                          {listThread.map((item, itemIdx) => (
+                          {listThread?.map((item, itemIdx) => (
                             <HomeCard key={itemIdx} data={item} />
                           ))}
                         </div>
