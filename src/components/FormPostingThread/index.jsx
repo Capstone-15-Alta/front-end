@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import "./FormPostingThread.scss";
 
+import { useSelector } from "react-redux";
+
+import Cookies from "js-cookie";
+
 import Users from "../Users";
 
 import Button from "../Button/Button";
@@ -13,6 +17,10 @@ import { Box } from "@mui/material";
 
 const FormPostingThread = () => {
   const [threadCategory, setThreadCategory] = useState([]);
+  // const { token } = useSelector((state) => state.login);
+
+  // console.log(token);
+  const token = Cookies.get("token");
 
   useEffect(() => {
     const getCategory = async () => {
@@ -21,6 +29,8 @@ const FormPostingThread = () => {
       res = await fgdApi.getCategory(params);
       setThreadCategory(res.data);
     };
+
+    console.log(token);
 
     getCategory();
   }, []);
@@ -47,9 +57,6 @@ const FormPostingThread = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const token =
-      "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IkFETUlOIiwiaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NTU5OTYzMjcsImV4cCI6MTY1NjM1NjMyN30.ntPY2FF8YB0M12PMicRidqM1gwWW3a6-7QUPd_xNHnM";
 
     const formData = new FormData();
     // formData.set("json", JSON.stringify(inputs));
@@ -142,7 +149,7 @@ const FormPostingThread = () => {
       <div className="row mb-3">
         <div className="col-sm-10">
           <img
-            src={fileName.name}
+            src={fileName}
             height="300px"
             width="100%"
             alt="...."

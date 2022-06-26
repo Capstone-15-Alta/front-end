@@ -11,36 +11,22 @@ import categoryApi from "../../api/categoryApi";
 
 function ExploreTopik() {
   const [data, setData] = useState([]);
+  const [listThread, setListThread] = useState([]);
+  const [category, setCategory] = useState({
+    menu: [],
+    categoryYangDipilih: "",
+  });
 
-  useEffect(() => {
+  useEffect(() =>{
     const getCategory = async () => {
       let res = null;
       const params = {};
       res = await categoryApi.getCategory(params);
       setData(res?.data);
     };
-
     getCategory();
-    console.log(data);
-  }, []);
 
-  const [category, setCategory] = useState({
-    menu: [],
-    categoryYangDipilih: "",
-  });
-
-  const handleCategory = (value) => {
-    setCategory({
-      menu: [],
-      categoryYangDipilih: value,
-    });
-
-    //handle kategori yang akan ditampilkan
-  };
-
-  console.log(category);
-
-  const [listThread, setListThread] = useState([]);
+  },[])
 
   useEffect(() => {
     const getUser = async () => {
@@ -49,19 +35,48 @@ function ExploreTopik() {
       res = await fgdApi.getUser(params);
       console.log(res.data);
     };
-
+   
     const getThread = async () => {
       let res = null;
-      const params = {};
-      res = await fgdApi.getThread(params);
+      const params = category.categoryYangDipilih;
+      res = await categoryApi.getThread(params);
       console.log(res.data);
       setListThread(res?.data);
     };
+    
+    
+    console.log(data);
 
     getUser();
     getThread();
     console.log(listThread);
   }, []);
+
+  
+
+  
+
+  const handleCategory = (value) => {
+    setCategory({
+      menu: [],
+      categoryYangDipilih: value,
+    });
+
+    const getThread = async () => {
+      let res = null;
+      const params = {};
+      res = await categoryApi.getThread(value);
+      console.log(res.data);
+      setListThread(res?.data);
+    };
+    getThread();
+  };
+
+  
+
+  
+
+ 
   return (
     <>
       <Navigationbar />
@@ -75,18 +90,18 @@ function ExploreTopik() {
               {data &&
                 data.map((val, index) => {
                   return (
-                    <Button
-                      title={val.category_name}
-                      className="button"
+                    <button
+                      
+                      className={val.category_name === category.categoryYangDipilih ? "button-active" :"button"}
                       onClick={() => {
                         handleCategory(val.category_name);
                       }}
-                    />
+                    >{val.category_name}</button>
                   );
                 })}
             </div>
             <div className="explore-thread">
-              {listThread.map((item, itemIdx) => (
+              {listThread && listThread.map((item, itemIdx) => (
                 <Box key={itemIdx} py="4vh">
                   <HomeCard data={item} />
                 </Box>

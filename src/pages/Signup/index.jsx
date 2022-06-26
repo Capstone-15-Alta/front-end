@@ -8,17 +8,11 @@ import Button from "../../components/Button/Button";
 
 import fgdApi from "../../api/fgdApi";
 import "./Signup.scss";
+import Swal from "sweetalert2";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState([
-    {
-      label: "Nama Lengkap",
-      type: "text",
-      placeholder: "Masukkan nama lengkap anda",
-      name: "fullname",
-      value: "",
-    },
     {
       label: "Username",
       type: "text",
@@ -68,19 +62,33 @@ const Signup = () => {
 
     const getRegister = async () => {
       let res = null;
-
       const params = {
-        email: inputs[2].value,
-        password: inputs[3].value,
+        email: inputs[1].value,
+        password: inputs[2].value,
         total_user_followers: 0,
-        username: inputs[1].value,
+        username: inputs[0].value,
       };
-      res = await fgdApi.register(params);
-      console.log(res.message);
+      try {
+        res = await fgdApi.register(params);
+        console.log(res.message);
+
+        Swal.fire({
+          title: "Success",
+          text: "Yeay akun berhasil terdaftar",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Failed",
+          text: error.response.data.data,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
+      navigate("/login");
     };
     getRegister();
-
-    // navigate("/login");
   };
 
   return (
@@ -115,9 +123,9 @@ const Signup = () => {
                             />
                           </div>
                         ))}
-                        {inputs[3].value === "" ? (
+                        {inputs[2].value === "" ? (
                           <></>
-                        ) : inputs[3].value !== inputs[4].value ? (
+                        ) : inputs[2].value !== inputs[3].value ? (
                           <>
                             <p className="text-danger mb-2">
                               **password tidak sama
@@ -138,10 +146,9 @@ const Signup = () => {
                             inputs[0].value === "" ||
                             inputs[1].value === "" ||
                             inputs[2].value === "" ||
-                            inputs[3].value === "" ||
-                            inputs[4].value === ""
+                            inputs[3].value === ""
                               ? "disabled"
-                              : inputs[3].value !== inputs[4].value
+                              : inputs[2].value !== inputs[3].value
                               ? "disabled"
                               : " "
                           }`}

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
@@ -15,18 +16,10 @@ import fgdApi from "../../api/fgdApi";
 import HeaderProfile from "../../components/HeaderProfile";
 
 import "./Profile.scss";
-// import {
-//   Box,
-//   Button,
-//   Card,
-//   CardContent,
-//   CardHeader,
-//   Grid,
-//   IconButton,
-//   Typography,
-// } from "@mui/material";
+import Cookies from "js-cookie";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const dataHomepage = [
     {
       username: "Albert Flores",
@@ -60,23 +53,29 @@ const Profile = () => {
     {
       title: "Pengikut",
       number: 5,
+      key: "followers",
     },
     {
       title: "Mengikuti",
       number: 5,
+      key: "following",
     },
     {
       title: "Post",
       number: 11,
+      key: "post",
     },
     {
       title: "Thread",
       number: 20,
+      key: "thread",
     },
   ]);
-
+  const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
-  console.log(listThread);
+
+  const userId = Cookies.get("id");
+  console.log(userId);
 
   useEffect(() => {
     const getThread = async () => {
@@ -84,11 +83,23 @@ const Profile = () => {
       const params = {};
       res = await fgdApi.getThread(params);
       //console.log(res.data);
-      setListThread(res?.data);
+      const data = res?.data;
+      setListThread(data);
+      console.log(data);
+    };
+    const getUserById = async (id) => {
+      let res = null;
+      res = await fgdApi.getUserById(id);
+
+      const data = res?.data;
+      console.log(data);
+      setUserAttribute(data);
+      // return res.data;
+      // console.log(userAttribute);
     };
 
+    getUserById(userId);
     getThread();
-    console.log(listThread);
   }, []);
 
   return (
@@ -102,77 +113,126 @@ const Profile = () => {
             </div>
             <div className="content-section col-9 container-fluid">
               <div className="col-12">
-                <HeaderProfile />
-                <div className="data-number row justify-content-center mb-5">
-                  {profileData.map((data, dataIdx) => (
+                <HeaderProfile data={userAttribute} />
+                <div className=" tab-section row  mb-5">
+                  <Tabs
+                    defaultActiveKey="post"
+                    id="uncontrolled-tab-example"
+                    className="mb-3 data-number justify-content-center"
+                  >
+                    <Tab
+                      eventKey={profileData[0].key}
+                      title={
+                        <>
+                          {" "}
+                          <p>{profileData[0].title}</p>
+                          <p>{userAttribute.total_user_followers}</p>
+                        </>
+                      }
+                    >
+                      <div className="tab-item-wrapper ">
+                        {" "}
+                        <div className="card-threads text-center">
+                          BELOM ADA DATA
+                        </div>
+                      </div>
+                    </Tab>
+                    <Tab
+                      eventKey={profileData[1].key}
+                      title={
+                        <>
+                          {" "}
+                          <p>{profileData[1].title}</p>
+                          <p>{profileData[1].number}</p>
+                        </>
+                      }
+                    >
+                      <div className="tab-item-wrapper">
+                        {" "}
+                        <div className="card-threads text-center">
+                          BELOM ADA DATA
+                        </div>
+                      </div>
+                    </Tab>
+                    <Tab
+                      eventKey={profileData[2].key}
+                      title={
+                        <>
+                          {" "}
+                          <p>{profileData[2].title}</p>
+                          <p>{profileData[2].number}</p>
+                        </>
+                      }
+                    >
+                      <div className="tab-item-wrapper">
+                        {" "}
+                        <div className="card-threads">
+                          <CardPost
+                            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                            name="Gde Agung Mandala"
+                            dateTime="31-05-2022 19:56"
+                            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                          />
+                          <CardPost
+                            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                            name="Gde Agung Mandala"
+                            dateTime="31-05-2022 19:56"
+                            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                          />
+                          <CardPost
+                            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                            name="Gde Agung Mandala"
+                            dateTime="31-05-2022 19:56"
+                            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                          />
+                        </div>
+                      </div>
+                    </Tab>
+                    <Tab
+                      eventKey={profileData[3].key}
+                      title={
+                        <>
+                          {" "}
+                          <p>{profileData[3].title}</p>
+                          <p>{userAttribute.threads?.length}</p>
+                        </>
+                      }
+                    >
+                      <div className="tab-item-wrapper">
+                        {" "}
+                        <div className="card-threads">
+                          {listThread?.map((item, itemIdx) => (
+                            <HomeCard key={itemIdx} data={item} />
+                          ))}
+                        </div>
+                      </div>
+                    </Tab>
+                  </Tabs>
+                  {/* {profileData.map((data, dataIdx) => (
                     <div className="col-md-1 text-center " key={dataIdx}>
                       <p>{data.title}</p>
                       <p>{data.number}</p>
                     </div>
-                  ))}
+                  ))} */}
                 </div>
-                <section className="tab-section">
-                  <div className="col-12">
-                    <Tabs
-                      defaultActiveKey="post"
-                      id="uncontrolled-tab-example"
-                      className="mb-3 tes"
-                    >
-                      <Tab eventKey="post" title="Post" className="ini-tes">
-                        <div className="tab-item-wrapper">
-                          <div className="card-threads">
-                            <CardPost
-                              title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                              name="Gde Agung Mandala"
-                              dateTime="31-05-2022 19:56"
-                              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                            />
-                            <CardPost
-                              title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                              name="Gde Agung Mandala"
-                              dateTime="31-05-2022 19:56"
-                              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                            />
-                            <CardPost
-                              title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                              name="Gde Agung Mandala"
-                              dateTime="31-05-2022 19:56"
-                              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                            />
-                          </div>
-                        </div>
-                      </Tab>
-                      <Tab eventKey="thread" title="Thread">
-                        <div className="tab-item-wrapper">
-                          {" "}
-                          <div className="card-threads">
-                            {listThread.map((item, itemIdx) => (
-                              <HomeCard key={itemIdx} data={item} />
-                            ))}
-                          </div>
-                        </div>
-                      </Tab>
-                    </Tabs>
-                  </div>
-                </section>
               </div>
             </div>
           </div>
