@@ -16,14 +16,14 @@ import { NavDropdown } from "react-bootstrap";
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
-  // useEffect(() => {
-  //   const token = Cookies.get("token");
-  //   if (token) {
-  //     setIsLogin(!isLogin);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      setIsLogin(!isLogin);
+    }
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">
@@ -51,13 +51,15 @@ const Navbar = () => {
                   <Searchbar />
                 </li>
                 <li className="nav-item">
-                  <Button
-                    title="Buat Thread"
-                    background="white"
-                    type="button"
-                    className="btn-create-new-thread"
-                    iconKiri="iconCreate"
-                  />
+                  <Link to="/buat-thread">
+                    <Button
+                      title="Buat Thread"
+                      background="white"
+                      type="button"
+                      className="btn-create-new-thread"
+                      iconKiri="iconCreate"
+                    />
+                  </Link>
                 </li>
               </ul>
 
