@@ -19,8 +19,12 @@ const fgdApi = {
   },
   getThread: (params) => {
     const url = "thread/";
-    console.log(params)
+    console.log(params);
     return axiosClient.get(url + `pages?size=5&page=${params.curentPage}`);
+  },
+  getThreadByUserId: (id, params) => {
+    const url = `thread/user/${id}`;
+    return axiosClient.get(url, params);
   },
   getCategory: (params) => {
     const url = "category/";
@@ -28,7 +32,11 @@ const fgdApi = {
   },
   postThread: (params, token) => {
     const url = "thread";
-    return axiosClient.post(url, params, token);
+    return axiosClient.post(url, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   },
 };
 

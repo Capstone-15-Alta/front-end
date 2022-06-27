@@ -4,7 +4,7 @@ import "./Users.scss";
 
 import IconProfile from "../IconProfile";
 
-const Users = () => {
+const Users = ({ data }) => {
   return (
     <>
       <div className="col-1 user-pict">
@@ -12,7 +12,7 @@ const Users = () => {
       </div>
       <div className="col-4 user-name-and-email">
         <h5 className="user-name">
-          Muhammad Yogi
+          {data.username}
           <span className="user-verified-icon">
             <img
               src="/assets/icon/check.png"
@@ -21,7 +21,7 @@ const Users = () => {
             />
           </span>
         </h5>
-        <p className="user-email">Muhamadyogi413@gmail.com</p>
+        <p className="user-email">{data.email}</p>
       </div>
     </>
   );

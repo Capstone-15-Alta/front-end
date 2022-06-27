@@ -16,13 +16,17 @@ import axios from "axios";
 import fgdApi from "../../api/fgdApi";
 import IconProfile from "../IconProfile";
 import { Box } from "@mui/material";
+import moment from "moment";
+import "moment/locale/id";
 
 const FormPostingThread = () => {
   const [threadCategory, setThreadCategory] = useState([]);
   // const { token } = useSelector((state) => state.login);
-
   // console.log(token);
   const token = Cookies.get("token");
+  const dataUser = JSON.parse(Cookies.get("data"));
+
+  const time = moment().format("LLLL");
 
   useEffect(() => {
     const getCategory = async () => {
@@ -31,9 +35,8 @@ const FormPostingThread = () => {
       res = await fgdApi.getCategory(params);
       setThreadCategory(res.data);
     };
-
     console.log(token);
-
+    console.log(dataUser);
     getCategory();
   }, []);
 
@@ -107,6 +110,7 @@ const FormPostingThread = () => {
     const formData = new FormData();
 
     formData.append("json", JSON.stringify(inputs));
+<<<<<<< HEAD
     formData.append("file", files[0]);
 
     const res = await axios.post("http://34.87.190.0/api/v1/thread", formData, {
@@ -114,8 +118,18 @@ const FormPostingThread = () => {
         Authorization: `Bearer ${token}`,
       },
     });
+=======
+    formData.append("file", fileName);
+
+    const addThread = async () => {
+      let res = null;
+      res = await fgdApi.postThread(formData, token);
+      console.log(res);
+    };
+
+>>>>>>> 8a1e8ccccbfc2747f93bb8c3d8943a7ab1c4e37e
     console.log(inputs);
-    console.log(res);
+    addThread();
   };
 
   const handleReset = (e) => {
@@ -130,10 +144,10 @@ const FormPostingThread = () => {
     >
       <div className="user-profile-section">
         <div className="row user-form-post-thread">
-          <Users />
+          <Users data={dataUser} />
 
           <div className="col-2 time-post">
-            <p className="time-to-post">Hari ini 20:00</p>
+            <p className="time-to-post">Hari ini, {time}</p>
           </div>
           <div className="col-3 options-thread-categories">
             <select
