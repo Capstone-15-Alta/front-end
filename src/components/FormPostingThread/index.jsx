@@ -21,8 +21,7 @@ import "moment/locale/id";
 
 const FormPostingThread = () => {
   const [threadCategory, setThreadCategory] = useState([]);
-  // const { token } = useSelector((state) => state.login);
-  // console.log(token);
+
   const token = Cookies.get("token");
   const dataUser = JSON.parse(Cookies.get("data"));
 
@@ -110,15 +109,6 @@ const FormPostingThread = () => {
     const formData = new FormData();
 
     formData.append("json", JSON.stringify(inputs));
-<<<<<<< HEAD
-    formData.append("file", files[0]);
-
-    const res = await axios.post("http://34.87.190.0/api/v1/thread", formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-=======
     formData.append("file", fileName);
 
     const addThread = async () => {
@@ -127,7 +117,6 @@ const FormPostingThread = () => {
       console.log(res);
     };
 
->>>>>>> 8a1e8ccccbfc2747f93bb8c3d8943a7ab1c4e37e
     console.log(inputs);
     addThread();
   };
@@ -152,6 +141,7 @@ const FormPostingThread = () => {
           <div className="col-3 options-thread-categories">
             <select
               name="category_id"
+              required
               className="form-select shadow-none select-option-category"
               aria-label="Default select kategori thread"
               defaultValue=""
@@ -173,6 +163,7 @@ const FormPostingThread = () => {
         <input
           type="text"
           className="form-control shadow-none thread-title"
+          required
           name="title"
           placeholder="Isi Judul Thread Disini"
           value={inputs.title}
@@ -180,6 +171,7 @@ const FormPostingThread = () => {
         />
         <textarea
           className="form-control shadow-none thread-desc"
+          required
           name="description"
           rows="7"
           placeholder="Apa Yang Ingin Anda Diskusikan ?"
@@ -187,18 +179,6 @@ const FormPostingThread = () => {
           onChange={(e) => handleInput(e.target.value, e.target.name)}
         />
       </div>
-
-      {/* <div className="row mb-3">
-        <div className="col-sm-10">
-          <input
-            className="form-control"
-            id="gambar-wisata"
-            required
-            type="file"
-            onChange={(e) => setFileName(e.target.files[0])}
-          />
-        </div>
-      </div> */}
 
       <section className="container container-dropzone">
         <div {...getRootProps({ className: "dropzone" })}>
