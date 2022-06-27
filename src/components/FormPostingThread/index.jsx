@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import "./FormPostingThread.scss";
 
+import { useDropzone } from "react-dropzone";
+
 import { useSelector } from "react-redux";
 
 import Cookies from "js-cookie";
@@ -55,25 +57,63 @@ const FormPostingThread = () => {
     console.log(newInputs);
   };
 
+  const [files, setFiles] = useState([]);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+  });
+
+  const thumbs = files.map((file) => (
+    <div className="thumb" key={file.name}>
+      <div className="thumbInner">
+        <img
+          src={file.preview}
+          className="imgs"
+          // Revoke data uri after image is loaded
+          onLoad={() => {
+            URL.revokeObjectURL(file.preview);
+          }}
+          alt="drop-down-img"
+        />
+      </div>
+    </div>
+  ));
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    console.log(files);
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
+  useEffect(() => {
+    console.log("ini file name", fileName);
+    console.log("ini files", files[0]);
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    // formData.set("json", JSON.stringify(inputs));
-    // formData.set("file", ...); // BUAT FILE
 
     formData.append("json", JSON.stringify(inputs));
-    formData.append("file", fileName);
+    formData.append("file", files[0]);
 
-    const res = await axios.post(
-      "http://34.87.175.218/api/v1/thread",
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axios.post("http://34.87.190.0/api/v1/thread", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(inputs);
     console.log(res);
   };
@@ -134,7 +174,7 @@ const FormPostingThread = () => {
         />
       </div>
 
-      <div className="row mb-3">
+      {/* <div className="row mb-3">
         <div className="col-sm-10">
           <input
             className="form-control"
@@ -144,19 +184,17 @@ const FormPostingThread = () => {
             onChange={(e) => setFileName(e.target.files[0])}
           />
         </div>
-      </div>
+      </div> */}
 
-      <div className="row mb-3">
-        <div className="col-sm-10">
-          <img
-            src={fileName}
-            height="300px"
-            width="100%"
-            alt="...."
-            style={{ borderRadius: "15px" }}
-          />
+      <section className="container container-dropzone">
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} />
+          <p className="place-image text-center py-5">
+            Drag 'n' drop some files here, or click to select files
+          </p>
         </div>
-      </div>
+        <aside className="thumbsContainer">{thumbs}</aside>
+      </section>
 
       <Button title="Kembali" type="reset" className="btn-form-kembali" />
       <Button title="Posting" type="submit" className="btn-form-posting" />

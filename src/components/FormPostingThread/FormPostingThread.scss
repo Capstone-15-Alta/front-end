@@ -50,6 +50,50 @@
       border: 1px solid #26b893;
       border-radius: 0px;
       border-top: 0px;
+      border-bottom: 0px;
+    }
+  }
+
+  .container-dropzone {
+    border: 1px solid #26b893;
+    border-radius: 0px;
+    border-top: 0px;
+
+    .place-image {
+      border: 3px dashed rgb(110, 109, 109);
+      border-radius: 10px;
+      background-color: rgb(230, 230, 230);
+    }
+
+    .thumbsContainer {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: 5px;
+      margin-bottom: 10px;
+
+      .thumb {
+        display: inline-flex;
+        border-radius: 2;
+        border: 1px solid #eaeaea;
+        margin: 0 auto;
+        width: 200px;
+        height: 200px;
+        padding: 4px;
+        box-sizing: border-box;
+
+        .thumbInner {
+          display: flex;
+          min-width: 0;
+          overflow: hidden;
+
+          .imgs {
+            display: block;
+            width: auto;
+            height: 100%;
+          }
+        }
+      }
     }
   }
 }
