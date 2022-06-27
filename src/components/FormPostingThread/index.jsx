@@ -65,17 +65,23 @@ const FormPostingThread = () => {
     formData.append("json", JSON.stringify(inputs));
     formData.append("file", fileName);
 
-    const res = await axios.post(
-      "http://34.87.175.218/api/v1/thread",
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const addThread = async () => {
+      let res = null;
+      res = await fgdApi.postThread(formData, token);
+      console.log(res);
+    };
+
+    // const res = await axios.post(
+    //   "http://34.87.175.218/api/v1/thread",
+    //   formData,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // );
     console.log(inputs);
-    console.log(res);
+    addThread();
   };
 
   const handleReset = (e) => {

@@ -3,9 +3,12 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Button from "react-bootstrap/Button";
+import Button from "@mui/material/Button";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreHoriztIcon from "@mui/icons-material/MoreHoriz";
 import Stack from "@mui/material/Stack";
 import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
@@ -16,8 +19,25 @@ import Comment from "./Comment";
 import TextField from "@mui/material/TextField";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
+import Cookies from "js-cookie";
+import { useLocation } from "react-router-dom";
+
 export default function HomeCard({ data }) {
+  const location = useLocation();
+  const path = location.pathname;
+  const userId = Cookies.get("id");
   const [openComment, setOpenComment] = useState(false);
+  console.log(userId, data.user?.id);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const ITEM_HEIGHT = 48;
 
   const dataComment = [
     {
@@ -78,14 +98,55 @@ export default function HomeCard({ data }) {
                 <Typography variant="caption">{data.created_at}</Typography>
               </Grid>
               <Grid item>
-                <Button
-                  style={{
-                    backgroundColor: "#26B893",
-                    padding: "0.2vw 2vw 0.2vw 2vw",
-                  }}
-                >
-                  + Ikuti
-                </Button>
+                {path === "/profile" ? (
+                  <div className="three-dots-menu">
+                    <IconButton
+                      aria-label="more"
+                      id="long-button"
+                      aria-controls={open ? "long-menu" : undefined}
+                      aria-expanded={open ? "true" : undefined}
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                    >
+                      <MoreHoriztIcon
+                        fontSize="large"
+                        style={{ color: "#26B893" }}
+                      />
+                    </IconButton>
+                    <Menu
+                      id="long-menu"
+                      MenuListProps={{
+                        "aria-labelledby": "long-button",
+                      }}
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleClose}
+                      PaperProps={{
+                        style: {
+                          // maxHeight: ITEM_HEIGHT * 4.5,
+                          minWidth: "10ch",
+                        },
+                      }}
+                    >
+                      {" "}
+                      <MenuItem onClick={handleClose}>Edit</MenuItem>
+                      <MenuItem onClick={handleClose}>Delete</MenuItem>
+                    </Menu>
+                  </div>
+                ) : userId == data.user?.id ? (
+                  ""
+                ) : (
+                  <Button
+                    style={{
+                      backgroundColor: "#26B893",
+                      color: "white",
+                      padding: "9px 26px",
+                    }}
+                    size="small"
+                  >
+                    + Ikuti
+                  </Button>
+                )}
               </Grid>
             </Grid>
             <Grid container>

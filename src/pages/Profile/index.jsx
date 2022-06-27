@@ -74,32 +74,36 @@ const Profile = () => {
   const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
 
+  const aaa = listThread.reverse();
+  console.log(aaa);
+
   const userId = Cookies.get("id");
   console.log(userId);
 
   useEffect(() => {
-    const getThread = async () => {
+    const getThreadByUserId = async (id) => {
       let res = null;
-      const params = {};
-      res = await fgdApi.getThread(params);
+
+      res = await fgdApi.getThreadByUserId(id);
       //console.log(res.data);
       const data = res?.data;
       setListThread(data);
       console.log(data);
+      // console.log(listThread);
     };
     const getUserById = async (id) => {
       let res = null;
       res = await fgdApi.getUserById(id);
 
-      const data = res?.data;
+      const data = res.data;
       console.log(data);
       setUserAttribute(data);
       // return res.data;
-      // console.log(userAttribute);
+      console.log(userAttribute);
     };
 
     getUserById(userId);
-    getThread();
+    getThreadByUserId(userId);
   }, []);
 
   return (
@@ -143,7 +147,7 @@ const Profile = () => {
                         <>
                           {" "}
                           <p>{profileData[1].title}</p>
-                          <p>{profileData[1].number}</p>
+                          <p>{userAttribute.total_user_following}</p>
                         </>
                       }
                     >
@@ -212,14 +216,14 @@ const Profile = () => {
                         <>
                           {" "}
                           <p>{profileData[3].title}</p>
-                          <p>{userAttribute.threads?.length}</p>
+                          <p>{listThread.length}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
                         {" "}
                         <div className="card-threads">
-                          {listThread?.map((item, itemIdx) => (
+                          {listThread.reverse().map((item, itemIdx) => (
                             <HomeCard key={itemIdx} data={item} />
                           ))}
                         </div>
