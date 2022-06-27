@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 
 import "./FormPostingThread.scss";
 
-import { useDropzone } from "react-dropzone";
+import { useNavigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
+
+import { useDropzone } from "react-dropzone";
 
 import Cookies from "js-cookie";
 
@@ -12,20 +14,24 @@ import Users from "../Users";
 
 import Button from "../Button/Button";
 
-import axios from "axios";
+import Swal from "sweetalert2";
+
 import fgdApi from "../../api/fgdApi";
-import IconProfile from "../IconProfile";
-import { Box } from "@mui/material";
+
 import moment from "moment";
+
 import "moment/locale/id";
 
 const FormPostingThread = () => {
   const [threadCategory, setThreadCategory] = useState([]);
 
+  const navigate = useNavigate();
+
   const token = Cookies.get("token");
+
   const dataUser = JSON.parse(Cookies.get("data"));
 
-  const time = moment().format("LLLL");
+  const time = moment().format("LT");
 
   useEffect(() => {
     const getCategory = async () => {
@@ -119,6 +125,17 @@ const FormPostingThread = () => {
 
     console.log(inputs);
     addThread();
+
+    Swal.fire({
+      title: "Success",
+      text: "Thread Berhasil Di Posting",
+      icon: "success",
+      confirmButtonText: "OK",
+    });
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
   };
 
   const handleReset = (e) => {
@@ -138,7 +155,7 @@ const FormPostingThread = () => {
           <div className="col-2 time-post">
             <p className="time-to-post">Hari ini, {time}</p>
           </div>
-          <div className="col-3 options-thread-categories">
+          <div className="col-3 options-thread-categories ms-auto">
             <select
               name="category_id"
               required
@@ -190,8 +207,10 @@ const FormPostingThread = () => {
         <aside className="thumbsContainer">{thumbs}</aside>
       </section>
 
-      <Button title="Kembali" type="reset" className="btn-form-kembali" />
-      <Button title="Posting" type="submit" className="btn-form-posting" />
+      <div className="button-area">
+        <Button title="Posting" type="submit" className="btn-form-posting" />
+        <Button title="Kembali" type="reset" className="btn-form-kembali" />
+      </div>
     </form>
   );
 };
