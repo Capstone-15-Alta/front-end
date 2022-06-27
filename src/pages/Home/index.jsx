@@ -97,7 +97,6 @@ const Home = () => {
 
     getUser();
     getThread();
-    // console.log(listThread);
   }, []);
 
   const handlePageClick = (data) => {

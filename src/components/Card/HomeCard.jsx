@@ -98,7 +98,7 @@ export default function HomeCard({ data }) {
                 <Typography variant="caption">{data.created_at}</Typography>
               </Grid>
               <Grid item>
-                {path === "/profile" ? (
+                {userId == data.user?.id ? (
                   <div className="three-dots-menu">
                     <IconButton
                       aria-label="more"
@@ -133,8 +133,6 @@ export default function HomeCard({ data }) {
                       <MenuItem onClick={handleClose}>Delete</MenuItem>
                     </Menu>
                   </div>
-                ) : userId == data.user?.id ? (
-                  ""
                 ) : (
                   <Button
                     style={{

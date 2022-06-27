@@ -14,13 +14,17 @@ import axios from "axios";
 import fgdApi from "../../api/fgdApi";
 import IconProfile from "../IconProfile";
 import { Box } from "@mui/material";
+import moment from "moment";
+import "moment/locale/id";
 
 const FormPostingThread = () => {
   const [threadCategory, setThreadCategory] = useState([]);
   // const { token } = useSelector((state) => state.login);
-
   // console.log(token);
   const token = Cookies.get("token");
+  const dataUser = JSON.parse(Cookies.get("data"));
+
+  const time = moment().format("LLLL");
 
   useEffect(() => {
     const getCategory = async () => {
@@ -29,9 +33,8 @@ const FormPostingThread = () => {
       res = await fgdApi.getCategory(params);
       setThreadCategory(res.data);
     };
-
     console.log(token);
-
+    console.log(dataUser);
     getCategory();
   }, []);
 
@@ -71,15 +74,6 @@ const FormPostingThread = () => {
       console.log(res);
     };
 
-    // const res = await axios.post(
-    //   "http://34.87.175.218/api/v1/thread",
-    //   formData,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }
-    // );
     console.log(inputs);
     addThread();
   };
@@ -96,10 +90,10 @@ const FormPostingThread = () => {
     >
       <div className="user-profile-section">
         <div className="row user-form-post-thread">
-          <Users />
+          <Users data={dataUser} />
 
           <div className="col-2 time-post">
-            <p className="time-to-post">Hari ini 20:00</p>
+            <p className="time-to-post">Hari ini, {time}</p>
           </div>
           <div className="col-3 options-thread-categories">
             <select
