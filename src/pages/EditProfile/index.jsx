@@ -1,7 +1,7 @@
 import React from "react";
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
-import Footer from "../../components/Footer";
+import Footer from "../../components/footer";
 import HeaderEditProfile from "../../components/HeaderEditProfile";
 import "./EditProfile.scss";
 const EditProfile = () => {
@@ -80,7 +80,7 @@ const EditProfile = () => {
                   Tingkat Pendidikan
                 </label>
                 <select class="form-select" aria-label="Default select example">
-                  <option selected>Masukan  Tingkat Pendidikan</option>
+                  <option selected>Masukan Tingkat Pendidikan</option>
                   <option value="1">SMP</option>
                   <option value="2">SMA/SMK</option>
                   <option value="3">S1/D3</option>

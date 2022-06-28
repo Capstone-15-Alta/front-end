@@ -5,7 +5,7 @@ import "./Notifikasi.scss";
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
 import Notification from "../../components/Notification";
-import Footer from "../../components/Footer";
+import Footer from "../../components/footer";
 import Button from "../../components/Button/Button";
 
 const Notifikasi = () => {

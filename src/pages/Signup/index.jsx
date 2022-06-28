@@ -3,7 +3,7 @@ import imgbanner from "../../assets/icon/Login.png";
 import { Link, useNavigate } from "react-router-dom";
 import Form from "../../components/Form";
 import Navigationbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Footer from "../../components/footer";
 import Button from "../../components/Button/Button";
 
 import fgdApi from "../../api/fgdApi";

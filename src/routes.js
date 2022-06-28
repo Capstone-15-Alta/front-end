@@ -1,4 +1,5 @@
 import Home from "./pages/Home";
+import HomeTrending from "./pages/HomeTrending";
 import Login from "./pages/Signin";
 import LupaPassword from "./pages/ForgotPassword";
 import BuatThread from "./pages/BuatThread";
@@ -12,6 +13,10 @@ const routes = [
   {
     path: "/",
     component: Home,
+  },
+  {
+    path: "/hometrending",
+    component: HomeTrending,
   },
   {
     path: "/login",
