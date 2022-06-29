@@ -109,7 +109,7 @@ export default function HomeCard({ data, likeData, handleLike }) {
                     </Box>
                   </Link>
                 </Box>
-                <h4 style={{ marginTop: "3vh" }}>{data.title}</h4>
+                <h4 style={{ marginTop: "1rem" }}>{data.title}</h4>
                 <Typography variant="caption">{data.created_at}</Typography>
               </Grid>
               <Grid item>
@@ -150,21 +150,10 @@ export default function HomeCard({ data, likeData, handleLike }) {
                   </div>
                 ) : (
                   ""
-                  /* <Button
-                    style={{
-                      backgroundColor: "#26B893",
-                      color: "white",
-                      padding: "9px 26px",
-                    }}
-                    onClick={onClick}
-                    size="small"
-                  >
-                    + Ikuti
-                  </Button> */
                 )}
               </Grid>
             </Grid>
-            <Grid container>
+            <Grid style={{ marginTop: "0.5rem" }} container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
                   {likeData.length !== 0 ? (

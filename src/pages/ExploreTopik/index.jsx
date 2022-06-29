@@ -8,6 +8,7 @@ import Button from "../../components/Button/Button";
 import Box from "@mui/material/Box";
 import fgdApi from "../../api/fgdApi";
 import categoryApi from "../../api/categoryApi";
+import Cookies from "js-cookie";
 
 function ExploreTopik() {
   const [data, setData] = useState([]);
@@ -16,6 +17,8 @@ function ExploreTopik() {
     menu: [],
     categoryYangDipilih: "",
   });
+
+  const tokenCookies = Cookies.get("token");
 
   useEffect(() => {
     const getCategory = async () => {
@@ -66,6 +69,12 @@ function ExploreTopik() {
     getThread();
   };
 
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
+
   return (
     <>
       <Navigationbar />
@@ -98,7 +107,12 @@ function ExploreTopik() {
               {listThread &&
                 listThread.map((item, itemIdx) => (
                   <Box key={itemIdx} py="4vh">
-                    <HomeCard data={item} />
+                    <HomeCard
+                      key={itemIdx}
+                      data={item}
+                      likeData={item.likes?.map((like, likeIdx) => like)}
+                      handleLike={handleLike}
+                    />
                   </Box>
                 ))}
             </div>

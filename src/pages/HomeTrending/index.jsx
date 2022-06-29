@@ -91,6 +91,12 @@ const Home = () => {
 
   const [listThread, setListThread] = useState([]);
 
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
+
   useEffect(() => {
     const getUser = async () => {
       let res = null;
@@ -154,7 +160,12 @@ const Home = () => {
           <Box pt="3vh">
             {listThread.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
-                <HomeCard data={item} />
+                <HomeCard
+                  key={itemIdx}
+                  data={item}
+                  likeData={item.likes?.map((like, likeIdx) => like)}
+                  handleLike={handleLike}
+                />
               </Box>
             ))}
             <div>
