@@ -46,6 +46,14 @@ const fgdApi = {
       },
     });
   },
+  uploadPhoto: (token, params) => {
+    const url = `user/photo`;
+    return axiosClient.put(url, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default fgdApi;

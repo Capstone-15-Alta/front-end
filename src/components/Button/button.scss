@@ -125,6 +125,26 @@
   }
 }
 
+.btnChangeImage {
+  position: absolute;
+  margin-top: 0 !important;
+  top: 75%;
+  right: 5%;
+  z-index: 999;
+
+  font-size: 18px !important;
+  border-radius: 60px !important;
+  padding: 12px 12px !important;
+
+  .iconKamera {
+    background: url("../../assets/images/cameraIcon.svg") no-repeat center !important;
+    background-size: 30px !important;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+  }
+}
+
 .btnEditProfile {
   padding: 12px 20px !important;
   border: 1px solid #26b893 !important;

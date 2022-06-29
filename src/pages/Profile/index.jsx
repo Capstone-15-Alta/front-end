@@ -80,6 +80,17 @@ const Profile = () => {
   const userId = Cookies.get("id");
   console.log(userId);
 
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+
+    const data = res.data;
+    console.log(data);
+    setUserAttribute(data);
+    // return res.data;
+    console.log(userAttribute);
+  };
+
   useEffect(() => {
     const getThreadByUserId = async (id) => {
       let res = null;
@@ -90,16 +101,6 @@ const Profile = () => {
       setListThread(data);
       console.log(data);
       // console.log(listThread);
-    };
-    const getUserById = async (id) => {
-      let res = null;
-      res = await fgdApi.getUserById(id);
-
-      const data = res.data;
-      console.log(data);
-      setUserAttribute(data);
-      // return res.data;
-      console.log(userAttribute);
     };
 
     getUserById(userId);
@@ -117,7 +118,7 @@ const Profile = () => {
             </div>
             <div className="content-section col-9 container-fluid">
               <div className="col-12">
-                <HeaderProfile data={userAttribute} />
+                <HeaderProfile data={userAttribute} getUserById={getUserById} />
                 <div className=" tab-section row  mb-5">
                   <Tabs
                     defaultActiveKey="post"
