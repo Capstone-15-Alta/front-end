@@ -38,6 +38,14 @@ const fgdApi = {
       },
     });
   },
+  likeThread: (id, token) => {
+    const url = `like/thread/${id}`;
+    return axiosClient.put(url, id, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default fgdApi;

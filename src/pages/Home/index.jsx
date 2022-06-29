@@ -112,6 +112,24 @@ const Home = () => {
     getThread();
   };
 
+  const [changeColor, setChangeColor] = useState(false);
+
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
+
+  const handleDislike = (id) => {
+    const actionLikeThread = async (id) => {
+      let res = null;
+      res = await fgdApi.likeThread(id, token);
+      console.log(res);
+    };
+
+    actionLikeThread();
+  };
+
   return (
     <>
       <Navigationbar />
@@ -153,7 +171,12 @@ const Home = () => {
           <Box pt="3vh">
             {listThread.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
-                <HomeCard data={item} />
+                <HomeCard
+                  data={item}
+                  likeData={item.likes.map((like, likeIdx) => like)}
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                />
               </Box>
             ))}
             <div>
