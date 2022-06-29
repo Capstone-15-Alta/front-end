@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
@@ -19,15 +19,24 @@ import Comment from "./Comment";
 import TextField from "@mui/material/TextField";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
+import Checkbox from "@mui/material/Checkbox";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
+
 import Cookies from "js-cookie";
 import { useLocation, Link } from "react-router-dom";
 
-export default function HomeCard({ data, onClick }) {
+export default function HomeCard({
+  data,
+  likeData,
+  handleLike,
+}) {
   const location = useLocation();
   const path = location.pathname;
   const userId = Cookies.get("id");
   const [openComment, setOpenComment] = useState(false);
-  console.log(userId, data.user?.id);
+  // console.log(userId, data.user?.id);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -64,6 +73,9 @@ export default function HomeCard({ data, onClick }) {
       ],
     },
   ];
+
+  console.log(likeData);
+
   return (
     <>
       <Box
@@ -98,9 +110,7 @@ export default function HomeCard({ data, onClick }) {
                         </Typography>
                       </Box>
                     </Box>
-                    {data.isVerified && (
-                      <img src="assets/icon/verified.png" height="20vh" />
-                    )}
+                  </Box>                 
                   </Link>
                 </Box>
                 <h4 style={{ marginTop: "3vh" }}>{data.title}</h4>
@@ -161,12 +171,52 @@ export default function HomeCard({ data, onClick }) {
             <Grid container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
-                  <IconButton aria-label="like">
-                    <ThumbUpOutlinedIcon />
-                  </IconButton>
-                  <IconButton aria-label="dislike">
-                    <ThumbDownAltOutlinedIcon />
-                  </IconButton>
+                  {likeData.length !== 0 ? (
+                    <>
+                      {likeData.filter((like) => like.user_id == userId)
+                        .length > 0 ? (
+                        <Checkbox
+                          onClick={() => handleLike(data.id)}
+                          icon={<ThumbUpOutlinedIcon />}
+                          checkedIcon={
+                            <ThumbUpIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
+                          defaultChecked={true}
+                        />
+                      ) : (
+                        <Checkbox
+                          onClick={() => handleLike(data.id)}
+                          icon={<ThumbUpOutlinedIcon />}
+                          checkedIcon={
+                            <ThumbUpIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
+                          defaultChecked={false}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <Checkbox
+                      onClick={() => handleLike(data.id)}
+                      icon={<ThumbUpOutlinedIcon />}
+                      checkedIcon={
+                        <ThumbUpIcon
+                          style={{
+                            color: "#26B893",
+                          }}
+                        />
+                      }
+                      defaultChecked={false}
+                    />
+                  )}
+
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}
