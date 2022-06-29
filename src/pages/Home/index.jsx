@@ -171,17 +171,7 @@ const Home = () => {
           <Box pt="3vh">
             {listThread.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
-                <Link
-                  to={`/user/${item.user?.id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <HomeCard
-                    data={item}
-                    onClick={(e) => {
-                      followHandleClick(e, item.user?.id);
-                    }}
-                  />
-                </Link>
+                <HomeCard data={item} />
               </Box>
             ))}
             <div>

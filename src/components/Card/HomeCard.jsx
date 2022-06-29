@@ -20,7 +20,7 @@ import TextField from "@mui/material/TextField";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 export default function HomeCard({ data, onClick }) {
   const location = useLocation();
@@ -82,17 +82,26 @@ export default function HomeCard({ data, onClick }) {
             <Grid container>
               <Grid item xs>
                 <Box display="flex">
-                  <Box>
-                    <h5>{data.user?.username}</h5>
-                    <Box mt="-10px">
-                      <Typography variant="caption">
-                        {data.user?.email}
-                      </Typography>
+                  <Link
+                    to={
+                      userId == data.user?.id
+                        ? "/profile"
+                        : `/user/${data.user?.id}`
+                    }
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Box>
+                      <h5>{data.user?.username}</h5>
+                      <Box mt="-10px">
+                        <Typography variant="caption">
+                          {data.user?.email}
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                  {data.isVerified && (
-                    <img src="assets/icon/verified.png" height="20vh" />
-                  )}
+                    {data.isVerified && (
+                      <img src="assets/icon/verified.png" height="20vh" />
+                    )}
+                  </Link>
                 </Box>
                 <h4 style={{ marginTop: "3vh" }}>{data.title}</h4>
                 <Typography variant="caption">{data.created_at}</Typography>
