@@ -15,7 +15,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/hometrending",
+    path: "/trending",
     component: HomeTrending,
   },
   {

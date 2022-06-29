@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import Container from "react-bootstrap/Container";
 import Footer from "../../components/Footer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -8,13 +7,14 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import HomeCard from "../../components/Card/HomeCard";
 import Saran from "../../components/Card/Saran";
-import { Avatar } from "@mui/material";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+
 import axios from "axios";
 import { useSelector } from "react-redux";
-
+import { useNavigate, Link } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 
@@ -23,15 +23,26 @@ const Home = () => {
   const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
   // console.log(token);
+  const navigate = useNavigate();
   const fillter = [
-    { name: "Terbaru", icon: AccessTimeIcon, link: "/", isActive: true },
+    {
+      name: "Terbaru",
+      icon: AccessTimeIcon,
+      link: "/",
+      isActive: true,
+    },
     {
       name: "Trending",
       icon: CallMadeIcon,
-      link: "/hometrending",
+      link: "/trending",
       isActive: false,
     },
-    // {name: "Kategori", icon: AccessTimeIcon, isActive: false},
+    {
+      name: "Kategori",
+      icon: FormatListBulletedIcon,
+      link: "/explore-topik",
+      isActive: false,
+    },
   ];
 
   const dataHomepage = [
@@ -140,34 +151,22 @@ const Home = () => {
         <Grid item md={6} mt="9rem">
           <Box display="flex">
             {fillter.map((item, itemIdx) => (
-              <Button
-                key={itemIdx}
-                href={item.link}
-                variant={item.isActive === true ? "contained" : "outlined"}
-                sx={{
-                  textTransform: "none",
-                  borderRadius: "15px",
-                  marginRight: "3vw",
-                  color: item.isActive ? "white" : "#26B893",
-                  bgcolor: item.isActive ? "#26B893" : "white",
-                }}
-              >
-                <item.icon />
-                <span style={{ marginLeft: "1vw" }}>{item.name}</span>
-              </Button>
+              <Link key={itemIdx} to={item.link}>
+                <Button
+                  variant={item.isActive === true ? "contained" : "outlined"}
+                  sx={{
+                    textTransform: "none",
+                    borderRadius: "15px",
+                    marginRight: "3vw",
+                    color: item.isActive ? "white" : "#26B893",
+                    bgcolor: item.isActive ? "#26B893" : "white",
+                  }}
+                >
+                  <item.icon />
+                  <span style={{ marginLeft: "1vw" }}>{item.name}</span>
+                </Button>
+              </Link>
             ))}
-            <Button
-              variant="outlined"
-              sx={{
-                textTransform: "none",
-                borderRadius: "15px",
-                marginRight: "3vw",
-                color: "#26B893",
-              }}
-            >
-              <img src="/assets/icon/vector-kategori.png" alt="-" />
-              <span style={{ marginLeft: "1vw" }}>Kategori</span>
-            </Button>
           </Box>
           <Box pt="3vh">
             {listThread.map((item, itemIdx) => (
