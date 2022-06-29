@@ -24,12 +24,12 @@ const Home = () => {
   // console.log(tokenCookies);
   // console.log(token);
   const fillter = [
-    { name: "Terbaru", icon: AccessTimeIcon, link: "/", isActive: true },
+    { name: "Terbaru", icon: AccessTimeIcon, link: "/", isActive: false },
     {
       name: "Trending",
       icon: CallMadeIcon,
       link: "/hometrending",
-      isActive: false,
+      isActive: true,
     },
     // {name: "Kategori", icon: AccessTimeIcon, isActive: false},
   ];
