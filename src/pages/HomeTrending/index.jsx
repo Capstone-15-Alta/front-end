@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "react-bootstrap/Container";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
-import HomeCard from "../../components/card/HomeCard";
-import Saran from "../../components/card/Saran";
+import HomeCard from "../../components/Card/HomeCard";
+import Saran from "../../components/Card/Saran";
 import { Avatar } from "@mui/material";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";

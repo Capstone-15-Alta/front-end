@@ -7,13 +7,13 @@ import { Tabs, Tab } from "react-bootstrap";
 
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import CardPost from "../../components/CardPost";
-import HomeCard from "../../components/card/HomeCard";
+import HomeCard from "../../components/Card/HomeCard";
 
 import fgdApi from "../../api/fgdApi";
 
-import HeaderProfile from "../../components/headerProfile";
+import HeaderProfile from "../../components/HeaderProfile";
 
 import "./Profile.scss";
 import Cookies from "js-cookie";
