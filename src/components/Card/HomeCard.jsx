@@ -134,7 +134,8 @@ export default function HomeCard({ data, onClick }) {
                     </Menu>
                   </div>
                 ) : (
-                  <Button
+                  ""
+                  /* <Button
                     style={{
                       backgroundColor: "#26B893",
                       color: "white",
@@ -144,7 +145,7 @@ export default function HomeCard({ data, onClick }) {
                     size="small"
                   >
                     + Ikuti
-                  </Button>
+                  </Button> */
                 )}
               </Grid>
             </Grid>
