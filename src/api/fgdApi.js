@@ -38,6 +38,14 @@ const fgdApi = {
       },
     });
   },
+  followUser: (id, token, params) => {
+    const url = `follow/user/${id}`;
+    return axiosClient.put(url, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default fgdApi;

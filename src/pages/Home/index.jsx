@@ -113,8 +113,21 @@ const Home = () => {
       res = await fgdApi.getThread(params);
       console.log(res.data);
       setListThread(res?.data);
+      console.log(listThread);
     };
     getThread();
+  };
+
+  const followHandleClick = (e, threadUserId) => {
+    e.preventDefault();
+
+    const followUser = async () => {
+      let res = null;
+      res = await fgdApi.followUser(threadUserId, tokenCookies);
+      console.log(res.data);
+    };
+
+    followUser();
   };
 
   return (
@@ -159,7 +172,12 @@ const Home = () => {
           <Box pt="3vh">
             {listThread.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
-                <HomeCard data={item} />
+                <HomeCard
+                  data={item}
+                  onClick={(e) => {
+                    followHandleClick(e, item.user?.id);
+                  }}
+                />
               </Box>
             ))}
             <div>

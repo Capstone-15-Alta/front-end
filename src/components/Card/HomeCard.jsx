@@ -22,7 +22,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 
-export default function HomeCard({ data }) {
+export default function HomeCard({ data, onClick }) {
   const location = useLocation();
   const path = location.pathname;
   const userId = Cookies.get("id");
@@ -140,6 +140,7 @@ export default function HomeCard({ data }) {
                       color: "white",
                       padding: "9px 26px",
                     }}
+                    onClick={onClick}
                     size="small"
                   >
                     + Ikuti
