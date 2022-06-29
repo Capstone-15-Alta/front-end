@@ -115,7 +115,7 @@ const FormPostingThread = () => {
     const formData = new FormData();
 
     formData.append("json", JSON.stringify(inputs));
-    formData.append("file", fileName);
+    formData.append("file", files[0]);
 
     const addThread = async () => {
       let res = null;
