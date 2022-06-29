@@ -1,50 +1,141 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./FormPostingThread.scss";
+
+import { useNavigate } from "react-router-dom";
+
+import { useSelector } from "react-redux";
+
+import { useDropzone } from "react-dropzone";
+
+import Cookies from "js-cookie";
 
 import Users from "../Users";
 
 import Button from "../Button/Button";
 
-import axios from "axios";
+import Swal from "sweetalert2";
+
 import fgdApi from "../../api/fgdApi";
-import IconProfile from "../IconProfile";
-import { Box } from "@mui/material";
+
+import moment from "moment";
+
+import "moment/locale/id";
 
 const FormPostingThread = () => {
-  const [categories, setCategories] = useState([
-    "Olahraga",
-    "Hobi",
-    "Otomotoif",
-    "Game",
-  ]);
+  const [threadCategory, setThreadCategory] = useState([]);
 
-  const [initSelectValue, setInitSelectValue] = useState(categories[0]);
+  const navigate = useNavigate();
+
+  const token = Cookies.get("token");
+
+  const dataUser = JSON.parse(Cookies.get("data"));
+
+  const time = moment().format("LT");
+
+  useEffect(() => {
+    const getCategory = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getCategory(params);
+      setThreadCategory(res.data);
+    };
+    console.log(token);
+    console.log(dataUser);
+    getCategory();
+  }, []);
 
   const [inputs, setInputs] = useState({
-    judul: "",
-    // kategori: "",
-    deskripsi: "",
+    title: "",
+    description: "",
+    category_id: "",
   });
+
+  const [message, setMessage] = useState("");
+
+  const [fileName, setFileName] = useState();
 
   const handleInput = (value, key) => {
     const newInputs = { ...inputs };
 
     newInputs[key] = value;
 
-    setInitSelectValue(value);
-
     setInputs(newInputs);
 
-    console.log(inputs);
+    console.log(newInputs);
   };
+
+  const [files, setFiles] = useState([]);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+  });
+
+  const thumbs = files.map((file) => (
+    <div className="thumb" key={file.name}>
+      <div className="thumbInner">
+        <img
+          src={file.preview}
+          className="imgs"
+          // Revoke data uri after image is loaded
+          onLoad={() => {
+            URL.revokeObjectURL(file.preview);
+          }}
+          alt="drop-down-img"
+        />
+      </div>
+    </div>
+  ));
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    console.log(files);
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
+  useEffect(() => {
+    console.log("ini file name", fileName);
+    console.log("ini files", files[0]);
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post("https://reqres.in/api/", inputs);
+    const formData = new FormData();
 
-    console.log(res);
+    formData.append("json", JSON.stringify(inputs));
+    formData.append("file", fileName);
+
+    const addThread = async () => {
+      let res = null;
+      res = await fgdApi.postThread(formData, token);
+      console.log(res);
+    };
+
+    console.log(inputs);
+    addThread();
+
+    Swal.fire({
+      title: "Success",
+      text: "Thread Berhasil Di Posting",
+      icon: "success",
+      confirmButtonText: "OK",
+    });
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
   };
 
   const handleReset = (e) => {
@@ -59,25 +150,26 @@ const FormPostingThread = () => {
     >
       <div className="user-profile-section">
         <div className="row user-form-post-thread">
-          <Users />
+          <Users data={dataUser} />
 
-          <div className="col-2 time-post">
-            <p className="time-to-post">Hari ini 20:00</p>
+          <div className="col-2  ms-4 time-post">
+            <p className="time-to-post">Hari ini, {time}</p>
           </div>
-          <div className="col-3 options-thread-categories">
+          <div className="col-3 options-thread-categories ms-auto">
             <select
-              name="kategori"
+              name="category_id"
+              required
               className="form-select shadow-none select-option-category"
-              aria-label="Default select kategori wisata"
+              aria-label="Default select kategori thread"
               defaultValue=""
               onChange={(e) => handleInput(e.target.value, e.target.name)}
             >
               <option value="" hidden>
                 Pilih Kategori
               </option>
-              {categories.map((dataCategory, dataCategoryIdx) => (
-                <option key={dataCategoryIdx} value={dataCategory}>
-                  {dataCategory}
+              {threadCategory.map((item, itemIdx) => (
+                <option key={itemIdx} value={item.id}>
+                  {item.category_name}
                 </option>
               ))}
             </select>
@@ -88,23 +180,37 @@ const FormPostingThread = () => {
         <input
           type="text"
           className="form-control shadow-none thread-title"
-          name="judul"
+          required
+          name="title"
           placeholder="Isi Judul Thread Disini"
-          value={inputs.judul}
+          value={inputs.title}
           onChange={(e) => handleInput(e.target.value, e.target.name)}
         />
         <textarea
           className="form-control shadow-none thread-desc"
-          name="deskripsi"
+          required
+          name="description"
           rows="7"
           placeholder="Apa Yang Ingin Anda Diskusikan ?"
-          value={inputs.deskripsi}
+          value={inputs.description}
           onChange={(e) => handleInput(e.target.value, e.target.name)}
         />
       </div>
 
-      <Button title="Kembali" type="reset" className="btn-form-kembali" />
-      <Button title="Posting" type="submit" className="btn-form-posting" />
+      <section className="container container-dropzone">
+        <div {...getRootProps({ className: "dropzone" })}>
+          <input {...getInputProps()} />
+          <p className="place-image text-center py-5">
+            Drag 'n' drop some files here, or click to select files
+          </p>
+        </div>
+        <aside className="thumbsContainer">{thumbs}</aside>
+      </section>
+
+      <div className="button-area">
+        <Button title="Posting" type="submit" className="btn-form-posting" />
+        <Button title="Kembali" type="reset" className="btn-form-kembali" />
+      </div>
     </form>
   );
 };

@@ -5,30 +5,53 @@ import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
 import HomeCard from "../../components/Card/HomeCard";
 import "./ExploreTopik.scss";
 import Button from "../../components/Button/Button";
+import Box from "@mui/material/Box";
+import fgdApi from "../../api/fgdApi";
+import categoryApi from "../../api/categoryApi";
+import Cookies from "js-cookie";
+
 function ExploreTopik() {
   const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch("https://6291e6b7cd0c91932b69e924.mockapi.io/api/category", {
-      method: "GET", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
-  console.log(data);
-
+  const [listThread, setListThread] = useState([]);
   const [category, setCategory] = useState({
     menu: [],
     categoryYangDipilih: "",
   });
+
+  const tokenCookies = Cookies.get("token");
+
+  useEffect(() => {
+    const getCategory = async () => {
+      let res = null;
+      const params = {};
+      res = await categoryApi.getCategory(params);
+      setData(res?.data);
+    };
+    getCategory();
+  }, []);
+
+  useEffect(() => {
+    const getUser = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getUser(params);
+      console.log(res.data);
+    };
+
+    const getThread = async () => {
+      let res = null;
+      const params = category.categoryYangDipilih;
+      res = await categoryApi.getThread(params);
+      console.log(res.data);
+      setListThread(res?.data);
+    };
+
+    console.log(data);
+
+    getUser();
+    getThread();
+    console.log(listThread);
+  }, []);
 
   const handleCategory = (value) => {
     setCategory({
@@ -36,40 +59,22 @@ function ExploreTopik() {
       categoryYangDipilih: value,
     });
 
-    //handle kategori yang akan ditampilkan
+    const getThread = async () => {
+      let res = null;
+      const params = {};
+      res = await categoryApi.getThread(value);
+      console.log(res.data);
+      setListThread(res?.data);
+    };
+    getThread();
   };
 
-  console.log(category);
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
 
-  const dataHomepage = [
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-  ];
   return (
     <>
       <Navigationbar />
@@ -83,20 +88,33 @@ function ExploreTopik() {
               {data &&
                 data.map((val, index) => {
                   return (
-                    <Button
-                      title={val.category_name}
-                      className="button"
+                    <button
+                      className={
+                        val.category_name === category.categoryYangDipilih
+                          ? "button-active"
+                          : "button"
+                      }
                       onClick={() => {
                         handleCategory(val.category_name);
                       }}
-                    />
+                    >
+                      {val.category_name}
+                    </button>
                   );
                 })}
             </div>
             <div className="explore-thread">
-              {dataHomepage.map((item) => (
-                <HomeCard data={item} />
-              ))}
+              {listThread &&
+                listThread.map((item, itemIdx) => (
+                  <Box key={itemIdx} py="4vh">
+                    <HomeCard
+                      key={itemIdx}
+                      data={item}
+                      likeData={item.likes?.map((like, likeIdx) => like)}
+                      handleLike={handleLike}
+                    />
+                  </Box>
+                ))}
             </div>
           </div>
         </div>

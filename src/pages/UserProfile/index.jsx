@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
@@ -15,10 +15,11 @@ import fgdApi from "../../api/fgdApi";
 
 import HeaderProfile from "../../components/HeaderProfile";
 
-import "./Profile.scss";
+import "./UserProfile.scss";
 import Cookies from "js-cookie";
 
-const Profile = () => {
+const UserProfile = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const dataHomepage = [
     {
@@ -74,26 +75,8 @@ const Profile = () => {
   const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
 
-  const userId = Cookies.get("id");
-  const tokenCookies = Cookies.get("token");
-  console.log(userId);
-
-  const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
-    console.log(res);
-  };
-
-  const getUserById = async (id) => {
-    let res = null;
-    res = await fgdApi.getUserById(id);
-
-    const data = res.data;
-    console.log(data);
-    setUserAttribute(data);
-    // return res.data;
-    console.log(userAttribute);
-  };
+  const aaa = listThread.reverse();
+  console.log(aaa);
 
   useEffect(() => {
     const getThreadByUserId = async (id) => {
@@ -106,10 +89,31 @@ const Profile = () => {
       console.log(data);
       // console.log(listThread);
     };
+    const getUserById = async (id) => {
+      let res = null;
+      res = await fgdApi.getUserById(id);
 
-    getUserById(userId);
-    getThreadByUserId(userId);
+      const data = res.data;
+      console.log(data);
+      setUserAttribute(data);
+      // return res.data;
+      console.log(userAttribute);
+    };
+
+    getUserById(id);
+    getThreadByUserId(id);
   }, []);
+
+  const reload = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+
+    const data = res.data;
+    console.log(data);
+    setUserAttribute(data);
+    // return res.data;
+    console.log(userAttribute);
+  };
 
   return (
     <>
@@ -122,7 +126,12 @@ const Profile = () => {
             </div>
             <div className="content-section col-9 container-fluid">
               <div className="col-12">
-                <HeaderProfile data={userAttribute} getUserById={getUserById} />
+                <HeaderProfile
+                  data={userAttribute}
+                  reload={() => {
+                    reload(id);
+                  }}
+                />
                 <div className=" tab-section row  mb-5">
                   <Tabs
                     defaultActiveKey="post"
@@ -229,14 +238,7 @@ const Profile = () => {
                         {" "}
                         <div className="card-threads">
                           {listThread.reverse().map((item, itemIdx) => (
-                            <HomeCard
-                              key={itemIdx}
-                              data={item}
-                              likeData={item.likes?.map(
-                                (like, likeIdx) => like
-                              )}
-                              handleLike={handleLike}
-                            />
+                            <HomeCard key={itemIdx} data={item} />
                           ))}
                         </div>
                       </div>
@@ -259,4 +261,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserProfile;

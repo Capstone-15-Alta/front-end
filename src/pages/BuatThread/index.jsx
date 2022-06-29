@@ -8,6 +8,8 @@ import Footer from "../../components/Footer";
 
 import { useSelector } from "react-redux";
 
+import fgdApi from "../../api/fgdApi";
+
 const BuatThread = () => {
   const { token } = useSelector((state) => state.login);
 

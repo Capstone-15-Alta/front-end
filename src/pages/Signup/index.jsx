@@ -6,16 +6,18 @@ import Navigationbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button/Button";
 
+import fgdApi from "../../api/fgdApi";
 import "./Signup.scss";
+import Swal from "sweetalert2";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState([
     {
-      label: "Nama Lengkap",
+      label: "Username",
       type: "text",
-      placeholder: "Masukkan nama lengkap anda",
-      name: "fullname",
+      placeholder: "Masukkan username anda ",
+      name: "username",
       value: "",
     },
     {
@@ -57,12 +59,36 @@ const Signup = () => {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    console.log({
-      nama: inputs[0].value,
-      nomor: inputs[1].value,
-      password: inputs[2].value,
-      repassword: inputs[3].value,
-    });
+
+    const getRegister = async () => {
+      let res = null;
+      const params = {
+        email: inputs[1].value,
+        password: inputs[2].value,
+        total_user_followers: 0,
+        username: inputs[0].value,
+      };
+      try {
+        res = await fgdApi.register(params);
+        console.log(res.message);
+
+        Swal.fire({
+          title: "Success",
+          text: "Yeay akun berhasil terdaftar",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Failed",
+          text: error.response.data.data,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
+      navigate("/login");
+    };
+    getRegister();
   };
 
   return (

@@ -7,6 +7,7 @@ import ArrowUp from "../../assets/icon-sidebar/ArrowUp.png";
 
 import { data } from "./SidebarData";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 export const SidebarLeft = () => {
   const handleStyle = (link) => {
     window.location.pathname = link;
@@ -17,6 +18,15 @@ export const SidebarLeft = () => {
       <ul>
         <p className="menu">MENU</p>
         {data.left.map((val, index) => {
+          const token = Cookies.get("token");
+          {
+            /* console.log(token); */
+          }
+
+          token
+            ? (data.left[3].link = "/profile")
+            : (data.left[3].link = "/login");
+
           return (
             <Link to={val.link} key={index}>
               <li
@@ -57,6 +67,7 @@ export const SidebarRight = () => {
       </div>
       <ul>
         {data.right.map((val, index) => {
+          console.log(val);
           return (
             <li className="" key={index}>
               <div className="icon">{val.icon}</div>

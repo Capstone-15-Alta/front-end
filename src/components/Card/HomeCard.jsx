@@ -27,11 +27,7 @@ import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 import Cookies from "js-cookie";
 import { useLocation, Link } from "react-router-dom";
 
-export default function HomeCard({
-  data,
-  likeData,
-  handleLike,
-}) {
+export default function HomeCard({ data, likeData, handleLike }) {
   const location = useLocation();
   const path = location.pathname;
   const userId = Cookies.get("id");
@@ -47,6 +43,7 @@ export default function HomeCard({
     setAnchorEl(null);
   };
   const ITEM_HEIGHT = 48;
+  console.log(data);
 
   const dataComment = [
     {
@@ -110,10 +107,9 @@ export default function HomeCard({
                         </Typography>
                       </Box>
                     </Box>
-                  </Box>                 
                   </Link>
                 </Box>
-                <h4 style={{ marginTop: "3vh" }}>{data.title}</h4>
+                <h4 style={{ marginTop: "1rem" }}>{data.title}</h4>
                 <Typography variant="caption">{data.created_at}</Typography>
               </Grid>
               <Grid item>
@@ -154,21 +150,10 @@ export default function HomeCard({
                   </div>
                 ) : (
                   ""
-                  /* <Button
-                    style={{
-                      backgroundColor: "#26B893",
-                      color: "white",
-                      padding: "9px 26px",
-                    }}
-                    onClick={onClick}
-                    size="small"
-                  >
-                    + Ikuti
-                  </Button> */
                 )}
               </Grid>
             </Grid>
-            <Grid container>
+            <Grid style={{ marginTop: "0.5rem" }} container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
                   {likeData.length !== 0 ? (

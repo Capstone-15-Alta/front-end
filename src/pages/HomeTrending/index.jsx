@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import Container from "react-bootstrap/Container";
 import Footer from "../../components/Footer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import HomeCard from "../../components/Card/HomeCard";
 import Saran from "../../components/Card/Saran";
+import { Avatar } from "@mui/material";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 
@@ -23,19 +25,13 @@ const Home = () => {
   const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
   // console.log(token);
-  const navigate = useNavigate();
   const fillter = [
-    {
-      name: "Terbaru",
-      icon: AccessTimeIcon,
-      link: "/",
-      isActive: true,
-    },
+    { name: "Terbaru", icon: AccessTimeIcon, link: "/", isActive: false },
     {
       name: "Trending",
       icon: CallMadeIcon,
       link: "/trending",
-      isActive: false,
+      isActive: true,
     },
     {
       name: "Kategori",
@@ -95,7 +91,11 @@ const Home = () => {
 
   const [listThread, setListThread] = useState([]);
 
-  const [pageCount, setPageCount] = useState(0);
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
 
   useEffect(() => {
     const getUser = async () => {
@@ -113,17 +113,8 @@ const Home = () => {
       setListThread(res?.data);
     };
 
-    const getLengthThread = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getLengthThread(params);
-      console.log(res.data);
-      setPageCount(res.data.length);
-    };
-
     getUser();
     getThread();
-    getLengthThread();
   }, []);
 
   const handlePageClick = (data) => {
@@ -135,27 +126,8 @@ const Home = () => {
       res = await fgdApi.getThread(params);
       console.log(res.data);
       setListThread(res?.data);
-      console.log(listThread);
     };
     getThread();
-  };
-
-  const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
-    console.log(res);
-  };
-
-  const followHandleClick = (e, threadUserId) => {
-    e.preventDefault();
-
-    const followUser = async () => {
-      let res = null;
-      res = await fgdApi.followUser(threadUserId, tokenCookies);
-      console.log(res.data);
-    };
-
-    followUser();
   };
 
   return (
@@ -189,6 +161,7 @@ const Home = () => {
             {listThread.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
                 <HomeCard
+                  key={itemIdx}
                   data={item}
                   likeData={item.likes?.map((like, likeIdx) => like)}
                   handleLike={handleLike}
@@ -198,7 +171,7 @@ const Home = () => {
             <div>
               <Pagination
                 handlePageClick={handlePageClick}
-                pageCount={pageCount}
+                pageCount={listThread.length}
               />
             </div>
           </Box>
