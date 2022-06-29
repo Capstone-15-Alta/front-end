@@ -95,6 +95,8 @@ const Home = () => {
 
   const [listThread, setListThread] = useState([]);
 
+  const [pageCount, setPageCount] =useState(0)
+
   useEffect(() => {
     const getUser = async () => {
       let res = null;
@@ -111,8 +113,18 @@ const Home = () => {
       setListThread(res?.data);
     };
 
+    const getLengthThread = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getLengthThread(params);
+      console.log(res.data);
+      setPageCount(res.data.length);
+    };
+
+    
     getUser();
     getThread();
+    getLengthThread()
   }, []);
 
   const handlePageClick = (data) => {
@@ -140,6 +152,8 @@ const Home = () => {
 
     followUser();
   };
+
+  
 
   return (
     <>
@@ -177,7 +191,7 @@ const Home = () => {
             <div>
               <Pagination
                 handlePageClick={handlePageClick}
-                pageCount={listThread.length}
+                pageCount={pageCount}
               />
             </div>
           </Box>
