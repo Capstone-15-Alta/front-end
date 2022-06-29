@@ -163,51 +163,52 @@ export default function HomeCard({
             <Grid container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
-                  <IconButton
-                    aria-label="like"
-                    aria-pressed="false"
-                    onClick={() => handleLike(data.id)}
-                  >
-                    {likeData.length !== 0 ? (
-                      <>
-                        {likeData.filter((like) => like.user_id == userId)
-                          .length > 0 ? (
-                          <ThumbUpOutlinedIcon
-                            style={{
-                              color: "#26B893",
-                            }}
-                          />
-                        ) : (
-                          <ThumbUpOutlinedIcon />
-                        )}
-                      </>
-                    ) : (
-                      <ThumbUpOutlinedIcon />
-                    )}
-                  </IconButton>
-                  <IconButton aria-label="dislike" onClick={handleDislike}>
-                    <ThumbDownOutlinedIcon />
-                  </IconButton>
-                  {/* <Checkbox
-                    icon={<ThumbUpOutlinedIcon />}
-                    checkedIcon={
-                      <ThumbUpIcon
-                        style={{
-                          color: "#26B893",
-                        }}
-                      />
-                    }
-                  />
-                  <Checkbox
-                    icon={<ThumbDownOutlinedIcon />}
-                    checkedIcon={
-                      <ThumbDownIcon
-                        style={{
-                          color: "#26B893",
-                        }}
-                      />
-                    }
-                  /> */}
+                  {likeData.length !== 0 ? (
+                    <>
+                      {likeData.filter((like) => like.user_id == userId)
+                        .length > 0 ? (
+                        <Checkbox
+                          onClick={() => handleLike(data.id)}
+                          icon={<ThumbUpOutlinedIcon />}
+                          checkedIcon={
+                            <ThumbUpIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
+                          defaultChecked={true}
+                        />
+                      ) : (
+                        <Checkbox
+                          onClick={() => handleLike(data.id)}
+                          icon={<ThumbUpOutlinedIcon />}
+                          checkedIcon={
+                            <ThumbUpIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
+                          defaultChecked={false}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <Checkbox
+                      onClick={() => handleLike(data.id)}
+                      icon={<ThumbUpOutlinedIcon />}
+                      checkedIcon={
+                        <ThumbUpIcon
+                          style={{
+                            color: "#26B893",
+                          }}
+                        />
+                      }
+                      defaultChecked={false}
+                    />
+                  )}
+
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}
