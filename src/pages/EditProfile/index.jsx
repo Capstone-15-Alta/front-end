@@ -80,7 +80,7 @@ const EditProfile = () => {
                   Tingkat Pendidikan
                 </label>
                 <select class="form-select" aria-label="Default select example">
-                  <option selected>Masukan  Tingkat Pendidikan</option>
+                  <option selected>Masukan Tingkat Pendidikan</option>
                   <option value="1">SMP</option>
                   <option value="2">SMA/SMK</option>
                   <option value="3">S1/D3</option>

@@ -25,13 +25,12 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 
 import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 export default function HomeCard({
   data,
   likeData,
   handleLike,
-  handleDislike,
 }) {
   const location = useLocation();
   const path = location.pathname;
@@ -95,17 +94,24 @@ export default function HomeCard({
             <Grid container>
               <Grid item xs>
                 <Box display="flex">
-                  <Box>
-                    <h5>{data.user?.username}</h5>
-                    <Box mt="-10px">
-                      <Typography variant="caption">
-                        {data.user?.email}
-                      </Typography>
+                  <Link
+                    to={
+                      userId == data.user?.id
+                        ? "/profile"
+                        : `/user/${data.user?.id}`
+                    }
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Box>
+                      <h5>{data.user?.username}</h5>
+                      <Box mt="-10px">
+                        <Typography variant="caption">
+                          {data.user?.email}
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                  {data.isVerified && (
-                    <img src="assets/icon/verified.png" height="20vh" alt="" />
-                  )}
+                  </Box>                 
+                  </Link>
                 </Box>
                 <h4 style={{ marginTop: "3vh" }}>{data.title}</h4>
                 <Typography variant="caption">{data.created_at}</Typography>
@@ -147,16 +153,18 @@ export default function HomeCard({
                     </Menu>
                   </div>
                 ) : (
-                  <Button
+                  ""
+                  /* <Button
                     style={{
                       backgroundColor: "#26B893",
                       color: "white",
                       padding: "9px 26px",
                     }}
+                    onClick={onClick}
                     size="small"
                   >
                     + Ikuti
-                  </Button>
+                  </Button> */
                 )}
               </Grid>
             </Grid>

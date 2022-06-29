@@ -152,7 +152,7 @@ const FormPostingThread = () => {
         <div className="row user-form-post-thread">
           <Users data={dataUser} />
 
-          <div className="col-2 time-post">
+          <div className="col-2  ms-4 time-post">
             <p className="time-to-post">Hari ini, {time}</p>
           </div>
           <div className="col-3 options-thread-categories ms-auto">

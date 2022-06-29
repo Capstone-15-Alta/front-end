@@ -17,7 +17,7 @@ function ExploreTopik() {
     categoryYangDipilih: "",
   });
 
-  useEffect(() =>{
+  useEffect(() => {
     const getCategory = async () => {
       let res = null;
       const params = {};
@@ -25,8 +25,7 @@ function ExploreTopik() {
       setData(res?.data);
     };
     getCategory();
-
-  },[])
+  }, []);
 
   useEffect(() => {
     const getUser = async () => {
@@ -35,7 +34,7 @@ function ExploreTopik() {
       res = await fgdApi.getUser(params);
       console.log(res.data);
     };
-   
+
     const getThread = async () => {
       let res = null;
       const params = category.categoryYangDipilih;
@@ -43,18 +42,13 @@ function ExploreTopik() {
       console.log(res.data);
       setListThread(res?.data);
     };
-    
-    
+
     console.log(data);
 
     getUser();
     getThread();
     console.log(listThread);
   }, []);
-
-  
-
-  
 
   const handleCategory = (value) => {
     setCategory({
@@ -72,11 +66,6 @@ function ExploreTopik() {
     getThread();
   };
 
-  
-
-  
-
- 
   return (
     <>
       <Navigationbar />
@@ -91,21 +80,27 @@ function ExploreTopik() {
                 data.map((val, index) => {
                   return (
                     <button
-                      
-                      className={val.category_name === category.categoryYangDipilih ? "button-active" :"button"}
+                      className={
+                        val.category_name === category.categoryYangDipilih
+                          ? "button-active"
+                          : "button"
+                      }
                       onClick={() => {
                         handleCategory(val.category_name);
                       }}
-                    >{val.category_name}</button>
+                    >
+                      {val.category_name}
+                    </button>
                   );
                 })}
             </div>
             <div className="explore-thread">
-              {listThread && listThread.map((item, itemIdx) => (
-                <Box key={itemIdx} py="4vh">
-                  <HomeCard data={item} />
-                </Box>
-              ))}
+              {listThread &&
+                listThread.map((item, itemIdx) => (
+                  <Box key={itemIdx} py="4vh">
+                    <HomeCard data={item} />
+                  </Box>
+                ))}
             </div>
           </div>
         </div>

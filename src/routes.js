@@ -1,4 +1,5 @@
 import Home from "./pages/Home";
+import HomeTrending from "./pages/HomeTrending";
 import Login from "./pages/Signin";
 import LupaPassword from "./pages/ForgotPassword";
 import BuatThread from "./pages/BuatThread";
@@ -7,11 +8,16 @@ import Notifikasi from "./pages/Notifikasi";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import EditProfile from "./pages/EditProfile";
+import UserProfile from "./pages/UserProfile";
 
 const routes = [
   {
     path: "/",
     component: Home,
+  },
+  {
+    path: "/trending",
+    component: HomeTrending,
   },
   {
     path: "/login",
@@ -32,6 +38,10 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
+  },
+  {
+    path: "/user/:id",
+    component: UserProfile,
   },
   {
     path: "/edit-profile",
