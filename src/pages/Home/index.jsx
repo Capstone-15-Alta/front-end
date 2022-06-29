@@ -95,6 +95,8 @@ const Home = () => {
 
   const [listThread, setListThread] = useState([]);
 
+  const [pageCount, setPageCount] = useState(0);
+
   useEffect(() => {
     const getUser = async () => {
       let res = null;
@@ -111,8 +113,17 @@ const Home = () => {
       setListThread(res?.data);
     };
 
+    const getLengthThread = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getLengthThread(params);
+      console.log(res.data);
+      setPageCount(res.data.length);
+    };
+
     getUser();
     getThread();
+    getLengthThread();
   }, []);
 
   const handlePageClick = (data) => {
@@ -127,6 +138,12 @@ const Home = () => {
       console.log(listThread);
     };
     getThread();
+  };
+
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
   };
 
   const followHandleClick = (e, threadUserId) => {
@@ -171,13 +188,17 @@ const Home = () => {
           <Box pt="3vh">
             {listThread.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
-                <HomeCard data={item} />
+                <HomeCard
+                  data={item}
+                  likeData={item.likes?.map((like, likeIdx) => like)}
+                  handleLike={handleLike}
+                />
               </Box>
             ))}
             <div>
               <Pagination
                 handlePageClick={handlePageClick}
-                pageCount={listThread.length}
+                pageCount={pageCount}
               />
             </div>
           </Box>

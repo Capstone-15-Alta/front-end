@@ -22,6 +22,11 @@ const fgdApi = {
     console.log(params);
     return axiosClient.get(url + `pages?size=5&page=${params.curentPage}`);
   },
+  getLengthThread: (params) => {
+    const url = "thread";
+    console.log(params);
+    return axiosClient.get(url, params);
+  },
   getThreadByUserId: (id, params) => {
     const url = `thread/user/${id}`;
     return axiosClient.get(url, params);
@@ -49,6 +54,14 @@ const fgdApi = {
   uploadPhoto: (token, params) => {
     const url = `user/photo`;
     return axiosClient.put(url, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  likeThread: (id, token) => {
+    const url = `like/thread/${id}`;
+    return axiosClient.put(url, id, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

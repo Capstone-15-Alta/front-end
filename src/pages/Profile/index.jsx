@@ -74,11 +74,15 @@ const Profile = () => {
   const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
 
-  const aaa = listThread.reverse();
-  console.log(aaa);
-
   const userId = Cookies.get("id");
+  const tokenCookies = Cookies.get("token");
   console.log(userId);
+
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
 
   const getUserById = async (id) => {
     let res = null;
@@ -225,7 +229,14 @@ const Profile = () => {
                         {" "}
                         <div className="card-threads">
                           {listThread.reverse().map((item, itemIdx) => (
-                            <HomeCard key={itemIdx} data={item} />
+                            <HomeCard
+                              key={itemIdx}
+                              data={item}
+                              likeData={item.likes?.map(
+                                (like, likeIdx) => like
+                              )}
+                              handleLike={handleLike}
+                            />
                           ))}
                         </div>
                       </div>
