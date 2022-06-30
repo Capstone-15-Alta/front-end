@@ -103,12 +103,12 @@ export const SidebarRight = () => {
                     followHandleClick(val.id);
                   }}
                 >
-                  <img src={val.follow ? Plus1 : Plus} alt="" width={18} />
+                  <img src={ Plus} alt="" width={18} />
                   ikuti
                 </button>
               ) : (
-                val.user_followers.map((item) => {
-                  if (item.user_follower_id === 13) {
+                val.user_followers.map((item,index) => {
+                  if (item.user_follower_id === parseInt(id)) {
                     return (
                       <button
                         className="button"
@@ -117,7 +117,7 @@ export const SidebarRight = () => {
                         }}
                       >
                         <img
-                          src={val.follow ? Plus1 : Plus}
+                          src={Plus1}
                           alt=""
                           width={18}
                         />
@@ -133,7 +133,7 @@ export const SidebarRight = () => {
                         }}
                       >
                         <img
-                          src={val.follow ? Plus1 : Plus}
+                          src={Plus}
                           alt=""
                           width={18}
                         />
