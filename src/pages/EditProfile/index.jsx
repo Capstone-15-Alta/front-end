@@ -11,17 +11,11 @@ import fgdApi from "../../api/fgdApi";
 const EditProfile = () => {
   const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
-  const [userFollowing, setUserFollowing] = useState([]);
+  // const [userFollowing, setUserFollowing] = useState([]);
 
   const userId = Cookies.get("id");
-  const tokenCookies = Cookies.get("token");
+  // const tokenCookies = Cookies.get("token");
   console.log(userId);
-
-  const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
-    console.log(res);
-  };
 
   const getUserById = async (id) => {
     let res = null;
@@ -66,7 +60,7 @@ const EditProfile = () => {
             <div className="title-edit-profile">EditProfile</div>
             <form className="row g-3">
               <div className="col-md-6">
-                <label for="inputEmail4" className="form-label">
+                <label htmlFor="inputEmail4" className="form-label">
                   Nama Awal
                 </label>
                 <input
@@ -77,7 +71,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="col-md-6">
-                <label for="inputPassword4" className="form-label">
+                <label htmlFor="inputPassword4" className="form-label">
                   Nama AKhir
                 </label>
                 <input
@@ -88,7 +82,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="col-12">
-                <label for="inputAddress" className="form-label">
+                <label htmlFor="inputAddress" className="form-label">
                   Nomor Handphone
                 </label>
                 <input
@@ -99,7 +93,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="col-12">
-                <label for="inputAddress2" className="form-label">
+                <label htmlFor="inputAddress2" className="form-label">
                   Email
                 </label>
                 <input
@@ -110,7 +104,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="col-12">
-                <label for="inputAddress2" className="form-label">
+                <label htmlFor="inputAddress2" className="form-label">
                   Tanggal Lahir
                 </label>
                 <input
@@ -121,18 +115,21 @@ const EditProfile = () => {
                 />
               </div>
               <div className="col-12">
-                <label for="inputAddress2" className="form-label">
+                <label htmlFor="inputAddress2" className="form-label">
                   Tingkat Pendidikan
                 </label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Masukan Tingkat Pendidikan</option>
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                >
+                  <option defaultValue>Masukan Tingkat Pendidikan</option>
                   <option value="1">SMP</option>
                   <option value="2">SMA/SMK</option>
                   <option value="3">S1/D3</option>
                 </select>
               </div>
               <div className="col-12">
-                <label for="inputAddress2" className="form-label">
+                <label htmlFor="inputAddress2" className="form-label">
                   Negara
                 </label>
                 <input
@@ -143,7 +140,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="col-12">
-                <label for="inputAddress2" className="form-label">
+                <label htmlFor="inputAddress2" className="form-label">
                   Kota
                 </label>
                 <input
@@ -154,7 +151,7 @@ const EditProfile = () => {
                 />
               </div>
               <div className="col-12">
-                <label for="inputAddress2" className="form-label">
+                <label htmlFor="inputAddress2" className="form-label">
                   Kode Pos
                 </label>
                 <input

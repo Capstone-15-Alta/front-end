@@ -100,9 +100,6 @@ const HeaderProfile = ({ data, getUserById }) => {
             style={{ backgroundImage: `url(${data.image})` }}
             className="foto"
           >
-            {data.user_followers?.map((item, itemIdx) => {
-              console.log(item.user_follower_id);
-            })}
             {path === "/profile" ? (
               <>
                 <Button
@@ -144,7 +141,9 @@ const HeaderProfile = ({ data, getUserById }) => {
                 ""
               ) : (
                 <div className="editBtn">
-                  {isFollow === true ? (
+                  {data.user_followers?.filter(
+                    (is_follow) => is_follow.user_follower_id == userId
+                  ).length > 0 ? (
                     <Button
                       type="button"
                       className="btn btnIkuti"

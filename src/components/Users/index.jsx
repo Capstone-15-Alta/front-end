@@ -8,7 +8,7 @@ const Users = ({ data }) => {
   return (
     <>
       <div className="col-1 user-pict">
-        <IconProfile />
+        <IconProfile data={data} />
       </div>
       <div className="col-2 user-name-and-email">
         <h5 className="user-name">{data.username}</h5>

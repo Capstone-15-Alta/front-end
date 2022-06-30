@@ -19,13 +19,13 @@ const Navbar = () => {
 
   const userId = Cookies.get("id");
   const [isLogin, setIsLogin] = useState(false);
-  const [imageUser, setImageUser] = useState(null);
+  const [data, setData] = useState(null);
 
   const getUserById = async (id) => {
     let res = null;
     res = await fgdApi.getUserById(id);
     console.log(res.data);
-    setImageUser(res.data.image);
+    setData(res.data);
   };
 
   useEffect(() => {
@@ -78,10 +78,14 @@ const Navbar = () => {
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item ">
                   <NavDropdown
-                    title={<IconProfile data={imageUser} />}
+                    title={<IconProfile data={data} />}
                     id="basic-nav-dropdown"
                   >
-                    <NavDropdown.Item href="/profile">
+                    <NavDropdown.Item
+                      onClick={() => {
+                        navigate("/profile");
+                      }}
+                    >
                       My Profile
                     </NavDropdown.Item>
                     <NavDropdown.Item

@@ -5,7 +5,7 @@ import "./IconProfile.scss";
 import Icon from "../../assets/images/icon-profile.png";
 
 const IconProfile = ({ data }) => {
-  return <img src={data} alt="user icon" className="user-icon" />;
+  return <img src={data?.image} alt="user icon" className="user-icon" />;
 };
 
 export default IconProfile;
