@@ -137,6 +137,10 @@ const Home = () => {
                   marginRight: "3vw",
                   color: item.isActive ? "white" : "#26B893",
                   bgcolor: item.isActive ? "#26B893" : "white",
+                  "&:hover": {
+                    color: item.isActive ? "white" : "#26B893",
+                    bgcolor: item.isActive ? "#26B893" : "white",
+                  },
                 }}
               >
                 <item.icon />
