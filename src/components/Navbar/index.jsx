@@ -12,17 +12,29 @@ import Cookies from "js-cookie";
 import Searchbar from "../Searchbar";
 import Button from "../Button/Button";
 import { NavDropdown } from "react-bootstrap";
+import fgdApi from "../../api/fgdApi";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
+  const userId = Cookies.get("id");
   const [isLogin, setIsLogin] = useState(false);
+  const [imageUser, setImageUser] = useState(null);
+
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+    console.log(res.data);
+    setImageUser(res.data.image);
+  };
 
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
       setIsLogin(!isLogin);
     }
+
+    getUserById(userId);
   }, []);
 
   return (
@@ -65,7 +77,10 @@ const Navbar = () => {
 
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item ">
-                  <NavDropdown title={<IconProfile />} id="basic-nav-dropdown">
+                  <NavDropdown
+                    title={<IconProfile data={imageUser} />}
+                    id="basic-nav-dropdown"
+                  >
                     <NavDropdown.Item href="/profile">
                       My Profile
                     </NavDropdown.Item>

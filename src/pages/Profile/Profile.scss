@@ -39,6 +39,7 @@
               color: $second-color;
               border: 0;
               background: none;
+              margin: 0 40px;
 
               &.active {
                 color: $main-color;
@@ -53,8 +54,9 @@
           max-width: 60vmax;
           margin: auto;
 
-          .card-threads {
+          .card-tabs {
             // height: 245px;
+            margin-top: 1rem;
             margin-bottom: 2.203rem;
             /* Styling for mui */
             .css-eznesa {

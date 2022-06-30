@@ -67,7 +67,6 @@ export const SidebarRight = () => {
       </div>
       <ul>
         {data.right.map((val, index) => {
-          console.log(val);
           return (
             <li className="" key={index}>
               <div className="icon">{val.icon}</div>

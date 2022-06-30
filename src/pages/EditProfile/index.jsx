@@ -1,10 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/Footer";
-import HeaderEditProfile from "../../components/HeaderEditProfile";
+import HeaderProfile from "../../components/HeaderProfile";
 import "./EditProfile.scss";
+
+import Cookies from "js-cookie";
+import fgdApi from "../../api/fgdApi";
+
 const EditProfile = () => {
+  const [userAttribute, setUserAttribute] = useState({});
+  const [listThread, setListThread] = useState([]);
+  const [userFollowing, setUserFollowing] = useState([]);
+
+  const userId = Cookies.get("id");
+  const tokenCookies = Cookies.get("token");
+  console.log(userId);
+
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
+
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+
+    const data = res.data;
+    console.log(data);
+    setUserAttribute(data);
+    // return res.data;
+    console.log(userAttribute);
+  };
+
+  const getThreadByUserId = async (id) => {
+    let res = null;
+
+    res = await fgdApi.getThreadByUserId(id);
+    //console.log(res.data);
+    const data = res?.data;
+    setListThread(data);
+    console.log(data);
+    console.log(listThread);
+  };
+
+  useEffect(() => {
+    getUserById(userId);
+    getThreadByUserId(userId);
+  }, []);
+
   return (
     <>
       <Navigationbar />
@@ -14,7 +59,7 @@ const EditProfile = () => {
         </div>
         <div className="col-9">
           <div className="header-profile">
-            <HeaderEditProfile />
+            <HeaderProfile data={userAttribute} getUserById={getUserById} />
           </div>
 
           <div className="Form">

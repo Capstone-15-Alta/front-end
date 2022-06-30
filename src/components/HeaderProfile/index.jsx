@@ -16,19 +16,13 @@ const HeaderProfile = ({ data, getUserById }) => {
   const path = location.pathname;
   const bannerRef = useRef(null);
   const imageRef = useRef(null);
-  const [bannerImg, setBannerImg] = useState(banner);
-  const [photoImg, setPhotoImg] = useState();
+
   const tokenCookies = Cookies.get("token");
   const userId = Cookies.get("id");
 
-  const [isFollow, setIsFollow] = useState(null);
+  const [bannerImg, setBannerImg] = useState(banner);
 
-  const uploadImage = async () => {
-    let res = null;
-    res = await fgdApi.uploadPhoto(tokenCookies, tokenCookies);
-    console.log(res.data);
-    setIsFollow(res.data?.is_follow);
-  };
+  const [photoImg, setPhotoImg] = useState();
 
   const handleClickImage = () => {
     imageRef.current.click();
@@ -53,20 +47,20 @@ const HeaderProfile = ({ data, getUserById }) => {
     res = await fgdApi.uploadPhoto(tokenCookies, formData);
     console.log(res.data);
     getUserById(userId);
+
+    // Cookies.set("data", JSON.stringify(data));
     // console.log(filePhoto);
   };
 
-  const followHandleClick = (e, threadUserId) => {
+  const [isFollow, setIsFollow] = useState(null);
+
+  const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();
-
-    const followUser = async () => {
-      let res = null;
-      res = await fgdApi.followUser(threadUserId, tokenCookies);
-      console.log(res.data);
-      setIsFollow(res.data?.is_follow);
-    };
-
-    followUser();
+    let res = null;
+    res = await fgdApi.followUser(guestUserId, tokenCookies);
+    console.log(res.data);
+    setIsFollow(res.data?.is_follow);
+    getUserById(guestUserId);
   };
   console.log(data);
 
@@ -78,42 +72,57 @@ const HeaderProfile = ({ data, getUserById }) => {
             style={{ backgroundImage: `url(${bannerImg})` }}
             className="banner-image"
           ></div>
-          <Button
-            type="button"
-            className=" btn btnChangeBanner "
-            title="Ganti Gambar"
-            background="#26b893"
-            color="#fff"
-            iconKiri="iconKamera"
-            onClick={handleClickBanner}
-          />
-          <input
-            type="file"
-            className="d-none"
-            ref={bannerRef}
-            onChange={handleUploadBanner}
-          />
+          {path === "/profile" ? (
+            <>
+              <Button
+                type="button"
+                className=" btn btnChangeBanner "
+                title="Ganti Gambar"
+                background="#26b893"
+                color="#fff"
+                iconKiri="iconKamera"
+                onClick={handleClickBanner}
+              />
+              <input
+                type="file"
+                className="d-none"
+                ref={bannerRef}
+                onChange={handleUploadBanner}
+              />
+            </>
+          ) : (
+            ""
+          )}
         </div>
+
         <div className="profile-zzz">
           <div
             style={{ backgroundImage: `url(${data.image})` }}
             className="foto"
           >
-            {" "}
-            <Button
-              type="button"
-              className=" btn btnChangeImage "
-              background="#26b893"
-              color="#fff"
-              iconKiri="iconKamera"
-              onClick={handleClickImage}
-            />
-            <input
-              type="file"
-              className="d-none"
-              ref={imageRef}
-              onChange={handleUploadImage}
-            />
+            {data.user_followers?.map((item, itemIdx) => {
+              console.log(item.user_follower_id);
+            })}
+            {path === "/profile" ? (
+              <>
+                <Button
+                  type="button"
+                  className=" btn btnChangeImage "
+                  background="#26b893"
+                  color="#fff"
+                  iconKiri="iconKamera"
+                  onClick={handleClickImage}
+                />
+                <input
+                  type="file"
+                  className="d-none"
+                  ref={imageRef}
+                  onChange={handleUploadImage}
+                />
+              </>
+            ) : (
+              ""
+            )}
           </div>
           <div className="dataProfile">
             <div className="nickname d-flex ">
@@ -121,7 +130,6 @@ const HeaderProfile = ({ data, getUserById }) => {
                 <p className="name">{data.username}</p>
                 <p className="mail">{data.email}</p>
               </div>
-
               {path === "/profile" ? (
                 <div className="editBtn">
                   <Link to="/edit-profile">
@@ -132,6 +140,8 @@ const HeaderProfile = ({ data, getUserById }) => {
                     />
                   </Link>
                 </div>
+              ) : path === "/edit-profile" ? (
+                ""
               ) : (
                 <div className="editBtn">
                   {isFollow === true ? (
