@@ -6,13 +6,11 @@ import Button from "@mui/material/Button";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import HomeCard from "../../components/Card/HomeCard";
-import Saran from "../../components/Card/Saran";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";

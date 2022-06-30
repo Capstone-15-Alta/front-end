@@ -55,15 +55,15 @@ export default function Login() {
     );
   };
 
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+    console.log(res.data);
+    Cookies.set("data", JSON.stringify(res.data));
+  };
+
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-
-    const getUserById = async (id) => {
-      let res = null;
-      res = await fgdApi.getUserById(id);
-      console.log(res.data);
-      Cookies.set("data", JSON.stringify(res.data));
-    };
 
     const getLogin = async () => {
       let res = null;

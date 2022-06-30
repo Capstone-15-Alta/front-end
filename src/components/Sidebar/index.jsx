@@ -88,7 +88,7 @@ export const SidebarRight = () => {
         <img src={user} alt="" height={40} />
       </div>
       <ul>
-        {allUser.map((val, index) => {
+        {data.right.map((val, index) => {
           return (
             <li className="" key={index}>
               <div className="icon">
@@ -103,11 +103,11 @@ export const SidebarRight = () => {
                     followHandleClick(val.id);
                   }}
                 >
-                  <img src={ Plus} alt="" width={18} />
+                  <img src={Plus} alt="" width={18} />
                   ikuti
                 </button>
               ) : (
-                val.user_followers.map((item,index) => {
+                val.user_followers.map((item, index) => {
                   if (item.user_follower_id === parseInt(id)) {
                     return (
                       <button
@@ -116,11 +116,7 @@ export const SidebarRight = () => {
                           followHandleClick(val.id);
                         }}
                       >
-                        <img
-                          src={Plus1}
-                          alt=""
-                          width={18}
-                        />
+                        <img src={Plus1} alt="" width={18} />
                         mengikuti
                       </button>
                     );
@@ -132,11 +128,7 @@ export const SidebarRight = () => {
                           followHandleClick(val.id);
                         }}
                       >
-                        <img
-                          src={Plus}
-                          alt=""
-                          width={18}
-                        />
+                        <img src={Plus} alt="" width={18} />
                         ikuti
                       </button>
                     );
