@@ -20,7 +20,7 @@ const fgdApi = {
   getThread: (params) => {
     const url = "thread/";
     console.log(params);
-    return axiosClient.get(url + `pages?size=5&page=${params.curentPage}`);
+    return axiosClient.get(url + `?page=${params.curentPage}`);
   },
   getLengthThread: (params) => {
     const url = "thread";

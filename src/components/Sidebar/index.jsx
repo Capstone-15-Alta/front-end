@@ -60,25 +60,28 @@ export const SidebarRight = () => {
   const [allUser, setAllUser] = useState([]);
   const token = Cookies.get("token");
   const id = Cookies.get("id");
+  const getAllUser = async () => {
+    let res = null;
+    const params = {};
+    res = await fgdApi.getAllUser(params);
+    // console.log(res.data);
+    setAllUser(res.data);
+  };
   useEffect(() => {
-    const getAllUser = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getAllUser(params);
-      // console.log(res.data);
-      setAllUser(res.data);
-    };
+    
 
     getAllUser();
   }, []);
-  const followHandleClick = (id) => {
-    const followUser = async () => {
-      let res = null;
-      res = await fgdApi.followUser(id, token);
-      console.log(res.data);
-    };
 
-    followUser();
+  
+  const followHandleClick = async (e, guestUserId) => {
+    e.preventDefault();
+    console.log(guestUserId)
+    let res = null;
+    res = await fgdApi.followUser(guestUserId, token);
+    console.log(res.data);
+    getAllUser();
+    
   };
   console.log(allUser);
   return (
@@ -88,7 +91,8 @@ export const SidebarRight = () => {
         <img src={user} alt="" height={40} />
       </div>
       <ul>
-        {data.right.map((val, index) => {
+        {allUser.map((val, index) => {
+          
           return (
             <li className="" key={index}>
               <div className="icon">
@@ -96,45 +100,30 @@ export const SidebarRight = () => {
               </div>
 
               <p className="name">{val.username}</p>
-              {val.total_user_followers === 0 ? (
-                <button
+              {val.user_followers?.filter(
+                
+                    (is_follow) => is_follow.user_follower_id == id
+                  ).length > 0 ? (
+                    <button
                   className="button"
-                  onClick={() => {
-                    followHandleClick(val.id);
+                  onClick={(e) => {
+                    followHandleClick(e,val.id);
+                  }}
+                >
+                  <img src={Plus1} alt="" width={18} />
+                  mengikuti
+                </button>
+                  ) : (
+                    <button
+                  className="button"
+                  onClick={(e) => {
+                    followHandleClick(e,val.id);
                   }}
                 >
                   <img src={Plus} alt="" width={18} />
                   ikuti
                 </button>
-              ) : (
-                val.user_followers.map((item, index) => {
-                  if (item.user_follower_id === parseInt(id)) {
-                    return (
-                      <button
-                        className="button"
-                        onClick={() => {
-                          followHandleClick(val.id);
-                        }}
-                      >
-                        <img src={Plus1} alt="" width={18} />
-                        mengikuti
-                      </button>
-                    );
-                  } else {
-                    return (
-                      <button
-                        className="button"
-                        onClick={() => {
-                          followHandleClick(val.id);
-                        }}
-                      >
-                        <img src={Plus} alt="" width={18} />
-                        ikuti
-                      </button>
-                    );
-                  }
-                })
-              )}
+                  )}
             </li>
           );
         })}
@@ -142,3 +131,5 @@ export const SidebarRight = () => {
     </div>
   );
 };
+
+

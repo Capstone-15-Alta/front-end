@@ -126,7 +126,7 @@ const Home = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-
+    console.log(curentPage)
     const getThread = async () => {
       let res = null;
       const params = { curentPage };
