@@ -68,20 +68,16 @@ export const SidebarRight = () => {
     setAllUser(res.data);
   };
   useEffect(() => {
-    
-
     getAllUser();
   }, []);
 
-  
   const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();
-    console.log(guestUserId)
+    console.log(guestUserId);
     let res = null;
     res = await fgdApi.followUser(guestUserId, token);
     console.log(res.data);
     getAllUser();
-    
   };
   console.log(allUser);
   return (
@@ -92,7 +88,6 @@ export const SidebarRight = () => {
       </div>
       <ul>
         {allUser.map((val, index) => {
-          
           return (
             <li className="" key={index}>
               <div className="icon">
@@ -101,29 +96,28 @@ export const SidebarRight = () => {
 
               <p className="name">{val.username}</p>
               {val.user_followers?.filter(
-                
-                    (is_follow) => is_follow.user_follower_id == id
-                  ).length > 0 ? (
-                    <button
+                (is_follow) => is_follow.user_follower_id == id
+              ).length > 0 ? (
+                <button
                   className="button"
                   onClick={(e) => {
-                    followHandleClick(e,val.id);
+                    followHandleClick(e, val.id);
                   }}
                 >
                   <img src={Plus1} alt="" width={18} />
                   mengikuti
                 </button>
-                  ) : (
-                    <button
+              ) : (
+                <button
                   className="button"
                   onClick={(e) => {
-                    followHandleClick(e,val.id);
+                    followHandleClick(e, val.id);
                   }}
                 >
                   <img src={Plus} alt="" width={18} />
                   ikuti
                 </button>
-                  )}
+              )}
             </li>
           );
         })}
@@ -131,5 +125,3 @@ export const SidebarRight = () => {
     </div>
   );
 };
-
-

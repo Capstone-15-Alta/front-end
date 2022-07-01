@@ -116,7 +116,7 @@ const Home = () => {
       const params = {};
       res = await fgdApi.getLengthThread(params);
       console.log(res.data);
-      setPageCount(res.data.length);
+      setPageCount(res.total_thread);
     };
 
     getUser();
