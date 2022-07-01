@@ -201,7 +201,6 @@ export default function HomeCard({ data, likeData, handleLike }) {
                       defaultChecked={false}
                     />
                   )}
-
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}
