@@ -22,35 +22,7 @@ const UserProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const tokenCookies = Cookies.get("token");
-  const dataHomepage = [
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-  ];
+
   const [profileData, setProfileData] = useState([
     {
       title: "Pengikut",

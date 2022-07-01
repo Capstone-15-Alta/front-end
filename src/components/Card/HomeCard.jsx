@@ -82,7 +82,7 @@ export default function HomeCard({ data, likeData, handleLike }) {
         <Grid container>
           <Grid item>
             {/* <Avatar alt={data.username} src={data.profile} /> */}
-            <Avatar alt={data.username} src="/assets/icon/manprofil.png" />
+            <Avatar alt={data.username} src={data.user?.image} />
           </Grid>
           <Grid item xs pl="1vw">
             <Grid container>

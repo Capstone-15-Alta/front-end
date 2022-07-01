@@ -21,35 +21,7 @@ import Cookies from "js-cookie";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const dataHomepage = [
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-  ];
+
   const [profileData, setProfileData] = useState([
     {
       title: "Pengikut",
@@ -74,7 +46,6 @@ const Profile = () => {
   ]);
   const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
-  const [userFollowing, setUserFollowing] = useState([]);
 
   const userId = Cookies.get("id");
   const tokenCookies = Cookies.get("token");
@@ -144,7 +115,19 @@ const Profile = () => {
                         <div className="followers-tabs card-tabs ">
                           {userAttribute.user_followers?.map(
                             (item, itemIdx) => (
-                              <HeaderLite data={item} />
+                              <div
+                                className="row mb-4 justify-content-center"
+                                key={itemIdx}
+                              >
+                                <HeaderLite
+                                  getUserById={getUserById}
+                                  user={userAttribute}
+                                  name={item.user_follower?.username}
+                                  email={item.user_follower?.email}
+                                  gambar={item.user_follower?.image}
+                                  guestId={item.user_follower?.id}
+                                />
+                              </div>
                             )
                           )}
                         </div>
@@ -163,7 +146,19 @@ const Profile = () => {
                         <div className="following-tabs card-tabs ">
                           {userAttribute.user_following?.map(
                             (item, itemIdx) => (
-                              <HeaderLite />
+                              <div
+                                className="row mb-4 justify-content-center"
+                                key={itemIdx}
+                              >
+                                <HeaderLite
+                                  getUserById={getUserById}
+                                  user={userAttribute}
+                                  name={item.user_followed?.username}
+                                  email={item.user_followed?.email}
+                                  gambar={item.user_followed?.image}
+                                  guestId={item.user_followed?.id}
+                                />
+                              </div>
                             )
                           )}
                         </div>

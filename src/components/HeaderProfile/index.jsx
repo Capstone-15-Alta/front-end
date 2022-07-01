@@ -52,14 +52,11 @@ const HeaderProfile = ({ data, getUserById }) => {
     // console.log(filePhoto);
   };
 
-  const [isFollow, setIsFollow] = useState(null);
-
   const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();
     let res = null;
     res = await fgdApi.followUser(guestUserId, tokenCookies);
     console.log(res.data);
-    setIsFollow(res.data?.is_follow);
     getUserById(guestUserId);
   };
   console.log(data);
@@ -142,7 +139,7 @@ const HeaderProfile = ({ data, getUserById }) => {
               ) : (
                 <div className="editBtn">
                   {data.user_followers?.filter(
-                    (is_follow) => is_follow.user_follower_id == userId
+                    (is_follow) => is_follow.user_follower.id == userId
                   ).length > 0 ? (
                     <Button
                       type="button"

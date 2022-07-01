@@ -95,7 +95,9 @@ export const SidebarRight = () => {
                   <img src={man4} alt="" width={40} />
                 </div>
               </Link>
-              <p className="name">{val.username}</p>
+              <Link to={`user/${val.id}`}>
+                <p className="name">{val.username}</p>
+              </Link>
               {val.user_followers?.filter(
                 (is_follow) => is_follow.user_follower_id == id
               ).length > 0 ? (
