@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import fgdApi from "../../api/fgdApi";
+import { Avatar } from "@mui/material";
 
 export const SidebarLeft = () => {
   return (
@@ -97,7 +98,7 @@ export const SidebarRight = () => {
             <li className="" key={index}>
               <Link to={`user/${val.id}`}>
                 <div className="icon">
-                  <img src={val.image} alt="" width={40} />
+                  <Avatar alt={val.username} src={val.image} />
                 </div>
               </Link>
               <Link to={`user/${val.id}`}>

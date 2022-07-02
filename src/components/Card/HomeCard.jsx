@@ -81,8 +81,15 @@ export default function HomeCard({ data, likeData, handleLike }) {
       >
         <Grid container>
           <Grid item>
-            {/* <Avatar alt={data.username} src={data.profile} /> */}
-            <Avatar alt={data.username} src={data.user?.image} />
+            {/* <Avatar alt={data.username} src={data.profile} /> */}{" "}
+            <Link
+              to={
+                userId == data.user?.id ? "/profile" : `/user/${data.user?.id}`
+              }
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Avatar alt={data.username} src={data.user?.image} />
+            </Link>
           </Grid>
           <Grid item xs pl="1vw">
             <Grid container>
