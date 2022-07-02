@@ -79,7 +79,6 @@ export const SidebarRight = () => {
     console.log(res.data);
     getAllUser();
   };
-  
 
   console.log(allUser);
   return (
@@ -94,7 +93,7 @@ export const SidebarRight = () => {
             <li className="" key={index}>
               <Link to={`user/${val.id}`}>
                 <div className="icon">
-                  <img src={man4} alt="" width={40} />
+                  <img src={val.image} alt="" width={40} />
                 </div>
               </Link>
               <Link to={`user/${val.id}`}>
