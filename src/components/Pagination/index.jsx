@@ -4,7 +4,7 @@ import "./Pagination.scss"
 
 
 const Pagination = (props) => {
-  
+    const total = props.pageCount / 5
   return (
     <>
       <ReactPaginate

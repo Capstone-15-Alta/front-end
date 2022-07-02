@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import Container from "react-bootstrap/Container";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
-import HomeCard from "../../components/card/HomeCard";
-import Saran from "../../components/card/Saran";
-import { Avatar } from "@mui/material";
+import HomeCard from "../../components/Card/HomeCard";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
+import { useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 
@@ -23,15 +21,26 @@ const Home = () => {
   const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
   // console.log(token);
+  const navigate = useNavigate();
   const fillter = [
-    { name: "Terbaru", icon: AccessTimeIcon, link: "/", isActive: true },
+    {
+      name: "Terbaru",
+      icon: AccessTimeIcon,
+      link: "/",
+      isActive: true,
+    },
     {
       name: "Trending",
       icon: CallMadeIcon,
-      link: "/hometrending",
+      link: "/trending",
       isActive: false,
     },
-    // {name: "Kategori", icon: AccessTimeIcon, isActive: false},
+    {
+      name: "Kategori",
+      icon: FormatListBulletedIcon,
+      link: "/explore-topik",
+      isActive: false,
+    },
   ];
 
   const dataHomepage = [
@@ -84,6 +93,8 @@ const Home = () => {
 
   const [listThread, setListThread] = useState([]);
 
+  const [pageCount, setPageCount] = useState(0);
+
   useEffect(() => {
     const getUser = async () => {
       let res = null;
@@ -100,21 +111,49 @@ const Home = () => {
       setListThread(res?.data);
     };
 
+    const getLengthThread = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getLengthThread(params);
+      console.log(res.data);
+      setPageCount(res.data.length);
+    };
+
     getUser();
     getThread();
+    getLengthThread();
   }, []);
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-
+    console.log(curentPage)
     const getThread = async () => {
       let res = null;
       const params = { curentPage };
       res = await fgdApi.getThread(params);
       console.log(res.data);
       setListThread(res?.data);
+      console.log(listThread);
     };
     getThread();
+  };
+
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
+
+  const followHandleClick = (e, threadUserId) => {
+    e.preventDefault();
+
+    const followUser = async () => {
+      let res = null;
+      res = await fgdApi.followUser(threadUserId, tokenCookies);
+      console.log(res.data);
+    };
+
+    followUser();
   };
 
   return (
@@ -127,7 +166,9 @@ const Home = () => {
         <Grid item md={6} mt="9rem">
           <Box display="flex">
             {fillter.map((item, itemIdx) => (
-              <Button
+
+              <Link key={itemIdx} to={item.link}>
+                <Button
                 key={itemIdx}
                 href={item.link}
                 variant={item.isActive === true ? "contained" : "outlined"}
@@ -146,30 +187,24 @@ const Home = () => {
                 <item.icon />
                 <span style={{ marginLeft: "1vw" }}>{item.name}</span>
               </Button>
+              </Link>
+
             ))}
-            <Button
-              variant="outlined"
-              sx={{
-                textTransform: "none",
-                borderRadius: "15px",
-                marginRight: "3vw",
-                color: "#26B893",
-              }}
-            >
-              <img src="/assets/icon/vector-kategori.png" alt="-" />
-              <span style={{ marginLeft: "1vw" }}>Kategori</span>
-            </Button>
           </Box>
           <Box pt="3vh">
             {listThread.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
-                <HomeCard data={item} />
+                <HomeCard
+                  data={item}
+                  likeData={item.likes?.map((like, likeIdx) => like)}
+                  handleLike={handleLike}
+                />
               </Box>
             ))}
             <div>
               <Pagination
                 handlePageClick={handlePageClick}
-                pageCount={listThread.length}
+                pageCount={pageCount}
               />
             </div>
           </Box>

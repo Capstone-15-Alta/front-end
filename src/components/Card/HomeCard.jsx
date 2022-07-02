@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
@@ -19,15 +19,20 @@ import Comment from "./Comment";
 import TextField from "@mui/material/TextField";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
-import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
+import Checkbox from "@mui/material/Checkbox";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 
-export default function HomeCard({ data }) {
+import Cookies from "js-cookie";
+import { useLocation, Link } from "react-router-dom";
+
+export default function HomeCard({ data, likeData, handleLike }) {
   const location = useLocation();
   const path = location.pathname;
   const userId = Cookies.get("id");
   const [openComment, setOpenComment] = useState(false);
-  console.log(userId, data.user?.id);
+  // console.log(userId, data.user?.id);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -64,6 +69,7 @@ export default function HomeCard({ data }) {
       ],
     },
   ];
+
   return (
     <>
       <Box
@@ -82,19 +88,25 @@ export default function HomeCard({ data }) {
             <Grid container>
               <Grid item xs>
                 <Box display="flex">
-                  <Box>
-                    <h5>{data.user?.username}</h5>
-                    <Box mt="-10px">
-                      <Typography variant="caption">
-                        {data.user?.email}
-                      </Typography>
+                  <Link
+                    to={
+                      userId == data.user?.id
+                        ? "/profile"
+                        : `/user/${data.user?.id}`
+                    }
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Box>
+                      <h5>{data.user?.username}</h5>
+                      <Box mt="-10px">
+                        <Typography variant="caption">
+                          {data.user?.email}
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                  {data.isVerified && (
-                    <img src="assets/icon/verified.png" height="20vh" />
-                  )}
+                  </Link>
                 </Box>
-                <h4 style={{ marginTop: "3vh" }}>{data.title}</h4>
+                <h4 style={{ marginTop: "1rem" }}>{data.title}</h4>
                 <Typography variant="caption">{data.created_at}</Typography>
               </Grid>
               <Grid item>
@@ -134,28 +146,59 @@ export default function HomeCard({ data }) {
                     </Menu>
                   </div>
                 ) : (
-                  <Button
-                    style={{
-                      backgroundColor: "#26B893",
-                      color: "white",
-                      padding: "9px 26px",
-                    }}
-                    size="small"
-                  >
-                    + Ikuti
-                  </Button>
+                  ""
                 )}
               </Grid>
             </Grid>
-            <Grid container>
+            <Grid style={{ marginTop: "0.5rem" }} container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
-                  <IconButton aria-label="like">
-                    <ThumbUpOutlinedIcon />
-                  </IconButton>
-                  <IconButton aria-label="dislike">
-                    <ThumbDownAltOutlinedIcon />
-                  </IconButton>
+                  {likeData.length !== 0 ? (
+                    <>
+                      {likeData.filter((like) => like.user_id == userId)
+                        .length > 0 ? (
+                        <Checkbox
+                          onClick={() => handleLike(data.id)}
+                          icon={<ThumbUpOutlinedIcon />}
+                          checkedIcon={
+                            <ThumbUpIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
+                          defaultChecked={true}
+                        />
+                      ) : (
+                        <Checkbox
+                          onClick={() => handleLike(data.id)}
+                          icon={<ThumbUpOutlinedIcon />}
+                          checkedIcon={
+                            <ThumbUpIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
+                          defaultChecked={false}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <Checkbox
+                      onClick={() => handleLike(data.id)}
+                      icon={<ThumbUpOutlinedIcon />}
+                      checkedIcon={
+                        <ThumbUpIcon
+                          style={{
+                            color: "#26B893",
+                          }}
+                        />
+                      }
+                      defaultChecked={false}
+                    />
+                  )}
+
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
@@ -14,13 +14,14 @@ import HomeCard from "../../components/Card/HomeCard";
 import fgdApi from "../../api/fgdApi";
 
 import HeaderProfile from "../../components/HeaderProfile";
-import HeaderLite from "../../components/HeaderProfile/HeaderLite";
 
-import "./Profile.scss";
+import "./UserProfile.scss";
 import Cookies from "js-cookie";
 
-const Profile = () => {
+const UserProfile = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const tokenCookies = Cookies.get("token");
   const dataHomepage = [
     {
       username: "Albert Flores",
@@ -74,18 +75,12 @@ const Profile = () => {
   ]);
   const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
-  const [userFollowing, setUserFollowing] = useState([]);
-
-  const userId = Cookies.get("id");
-  const tokenCookies = Cookies.get("token");
-  console.log(userId);
 
   const handleLike = async (id) => {
     let res = null;
     res = await fgdApi.likeThread(id, tokenCookies);
     console.log(res);
   };
-
   const getUserById = async (id) => {
     let res = null;
     res = await fgdApi.getUserById(id);
@@ -106,12 +101,23 @@ const Profile = () => {
       const data = res?.data;
       setListThread(data);
       console.log(data);
-      console.log(listThread);
+      // console.log(listThread);
     };
 
-    getUserById(userId);
-    getThreadByUserId(userId);
+    getUserById(id);
+    getThreadByUserId(id);
   }, []);
+
+  const reload = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+
+    const data = res.data;
+    console.log(data);
+    setUserAttribute(data);
+    // return res.data;
+    console.log(userAttribute);
+  };
 
   return (
     <>
@@ -135,18 +141,16 @@ const Profile = () => {
                       eventKey={profileData[0].key}
                       title={
                         <>
+                          {" "}
                           <p>{profileData[0].title}</p>
                           <p>{userAttribute.total_user_followers}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper ">
-                        <div className="followers-tabs card-tabs ">
-                          {userAttribute.user_followers?.map(
-                            (item, itemIdx) => (
-                              <HeaderLite data={item} />
-                            )
-                          )}
+                        {" "}
+                        <div className="card-threads text-center">
+                          BELOM ADA DATA
                         </div>
                       </div>
                     </Tab>
@@ -154,18 +158,16 @@ const Profile = () => {
                       eventKey={profileData[1].key}
                       title={
                         <>
+                          {" "}
                           <p>{profileData[1].title}</p>
                           <p>{userAttribute.total_user_following}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        <div className="following-tabs card-tabs ">
-                          {userAttribute.user_following?.map(
-                            (item, itemIdx) => (
-                              <HeaderLite />
-                            )
-                          )}
+                        {" "}
+                        <div className="card-threads text-center">
+                          BELOM ADA DATA
                         </div>
                       </div>
                     </Tab>
@@ -173,13 +175,15 @@ const Profile = () => {
                       eventKey={profileData[2].key}
                       title={
                         <>
+                          {" "}
                           <p>{profileData[2].title}</p>
                           <p>{profileData[2].number}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        <div className="card-tabs">
+                        {" "}
+                        <div className="card-threads">
                           <CardPost
                             title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
                             name="Gde Agung Mandala"
@@ -223,14 +227,16 @@ const Profile = () => {
                       eventKey={profileData[3].key}
                       title={
                         <>
+                          {" "}
                           <p>{profileData[3].title}</p>
                           <p>{listThread.length}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        <div className="threads-tabs card-tabs">
-                          {listThread?.map((item, itemIdx) => (
+                        {" "}
+                        <div className="card-threads">
+                          {listThread.reverse().map((item, itemIdx) => (
                             <HomeCard
                               key={itemIdx}
                               data={item}
@@ -244,12 +250,6 @@ const Profile = () => {
                       </div>
                     </Tab>
                   </Tabs>
-                  {/* {profileData.map((data, dataIdx) => (
-                    <div className="col-md-1 text-center " key={dataIdx}>
-                      <p>{data.title}</p>
-                      <p>{data.number}</p>
-                    </div>
-                  ))} */}
                 </div>
               </div>
             </div>
@@ -261,4 +261,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserProfile;

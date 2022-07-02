@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
 
 import Swal from "sweetalert2";
@@ -55,15 +55,15 @@ export default function Login() {
     );
   };
 
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+    console.log(res.data);
+    Cookies.set("data", JSON.stringify(res.data));
+  };
+
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-
-    const getUserById = async (id) => {
-      let res = null;
-      res = await fgdApi.getUserById(id);
-      console.log(res.data);
-      Cookies.set("data", JSON.stringify(res.data));
-    };
 
     const getLogin = async () => {
       let res = null;

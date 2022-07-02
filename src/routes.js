@@ -8,6 +8,7 @@ import Notifikasi from "./pages/Notifikasi";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import EditProfile from "./pages/EditProfile";
+import UserProfile from "./pages/UserProfile";
 
 const routes = [
   {
@@ -15,7 +16,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/hometrending",
+    path: "/trending",
     component: HomeTrending,
   },
   {
@@ -37,6 +38,10 @@ const routes = [
   {
     path: "/profile",
     component: Profile,
+  },
+  {
+    path: "/user/:id",
+    component: UserProfile,
   },
   {
     path: "/edit-profile",
