@@ -35,22 +35,22 @@ function ExploreTopik() {
       let res = null;
       const params = {};
       res = await fgdApi.getUser(params);
-      console.log(res.data);
+      // console.log(res.data);
     };
 
     const getThread = async () => {
       let res = null;
       const params = category.categoryYangDipilih;
       res = await categoryApi.getThread(params);
-      console.log(res.data);
-      setListThread(res?.data);
+      // console.log(res.data);
+      setListThread(res?.data.content);
     };
 
     console.log(data);
 
     getUser();
     getThread();
-    console.log(listThread);
+    // console.log(listThread);
   }, []);
 
   const handleCategory = (value) => {
@@ -63,7 +63,7 @@ function ExploreTopik() {
       let res = null;
       const params = {};
       res = await categoryApi.getThread(value);
-      console.log(res.data);
+      // console.log(res.data);
       setListThread(res?.data);
     };
     getThread();
