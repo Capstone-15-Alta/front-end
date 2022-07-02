@@ -27,12 +27,11 @@ import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 import Cookies from "js-cookie";
 import { useLocation, Link } from "react-router-dom";
 
-export default function HomeCard({ data, likeData, handleLike }) {
+export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
   const location = useLocation();
   const path = location.pathname;
   const userId = Cookies.get("id");
   const [openComment, setOpenComment] = useState(false);
-  // console.log(userId, data.user?.id);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -149,7 +148,9 @@ export default function HomeCard({ data, likeData, handleLike }) {
                     >
                       {" "}
                       <MenuItem onClick={handleClose}>Edit</MenuItem>
-                      <MenuItem onClick={handleClose}>Delete</MenuItem>
+                      <MenuItem onClick={() => handleDelete(data.id)}>
+                        Delete
+                      </MenuItem>
                     </Menu>
                   </div>
                 ) : (
