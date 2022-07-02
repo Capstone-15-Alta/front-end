@@ -107,7 +107,7 @@ const Home = () => {
       let res = null;
       const params = {};
       res = await fgdApi.getThread(params);
-      console.log(res.data);
+      console.log("ini thread", res.data);
       setListThread(res?.data);
     };
 
@@ -126,7 +126,7 @@ const Home = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-    console.log(curentPage)
+    console.log(curentPage);
     const getThread = async () => {
       let res = null;
       const params = { curentPage };
@@ -166,29 +166,27 @@ const Home = () => {
         <Grid item md={6} mt="9rem">
           <Box display="flex">
             {fillter.map((item, itemIdx) => (
-
               <Link key={itemIdx} to={item.link}>
                 <Button
-                key={itemIdx}
-                href={item.link}
-                variant={item.isActive === true ? "contained" : "outlined"}
-                sx={{
-                  textTransform: "none",
-                  borderRadius: "15px",
-                  marginRight: "3vw",
-                  color: item.isActive ? "white" : "#26B893",
-                  bgcolor: item.isActive ? "#26B893" : "white",
-                  "&:hover": {
+                  key={itemIdx}
+                  href={item.link}
+                  variant={item.isActive === true ? "contained" : "outlined"}
+                  sx={{
+                    textTransform: "none",
+                    borderRadius: "15px",
+                    marginRight: "3vw",
                     color: item.isActive ? "white" : "#26B893",
                     bgcolor: item.isActive ? "#26B893" : "white",
-                  },
-                }}
-              >
-                <item.icon />
-                <span style={{ marginLeft: "1vw" }}>{item.name}</span>
-              </Button>
+                    "&:hover": {
+                      color: item.isActive ? "white" : "#26B893",
+                      bgcolor: item.isActive ? "#26B893" : "white",
+                    },
+                  }}
+                >
+                  <item.icon />
+                  <span style={{ marginLeft: "1vw" }}>{item.name}</span>
+                </Button>
               </Link>
-
             ))}
           </Box>
           <Box pt="3vh">
