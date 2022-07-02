@@ -29,20 +29,36 @@ const FormPostingThread = () => {
 
   const token = Cookies.get("token");
 
+<<<<<<< HEAD
   const dataUser = JSON.parse(Cookies.get("data"));
   console.log(dataUser);
+=======
+  const userId = Cookies.get("id");
+>>>>>>> abf628e1743e0309a5ecd513407efd287e600484
 
   const time = moment().format("LT");
 
+  const [userAttribute, setUserAttribute] = useState({});
+
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+
+    const data = res.data;
+    console.log(data);
+    setUserAttribute(data);
+    console.log("ini user attribut", userAttribute);
+  };
+
+  const getCategory = async () => {
+    let res = null;
+    const params = {};
+    res = await fgdApi.getCategory(params);
+    setThreadCategory(res.data);
+  };
+
   useEffect(() => {
-    const getCategory = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getCategory(params);
-      setThreadCategory(res.data);
-    };
-    console.log(token);
-    console.log(dataUser);
+    getUserById(userId);
     getCategory();
   }, []);
 
@@ -101,7 +117,7 @@ const FormPostingThread = () => {
 
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-    console.log(files);
+    // console.log(files);
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, []);
 
@@ -151,7 +167,7 @@ const FormPostingThread = () => {
     >
       <div className="user-profile-section">
         <div className="row user-form-post-thread">
-          <Users data={dataUser} />
+          <Users data={userAttribute} />
 
           <div className="col-2  ms-4 time-post">
             <p className="time-to-post">Hari ini, {time}</p>
