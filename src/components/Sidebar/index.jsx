@@ -64,8 +64,8 @@ export const SidebarRight = () => {
     let res = null;
     const params = {};
     res = await fgdApi.getAllUser(params);
-    // console.log(res.data);
-    setAllUser(res.data);
+    console.log(res.data);
+    setAllUser(res.data.content);
   };
   useEffect(() => {
     getAllUser();
@@ -79,6 +79,8 @@ export const SidebarRight = () => {
     console.log(res.data);
     getAllUser();
   };
+  
+
   console.log(allUser);
   return (
     <div className="sidebar-right">
@@ -99,7 +101,7 @@ export const SidebarRight = () => {
                 <p className="name">{val.username}</p>
               </Link>
               {val.user_followers?.filter(
-                (is_follow) => is_follow.user_follower_id == id
+                (is_follow) => is_follow.user_follower.id == id
               ).length > 0 ? (
                 <button
                   className="button"
