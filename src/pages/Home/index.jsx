@@ -43,54 +43,6 @@ const Home = () => {
     },
   ];
 
-  const dataHomepage = [
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manProfile.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manProfile.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manProfile.png",
-    },
-  ];
-
-  const saranData = [
-    {
-      username: "Charile005",
-      isVerified: false,
-      profile: "/assets/icon/manProfile.png",
-    },
-    {
-      username: "AlexBrown",
-      isVerified: true,
-      profile: "/assets/icon/manProfile.png",
-    },
-    {
-      username: "Emma_Wright",
-      isVerified: false,
-      profile: "/assets/icon/manProfile.png",
-    },
-  ];
-
   const [listThread, setListThread] = useState([]);
 
   const [pageCount, setPageCount] = useState(0);
@@ -126,7 +78,7 @@ const Home = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-    console.log(curentPage)
+    console.log(curentPage);
     const getThread = async () => {
       let res = null;
       const params = { curentPage };
@@ -166,29 +118,27 @@ const Home = () => {
         <Grid item md={6} mt="9rem">
           <Box display="flex">
             {fillter.map((item, itemIdx) => (
-
               <Link key={itemIdx} to={item.link}>
                 <Button
-                key={itemIdx}
-                href={item.link}
-                variant={item.isActive === true ? "contained" : "outlined"}
-                sx={{
-                  textTransform: "none",
-                  borderRadius: "15px",
-                  marginRight: "3vw",
-                  color: item.isActive ? "white" : "#26B893",
-                  bgcolor: item.isActive ? "#26B893" : "white",
-                  "&:hover": {
+                  key={itemIdx}
+                  href={item.link}
+                  variant={item.isActive === true ? "contained" : "outlined"}
+                  sx={{
+                    textTransform: "none",
+                    borderRadius: "15px",
+                    marginRight: "3vw",
                     color: item.isActive ? "white" : "#26B893",
                     bgcolor: item.isActive ? "#26B893" : "white",
-                  },
-                }}
-              >
-                <item.icon />
-                <span style={{ marginLeft: "1vw" }}>{item.name}</span>
-              </Button>
+                    "&:hover": {
+                      color: item.isActive ? "white" : "#26B893",
+                      bgcolor: item.isActive ? "#26B893" : "white",
+                    },
+                  }}
+                >
+                  <item.icon />
+                  <span style={{ marginLeft: "1vw" }}>{item.name}</span>
+                </Button>
               </Link>
-
             ))}
           </Box>
           <Box pt="3vh">
