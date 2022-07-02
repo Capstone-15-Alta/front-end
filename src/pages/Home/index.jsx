@@ -6,13 +6,11 @@ import Button from "@mui/material/Button";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import HomeCard from "../../components/Card/HomeCard";
-import Saran from "../../components/Card/Saran";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
@@ -128,7 +126,7 @@ const Home = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-
+    console.log(curentPage)
     const getThread = async () => {
       let res = null;
       const params = { curentPage };
@@ -168,21 +166,29 @@ const Home = () => {
         <Grid item md={6} mt="9rem">
           <Box display="flex">
             {fillter.map((item, itemIdx) => (
+
               <Link key={itemIdx} to={item.link}>
                 <Button
-                  variant={item.isActive === true ? "contained" : "outlined"}
-                  sx={{
-                    textTransform: "none",
-                    borderRadius: "15px",
-                    marginRight: "3vw",
+                key={itemIdx}
+                href={item.link}
+                variant={item.isActive === true ? "contained" : "outlined"}
+                sx={{
+                  textTransform: "none",
+                  borderRadius: "15px",
+                  marginRight: "3vw",
+                  color: item.isActive ? "white" : "#26B893",
+                  bgcolor: item.isActive ? "#26B893" : "white",
+                  "&:hover": {
                     color: item.isActive ? "white" : "#26B893",
                     bgcolor: item.isActive ? "#26B893" : "white",
-                  }}
-                >
-                  <item.icon />
-                  <span style={{ marginLeft: "1vw" }}>{item.name}</span>
-                </Button>
+                  },
+                }}
+              >
+                <item.icon />
+                <span style={{ marginLeft: "1vw" }}>{item.name}</span>
+              </Button>
               </Link>
+
             ))}
           </Box>
           <Box pt="3vh">

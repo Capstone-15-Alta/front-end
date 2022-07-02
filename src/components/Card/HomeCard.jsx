@@ -43,7 +43,6 @@ export default function HomeCard({ data, likeData, handleLike }) {
     setAnchorEl(null);
   };
   const ITEM_HEIGHT = 48;
-  console.log(data);
 
   const dataComment = [
     {
@@ -70,8 +69,6 @@ export default function HomeCard({ data, likeData, handleLike }) {
       ],
     },
   ];
-
-  console.log(likeData);
 
   return (
     <>

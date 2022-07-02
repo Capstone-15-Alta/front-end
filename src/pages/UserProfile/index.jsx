@@ -21,6 +21,7 @@ import Cookies from "js-cookie";
 const UserProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const tokenCookies = Cookies.get("token");
   const dataHomepage = [
     {
       username: "Albert Flores",
@@ -75,8 +76,21 @@ const UserProfile = () => {
   const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
 
-  const aaa = listThread.reverse();
-  console.log(aaa);
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+
+    const data = res.data;
+    console.log(data);
+    setUserAttribute(data);
+    // return res.data;
+    console.log(userAttribute);
+  };
 
   useEffect(() => {
     const getThreadByUserId = async (id) => {
@@ -88,16 +102,6 @@ const UserProfile = () => {
       setListThread(data);
       console.log(data);
       // console.log(listThread);
-    };
-    const getUserById = async (id) => {
-      let res = null;
-      res = await fgdApi.getUserById(id);
-
-      const data = res.data;
-      console.log(data);
-      setUserAttribute(data);
-      // return res.data;
-      console.log(userAttribute);
     };
 
     getUserById(id);
@@ -126,12 +130,7 @@ const UserProfile = () => {
             </div>
             <div className="content-section col-9 container-fluid">
               <div className="col-12">
-                <HeaderProfile
-                  data={userAttribute}
-                  reload={() => {
-                    reload(id);
-                  }}
-                />
+                <HeaderProfile data={userAttribute} getUserById={getUserById} />
                 <div className=" tab-section row  mb-5">
                   <Tabs
                     defaultActiveKey="post"
@@ -238,18 +237,19 @@ const UserProfile = () => {
                         {" "}
                         <div className="card-threads">
                           {listThread.reverse().map((item, itemIdx) => (
-                            <HomeCard key={itemIdx} data={item} />
+                            <HomeCard
+                              key={itemIdx}
+                              data={item}
+                              likeData={item.likes?.map(
+                                (like, likeIdx) => like
+                              )}
+                              handleLike={handleLike}
+                            />
                           ))}
                         </div>
                       </div>
                     </Tab>
                   </Tabs>
-                  {/* {profileData.map((data, dataIdx) => (
-                    <div className="col-md-1 text-center " key={dataIdx}>
-                      <p>{data.title}</p>
-                      <p>{data.number}</p>
-                    </div>
-                  ))} */}
                 </div>
               </div>
             </div>

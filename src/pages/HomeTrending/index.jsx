@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import Container from "react-bootstrap/Container";
 import Footer from "../../components/Footer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -8,12 +7,9 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import HomeCard from "../../components/Card/HomeCard";
-import Saran from "../../components/Card/Saran";
-import { Avatar } from "@mui/material";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -140,21 +136,28 @@ const Home = () => {
         <Grid item md={6} mt="9rem">
           <Box display="flex">
             {fillter.map((item, itemIdx) => (
-              <Link key={itemIdx} to={item.link}>
-                <Button
-                  variant={item.isActive === true ? "contained" : "outlined"}
-                  sx={{
-                    textTransform: "none",
-                    borderRadius: "15px",
-                    marginRight: "3vw",
+<Link key={itemIdx} to={item.link}>
+               <Button
+                key={itemIdx}
+                href={item.link}
+                variant={item.isActive === true ? "contained" : "outlined"}
+                sx={{
+                  textTransform: "none",
+                  borderRadius: "15px",
+                  marginRight: "3vw",
+                  color: item.isActive ? "white" : "#26B893",
+                  bgcolor: item.isActive ? "#26B893" : "white",
+                  "&:hover": {
                     color: item.isActive ? "white" : "#26B893",
                     bgcolor: item.isActive ? "#26B893" : "white",
-                  }}
-                >
-                  <item.icon />
-                  <span style={{ marginLeft: "1vw" }}>{item.name}</span>
-                </Button>
+                  },
+                }}
+              >
+                <item.icon />
+                <span style={{ marginLeft: "1vw" }}>{item.name}</span>
+              </Button>
               </Link>
+
             ))}
           </Box>
           <Box pt="3vh">

@@ -14,6 +14,7 @@ import HomeCard from "../../components/Card/HomeCard";
 import fgdApi from "../../api/fgdApi";
 
 import HeaderProfile from "../../components/HeaderProfile";
+import HeaderLite from "../../components/HeaderProfile/HeaderLite";
 
 import "./Profile.scss";
 import Cookies from "js-cookie";
@@ -73,6 +74,7 @@ const Profile = () => {
   ]);
   const [userAttribute, setUserAttribute] = useState({});
   const [listThread, setListThread] = useState([]);
+  const [userFollowing, setUserFollowing] = useState([]);
 
   const userId = Cookies.get("id");
   const tokenCookies = Cookies.get("token");
@@ -104,7 +106,7 @@ const Profile = () => {
       const data = res?.data;
       setListThread(data);
       console.log(data);
-      // console.log(listThread);
+      console.log(listThread);
     };
 
     getUserById(userId);
@@ -133,16 +135,18 @@ const Profile = () => {
                       eventKey={profileData[0].key}
                       title={
                         <>
-                          {" "}
                           <p>{profileData[0].title}</p>
                           <p>{userAttribute.total_user_followers}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper ">
-                        {" "}
-                        <div className="card-threads text-center">
-                          BELOM ADA DATA
+                        <div className="followers-tabs card-tabs ">
+                          {userAttribute.user_followers?.map(
+                            (item, itemIdx) => (
+                              <HeaderLite data={item} />
+                            )
+                          )}
                         </div>
                       </div>
                     </Tab>
@@ -150,16 +154,18 @@ const Profile = () => {
                       eventKey={profileData[1].key}
                       title={
                         <>
-                          {" "}
                           <p>{profileData[1].title}</p>
                           <p>{userAttribute.total_user_following}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        {" "}
-                        <div className="card-threads text-center">
-                          BELOM ADA DATA
+                        <div className="following-tabs card-tabs ">
+                          {userAttribute.user_following?.map(
+                            (item, itemIdx) => (
+                              <HeaderLite />
+                            )
+                          )}
                         </div>
                       </div>
                     </Tab>
@@ -167,15 +173,13 @@ const Profile = () => {
                       eventKey={profileData[2].key}
                       title={
                         <>
-                          {" "}
                           <p>{profileData[2].title}</p>
                           <p>{profileData[2].number}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        {" "}
-                        <div className="card-threads">
+                        <div className="card-tabs">
                           <CardPost
                             title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
                             name="Gde Agung Mandala"
@@ -219,16 +223,14 @@ const Profile = () => {
                       eventKey={profileData[3].key}
                       title={
                         <>
-                          {" "}
                           <p>{profileData[3].title}</p>
                           <p>{listThread.length}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        {" "}
-                        <div className="card-threads">
-                          {listThread.reverse().map((item, itemIdx) => (
+                        <div className="threads-tabs card-tabs">
+                          {listThread?.map((item, itemIdx) => (
                             <HomeCard
                               key={itemIdx}
                               data={item}

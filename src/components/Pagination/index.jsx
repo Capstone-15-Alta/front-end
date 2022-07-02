@@ -10,7 +10,7 @@ const Pagination = (props) => {
       <ReactPaginate
         previousLabel={"previouse"}
         nextLabel={"next"}
-        pageCount={total}
+        pageCount={5}
         marginPagesDisplayed={2}
         pageRangeDisplayed={3}
         onPageChange={props.handlePageClick}
