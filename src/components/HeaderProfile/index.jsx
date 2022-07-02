@@ -9,6 +9,7 @@ import foto from "../../assets/images/foto.jpg";
 import { Link, useLocation, useParams } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
+import { Avatar } from "@mui/material";
 
 const HeaderProfile = ({ data, getUserById }) => {
   const { id } = useParams();
@@ -93,31 +94,28 @@ const HeaderProfile = ({ data, getUserById }) => {
         </div>
 
         <div className="profile-zzz">
-          <div
-            style={{ backgroundImage: `url(${data.image})` }}
-            className="foto"
-          >
-            {path === "/profile" ? (
-              <>
-                <Button
-                  type="button"
-                  className=" btn btnChangeImage "
-                  background="#26b893"
-                  color="#fff"
-                  iconKiri="iconKamera"
-                  onClick={handleClickImage}
-                />
-                <input
-                  type="file"
-                  className="d-none"
-                  ref={imageRef}
-                  onChange={handleUploadImage}
-                />
-              </>
-            ) : (
-              ""
-            )}
-          </div>
+          <Avatar className="foto" alt={data.username} src={data.image} />
+
+          {path === "/profile" ? (
+            <>
+              <Button
+                type="button"
+                className=" btn btnChangeImage "
+                background="#26b893"
+                color="#fff"
+                iconKiri="iconKamera"
+                onClick={handleClickImage}
+              />
+              <input
+                type="file"
+                className="d-none"
+                ref={imageRef}
+                onChange={handleUploadImage}
+              />
+            </>
+          ) : (
+            ""
+          )}
           <div className="dataProfile">
             <div className="nickname d-flex ">
               <div className="name-email">
