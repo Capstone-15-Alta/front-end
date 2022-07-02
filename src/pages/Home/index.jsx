@@ -59,13 +59,8 @@ const Home = () => {
       let res = null;
       const params = {};
       res = await fgdApi.getThread(params);
-<<<<<<< HEAD
       console.log(res.data);
       setListThread(res.data.content);
-=======
-      console.log("ini thread", res.data);
-      setListThread(res?.data);
->>>>>>> abf628e1743e0309a5ecd513407efd287e600484
     };
 
     const getLengthThread = async () => {
@@ -83,11 +78,7 @@ const Home = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-<<<<<<< HEAD
     // console.log(curentPage);
-=======
-    console.log(curentPage);
->>>>>>> abf628e1743e0309a5ecd513407efd287e600484
     const getThread = async () => {
       let res = null;
       const params = { curentPage };
