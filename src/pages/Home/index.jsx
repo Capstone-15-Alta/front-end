@@ -166,21 +166,29 @@ const Home = () => {
         <Grid item md={6} mt="9rem">
           <Box display="flex">
             {fillter.map((item, itemIdx) => (
+
               <Link key={itemIdx} to={item.link}>
                 <Button
-                  variant={item.isActive === true ? "contained" : "outlined"}
-                  sx={{
-                    textTransform: "none",
-                    borderRadius: "15px",
-                    marginRight: "3vw",
+                key={itemIdx}
+                href={item.link}
+                variant={item.isActive === true ? "contained" : "outlined"}
+                sx={{
+                  textTransform: "none",
+                  borderRadius: "15px",
+                  marginRight: "3vw",
+                  color: item.isActive ? "white" : "#26B893",
+                  bgcolor: item.isActive ? "#26B893" : "white",
+                  "&:hover": {
                     color: item.isActive ? "white" : "#26B893",
                     bgcolor: item.isActive ? "#26B893" : "white",
-                  }}
-                >
-                  <item.icon />
-                  <span style={{ marginLeft: "1vw" }}>{item.name}</span>
-                </Button>
+                  },
+                }}
+              >
+                <item.icon />
+                <span style={{ marginLeft: "1vw" }}>{item.name}</span>
+              </Button>
               </Link>
+
             ))}
           </Box>
           <Box pt="3vh">
