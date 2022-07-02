@@ -61,19 +61,14 @@ const Home = () => {
       res = await fgdApi.getThread(params);
       console.log(res.data);
       setListThread(res.data.content);
+      setPageCount(res.data.totalPages)
     };
 
-    const getLengthThread = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getLengthThread(params);
-      // console.log(res.data);
-      setPageCount(res.data.length);
-    };
+    
 
     getUser();
     getThread();
-    getLengthThread();
+    
   }, []);
 
   const handlePageClick = (data) => {
@@ -84,7 +79,7 @@ const Home = () => {
       const params = { curentPage };
       res = await fgdApi.getThread(params);
       console.log(res.data);
-      setListThread(res?.data);
+      setListThread(res?.data.content);
       console.log(listThread);
     };
     getThread();

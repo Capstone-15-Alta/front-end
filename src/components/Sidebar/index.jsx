@@ -83,6 +83,7 @@ export const SidebarRight = () => {
     console.log(res.data);
     getAllUser();
   };
+
   console.log(allUser);
   return (
     <div className="sidebar-right">

@@ -63,10 +63,11 @@ function ExploreTopik() {
       let res = null;
       const params = {};
       res = await categoryApi.getThread(value);
-      // console.log(res.data);
-      setListThread(res?.data);
+      console.log(res.data);
+      setListThread(res?.data.content);
     };
     getThread();
+    //
   };
 
   const handleLike = async (id) => {

@@ -4,13 +4,13 @@ import "./Pagination.scss"
 
 
 const Pagination = (props) => {
-    const total = props.pageCount / 5
+  
   return (
     <>
       <ReactPaginate
         previousLabel={"previouse"}
         nextLabel={"next"}
-        pageCount={5}
+        pageCount={props.pageCount}
         marginPagesDisplayed={2}
         pageRangeDisplayed={3}
         onPageChange={props.handlePageClick}
