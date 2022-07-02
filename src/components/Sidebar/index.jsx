@@ -58,15 +58,19 @@ export const SidebarLeft = () => {
 
 export const SidebarRight = () => {
   const [allUser, setAllUser] = useState([]);
+
   const token = Cookies.get("token");
+
   const id = Cookies.get("id");
+
   const getAllUser = async () => {
     let res = null;
     const params = {};
     res = await fgdApi.getAllUser(params);
-    // console.log(res.data);
-    setAllUser(res.data);
+    console.log(res.data);
+    setAllUser(res.data.content);
   };
+
   useEffect(() => {
     getAllUser();
   }, []);
@@ -92,14 +96,14 @@ export const SidebarRight = () => {
             <li className="" key={index}>
               <Link to={`user/${val.id}`}>
                 <div className="icon">
-                  <img src={man4} alt="" width={40} />
+                  <img src={val.image} alt="" width={40} />
                 </div>
               </Link>
               <Link to={`user/${val.id}`}>
                 <p className="name">{val.username}</p>
               </Link>
               {val.user_followers?.filter(
-                (is_follow) => is_follow.user_follower_id == id
+                (is_follow) => is_follow.user_follower.id == id
               ).length > 0 ? (
                 <button
                   className="button"
