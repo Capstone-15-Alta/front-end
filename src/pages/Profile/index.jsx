@@ -45,6 +45,7 @@ const Profile = () => {
     },
   ]);
   const [userAttribute, setUserAttribute] = useState({});
+
   const [listThread, setListThread] = useState([]);
 
   const userId = Cookies.get("id");
@@ -74,7 +75,7 @@ const Profile = () => {
 
       res = await fgdApi.getThreadByUserId(id);
       //console.log(res.data);
-      const data = res?.data;
+      const data = res?.data.content;
       setListThread(data);
       console.log(data);
       console.log(listThread);

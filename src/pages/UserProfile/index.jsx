@@ -17,13 +17,15 @@ import HeaderProfile from "../../components/HeaderProfile";
 
 import "./UserProfile.scss";
 import Cookies from "js-cookie";
+import HeaderLite from "../../components/HeaderProfile/HeaderLite";
 
 const UserProfile = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const tokenCookies = Cookies.get("token");
 
-  const [profileData, setProfileData] = useState([
+  const tokenCookies = Cookies.get("token");
+  const userId = Cookies.get("id");
+
+  const profileData = [
     {
       title: "Pengikut",
       number: 5,
@@ -44,8 +46,11 @@ const UserProfile = () => {
       number: 20,
       key: "thread",
     },
-  ]);
+  ];
   const [userAttribute, setUserAttribute] = useState({});
+
+  const [selfAccount, setSelfAccount] = useState({});
+
   const [listThread, setListThread] = useState([]);
 
   const handleLike = async (id) => {
@@ -64,13 +69,23 @@ const UserProfile = () => {
     console.log(userAttribute);
   };
 
+  const getSelfAccount = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+
+    const data = res.data;
+    console.log(data);
+    setSelfAccount(data);
+    // return res.data;
+    console.log(selfAccount);
+  };
+
   useEffect(() => {
     const getThreadByUserId = async (id) => {
       let res = null;
 
       res = await fgdApi.getThreadByUserId(id);
-      //console.log(res.data);
-      const data = res?.data;
+      const data = res?.data.content;
       setListThread(data);
       console.log(data);
       // console.log(listThread);
@@ -78,22 +93,23 @@ const UserProfile = () => {
 
     getUserById(id);
     getThreadByUserId(id);
+    getSelfAccount(userId);
   }, []);
 
-  const reload = async (id) => {
-    let res = null;
-    res = await fgdApi.getUserById(id);
+  // const reload = async (id) => {
+  //   let res = null;
+  //   res = await fgdApi.getUserById(id);
 
-    const data = res.data;
-    console.log(data);
-    setUserAttribute(data);
-    // return res.data;
-    console.log(userAttribute);
-  };
+  //   const data = res.data;
+  //   console.log(data);
+  //   setUserAttribute(data);
+  //   // return res.data;
+  //   console.log(userAttribute);
+  // };
 
   return (
     <>
-      <div className="profile-section">
+      <div className="user-profile-section">
         <Navigationbar />
         <section className="body-section ">
           <div className="row">
@@ -120,9 +136,24 @@ const UserProfile = () => {
                       }
                     >
                       <div className="tab-item-wrapper ">
-                        {" "}
-                        <div className="card-threads text-center">
-                          BELOM ADA DATA
+                        <div className="followers-tabs card-tabs ">
+                          {userAttribute.user_followers?.map(
+                            (item, itemIdx) => (
+                              <div
+                                className="row mb-4 justify-content-center"
+                                key={itemIdx}
+                              >
+                                <HeaderLite
+                                  getUserById={getSelfAccount}
+                                  user={selfAccount}
+                                  name={item.user_follower?.username}
+                                  email={item.user_follower?.email}
+                                  gambar={item.user_follower?.image}
+                                  guestId={item.user_follower?.id}
+                                />
+                              </div>
+                            )
+                          )}
                         </div>
                       </div>
                     </Tab>
@@ -137,9 +168,24 @@ const UserProfile = () => {
                       }
                     >
                       <div className="tab-item-wrapper">
-                        {" "}
-                        <div className="card-threads text-center">
-                          BELOM ADA DATA
+                        <div className="following-tabs card-tabs ">
+                          {userAttribute.user_following?.map(
+                            (item, itemIdx) => (
+                              <div
+                                className="row mb-4 justify-content-center"
+                                key={itemIdx}
+                              >
+                                <HeaderLite
+                                  getUserById={getSelfAccount}
+                                  user={selfAccount}
+                                  name={item.user_followed?.username}
+                                  email={item.user_followed?.email}
+                                  gambar={item.user_followed?.image}
+                                  guestId={item.user_followed?.id}
+                                />
+                              </div>
+                            )
+                          )}
                         </div>
                       </div>
                     </Tab>
@@ -201,14 +247,14 @@ const UserProfile = () => {
                         <>
                           {" "}
                           <p>{profileData[3].title}</p>
-                          <p>{listThread.length}</p>
+                          <p>{listThread?.length}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
                         {" "}
                         <div className="card-threads">
-                          {listThread.reverse().map((item, itemIdx) => (
+                          {listThread?.reverse().map((item, itemIdx) => (
                             <HomeCard
                               key={itemIdx}
                               data={item}

@@ -60,14 +60,14 @@ const Home = () => {
       const params = {};
       res = await fgdApi.getThread(params);
       console.log(res.data);
-      setListThread(res?.data);
+      setListThread(res.data.content);
     };
 
     const getLengthThread = async () => {
       let res = null;
       const params = {};
       res = await fgdApi.getLengthThread(params);
-      console.log(res.data);
+      // console.log(res.data);
       setPageCount(res.data.length);
     };
 
@@ -78,7 +78,7 @@ const Home = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-    console.log(curentPage);
+    // console.log(curentPage);
     const getThread = async () => {
       let res = null;
       const params = { curentPage };
@@ -142,7 +142,7 @@ const Home = () => {
             ))}
           </Box>
           <Box pt="3vh">
-            {listThread.map((item, itemIdx) => (
+            {listThread?.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
                 <HomeCard
                   data={item}

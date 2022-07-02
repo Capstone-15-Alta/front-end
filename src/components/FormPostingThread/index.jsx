@@ -30,6 +30,7 @@ const FormPostingThread = () => {
   const token = Cookies.get("token");
 
   const dataUser = JSON.parse(Cookies.get("data"));
+  console.log(dataUser);
 
   const time = moment().format("LT");
 
