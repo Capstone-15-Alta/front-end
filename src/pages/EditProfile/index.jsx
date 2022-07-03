@@ -28,20 +28,8 @@ const EditProfile = () => {
     console.log(userAttribute);
   };
 
-  const getThreadByUserId = async (id) => {
-    let res = null;
-
-    res = await fgdApi.getThreadByUserId(id);
-    //console.log(res.data);
-    const data = res?.data;
-    setListThread(data);
-    console.log(data);
-    console.log(listThread);
-  };
-
   useEffect(() => {
     getUserById(userId);
-    getThreadByUserId(userId);
   }, []);
 
   return (
@@ -86,7 +74,7 @@ const EditProfile = () => {
                   Nomor Handphone
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="inputAddress"
                   placeholder="Masukan Nomor Handphone"
@@ -97,7 +85,7 @@ const EditProfile = () => {
                   Email
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
                   id="inputAddress2"
                   placeholder="Muhammadyogi413@gmail.com"
