@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import fgdApi from "../../api/fgdApi";
 import categoryApi from "../../api/categoryApi";
 import Cookies from "js-cookie";
-
+import HorizontalScroll from "../../components/HorizontalScroll";
 function ExploreTopik() {
   const [data, setData] = useState([]);
   const [listThread, setListThread] = useState([]);
@@ -103,6 +103,7 @@ function ExploreTopik() {
                     </button>
                   );
                 })}
+                {/* <HorizontalScroll/> */}
             </div>
             <div className="explore-thread">
               {listThread &&
