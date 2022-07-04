@@ -30,6 +30,14 @@ function ExploreTopik() {
     getCategory();
   }, []);
 
+  const getThreadFirst = async () => {
+    let res = null;
+    const params = category.categoryYangDipilih;
+    res = await categoryApi.getThread(params);
+    // console.log(res.data);
+    setListThread(res?.data.content);
+  };
+
   useEffect(() => {
     const getUser = async () => {
       let res = null;
@@ -38,18 +46,10 @@ function ExploreTopik() {
       // console.log(res.data);
     };
 
-    const getThread = async () => {
-      let res = null;
-      const params = category.categoryYangDipilih;
-      res = await categoryApi.getThread(params);
-      // console.log(res.data);
-      setListThread(res?.data.content);
-    };
-
     console.log(data);
 
     getUser();
-    getThread();
+    getThreadFirst();
     // console.log(listThread);
   }, []);
 
