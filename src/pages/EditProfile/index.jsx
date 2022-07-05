@@ -59,8 +59,8 @@ const EditProfile = () => {
 
             <Formik
               initialValues={{
-                firstname: "HALO",
-                lastname: "JAKA",
+                firstname: userAttribute.first_name,
+                lastname: userAttribute.first_name,
                 nohandphone: "+62888990",
                 email: "hafizhizbullah28@gmail.com",
                 datebirth: "22 Juni 2002",
@@ -79,7 +79,7 @@ const EditProfile = () => {
                       label="Nama Depan"
                       name="firstname"
                       type="text"
-                      placeholder="Masukan nama depan"
+                      placeholder={userAttribute.first_name}
                       classInput="form-control"
                       classLabel="form-label"
                     />

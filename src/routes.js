@@ -55,10 +55,11 @@ const routes = [
   {
     path: "/notifikasi",
     component: Notifikasi,
-  },{
+  },
+  {
     path: "/admin-user",
     component: AdminUser,
-  }
+  },
 ];
 
 export default routes;
