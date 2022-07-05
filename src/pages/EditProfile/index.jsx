@@ -37,6 +37,11 @@ const EditProfile = () => {
     getUserById(userId);
   }, []);
 
+  const onSubmitHandler = async (values, actions) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log(values);
+  };
+
   return (
     <>
       <Navigationbar />
@@ -49,7 +54,7 @@ const EditProfile = () => {
             <HeaderProfile data={userAttribute} getUserById={getUserById} />
           </div>
 
-          <div className="Form">
+          <div className="section-form">
             <div className="title-edit-profile">EditProfile</div>
 
             <Formik
@@ -65,75 +70,114 @@ const EditProfile = () => {
                 postalcode: "20180",
               }}
               validationSchema={schemas}
+              onSubmit={onSubmitHandler}
             >
               {(props) => (
-                <Form>
-                  <CustomInput
-                    label="Nama Depan"
-                    name="firstname"
-                    type="text"
-                    placeholder="Masukan nama depan"
-                  />
-                  <CustomInput
-                    label="Nama Belakang"
-                    name="lastname"
-                    type="text"
-                    placeholder="Masukan nama belakang"
-                  />
-                  <CustomInput
-                    label="No Handphone"
-                    name="nohandphone"
-                    type="number"
-                    placeholder="+62 | Masukan nomor handphone"
-                  />
-                  <CustomInput
-                    label="Email"
-                    name="email"
-                    type="number"
-                    placeholder="+62 | Masukan nomor handphone"
-                  />
-                  <CustomInput
-                    label="Tanggal Lahir"
-                    name="datebirth"
-                    type="date"
-                    placeholder="Masukan tanggal lahir"
-                  />
-                  <CustomSelect
-                    label="Pendidikan Terakhir"
-                    name="tingkatPendidikan"
-                    placeholder="Masukkan pendidikan terakhir"
-                  >
-                    <option defaultValue>Masukan Tingkat Pendidikan</option>
-                    <option value="1">SMP</option>
-                    <option value="2">SMA/SMK</option>
-                    <option value="3">S1/D3</option>
-                  </CustomSelect>
-
-                  <CustomInput
-                    label="Negara"
-                    name="country"
-                    type="text"
-                    placeholder="Masukan nama negara"
-                  />
-
-                  <CustomInput
-                    label="Kota"
-                    name="city"
-                    type="text"
-                    placeholder="Masukan kota"
-                  />
-
-                  <CustomInput
-                    label="Kode Pos"
-                    name="postalcode"
-                    type="number"
-                    placeholder="Masukan kode pos"
-                  />
-
-                  <button type="submit">Submit</button>
+                <Form className="row g-3">
+                  <div className="col-md-6">
+                    <CustomInput
+                      label="Nama Depan"
+                      name="firstname"
+                      type="text"
+                      placeholder="Masukan nama depan"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <CustomInput
+                      label="Nama Belakang"
+                      name="lastname"
+                      type="text"
+                      placeholder="Masukan nama belakang"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="No Handphone"
+                      name="nohandphone"
+                      type="number"
+                      placeholder="+62 | Masukan nomor handphone"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Email"
+                      name="email"
+                      type="email"
+                      placeholder="Masukkan Email"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Tanggal Lahir"
+                      name="datebirth"
+                      type="date"
+                      placeholder="Masukan tanggal lahir"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomSelect
+                      label="Pendidikan Terakhir"
+                      name="tingkatPendidikan"
+                      placeholder="Masukkan pendidikan terakhir"
+                      classSelect="form-select"
+                      classLabel="form-label"
+                    >
+                      <option defaultValue>Masukan Tingkat Pendidikan</option>
+                      <option value="1">SMP</option>
+                      <option value="2">SMA/SMK</option>
+                      <option value="3">S1/D3</option>
+                    </CustomSelect>
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Negara"
+                      name="country"
+                      type="text"
+                      placeholder="Masukan nama negara"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Kota"
+                      name="city"
+                      type="text"
+                      placeholder="Masukan kota"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Kode Pos"
+                      name="postalcode"
+                      type="number"
+                      placeholder="Masukan kode pos"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div>
+                    <button className="btn-kembali">kembali</button>
+                    <button type="submit" className="btn-simpan">
+                      simpan
+                    </button>
+                  </div>
                 </Form>
               )}
             </Formik>
+
             {/* <form className="row g-3">
               <div className="col-md-6">
                 <label htmlFor="inputEmail4" className="form-label">

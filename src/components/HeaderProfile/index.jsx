@@ -20,6 +20,7 @@ const HeaderProfile = ({ data, getUserById }) => {
 
   const tokenCookies = Cookies.get("token");
   const userId = Cookies.get("id");
+  // console.log(tokenCookies, userId);
 
   const [bannerImg, setBannerImg] = useState(banner);
 
@@ -41,12 +42,13 @@ const HeaderProfile = ({ data, getUserById }) => {
 
   const handleUploadImage = async (e) => {
     const filePhoto = e.target.files[0];
+    console.log(filePhoto);
     let res = null;
     const formData = new FormData();
     formData.set("file", filePhoto);
 
     res = await fgdApi.uploadPhoto(tokenCookies, formData);
-    console.log(res.data);
+    console.log(res);
     getUserById(userId);
 
     // Cookies.set("data", JSON.stringify(data));
@@ -70,7 +72,7 @@ const HeaderProfile = ({ data, getUserById }) => {
             style={{ backgroundImage: `url(${bannerImg})` }}
             className="banner-image"
           ></div>
-          {path === "/profile" ? (
+          {path === "/profile" || "edit-profile" ? (
             <>
               <Button
                 type="button"
@@ -96,7 +98,7 @@ const HeaderProfile = ({ data, getUserById }) => {
         <div className="profile-zzz">
           <Avatar className="foto" alt={data.username} src={data.image} />
 
-          {path === "/profile" ? (
+          {path === "/profile" || "edit-profile" ? (
             <>
               <Button
                 type="button"

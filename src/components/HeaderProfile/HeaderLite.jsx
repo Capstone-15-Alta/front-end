@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 const HeaderLite = ({ name, email, gambar, user, guestId, getUserById }) => {
   const tokenCookies = Cookies.get("token");
   const userId = Cookies.get("id");
-  console.log(user);
+  // console.log(user);
 
   const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();

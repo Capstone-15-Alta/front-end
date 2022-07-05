@@ -10,6 +10,7 @@ import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import iconKategori from "../../assets/icon/vector_kategori.svg";
 
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
@@ -37,7 +38,7 @@ const Home = () => {
     },
     {
       name: "Kategori",
-      icon: FormatListBulletedIcon,
+      icon: iconKategori,
       link: "/explore-topik",
       isActive: false,
     },
@@ -61,14 +62,11 @@ const Home = () => {
       res = await fgdApi.getThread(params);
       console.log(res.data);
       setListThread(res.data.content);
-      setPageCount(res.data.totalPages)
+      setPageCount(res.data.totalPages);
     };
-
-    
 
     getUser();
     getThread();
-    
   }, []);
 
   const handlePageClick = (data) => {
@@ -130,7 +128,7 @@ const Home = () => {
                     },
                   }}
                 >
-                  <item.icon />
+                  <img src={item.icon} alt="" />
                   <span style={{ marginLeft: "1vw" }}>{item.name}</span>
                 </Button>
               </Link>
