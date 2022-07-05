@@ -133,21 +133,22 @@ const FormPostingThread = () => {
       let res = null;
       res = await fgdApi.postThread(formData, token);
       console.log(res);
+
+      if (res.message === "Success!") {
+        Swal.fire({
+          title: "Success",
+          text: "Thread Berhasil Dihapus !",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      }
     };
 
-    console.log(inputs);
     addThread();
-
-    Swal.fire({
-      title: "Success",
-      text: "Thread Berhasil Di Posting",
-      icon: "success",
-      confirmButtonText: "OK",
-    });
-
-    setTimeout(() => {
-      navigate("/");
-    }, 1500);
   };
 
   const handleReset = (e) => {

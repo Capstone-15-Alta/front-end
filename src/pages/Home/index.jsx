@@ -17,8 +17,10 @@ import { useNavigate, Link } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 
+import Swal from "sweetalert2";
+
 const Home = () => {
-  const { token } = useSelector((state) => state.login);
+  // const { token } = useSelector((state) => state.login);
   const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
   // console.log(token);
@@ -48,23 +50,23 @@ const Home = () => {
 
   const [pageCount, setPageCount] = useState(0);
 
+  const getUser = async () => {
+    let res = null;
+    const params = {};
+    res = await fgdApi.getAllUser(params);
+    // console.log(res.data);
+  };
+
+  const getThread = async () => {
+    let res = null;
+    const params = {};
+    res = await fgdApi.getThread(params);
+    console.log(res.data);
+    setListThread(res.data.content);
+    setPageCount(res.data.totalPages);
+  };
+
   useEffect(() => {
-    const getUser = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getAllUser(params);
-      // console.log(res.data);
-    };
-
-    const getThread = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getThread(params);
-      console.log(res.data);
-      setListThread(res.data.content);
-      setPageCount(res.data.totalPages);
-    };
-
     getUser();
     getThread();
   }, []);
@@ -87,6 +89,23 @@ const Home = () => {
     let res = null;
     res = await fgdApi.likeThread(id, tokenCookies);
     console.log(res);
+  };
+
+  const handleDelete = async (id) => {
+    let res = null;
+    res = await fgdApi.deleteThread(id, tokenCookies);
+    console.log(res);
+
+    if (res.message === "Success!") {
+      Swal.fire({
+        title: "Success",
+        text: "Thread Berhasil Dihapus !",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    }
+
+    getThread();
   };
 
   const followHandleClick = (e, threadUserId) => {
@@ -141,6 +160,7 @@ const Home = () => {
                   data={item}
                   likeData={item.likes?.map((like, likeIdx) => like)}
                   handleLike={handleLike}
+                  handleDelete={handleDelete}
                 />
               </Box>
             ))}
