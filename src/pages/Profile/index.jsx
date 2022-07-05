@@ -16,6 +16,8 @@ import fgdApi from "../../api/fgdApi";
 import HeaderProfile from "../../components/HeaderProfile";
 import HeaderLite from "../../components/HeaderProfile/HeaderLite";
 
+import Swal from "sweetalert2";
+
 import "./Profile.scss";
 import Cookies from "js-cookie";
 
@@ -58,6 +60,22 @@ const Profile = () => {
     console.log(res);
   };
 
+  const handleDelete = async (id) => {
+    let res = null;
+    res = await fgdApi.deleteThread(id, tokenCookies);
+    console.log(res);
+
+    if (res.message === "Success!") {
+      Swal.fire({
+        title: "Success",
+        text: "Thread Berhasil Dihapus !",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    }
+    getThreadByUserId(userId);
+  };
+
   const getUserById = async (id) => {
     let res = null;
     res = await fgdApi.getUserById(id);
@@ -69,18 +87,16 @@ const Profile = () => {
     console.log(userAttribute);
   };
 
+  const getThreadByUserId = async (id) => {
+    let res = null;
+
+    res = await fgdApi.getThreadByUserId(id);
+    //console.log(res.data);
+    const data = res?.data.content;
+    setListThread(data);
+  };
+
   useEffect(() => {
-    const getThreadByUserId = async (id) => {
-      let res = null;
-
-      res = await fgdApi.getThreadByUserId(id);
-      //console.log(res.data);
-      const data = res?.data.content;
-      setListThread(data);
-      console.log(data);
-      console.log(listThread);
-    };
-
     getUserById(userId);
     getThreadByUserId(userId);
   }, []);
@@ -234,6 +250,7 @@ const Profile = () => {
                                 (like, likeIdx) => like
                               )}
                               handleLike={handleLike}
+                              handleDelete={handleDelete}
                             />
                           ))}
                         </div>
