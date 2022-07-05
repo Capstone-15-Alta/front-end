@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/Footer";
@@ -8,13 +10,17 @@ import "./EditProfile.scss";
 import Cookies from "js-cookie";
 import fgdApi from "../../api/fgdApi";
 
+import { Formik, Form, Field } from "formik";
+import CustomInput from "../../components/Form/CustomInput";
+import { schemas } from "../../components/Form/Schemas";
+import CustomSelect from "../../components/Form/CustomSelect";
+import Swal from "sweetalert2";
+
 const EditProfile = () => {
   const [userAttribute, setUserAttribute] = useState({});
-  const [listThread, setListThread] = useState([]);
-  // const [userFollowing, setUserFollowing] = useState([]);
-
+  const navigate = useNavigate();
   const userId = Cookies.get("id");
-  // const tokenCookies = Cookies.get("token");
+  const tokenCookies = Cookies.get("token");
   console.log(userId);
 
   const getUserById = async (id) => {
@@ -24,24 +30,40 @@ const EditProfile = () => {
     const data = res.data;
     console.log(data);
     setUserAttribute(data);
-    // return res.data;
-    console.log(userAttribute);
+
+    console.log(userAttribute.first_name);
   };
 
-  const getThreadByUserId = async (id) => {
+  const editProfile = async (data) => {
     let res = null;
+    res = await fgdApi.editProfile(data, tokenCookies);
+    console.log(res);
 
-    res = await fgdApi.getThreadByUserId(id);
-    //console.log(res.data);
-    const data = res?.data;
-    setListThread(data);
-    console.log(data);
-    console.log(listThread);
+    if (res.message === "Success!") {
+      await Swal.fire({
+        title: "Success",
+        text: "Data berhasil disimpan !",
+        icon: "success",
+        confirmButtonText: "OK",
+        timer: 1500,
+        timerProgressBar: true,
+      });
+      navigate("/profile");
+    }
+  };
+
+  const onSubmitHandler = async (values, actions) => {
+    console.log(values);
+
+    const formData = new FormData();
+    formData.append("json", JSON.stringify(values));
+    console.log(formData);
+
+    editProfile(formData);
   };
 
   useEffect(() => {
     getUserById(userId);
-    getThreadByUserId(userId);
   }, []);
 
   return (
@@ -56,9 +78,132 @@ const EditProfile = () => {
             <HeaderProfile data={userAttribute} getUserById={getUserById} />
           </div>
 
-          <div className="Form">
+          <div className="section-form">
             <div className="title-edit-profile">EditProfile</div>
-            <form className="row g-3">
+
+            <Formik
+              initialValues={{
+                first_name: userAttribute?.first_name,
+                last_name: userAttribute?.last_name,
+                phone: userAttribute?.phone,
+                email: userAttribute?.email,
+                birth_date: userAttribute?.birth_date,
+                education: userAttribute?.education,
+                country: userAttribute?.country,
+                city: userAttribute.city,
+                zip_code: userAttribute?.zip_code,
+              }}
+              validationSchema={schemas}
+              onSubmit={onSubmitHandler}
+              enableReinitialize={true}
+            >
+              {(props) => (
+                <Form className="row g-3">
+                  <div className="col-md-6">
+                    <CustomInput
+                      label="Nama Depan"
+                      name="first_name"
+                      type="text"
+                      placeholder="Masukan nama depan"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <CustomInput
+                      label="Nama Belakang"
+                      name="last_name"
+                      type="text"
+                      placeholder="Masukan nama belakang"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="No Handphone"
+                      name="phone"
+                      type="number"
+                      placeholder="+62 | Masukan nomor handphone"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Email"
+                      name="email"
+                      type="email"
+                      placeholder="Masukkan Email"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Tanggal Lahir"
+                      name="birth_date"
+                      type="date"
+                      placeholder="Masukan tanggal lahir"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomSelect
+                      label="Pendidikan Terakhir"
+                      name="education"
+                      placeholder="Masukkan pendidikan terakhir"
+                      classSelect="form-select"
+                      classLabel="form-label"
+                    >
+                      <option defaultValue>Masukan Tingkat Pendidikan</option>
+                      <option value="1">SMP</option>
+                      <option value="2">SMA/SMK</option>
+                      <option value="3">S1/D3</option>
+                    </CustomSelect>
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Negara"
+                      name="country"
+                      type="text"
+                      placeholder="Masukan nama negara"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Kota"
+                      name="city"
+                      type="text"
+                      placeholder="Masukan kota"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <CustomInput
+                      label="Kode Pos"
+                      name="zip_code"
+                      type="number"
+                      placeholder="Masukan kode pos"
+                      classInput="form-control"
+                      classLabel="form-label"
+                    />
+                  </div>
+                  <div>
+                    <button className="btn-kembali">kembali</button>
+                    <button type="submit" className="btn-simpan">
+                      simpan
+                    </button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+
+            {/* <form className="row g-3">
               <div className="col-md-6">
                 <label htmlFor="inputEmail4" className="form-label">
                   Nama Awal
@@ -86,7 +231,7 @@ const EditProfile = () => {
                   Nomor Handphone
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="inputAddress"
                   placeholder="Masukan Nomor Handphone"
@@ -97,7 +242,7 @@ const EditProfile = () => {
                   Email
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
                   id="inputAddress2"
                   placeholder="Muhammadyogi413@gmail.com"
@@ -165,7 +310,7 @@ const EditProfile = () => {
                 <button className="btn-kembali">kembali</button>
                 <button className="btn-simpan">simpan</button>
               </div>
-            </form>
+            </form> */}
           </div>
         </div>
       </div>

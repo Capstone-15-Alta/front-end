@@ -12,7 +12,7 @@ const fgdApi = {
   getAllUser: (params) => {
     const url = "user/";
     console.log(params);
-    return axiosClient.get(url+ `?page=${params.curentPage}`);
+    return axiosClient.get(url + `?page=${params.curentPage}`);
   },
   getUserById: (id, params) => {
     const url = `user/${id}`;
@@ -52,9 +52,17 @@ const fgdApi = {
       },
     });
   },
-  uploadPhoto: (token, params) => {
+  uploadPhoto: (token, data) => {
     const url = `user/photo`;
-    return axiosClient.put(url, params, {
+    return axiosClient.put(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  uploadBanner: (token, data) => {
+    const url = `user/cover`;
+    return axiosClient.put(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -71,6 +79,15 @@ const fgdApi = {
   deleteThread: (id, token) => {
     const url = `thread/${id}`;
     return axiosClient.delete(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+
+  editProfile: (data, token) => {
+    const url = "user";
+    return axiosClient.put(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
