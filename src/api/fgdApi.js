@@ -36,9 +36,9 @@ const fgdApi = {
     const url = "category/";
     return axiosClient.get(url, params);
   },
-  postThread: (params, token) => {
+  postThread: (data, token) => {
     const url = "thread";
-    return axiosClient.post(url, params, {
+    return axiosClient.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -63,6 +63,14 @@ const fgdApi = {
   likeThread: (id, token) => {
     const url = `like/thread/${id}`;
     return axiosClient.put(url, id, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  deleteThread: (id, token) => {
+    const url = `thread/${id}`;
+    return axiosClient.delete(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

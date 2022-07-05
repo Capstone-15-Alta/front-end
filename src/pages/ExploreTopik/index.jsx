@@ -10,6 +10,8 @@ import fgdApi from "../../api/fgdApi";
 import categoryApi from "../../api/categoryApi";
 import Cookies from "js-cookie";
 
+import Swal from "sweetalert2";
+
 function ExploreTopik() {
   const [data, setData] = useState([]);
   const [listThread, setListThread] = useState([]);
@@ -20,15 +22,24 @@ function ExploreTopik() {
 
   const tokenCookies = Cookies.get("token");
 
+  const getCategory = async () => {
+    let res = null;
+    const params = {};
+    res = await categoryApi.getCategory(params);
+    setData(res?.data);
+  };
+
   useEffect(() => {
-    const getCategory = async () => {
-      let res = null;
-      const params = {};
-      res = await categoryApi.getCategory(params);
-      setData(res?.data);
-    };
     getCategory();
   }, []);
+
+  const getThreadFirst = async () => {
+    let res = null;
+    const params = category.categoryYangDipilih;
+    res = await categoryApi.getThread(params);
+    // console.log(res.data);
+    setListThread(res?.data.content);
+  };
 
   useEffect(() => {
     const getUser = async () => {
@@ -38,18 +49,10 @@ function ExploreTopik() {
       // console.log(res.data);
     };
 
-    const getThread = async () => {
-      let res = null;
-      const params = category.categoryYangDipilih;
-      res = await categoryApi.getThread(params);
-      // console.log(res.data);
-      setListThread(res?.data.content);
-    };
-
     console.log(data);
 
     getUser();
-    getThread();
+    getThreadFirst();
     // console.log(listThread);
   }, []);
 
@@ -74,6 +77,24 @@ function ExploreTopik() {
     let res = null;
     res = await fgdApi.likeThread(id, tokenCookies);
     console.log(res);
+  };
+
+  const handleDelete = async (id) => {
+    let res = null;
+    res = await fgdApi.deleteThread(id, tokenCookies);
+    console.log(res);
+
+    if (res.message === "Success!") {
+      Swal.fire({
+        title: "Success",
+        text: "Thread Berhasil Dihapus !",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    }
+
+    getThreadFirst();
+    getCategory();
   };
 
   return (
@@ -113,6 +134,7 @@ function ExploreTopik() {
                       data={item}
                       likeData={item.likes?.map((like, likeIdx) => like)}
                       handleLike={handleLike}
+                      handleDelete={handleDelete}
                     />
                   </Box>
                 ))}
