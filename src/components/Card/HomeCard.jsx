@@ -21,8 +21,8 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 import Checkbox from "@mui/material/Checkbox";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
+
+import ReportIcon from "@mui/icons-material/Report";
 
 import Cookies from "js-cookie";
 import { useLocation, Link } from "react-router-dom";
@@ -31,6 +31,7 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
   const location = useLocation();
   const path = location.pathname;
   const userId = Cookies.get("id");
+  const userRoles = Cookies.get("roles");
   const [openComment, setOpenComment] = useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -153,6 +154,15 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
                       </MenuItem>
                     </Menu>
                   </div>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid item>
+                {userRoles === "MODERATOR" ? (
+                  <IconButton color="error" aria-label="delete">
+                    <ReportIcon />
+                  </IconButton>
                 ) : (
                   ""
                 )}

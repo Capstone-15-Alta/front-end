@@ -59,7 +59,7 @@ export default function Login() {
     let res = null;
     res = await fgdApi.getUserById(id);
     console.log(res.data);
-    Cookies.set("data", JSON.stringify(res.data));
+    Cookies.set("roles", res.data?.roles);
   };
 
   const handleSubmitForm = async (e) => {
