@@ -10,10 +10,11 @@ import "./EditProfile.scss";
 import Cookies from "js-cookie";
 import fgdApi from "../../api/fgdApi";
 
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import CustomInput from "../../components/Form/CustomInput";
 import { schemas } from "../../components/Form/Schemas";
 import CustomSelect from "../../components/Form/CustomSelect";
+
 import Swal from "sweetalert2";
 
 const EditProfile = () => {
