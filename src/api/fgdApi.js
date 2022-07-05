@@ -10,8 +10,9 @@ const fgdApi = {
     return axiosClient.post(url, params);
   },
   getAllUser: (params) => {
-    const url = "user";
-    return axiosClient.get(url, params);
+    const url = "user/";
+    console.log(params);
+    return axiosClient.get(url+ `?page=${params.curentPage}`);
   },
   getUserById: (id, params) => {
     const url = `user/${id}`;
