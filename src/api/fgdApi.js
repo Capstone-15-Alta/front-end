@@ -52,9 +52,17 @@ const fgdApi = {
       },
     });
   },
-  uploadPhoto: (token, params) => {
+  uploadPhoto: (token, data) => {
     const url = `user/photo`;
-    return axiosClient.put(url, params, {
+    return axiosClient.put(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  uploadBanner: (token, data) => {
+    const url = `user/cover`;
+    return axiosClient.put(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
