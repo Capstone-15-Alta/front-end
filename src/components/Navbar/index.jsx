@@ -78,7 +78,7 @@ const Navbar = () => {
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item ">
                   <NavDropdown
-                    title={<IconProfile data={data?.image} />}
+                    title={<IconProfile data={data} />}
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item

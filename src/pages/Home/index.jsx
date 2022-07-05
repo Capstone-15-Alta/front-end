@@ -9,9 +9,7 @@ import HomeCard from "../../components/Card/HomeCard";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import iconKategori from "../../assets/icon/vector_kategori.svg";
-
+import TuneIcon from "@mui/icons-material/Tune";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
@@ -40,7 +38,7 @@ const Home = () => {
     },
     {
       name: "Kategori",
-      icon: iconKategori,
+      icon: TuneIcon,
       link: "/explore-topik",
       isActive: false,
     },
@@ -147,7 +145,7 @@ const Home = () => {
                     },
                   }}
                 >
-                  <img src={item.icon} alt="" />
+                  <item.icon />
                   <span style={{ marginLeft: "1vw" }}>{item.name}</span>
                 </Button>
               </Link>

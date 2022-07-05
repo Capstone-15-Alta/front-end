@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/Footer";
@@ -12,14 +14,13 @@ import { Formik, Form, Field } from "formik";
 import CustomInput from "../../components/Form/CustomInput";
 import { schemas } from "../../components/Form/Schemas";
 import CustomSelect from "../../components/Form/CustomSelect";
+import Swal from "sweetalert2";
 
 const EditProfile = () => {
   const [userAttribute, setUserAttribute] = useState({});
-  const [listThread, setListThread] = useState([]);
-  // const [userFollowing, setUserFollowing] = useState([]);
-
+  const navigate = useNavigate();
   const userId = Cookies.get("id");
-  // const tokenCookies = Cookies.get("token");
+  const tokenCookies = Cookies.get("token");
   console.log(userId);
 
   const getUserById = async (id) => {
@@ -29,18 +30,41 @@ const EditProfile = () => {
     const data = res.data;
     console.log(data);
     setUserAttribute(data);
-    // return res.data;
-    console.log(userAttribute);
+
+    console.log(userAttribute.first_name);
+  };
+
+  const editProfile = async (data) => {
+    let res = null;
+    res = await fgdApi.editProfile(data, tokenCookies);
+    console.log(res);
+
+    if (res.message === "Success!") {
+      await Swal.fire({
+        title: "Success",
+        text: "Data berhasil disimpan !",
+        icon: "success",
+        confirmButtonText: "OK",
+        timer: 1500,
+        timerProgressBar: true,
+      });
+      navigate("/profile");
+    }
+  };
+
+  const onSubmitHandler = async (values, actions) => {
+    console.log(values);
+
+    const formData = new FormData();
+    formData.append("json", JSON.stringify(values));
+    console.log(formData);
+
+    editProfile(formData);
   };
 
   useEffect(() => {
     getUserById(userId);
   }, []);
-
-  const onSubmitHandler = async (values, actions) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(values);
-  };
 
   return (
     <>
@@ -59,27 +83,28 @@ const EditProfile = () => {
 
             <Formik
               initialValues={{
-                firstname: userAttribute.first_name,
-                lastname: userAttribute.first_name,
-                nohandphone: "+62888990",
-                email: "hafizhizbullah28@gmail.com",
-                datebirth: "22 Juni 2002",
-                tingkatPendidikan: "",
-                country: "Zimbabwe",
-                city: "jakaka",
-                postalcode: "20180",
+                first_name: userAttribute?.first_name,
+                last_name: userAttribute?.last_name,
+                phone: userAttribute?.phone,
+                email: userAttribute?.email,
+                birth_date: userAttribute?.birth_date,
+                education: userAttribute?.education,
+                country: userAttribute?.country,
+                city: userAttribute.city,
+                zip_code: userAttribute?.zip_code,
               }}
               validationSchema={schemas}
               onSubmit={onSubmitHandler}
+              enableReinitialize={true}
             >
               {(props) => (
                 <Form className="row g-3">
                   <div className="col-md-6">
                     <CustomInput
                       label="Nama Depan"
-                      name="firstname"
+                      name="first_name"
                       type="text"
-                      placeholder={userAttribute.first_name}
+                      placeholder="Masukan nama depan"
                       classInput="form-control"
                       classLabel="form-label"
                     />
@@ -87,7 +112,7 @@ const EditProfile = () => {
                   <div className="col-md-6">
                     <CustomInput
                       label="Nama Belakang"
-                      name="lastname"
+                      name="last_name"
                       type="text"
                       placeholder="Masukan nama belakang"
                       classInput="form-control"
@@ -97,7 +122,7 @@ const EditProfile = () => {
                   <div className="col-md-12">
                     <CustomInput
                       label="No Handphone"
-                      name="nohandphone"
+                      name="phone"
                       type="number"
                       placeholder="+62 | Masukan nomor handphone"
                       classInput="form-control"
@@ -117,7 +142,7 @@ const EditProfile = () => {
                   <div className="col-md-12">
                     <CustomInput
                       label="Tanggal Lahir"
-                      name="datebirth"
+                      name="birth_date"
                       type="date"
                       placeholder="Masukan tanggal lahir"
                       classInput="form-control"
@@ -127,7 +152,7 @@ const EditProfile = () => {
                   <div className="col-md-12">
                     <CustomSelect
                       label="Pendidikan Terakhir"
-                      name="tingkatPendidikan"
+                      name="education"
                       placeholder="Masukkan pendidikan terakhir"
                       classSelect="form-select"
                       classLabel="form-label"
@@ -161,7 +186,7 @@ const EditProfile = () => {
                   <div className="col-md-12">
                     <CustomInput
                       label="Kode Pos"
-                      name="postalcode"
+                      name="zip_code"
                       type="number"
                       placeholder="Masukan kode pos"
                       classInput="form-control"
