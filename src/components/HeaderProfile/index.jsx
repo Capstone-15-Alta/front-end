@@ -10,6 +10,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 import { Avatar } from "@mui/material";
+import Swal from "sweetalert2";
 
 const HeaderProfile = ({ data, getUserById }) => {
   const { id } = useParams();
@@ -20,6 +21,7 @@ const HeaderProfile = ({ data, getUserById }) => {
 
   const tokenCookies = Cookies.get("token");
   const userId = Cookies.get("id");
+  // console.log(tokenCookies, userId);
 
   const [bannerImg, setBannerImg] = useState(banner);
 
@@ -33,21 +35,61 @@ const HeaderProfile = ({ data, getUserById }) => {
     bannerRef.current.click();
   };
 
-  const handleUploadBanner = (e) => {
-    const file = e.target.files[0];
-    setBannerImg(file);
-    console.log(file);
+  const handleUploadBanner = async (e) => {
+    const fileBanner = e.target.files[0];
+    console.log(fileBanner);
+
+    try {
+      let res = null;
+      const formData = new FormData();
+      formData.set("file", fileBanner);
+
+      res = await fgdApi.uploadBanner(tokenCookies, formData);
+      console.log(res);
+      getUserById(userId);
+
+      Swal.fire({
+        title: "Success",
+        text: "Banner berhasil diganti!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Failed",
+        text: "Terjadi Kesalahan, silahkan upload gambar dengan ukuran lebih kecil",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
   };
 
   const handleUploadImage = async (e) => {
     const filePhoto = e.target.files[0];
-    let res = null;
-    const formData = new FormData();
-    formData.set("file", filePhoto);
+    console.log(filePhoto);
 
-    res = await fgdApi.uploadPhoto(tokenCookies, formData);
-    console.log(res.data);
-    getUserById(userId);
+    try {
+      let res = null;
+      const formData = new FormData();
+      formData.set("file", filePhoto);
+
+      res = await fgdApi.uploadPhoto(tokenCookies, formData);
+      console.log(res);
+      getUserById(userId);
+      Swal.fire({
+        title: "Success",
+        text: "Foto berhasil diganti!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Failed",
+        text: "Terjadi Kesalahan, silahkan upload gambar dengan ukuran lebih kecil",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
 
     // Cookies.set("data", JSON.stringify(data));
     // console.log(filePhoto);
@@ -67,10 +109,10 @@ const HeaderProfile = ({ data, getUserById }) => {
       <div className="headersss">
         <div className="banner">
           <div
-            style={{ backgroundImage: `url(${bannerImg})` }}
+            style={{ backgroundImage: `url(${data.image_cover})` }}
             className="banner-image"
           ></div>
-          {path === "/profile" ? (
+          {path === "/profile" || "edit-profile" ? (
             <>
               <Button
                 type="button"
@@ -96,7 +138,7 @@ const HeaderProfile = ({ data, getUserById }) => {
         <div className="profile-zzz">
           <Avatar className="foto" alt={data.username} src={data.image} />
 
-          {path === "/profile" ? (
+          {path === "/profile" || "edit-profile" ? (
             <>
               <Button
                 type="button"

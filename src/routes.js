@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import EditProfile from "./pages/EditProfile";
 import UserProfile from "./pages/UserProfile";
+import AdminUser from "./pages/AdminUser";
 
 const routes = [
   {
@@ -54,6 +55,10 @@ const routes = [
   {
     path: "/notifikasi",
     component: Notifikasi,
+  },
+  {
+    path: "/admin-user",
+    component: AdminUser,
   },
 ];
 
