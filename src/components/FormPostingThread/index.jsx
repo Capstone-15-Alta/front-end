@@ -110,6 +110,24 @@ const FormPostingThread = () => {
     </div>
   ));
 
+  const addThread = async (formData) => {
+    let res = null;
+    res = await fgdApi.postThread(formData, token);
+    console.log(res);
+
+    if (res.message === "Success!") {
+      await Swal.fire({
+        title: "Success",
+        text: "Thread Berhasil Dihapus !",
+        icon: "success",
+        confirmButtonText: "OK",
+        timer: 1500,
+        timerProgressBar: true,
+      });
+      navigate("/");
+    }
+  };
+
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     // console.log(files);
@@ -129,27 +147,7 @@ const FormPostingThread = () => {
     formData.append("json", JSON.stringify(inputs));
     formData.append("file", files[0]);
 
-    const addThread = async () => {
-      let res = null;
-      res = await fgdApi.postThread(formData, token);
-      console.log(res);
-
-      if (res.message === "Success!") {
-        Swal.fire({
-          title: "Success",
-          text: "Thread Berhasil Diposting !",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
-      }
-    };
-
-    addThread();
+    addThread(formData);
   };
 
   const handleReset = (e) => {

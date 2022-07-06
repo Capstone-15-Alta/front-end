@@ -8,8 +8,8 @@ const Pagination = (props) => {
   return (
     <>
       <ReactPaginate
-        previousLabel={"previouse"}
-        nextLabel={"next"}
+        previousLabel={"sebelumnya"}
+        nextLabel={"selanjutnya"}
         pageCount={props.pageCount}
         marginPagesDisplayed={2}
         pageRangeDisplayed={3}
