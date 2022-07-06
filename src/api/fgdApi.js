@@ -75,6 +75,15 @@ const fgdApi = {
       },
     });
   },
+  reportThread: (data, token) => {
+    const url = "report";
+    console.log(url, data, token);
+    return axiosClient.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default fgdApi;
