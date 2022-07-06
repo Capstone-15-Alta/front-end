@@ -137,9 +137,10 @@ const FormPostingThread = () => {
       if (res.message === "Success!") {
         Swal.fire({
           title: "Success",
-          text: "Thread Berhasil Dihapus !",
+          text: "Thread Berhasil Diposting !",
           icon: "success",
-          confirmButtonText: "OK",
+          showConfirmButton: false,
+          timer: 1500,
         });
 
         setTimeout(() => {
