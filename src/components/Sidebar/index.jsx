@@ -85,7 +85,7 @@ export const SidebarRight = () => {
     getAllUser();
   };
 
-  console.log(allUser);
+  // console.log(allUser);
   return (
     <div className="sidebar-right">
       <div className="saran-group">
