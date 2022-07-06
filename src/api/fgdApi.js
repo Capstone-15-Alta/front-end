@@ -84,6 +84,14 @@ const fgdApi = {
       },
     });
   },
+  editProfile: (data, token) => {
+    const url = "user";
+    return axiosClient.put(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default fgdApi;
