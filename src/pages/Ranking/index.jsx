@@ -116,6 +116,8 @@ const Ranking = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };
