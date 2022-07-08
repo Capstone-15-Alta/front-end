@@ -36,7 +36,7 @@ const Profile = () => {
       key: "following",
     },
     {
-      title: "Post",
+      title: "Likes",
       number: 11,
       key: "post",
     },
@@ -130,6 +130,12 @@ const Profile = () => {
     setListThread(data);
   };
 
+  const getThreadById = async (id) => {
+    let res = null;
+    res = await fgdApi.getThreadById(id);
+    console.log(res.data);
+  };
+
   useEffect(() => {
     getUserById(userId);
     getThreadByUserId(userId);
@@ -220,13 +226,32 @@ const Profile = () => {
                       title={
                         <>
                           <p>{profileData[2].title}</p>
-                          <p>{profileData[2].number}</p>
+                          <p>{userAttribute.total_like_thread}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        <div className="card-tabs">
-                          <CardPost
+                        <div className="likes-tabs card-tabs">
+                          {userAttribute.thread_likes?.map((item, itemIdx) => (
+                            <>
+                              {" "}
+                              <h3>{item.thread_id}</h3>
+                              <CardPost
+                                title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+                                name="Gde Agung Mandala"
+                                dateTime="31-05-2022 19:56"
+                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
+                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
+                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
+                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
+                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
+                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
+                              iusto placeat molestiae facere unde?"
+                              />
+                            </>
+                          ))}
+
+                          {/* <CardPost
                             title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
                             name="Gde Agung Mandala"
                             dateTime="31-05-2022 19:56"
@@ -261,7 +286,7 @@ const Profile = () => {
                               adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
                               mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
                               iusto placeat molestiae facere unde?"
-                          />
+                          /> */}
                         </div>
                       </div>
                     </Tab>

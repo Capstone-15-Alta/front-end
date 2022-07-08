@@ -32,6 +32,10 @@ const fgdApi = {
     const url = `thread/user/${id}`;
     return axiosClient.get(url, params);
   },
+  getThreadById: (id, params) => {
+    const url = `thread/${id}`;
+    return axiosClient.get(url, params);
+  },
   getCategory: (params) => {
     const url = "category/";
     return axiosClient.get(url, params);
@@ -76,7 +80,7 @@ const fgdApi = {
       },
     });
   },
- reportThread: (data, token) => {
+  reportThread: (data, token) => {
     const url = "report";
     console.log(url, data, token);
     return axiosClient.post(url, data, {
@@ -85,7 +89,7 @@ const fgdApi = {
       },
     });
   },
-  
+
   editProfile: (data, token) => {
     const url = "user";
     return axiosClient.put(url, data, {

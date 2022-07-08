@@ -200,7 +200,6 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
                       }}
                     >
                       {" "}
-                      <MenuItem onClick={handleClose}>Edit</MenuItem>
                       <MenuItem onClick={() => handleDelete(data.id)}>
                         Delete
                       </MenuItem>
