@@ -14,41 +14,16 @@ import HomeCard from "../../components/Card/HomeCard";
 import fgdApi from "../../api/fgdApi";
 
 import HeaderProfile from "../../components/HeaderProfile";
+import HeaderLite from "../../components/HeaderProfile/HeaderLite";
+
+import Swal from "sweetalert2";
 
 import "./Profile.scss";
 import Cookies from "js-cookie";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const dataHomepage = [
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-    {
-      username: "Albert Flores",
-      email: "Albert Flores@gmail.com",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "03:00 pm",
-      view: "120",
-      profile: "/assets/icon/manprofil.png",
-    },
-  ];
+
   const [profileData, setProfileData] = useState([
     {
       title: "Pengikut",
@@ -72,34 +47,92 @@ const Profile = () => {
     },
   ]);
   const [userAttribute, setUserAttribute] = useState({});
+
   const [listThread, setListThread] = useState([]);
 
   const userId = Cookies.get("id");
+  const tokenCookies = Cookies.get("token");
   console.log(userId);
 
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+    console.log(res);
+  };
+
+  const deleteUserThread = async (id) => {
+    let res = null;
+
+    try {
+      res = await fgdApi.deleteThread(id, tokenCookies);
+      console.log(res);
+      getThreadByUserId(userId);
+
+      Swal.fire({
+        title: "Deleted",
+        text: "Thread berhasil dihapus",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Failed",
+        text: error.response.data.data,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Apakah kamu Ingin Mengahapus Trhead ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#26B893",
+      cancelButtonColor: "#73777B",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Tidak",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUserThread(id);
+      } else {
+        Swal.fire({
+          title: "Canceled",
+          text: "Thread batal dihapus",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
+
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+
+    const data = res.data;
+    console.log(data);
+    setUserAttribute(data);
+    // return res.data;
+    console.log(userAttribute);
+  };
+
+  const getThreadByUserId = async (id) => {
+    let res = null;
+
+    res = await fgdApi.getThreadByUserId(id);
+    //console.log(res.data);
+    const data = res?.data.content;
+    setListThread(data);
+  };
+
   useEffect(() => {
-    const getThread = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getThread(params);
-      //console.log(res.data);
-      const data = res?.data;
-      setListThread(data);
-      console.log(data);
-    };
-    const getUserById = async (id) => {
-      let res = null;
-      res = await fgdApi.getUserById(id);
-
-      const data = res?.data;
-      console.log(data);
-      setUserAttribute(data);
-      // return res.data;
-      // console.log(userAttribute);
-    };
-
     getUserById(userId);
-    getThread();
+    getThreadByUserId(userId);
   }, []);
 
   return (
@@ -113,7 +146,7 @@ const Profile = () => {
             </div>
             <div className="content-section col-9 container-fluid">
               <div className="col-12">
-                <HeaderProfile data={userAttribute} />
+                <HeaderProfile data={userAttribute} getUserById={getUserById} />
                 <div className=" tab-section row  mb-5">
                   <Tabs
                     defaultActiveKey="post"
@@ -124,16 +157,30 @@ const Profile = () => {
                       eventKey={profileData[0].key}
                       title={
                         <>
-                          {" "}
                           <p>{profileData[0].title}</p>
                           <p>{userAttribute.total_user_followers}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper ">
-                        {" "}
-                        <div className="card-threads text-center">
-                          BELOM ADA DATA
+                        <div className="followers-tabs card-tabs ">
+                          {userAttribute.user_followers?.map(
+                            (item, itemIdx) => (
+                              <div
+                                className="row mb-4 justify-content-center"
+                                key={itemIdx}
+                              >
+                                <HeaderLite
+                                  getUserById={getUserById}
+                                  user={userAttribute}
+                                  name={item.user_follower?.username}
+                                  email={item.user_follower?.email}
+                                  gambar={item.user_follower?.image}
+                                  guestId={item.user_follower?.id}
+                                />
+                              </div>
+                            )
+                          )}
                         </div>
                       </div>
                     </Tab>
@@ -141,16 +188,30 @@ const Profile = () => {
                       eventKey={profileData[1].key}
                       title={
                         <>
-                          {" "}
                           <p>{profileData[1].title}</p>
-                          <p>{profileData[1].number}</p>
+                          <p>{userAttribute.total_user_following}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        {" "}
-                        <div className="card-threads text-center">
-                          BELOM ADA DATA
+                        <div className="following-tabs card-tabs ">
+                          {userAttribute.user_following?.map(
+                            (item, itemIdx) => (
+                              <div
+                                className="row mb-4 justify-content-center"
+                                key={itemIdx}
+                              >
+                                <HeaderLite
+                                  getUserById={getUserById}
+                                  user={userAttribute}
+                                  name={item.user_followed?.username}
+                                  email={item.user_followed?.email}
+                                  gambar={item.user_followed?.image}
+                                  guestId={item.user_followed?.id}
+                                />
+                              </div>
+                            )
+                          )}
                         </div>
                       </div>
                     </Tab>
@@ -158,15 +219,13 @@ const Profile = () => {
                       eventKey={profileData[2].key}
                       title={
                         <>
-                          {" "}
                           <p>{profileData[2].title}</p>
                           <p>{profileData[2].number}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        {" "}
-                        <div className="card-threads">
+                        <div className="card-tabs">
                           <CardPost
                             title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
                             name="Gde Agung Mandala"
@@ -210,17 +269,23 @@ const Profile = () => {
                       eventKey={profileData[3].key}
                       title={
                         <>
-                          {" "}
                           <p>{profileData[3].title}</p>
-                          <p>{userAttribute.threads?.length}</p>
+                          <p>{listThread.length}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
-                        {" "}
-                        <div className="card-threads">
+                        <div className="threads-tabs card-tabs">
                           {listThread?.map((item, itemIdx) => (
-                            <HomeCard key={itemIdx} data={item} />
+                            <HomeCard
+                              key={itemIdx}
+                              data={item}
+                              likeData={item.likes?.map(
+                                (like, likeIdx) => like
+                              )}
+                              handleLike={handleLike}
+                              handleDelete={handleDelete}
+                            />
                           ))}
                         </div>
                       </div>

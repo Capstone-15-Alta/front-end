@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Button from "react-bootstrap/Button";
+import Button from "@mui/material/Button";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreHoriztIcon from "@mui/icons-material/MoreHoriz";
 import Stack from "@mui/material/Stack";
 import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
@@ -16,8 +19,35 @@ import Comment from "./Comment";
 import TextField from "@mui/material/TextField";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
-export default function HomeCard({ data }) {
+import Checkbox from "@mui/material/Checkbox";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+
+import ReportIcon from "@mui/icons-material/Report";
+
+import Cookies from "js-cookie";
+import { useLocation, Link } from "react-router-dom";
+
+import fgdApi from "../../api/fgdApi";
+
+import Swal from "sweetalert2";
+
+export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
+  const location = useLocation();
+  const path = location.pathname;
+  const userId = Cookies.get("id");
+  const userRoles = Cookies.get("roles");
+  const tokenCookies = Cookies.get("token");
   const [openComment, setOpenComment] = useState(false);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const ITEM_HEIGHT = 48;
 
   const dataComment = [
     {
@@ -44,6 +74,53 @@ export default function HomeCard({ data }) {
       ],
     },
   ];
+
+  const reportUserThread = async (id) => {
+    let res = null;
+    const data = {
+      thread_id: id,
+      report: "spam",
+    };
+
+    try {
+      res = await fgdApi.reportThread(data, tokenCookies);
+      console.log(res.message);
+
+      Swal.fire({
+        title: "Reported",
+        text: "Berhasil report thread",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Failed",
+        text: error.response.data.data,
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+
+  const handleReport = (id) => {
+    Swal.fire({
+      title: "Yakin report thread ini?",
+      text: "Thread akan dimasukkan kedalam list report!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#26B893",
+      cancelButtonColor: "#73777B",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Tidak",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        reportUserThread(id);
+      } else {
+        Swal.fire("Batal", "Thread batal direport", "error");
+      }
+    });
+  };
+
   return (
     <>
       <Box
@@ -55,48 +132,145 @@ export default function HomeCard({ data }) {
       >
         <Grid container>
           <Grid item>
-            {/* <Avatar alt={data.username} src={data.profile} /> */}
-            <Avatar alt={data.username} src="/assets/icon/manprofil.png" />
+            {/* <Avatar alt={data.username} src={data.profile} /> */}{" "}
+            <Link
+              to={
+                userId == data.user?.id ? "/profile" : `/user/${data.user?.id}`
+              }
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Avatar alt={data.username} src={data.user?.image} />
+            </Link>
           </Grid>
           <Grid item xs pl="1vw">
             <Grid container>
               <Grid item xs>
                 <Box display="flex">
-                  <Box>
-                    <h5>{data.user?.username}</h5>
-                    <Box mt="-10px">
-                      <Typography variant="caption">
-                        {data.user?.email}
-                      </Typography>
+                  <Link
+                    to={
+                      userId == data.user?.id
+                        ? "/profile"
+                        : `/user/${data.user?.id}`
+                    }
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Box>
+                      <h5>{data.user?.username}</h5>
+                      <Box mt="-10px">
+                        <Typography variant="caption">
+                          {data.user?.email}
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                  {data.isVerified && (
-                    <img src="assets/icon/verified.png" height="20vh" />
-                  )}
+                  </Link>
                 </Box>
-                <h4 style={{ marginTop: "3vh" }}>{data.title}</h4>
+                <h4 style={{ marginTop: "1rem" }}>{data.title}</h4>
                 <Typography variant="caption">{data.created_at}</Typography>
               </Grid>
               <Grid item>
-                <Button
-                  style={{
-                    backgroundColor: "#26B893",
-                    padding: "0.2vw 2vw 0.2vw 2vw",
-                  }}
-                >
-                  + Ikuti
-                </Button>
+                {userId == data.user?.id ? (
+                  <div className="three-dots-menu">
+                    <IconButton
+                      aria-label="more"
+                      id="long-button"
+                      aria-controls={open ? "long-menu" : undefined}
+                      aria-expanded={open ? "true" : undefined}
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                    >
+                      <MoreHoriztIcon
+                        fontSize="large"
+                        style={{ color: "#26B893" }}
+                      />
+                    </IconButton>
+                    <Menu
+                      id="long-menu"
+                      MenuListProps={{
+                        "aria-labelledby": "long-button",
+                      }}
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleClose}
+                      PaperProps={{
+                        style: {
+                          // maxHeight: ITEM_HEIGHT * 4.5,
+                          minWidth: "10ch",
+                        },
+                      }}
+                    >
+                      {" "}
+                      <MenuItem onClick={handleClose}>Edit</MenuItem>
+                      <MenuItem onClick={() => handleDelete(data.id)}>
+                        Delete
+                      </MenuItem>
+                    </Menu>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid item>
+                {userRoles === "MODERATOR" ? (
+                  <IconButton
+                    color="error"
+                    aria-label="delete"
+                    onClick={() => handleReport(data.id)}
+                  >
+                    <ReportIcon />
+                  </IconButton>
+                ) : (
+                  ""
+                )}
               </Grid>
             </Grid>
-            <Grid container>
+            <Grid style={{ marginTop: "0.5rem" }} container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
-                  <IconButton aria-label="like">
-                    <ThumbUpOutlinedIcon />
-                  </IconButton>
-                  <IconButton aria-label="dislike">
-                    <ThumbDownAltOutlinedIcon />
-                  </IconButton>
+                  {likeData.length !== 0 ? (
+                    <>
+                      {likeData.filter((like) => like.user_id == userId)
+                        .length > 0 ? (
+                        <Checkbox
+                          onClick={() => handleLike(data.id)}
+                          icon={<ThumbUpOutlinedIcon />}
+                          checkedIcon={
+                            <ThumbUpIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
+                          defaultChecked={true}
+                        />
+                      ) : (
+                        <Checkbox
+                          onClick={() => handleLike(data.id)}
+                          icon={<ThumbUpOutlinedIcon />}
+                          checkedIcon={
+                            <ThumbUpIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
+                          defaultChecked={false}
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <Checkbox
+                      onClick={() => handleLike(data.id)}
+                      icon={<ThumbUpOutlinedIcon />}
+                      checkedIcon={
+                        <ThumbUpIcon
+                          style={{
+                            color: "#26B893",
+                          }}
+                        />
+                      }
+                      defaultChecked={false}
+                    />
+                  )}
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}

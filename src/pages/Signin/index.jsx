@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { submitLogin } from "../../store/Login";
+import { setUser } from "../../store/User";
+
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 
@@ -53,15 +55,15 @@ export default function Login() {
     );
   };
 
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+    console.log(res.data);
+    Cookies.set("roles", res.data?.roles);
+  };
+
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-
-    const getUserById = async (id) => {
-      let res = null;
-      res = await fgdApi.getUserById(id);
-
-      console.log(res.data);
-    };
 
     const getLogin = async () => {
       let res = null;
@@ -72,10 +74,10 @@ export default function Login() {
       try {
         res = await fgdApi.login(params);
         console.log(res);
-
         const token = res.data.token;
         const userId = res.data.id;
         dispatch(submitLogin({ token: token, id: userId }));
+
         Swal.fire({
           title: "Success",
           text: "Yeay login berhasil",

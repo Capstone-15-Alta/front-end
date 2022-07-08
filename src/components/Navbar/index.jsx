@@ -12,18 +12,30 @@ import Cookies from "js-cookie";
 import Searchbar from "../Searchbar";
 import Button from "../Button/Button";
 import { NavDropdown } from "react-bootstrap";
+import fgdApi from "../../api/fgdApi";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const [isLogin, setIsLogin] = useState(true);
+  const userId = Cookies.get("id");
+  const [isLogin, setIsLogin] = useState(false);
+  const [data, setData] = useState(null);
 
-  // useEffect(() => {
-  //   const token = Cookies.get("token");
-  //   if (token) {
-  //     setIsLogin(!isLogin);
-  //   }
-  // }, []);
+  const getUserById = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+    console.log(res.data);
+    setData(res.data);
+  };
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      setIsLogin(!isLogin);
+    }
+
+    getUserById(userId);
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top customNav shadow-sm">
@@ -51,26 +63,36 @@ const Navbar = () => {
                   <Searchbar />
                 </li>
                 <li className="nav-item">
-                  <Button
-                    title="Buat Thread"
-                    background="white"
-                    type="button"
-                    className="btn-create-new-thread"
-                    iconKiri="iconCreate"
-                  />
+                  <Link to="/buat-thread">
+                    <Button
+                      title="Buat Thread"
+                      background="white"
+                      type="button"
+                      className="btn-create-new-thread"
+                      iconKiri="iconCreate"
+                    />
+                  </Link>
                 </li>
               </ul>
 
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item ">
-                  <NavDropdown title={<IconProfile />} id="basic-nav-dropdown">
-                    <NavDropdown.Item href="/profile">
+                  <NavDropdown
+                    title={<IconProfile data={data} />}
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item
+                      onClick={() => {
+                        navigate("/profile");
+                      }}
+                    >
                       My Profile
                     </NavDropdown.Item>
                     <NavDropdown.Item
                       onClick={() => {
                         Cookies.remove("token");
                         Cookies.remove("id");
+                        Cookies.remove("roles");
 
                         navigate("/login");
                       }}

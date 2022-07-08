@@ -2,6 +2,8 @@ import logo1 from "../../assets/icon-sidebar/Vector home.png";
 import logo2 from "../../assets/icon-sidebar/Vector notifikasi.png";
 import logo3 from "../../assets/icon-sidebar/Vector explore.png";
 import logo4 from "../../assets/icon-sidebar/Vector profil.png";
+import logo5 from "../../assets/icon-sidebar/ranking-3.png";
+
 
 import man1 from "../../assets/icon-sidebar/man1.png";
 import man2 from "../../assets/icon-sidebar/man2.png";
@@ -12,6 +14,9 @@ import hover1 from "../../assets/icon-sidebar/Vector (4).png";
 import hover2 from "../../assets/icon-sidebar/Vector (5).png";
 import hover3 from "../../assets/icon-sidebar/Vector (6).png";
 import hover4 from "../../assets/icon-sidebar/Vector (7).png";
+import hover5 from "../../assets/icon-sidebar/ranking.png";
+
+
 
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +34,12 @@ export let data = {
       icon: <img src={logo2} alt="" width={20} />,
       icon2: <img src={hover3} alt="" width={20} />,
       link: "/notifikasi",
+    },
+    {
+      title: "Ranking",
+      icon: <img src={logo5} alt="" width={20} />,
+      icon2: <img src={hover5} alt="" width={20} />,
+      link: "/ranking",
     },
     {
       title: "Explore Topik",
