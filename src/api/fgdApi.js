@@ -76,14 +76,6 @@ const fgdApi = {
       },
     });
   },
-  deleteThread: (id, token) => {
-    const url = `thread/${id}`;
-    return axiosClient.delete(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  },
   reportThread: (data, token) => {
     const url = "report_thread";
     console.log(url, data, token);
@@ -112,6 +104,9 @@ const fgdApi = {
         Authorization: `Bearer ${token}`,
       },
     });
+  getRanking: (params) => {
+    const url = "user/ranking";
+    return axiosClient.get(url,params);
   },
 };
 
