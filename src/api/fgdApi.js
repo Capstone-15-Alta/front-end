@@ -104,10 +104,12 @@ const fgdApi = {
         Authorization: `Bearer ${token}`,
       },
     });
+  },
   getRanking: (params) => {
     const url = "user/ranking";
     return axiosClient.get(url,params);
   },
+  
 };
 
 export default fgdApi;
