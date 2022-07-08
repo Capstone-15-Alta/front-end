@@ -96,7 +96,7 @@ const Ranking = () => {
                 return (
                   <div className="ranking-item">
                     <div className="index">{index + 1}</div>
-                    <div className="image" ><img src={item.image} alt="" width={40} /></div>
+                    <div className="image" ><img src={item.image} alt="" width={40}  className="image"/></div>
                     <div className="username"><p >{item.username}</p></div>
                     <div className="follow">{item.total_user_followers} Pengikut</div>
                     <div className="follow">
