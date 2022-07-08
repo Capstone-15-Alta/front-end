@@ -37,7 +37,18 @@ h3{
         font-size: larger;
         font-weight: 500;
 
+        .index{
+          width: 5px;
+        }
 
+        .username{
+          min-width: 70px;
+          max-width: 70px;
+        }
+
+        .image{
+          border-radius: 50%;
+        }
         .follow{
             background-color: #7DD4BE;
             width: 150px;
