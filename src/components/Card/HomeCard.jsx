@@ -4,13 +4,13 @@ import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHoriztIcon from "@mui/icons-material/MoreHoriz";
 import Stack from "@mui/material/Stack";
-import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
@@ -20,9 +20,10 @@ import TextField from "@mui/material/TextField";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 import Checkbox from "@mui/material/Checkbox";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 import ReportIcon from "@mui/icons-material/Report";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 import Cookies from "js-cookie";
 import { useLocation, Link } from "react-router-dom";
@@ -232,9 +233,15 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
                         .length > 0 ? (
                         <Checkbox
                           onClick={() => handleLike(data.id)}
-                          icon={<ThumbUpOutlinedIcon />}
+                          icon={
+                            <FavoriteBorderIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
                           checkedIcon={
-                            <ThumbUpIcon
+                            <FavoriteIcon
                               style={{
                                 color: "#26B893",
                               }}
@@ -245,9 +252,15 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
                       ) : (
                         <Checkbox
                           onClick={() => handleLike(data.id)}
-                          icon={<ThumbUpOutlinedIcon />}
+                          icon={
+                            <FavoriteBorderIcon
+                              style={{
+                                color: "#26B893",
+                              }}
+                            />
+                          }
                           checkedIcon={
-                            <ThumbUpIcon
+                            <FavoriteIcon
                               style={{
                                 color: "#26B893",
                               }}
@@ -260,9 +273,15 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
                   ) : (
                     <Checkbox
                       onClick={() => handleLike(data.id)}
-                      icon={<ThumbUpOutlinedIcon />}
+                      icon={
+                        <FavoriteBorderIcon
+                          style={{
+                            color: "#26B893",
+                          }}
+                        />
+                      }
                       checkedIcon={
-                        <ThumbUpIcon
+                        <FavoriteIcon
                           style={{
                             color: "#26B893",
                           }}
@@ -275,23 +294,49 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}
                   >
-                    <ChatBubbleOutlineOutlinedIcon />
+                    <ChatBubbleOutlineOutlinedIcon
+                      style={{
+                        color: "#26B893",
+                      }}
+                    />
                   </IconButton>
                 </Stack>
               </Grid>
               <Grid item>
                 <Stack spacing={2} direction="row">
                   <IconButton aria-label="view">
-                    <VisibilityOutlinedIcon />
+                    <VisibilityOutlinedIcon
+                      style={{
+                        color: "#26B893",
+                      }}
+                    />
                     <Typography variant="caption" sx={{ ml: "1vw" }}>
                       {/* {data.view} */}120
                     </Typography>
                   </IconButton>
-                  <IconButton aria-label="reply">
-                    <ReplyOutlinedIcon />
-                  </IconButton>
+                  <Checkbox
+                    icon={
+                      <BookmarkBorderIcon
+                        style={{
+                          color: "#26B893",
+                        }}
+                      />
+                    }
+                    checkedIcon={
+                      <BookmarkIcon
+                        style={{
+                          color: "#26B893",
+                        }}
+                      />
+                    }
+                    defaultChecked={false}
+                  />
                   <IconButton aria-label="share">
-                    <ShareOutlinedIcon />
+                    <ShareOutlinedIcon
+                      style={{
+                        color: "#26B893",
+                      }}
+                    />
                   </IconButton>
                 </Stack>
               </Grid>
