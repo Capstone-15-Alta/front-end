@@ -31,7 +31,13 @@ import fgdApi from "../../api/fgdApi";
 
 import Swal from "sweetalert2";
 
-export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
+export default function HomeCard({
+  data,
+  likeData,
+  commentData,
+  handleLike,
+  handleDelete,
+}) {
   const location = useLocation();
   const path = location.pathname;
   const userId = Cookies.get("id");
@@ -74,6 +80,8 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
       ],
     },
   ];
+
+  console.log("ini dihome card", data.comments);
 
   const reportUserThread = async (id) => {
     let res = null;
@@ -119,6 +127,35 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
         Swal.fire("Batal", "Thread batal direport", "error");
       }
     });
+  };
+
+  const [listComment, setListComment] = useState({});
+
+  const getCommentByIdThread = async (id) => {
+    let res = null;
+    res = await fgdApi.getCommentByIdThread(id);
+
+    const data = res.data;
+    console.log("ini ini", data);
+    setListComment(data);
+    // return res.data;
+    console.log("ini data comment by id", listComment);
+  };
+
+  useEffect(() => {
+    getCommentByIdThread(data.id);
+  }, []);
+
+  const handleComment = async (id) => {
+    let res = null;
+    res = await fgdApi.postComment(id, tokenCookies);
+    console.log(res);
+  };
+
+  const handleSumbitComment = (e, id) => {
+    e.preventDefault();
+
+    handleComment(id);
   };
 
   return (
@@ -301,14 +338,14 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
       </Box>
       {openComment && (
         <>
-          {dataComment.map((data) => (
+          {listComment.map((comment, commentIdx) => (
             <>
-              <Comment data={data} />
-              {data.children.map((data) => (
+              <Comment comment={comment} key={commentIdx} />
+              {/* {comment.map((data) => (
                 <Box ml="2vw">
                   <Comment data={data} />
                 </Box>
-              ))}
+              ))} */}
             </>
           ))}
           <Box display="flex" px="2vw">
@@ -319,7 +356,11 @@ export default function HomeCard({ data, likeData, handleLike, handleDelete }) {
               variant="filled"
               sx={{ ml: "1vw" }}
             />
-            <IconButton size="large" sx={{ ml: "1vw" }}>
+            <IconButton
+              size="large"
+              sx={{ ml: "1vw" }}
+              onClick={() => handleSumbitComment(data.id)}
+            >
               <ArrowCircleRightIcon
                 fontSize="large"
                 style={{ color: "#4E9BB9" }}
