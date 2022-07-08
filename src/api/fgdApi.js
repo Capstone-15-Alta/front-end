@@ -94,6 +94,10 @@ const fgdApi = {
       },
     });
   },
+  getRanking: (params) => {
+    const url = "user/rangking";
+    return axiosClient.get(url,params);
+  },
 };
 
 export default fgdApi;

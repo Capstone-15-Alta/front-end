@@ -7,34 +7,40 @@ import gold from "../../assets/icon/ranking-gold.png";
 import man from "../../assets/icon/manProfile.png";
 import love from "../../assets/icon/love.png";
 import hair from "../../assets/icon/hair.png";
+import fgdApi from "../../api/fgdApi";
 import "./Ranking.scss";
 const Ranking = () => {
-  const dataFake = [
-    {
-      username: "alberto",
-      image: man,
-      user_followers: 200,
-      user_following: 50,
-      total_like: 1000,
-      total_thread: 5000,
-    },
-    {
-      username: "alvonso",
-      image: man,
-      user_followers: 200,
-      user_following: 500,
-      total_like: 4000,
-      total_thread: 5000,
-    },
-    {
-      username: "alvonso",
-      image: man,
-      user_followers: 200,
-      user_following: 500,
-      total_like: 4000,
-      total_thread: 5000,
-    },
-  ];
+  const [allRanking, setAllRanking] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const getAllRanking = async () => {
+    let res = null;
+    const params = {};
+    res = await fgdApi.getAllUser(params);
+    console.log(res.data);
+    setAllRanking(res.data.content);
+    setPageCount(res.data.totalPages)
+  };
+
+  useEffect(() => {
+    getAllRanking();
+  }, []);
+
+  const handlePageClick = (data) => {
+    let curentPage = data.selected;
+    // console.log(curentPage);
+    const getAllUser = async () => {
+        let res = null;
+        const params = { curentPage };
+        res = await fgdApi.getAllRanking(params);
+        console.log(res.data);
+        setAllRanking(res.data.content);
+      };
+
+      getAllUser()
+  };
+  console.log(allRanking)
+  
+ 
 
   function abbrNum(number, decPlaces) {
     // 2 decimal places => 100, 3 => 1000, etc
@@ -86,33 +92,33 @@ const Ranking = () => {
               </i>
             </h3>
             <div className="ranking">
-              {dataFake.map((item, index) => {
+              {allRanking.map((item, index) => {
                 return (
                   <div className="ranking-item">
                     <div className="index">{index + 1}</div>
-                    <img src={item.image} alt="" width={40} className="image" />
-                    <p className="username">{item.username}</p>
-                    <div className="follow">{item.user_followers} Pengikut</div>
+                    <div className="image" ><img src={item.image} alt="" width={40} /></div>
+                    <div className="username"><p >{item.username}</p></div>
+                    <div className="follow">{item.total_user_followers} Pengikut</div>
                     <div className="follow">
-                      {item.user_following} Mengikuti
+                      {item.total_user_following} Mengikuti
                     </div>
                     <div className="total_like">
                       <i>
                         <img src={love} alt="" width={20} />
                       </i>{" "}
-                      {abbrNum(item.total_like, 0)}
+                      {abbrNum(item.total_like_thread, 0)}
                     </div>
                     <div className="total_thread">
                       <i>
                         <img src={hair} alt="" width={20} />
                       </i>
-                      {abbrNum(item.total_thread, 0)}
+                      {abbrNum(item.total_threads, 0)}
                     </div>
                   </div>
                 );
               })}
             </div>
-            <Pagination />
+            <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
           </div>
         </div>
       </div>
