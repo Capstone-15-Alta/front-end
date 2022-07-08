@@ -12,10 +12,12 @@ import "./Ranking.scss";
 const Ranking = () => {
   const [allRanking, setAllRanking] = useState([]);
   const [pageCount, setPageCount] = useState(0);
+
+  
   const getAllRanking = async () => {
     let res = null;
     const params = {};
-    res = await fgdApi.getAllUser(params);
+    res = await fgdApi.getRanking(params);
     console.log(res.data);
     setAllRanking(res.data.content);
     setPageCount(res.data.totalPages)
@@ -31,7 +33,7 @@ const Ranking = () => {
     const getAllUser = async () => {
         let res = null;
         const params = { curentPage };
-        res = await fgdApi.getAllRanking(params);
+        res = await fgdApi.getRanking(params);
         console.log(res.data);
         setAllRanking(res.data.content);
       };
