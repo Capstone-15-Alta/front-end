@@ -192,6 +192,9 @@ const Home = () => {
                   likeData={item.likes?.map((like, likeIdx) => like)}
                   handleLike={handleLike}
                   handleDelete={handleDelete}
+                  commentData={item.comments?.map(
+                    (comment, commentIdx) => comment
+                  )}
                 />
               </Box>
             ))}

@@ -85,7 +85,7 @@ const fgdApi = {
     });
   },
   reportThread: (data, token) => {
-    const url = "report";
+    const url = "report_thread";
     console.log(url, data, token);
     return axiosClient.post(url, data, {
       headers: {
@@ -93,10 +93,21 @@ const fgdApi = {
       },
     });
   },
-
   editProfile: (data, token) => {
     const url = "user";
     return axiosClient.put(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getCommentByIdThread: (id) => {
+    const url = `comment/thread/${id}`;
+    return axiosClient.get(url);
+  },
+  postComment: (data, token) => {
+    const url = "comment";
+    return axiosClient.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
