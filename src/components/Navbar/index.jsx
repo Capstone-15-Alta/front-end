@@ -92,7 +92,7 @@ const Navbar = () => {
                       onClick={() => {
                         Cookies.remove("token");
                         Cookies.remove("id");
-                        Cookies.remove("data");
+                        Cookies.remove("roles");
 
                         navigate("/login");
                       }}

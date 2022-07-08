@@ -76,15 +76,16 @@ const fgdApi = {
       },
     });
   },
-  deleteThread: (id, token) => {
-    const url = `thread/${id}`;
-    return axiosClient.delete(url, {
+ reportThread: (data, token) => {
+    const url = "report";
+    console.log(url, data, token);
+    return axiosClient.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
   },
-
+  
   editProfile: (data, token) => {
     const url = "user";
     return axiosClient.put(url, data, {

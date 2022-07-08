@@ -23,8 +23,8 @@ export const SidebarLeft = () => {
           const token = Cookies.get("token");
 
           token
-            ? (data.left[3].link = "/profile")
-            : (data.left[3].link = "/login");
+            ? (data.left[4].link = "/profile")
+            : (data.left[4].link = "/login");
 
           return (
             <Link to={val.link} key={index}>
