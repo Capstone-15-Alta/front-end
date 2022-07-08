@@ -76,14 +76,6 @@ const fgdApi = {
       },
     });
   },
-  deleteThread: (id, token) => {
-    const url = `thread/${id}`;
-    return axiosClient.delete(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  },
  reportThread: (data, token) => {
     const url = "report";
     console.log(url, data, token);
@@ -93,6 +85,7 @@ const fgdApi = {
       },
     });
   },
+  
   editProfile: (data, token) => {
     const url = "user";
     return axiosClient.put(url, data, {

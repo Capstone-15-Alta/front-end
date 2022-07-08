@@ -89,21 +89,54 @@ const Home = () => {
     console.log(res);
   };
 
-  const handleDelete = async (id) => {
+  const deleteUserThread = async (id) => {
     let res = null;
-    res = await fgdApi.deleteThread(id, tokenCookies);
-    console.log(res);
 
-    if (res.message === "Success!") {
+    try {
+      res = await fgdApi.deleteThread(id, tokenCookies);
+      console.log(res);
+      getThread();
+
       Swal.fire({
-        title: "Success",
-        text: "Thread Berhasil Dihapus !",
+        title: "Deleted",
+        text: "Thread berhasil dihapus",
         icon: "success",
-        confirmButtonText: "OK",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Failed",
+        text: error.response.data.data,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
       });
     }
+  };
 
-    getThread();
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Apakah kamu Ingin Mengahapus Trhead ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#26B893",
+      cancelButtonColor: "#73777B",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Tidak",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUserThread(id);
+      } else {
+        Swal.fire({
+          title: "Canceled",
+          text: "Thread batal dihapus",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   };
 
   const followHandleClick = (e, threadUserId) => {
