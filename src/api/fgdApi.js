@@ -99,6 +99,7 @@ const fgdApi = {
   },
   postComment: (data, token) => {
     const url = "comment";
+    console.log(url, data, token);
     return axiosClient.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -107,9 +108,8 @@ const fgdApi = {
   },
   getRanking: (params) => {
     const url = "user/ranking";
-    return axiosClient.get(url,params);
+    return axiosClient.get(url, params);
   },
-  
 };
 
 export default fgdApi;
