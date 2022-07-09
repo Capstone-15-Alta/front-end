@@ -461,14 +461,14 @@ export default function HomeCard({
       {openComment && (
         <>
           {listComment.map((comment, commentIdx) => (
-            <>
+            <div className="comment-section" key={commentIdx}>
               <Comment comment={comment} key={commentIdx} />
               {/* {comment.map((data) => (
                 <Box ml="2vw">
                   <Comment data={data} />
                 </Box>
               ))} */}
-            </>
+            </div>
           ))}
           <Box display="flex" px="2vw">
             <Avatar alt={data.username} src={data.profile} />
@@ -483,6 +483,7 @@ export default function HomeCard({
               label=" "
               variant="filled"
               sx={{ ml: "1vw" }}
+              value={inputs.comment}
               onChange={(e) => handleInput(e.target.value, e.target.name)}
             />
             <IconButton

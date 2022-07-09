@@ -42,7 +42,7 @@ export default function Comment({ comment }) {
       <Grid container>
         <Grid item>
           <Avatar
-            alt={comment.user.id}
+            alt={userAttribute.username}
             src={userAttribute.image}
             style={{ width: "30px", height: "30px" }}
           />
