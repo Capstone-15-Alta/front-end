@@ -11,7 +11,7 @@ const fgdApi = {
   },
   getAllUser: (params) => {
     const url = "user/";
-    console.log(params);
+    // console.log(params);
     return axiosClient.get(url + `?page=${params.curentPage}`);
   },
   getUserById: (id, params) => {
@@ -20,12 +20,12 @@ const fgdApi = {
   },
   getThread: (params) => {
     const url = "thread/";
-    console.log(params);
+    // console.log(params);
     return axiosClient.get(url + `?page=${params.curentPage}`);
   },
   getLengthThread: (params) => {
     const url = "thread";
-    console.log(params);
+    // console.log(params);
     return axiosClient.get(url, params);
   },
   getThreadByUserId: (id, params) => {
@@ -82,7 +82,7 @@ const fgdApi = {
   },
   reportThread: (data, token) => {
     const url = "report_thread";
-    console.log(url, data, token);
+    // console.log(url, data, token);
     return axiosClient.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ const fgdApi = {
   },
   postComment: (data, token) => {
     const url = "comment";
-    console.log(url, data, token);
+    // console.log(url, data, token);
     return axiosClient.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,

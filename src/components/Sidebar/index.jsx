@@ -68,7 +68,7 @@ export const SidebarRight = () => {
     let res = null;
     const params = {};
     res = await fgdApi.getAllUser(params);
-    console.log(res.data);
+    // console.log(res.data);
     setAllUser(res.data.content);
   };
 
@@ -78,10 +78,10 @@ export const SidebarRight = () => {
 
   const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();
-    console.log(guestUserId);
+    // console.log(guestUserId);
     let res = null;
     res = await fgdApi.followUser(guestUserId, token);
-    console.log(res.data);
+    // console.log(res.data);
     getAllUser();
   };
 

@@ -13,9 +13,9 @@ const Footer = () => {
               <div className="row">
                 <div className="col-12 col-lg-6 m-auto">
                   <div className="d-flex justify-content-center">
-                    <a className="logo me-3 col-lg-6 " href="#">
+                    <Link className="logo me-3 col-lg-6 " to="/">
                       <img src={logo} alt="logo" />
-                    </a>{" "}
+                    </Link>
                     <div className="copy mt-3 col-lg-6 ">
                       Copyright UI/UX Designer 2022 || Muhammad Yogi
                     </div>

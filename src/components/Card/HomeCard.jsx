@@ -88,7 +88,7 @@ export default function HomeCard({
 
     try {
       res = await fgdApi.deleteThread(id, tokenCookies);
-      console.log(res);
+      // console.log(res);
       getThread(userId);
 
       Swal.fire({
@@ -142,7 +142,7 @@ export default function HomeCard({
 
     try {
       res = await fgdApi.reportThread(data, tokenCookies);
-      console.log(res.message);
+      // console.log(res.message);
 
       Swal.fire({
         title: "Reported",
@@ -186,11 +186,11 @@ export default function HomeCard({
     res = await fgdApi.getCommentByIdThread(id);
 
     const data = res.data;
-    console.log("ini id thread", id);
-    console.log("ini ini", data);
+    // console.log("ini id thread", id);
+    // console.log("ini ini", data);
     setListComment(data);
     // return res.data;
-    console.log("ini data comment by id", listComment);
+    // console.log("ini data comment by id", listComment);
   };
 
   useEffect(() => {
@@ -208,7 +208,7 @@ export default function HomeCard({
 
     setInputs(newInputs);
 
-    console.log(newInputs);
+    // console.log(newInputs);
   };
 
   const handleSumbitComment = async (id, e) => {

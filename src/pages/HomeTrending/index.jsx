@@ -42,7 +42,7 @@ const Home = () => {
   const handleLike = async (id) => {
     let res = null;
     res = await fgdApi.likeThread(id, tokenCookies);
-    console.log(res);
+    // console.log(res);
   };
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Home = () => {
       let res = null;
       const params = {};
       res = await fgdApi.getThread(params);
-      console.log(res.data);
+      // console.log(res.data);
       setListThread(res?.data);
     };
 
@@ -72,7 +72,7 @@ const Home = () => {
       let res = null;
       const params = { curentPage };
       res = await fgdApi.getThread(params);
-      console.log(res.data);
+      // console.log(res.data);
       setListThread(res?.data);
     };
     getThread();

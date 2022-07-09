@@ -13,14 +13,13 @@ const Ranking = () => {
   const [allRanking, setAllRanking] = useState([]);
   const [pageCount, setPageCount] = useState(0);
 
-  
   const getAllRanking = async () => {
     let res = null;
     const params = {};
     res = await fgdApi.getRanking(params);
-    console.log(res.data);
+    // console.log(res.data);
     setAllRanking(res.data.content);
-    setPageCount(res.data.totalPages)
+    setPageCount(res.data.totalPages);
   };
 
   useEffect(() => {
@@ -31,18 +30,16 @@ const Ranking = () => {
     let curentPage = data.selected;
     // console.log(curentPage);
     const getAllUser = async () => {
-        let res = null;
-        const params = { curentPage };
-        res = await fgdApi.getRanking(params);
-        console.log(res.data);
-        setAllRanking(res.data.content);
-      };
+      let res = null;
+      const params = { curentPage };
+      res = await fgdApi.getRanking(params);
+      // console.log(res.data);
+      setAllRanking(res.data.content);
+    };
 
-      getAllUser()
+    getAllUser();
   };
-  console.log(allRanking)
-  
- 
+  // console.log(allRanking);
 
   function abbrNum(number, decPlaces) {
     // 2 decimal places => 100, 3 => 1000, etc
@@ -96,11 +93,22 @@ const Ranking = () => {
             <div className="ranking">
               {allRanking.map((item, index) => {
                 return (
-                  <div className="ranking-item">
+                  <div className="ranking-item" key={index}>
                     <div className="index">{index + 1}</div>
-                    <div className="image" ><img src={item.image} alt="" width={40}  className="image"/></div>
-                    <div className="username"><p >{item.username}</p></div>
-                    <div className="follow">{item.total_user_followers} Pengikut</div>
+                    <div className="image">
+                      <img
+                        src={item.image}
+                        alt=""
+                        width={40}
+                        className="image"
+                      />
+                    </div>
+                    <div className="username">
+                      <p>{item.username}</p>
+                    </div>
+                    <div className="follow">
+                      {item.total_user_followers} Pengikut
+                    </div>
                     <div className="follow">
                       {item.total_user_following} Mengikuti
                     </div>
@@ -120,7 +128,10 @@ const Ranking = () => {
                 );
               })}
             </div>
-            <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
+            <Pagination
+              pageCount={pageCount}
+              handlePageClick={handlePageClick}
+            />
           </div>
         </div>
       </div>

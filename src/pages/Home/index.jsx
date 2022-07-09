@@ -11,9 +11,10 @@ import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
 import TuneIcon from "@mui/icons-material/Tune";
 import { useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
@@ -71,14 +72,13 @@ const Home = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-    // console.log(curentPage);
+    console.log(curentPage);
     const getThread = async () => {
       let res = null;
       const params = { curentPage };
       res = await fgdApi.getThread(params);
       console.log(res.data);
       setListThread(res?.data.content);
-      console.log(listThread);
     };
     getThread();
   };
@@ -86,7 +86,6 @@ const Home = () => {
   const handleLike = async (id) => {
     let res = null;
     res = await fgdApi.likeThread(id, tokenCookies);
-    console.log(res);
   };
 
   return (
@@ -126,6 +125,7 @@ const Home = () => {
             {listThread?.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
                 <HomeCard
+                  key={item.id}
                   data={item}
                   likeData={item.likes?.map((like, likeIdx) => like)}
                   handleLike={handleLike}

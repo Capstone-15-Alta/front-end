@@ -14,7 +14,7 @@ const HeaderLite = ({ name, email, gambar, user, guestId, getUserById }) => {
     e.preventDefault();
     let res = null;
     res = await fgdApi.followUser(guestUserId, tokenCookies);
-    console.log(res.data);
+    // console.log(res.data);
     getUserById(userId);
   };
   return (

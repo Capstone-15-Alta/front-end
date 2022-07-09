@@ -58,7 +58,7 @@ export default function Login() {
   const getUserById = async (id) => {
     let res = null;
     res = await fgdApi.getUserById(id);
-    console.log(res.data);
+    // console.log(res.data);
     Cookies.set("roles", res.data?.roles);
   };
 
@@ -73,7 +73,7 @@ export default function Login() {
       };
       try {
         res = await fgdApi.login(params);
-        console.log(res);
+        // console.log(res);
         const token = res.data.token;
         const userId = res.data.id;
         dispatch(submitLogin({ token: token, id: userId }));
@@ -155,12 +155,12 @@ export default function Login() {
                     </Form.Group>
                   ))}
 
-                  <a
-                    href="/lupa-password"
+                  <Link
+                    to="/lupa-password"
                     style={{ textDecoration: "none", color: "#26B893" }}
                   >
                     Lupa password ?
-                  </a>
+                  </Link>
                   <div className="d-grid gap-2 mt-3">
                     <Button
                       type="submit"

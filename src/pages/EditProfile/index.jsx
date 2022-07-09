@@ -22,23 +22,23 @@ const EditProfile = () => {
   const navigate = useNavigate();
   const userId = Cookies.get("id");
   const tokenCookies = Cookies.get("token");
-  console.log(userId);
+  // console.log(userId);
 
   const getUserById = async (id) => {
     let res = null;
     res = await fgdApi.getUserById(id);
 
     const data = res.data;
-    console.log(data);
+    // console.log(data);
     setUserAttribute(data);
 
-    console.log(userAttribute.first_name);
+    // console.log(userAttribute.first_name);
   };
 
   const editProfile = async (data) => {
     let res = null;
     res = await fgdApi.editProfile(data, tokenCookies);
-    console.log(res);
+    // console.log(res);
 
     if (res.message === "Success!") {
       await Swal.fire({
@@ -54,11 +54,11 @@ const EditProfile = () => {
   };
 
   const onSubmitHandler = async (values, actions) => {
-    console.log(values);
+    // console.log(values);
 
     const formData = new FormData();
     formData.append("json", JSON.stringify(values));
-    console.log(formData);
+    // console.log(formData);
 
     editProfile(formData);
   };

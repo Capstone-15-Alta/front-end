@@ -24,7 +24,7 @@ const Navbar = () => {
   const getUserById = async (id) => {
     let res = null;
     res = await fgdApi.getUserById(id);
-    console.log(res.data);
+    // console.log(res.data);
     setData(res.data);
   };
 

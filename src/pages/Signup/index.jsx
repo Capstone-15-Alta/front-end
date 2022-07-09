@@ -70,7 +70,7 @@ const Signup = () => {
       };
       try {
         res = await fgdApi.register(params);
-        console.log(res.message);
+        // console.log(res.message);
 
         Swal.fire({
           title: "Success",

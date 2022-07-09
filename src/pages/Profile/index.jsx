@@ -52,12 +52,12 @@ const Profile = () => {
 
   const userId = Cookies.get("id");
   const tokenCookies = Cookies.get("token");
-  console.log(userId);
+  // console.log(userId);
 
   const handleLike = async (id) => {
     let res = null;
     res = await fgdApi.likeThread(id, tokenCookies);
-    console.log(res);
+    // console.log(res);
   };
 
   const getUserById = async (id) => {
@@ -65,10 +65,10 @@ const Profile = () => {
     res = await fgdApi.getUserById(id);
 
     const data = res.data;
-    console.log(data);
+    // console.log(data);
     setUserAttribute(data);
     // return res.data;
-    console.log(userAttribute);
+    // console.log(userAttribute);
   };
 
   const getThreadByUserId = async (id) => {

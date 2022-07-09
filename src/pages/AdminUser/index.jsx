@@ -14,9 +14,9 @@ const AdminUser = () => {
     let res = null;
     const params = {};
     res = await fgdApi.getAllUser(params);
-    console.log(res.data);
+    // console.log(res.data);
     setAllUser(res.data.content);
-    setPageCount(res.data.totalPages)
+    setPageCount(res.data.totalPages);
   };
 
   useEffect(() => {
@@ -27,16 +27,16 @@ const AdminUser = () => {
     let curentPage = data.selected;
     // console.log(curentPage);
     const getAllUser = async () => {
-        let res = null;
-        const params = { curentPage };
-        res = await fgdApi.getAllUser(params);
-        console.log(res.data);
-        setAllUser(res.data.content);
-      };
+      let res = null;
+      const params = { curentPage };
+      res = await fgdApi.getAllUser(params);
+      // console.log(res.data);
+      setAllUser(res.data.content);
+    };
 
-      getAllUser()
+    getAllUser();
   };
-  console.log(allUser);
+  // console.log(allUser);
   return (
     <>
       <Navigationbar />
@@ -53,14 +53,15 @@ const AdminUser = () => {
             </div>
           </div>
           <div>
-        <Pagination pageCount={pageCount} handlePageClick={handlePageClick}/>
-      </div>
+            <Pagination
+              pageCount={pageCount}
+              handlePageClick={handlePageClick}
+            />
+          </div>
         </div>
       </div>
 
-      
-
-      <Footer/>
+      <Footer />
     </>
   );
 };

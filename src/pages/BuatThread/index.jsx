@@ -14,7 +14,7 @@ import fgdApi from "../../api/fgdApi";
 const BuatThread = () => {
   const { token } = useSelector((state) => state.login);
   const tokenCookies = Cookies.get("token");
-  console.log(tokenCookies);
+  // console.log(tokenCookies);
 
   return (
     <div>

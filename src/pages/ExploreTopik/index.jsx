@@ -40,11 +40,11 @@ function ExploreTopik() {
   //   let res = null;
   //   const params = {};
   //   res = await fgdApi.getAllUser(params);
-  //   // console.log(res.data);
+  //   console.log(res.data);
   // };
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
 
     // getUser();
     getCategory();
@@ -62,7 +62,7 @@ function ExploreTopik() {
       let res = null;
       const params = {};
       res = await categoryApi.getThread(value);
-      console.log(res.data);
+      // console.log(res.data);
       setListThread(res?.data.content);
     };
     getThread();
@@ -72,7 +72,7 @@ function ExploreTopik() {
   const handleLike = async (id) => {
     let res = null;
     res = await fgdApi.likeThread(id, tokenCookies);
-    console.log(res);
+    // console.log(res);
   };
 
   return (

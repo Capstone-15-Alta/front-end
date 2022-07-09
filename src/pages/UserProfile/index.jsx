@@ -56,17 +56,17 @@ const UserProfile = () => {
   const handleLike = async (id) => {
     let res = null;
     res = await fgdApi.likeThread(id, tokenCookies);
-    console.log(res);
+    // console.log(res);
   };
   const getUserById = async (id) => {
     let res = null;
     res = await fgdApi.getUserById(id);
 
     const data = res.data;
-    console.log(data);
+    // console.log(data);
     setUserAttribute(data);
     // return res.data;
-    console.log(userAttribute);
+    // console.log(userAttribute);
   };
 
   const getSelfAccount = async (id) => {
@@ -74,10 +74,10 @@ const UserProfile = () => {
     res = await fgdApi.getUserById(id);
 
     const data = res.data;
-    console.log(data);
+    // console.log(data);
     setSelfAccount(data);
     // return res.data;
-    console.log(selfAccount);
+    // console.log(selfAccount);
   };
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const UserProfile = () => {
       res = await fgdApi.getThreadByUserId(id);
       const data = res?.data.content;
       setListThread(data);
-      console.log(data);
+      // console.log(data);
       // console.log(listThread);
     };
 

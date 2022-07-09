@@ -37,7 +37,7 @@ const HeaderProfile = ({ data, getUserById }) => {
 
   const handleUploadBanner = async (e) => {
     const fileBanner = e.target.files[0];
-    console.log(fileBanner);
+    // console.log(fileBanner);
 
     try {
       let res = null;
@@ -45,7 +45,7 @@ const HeaderProfile = ({ data, getUserById }) => {
       formData.set("file", fileBanner);
 
       res = await fgdApi.uploadBanner(tokenCookies, formData);
-      console.log(res);
+      // console.log(res);
       getUserById(userId);
 
       Swal.fire({
@@ -66,7 +66,7 @@ const HeaderProfile = ({ data, getUserById }) => {
 
   const handleUploadImage = async (e) => {
     const filePhoto = e.target.files[0];
-    console.log(filePhoto);
+    // console.log(filePhoto);
 
     try {
       let res = null;
@@ -74,7 +74,7 @@ const HeaderProfile = ({ data, getUserById }) => {
       formData.set("file", filePhoto);
 
       res = await fgdApi.uploadPhoto(tokenCookies, formData);
-      console.log(res);
+      // console.log(res);
       getUserById(userId);
       Swal.fire({
         title: "Success",
@@ -99,10 +99,10 @@ const HeaderProfile = ({ data, getUserById }) => {
     e.preventDefault();
     let res = null;
     res = await fgdApi.followUser(guestUserId, tokenCookies);
-    console.log(res.data);
+    // console.log(res.data);
     getUserById(guestUserId);
   };
-  console.log(data);
+  // console.log(data);
 
   return (
     <>

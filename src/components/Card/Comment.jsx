@@ -18,7 +18,7 @@ import fgdApi from "../../api/fgdApi";
 export default function Comment({ comment }) {
   const greyColor = { color: "#9E9E9E" };
 
-  console.log("ini di comment", comment);
+  // console.log("ini di comment", comment);
 
   const [userAttribute, setUserAttribute] = useState({});
 
@@ -27,10 +27,10 @@ export default function Comment({ comment }) {
     res = await fgdApi.getUserById(id);
 
     const data = res.data;
-    console.log(data);
+    // console.log(data);
     setUserAttribute(data);
     // return res.data;
-    console.log("ini data user di comment", userAttribute);
+    // console.log("ini data user di comment", userAttribute);
   };
 
   useEffect(() => {

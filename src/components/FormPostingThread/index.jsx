@@ -40,9 +40,9 @@ const FormPostingThread = () => {
     res = await fgdApi.getUserById(id);
 
     const data = res.data;
-    console.log(data);
+    // console.log(data);
     setUserAttribute(data);
-    console.log("ini user attribut", userAttribute);
+    // console.log("ini user attribut", userAttribute);
   };
 
   const getCategory = async () => {
@@ -74,7 +74,7 @@ const FormPostingThread = () => {
 
     setInputs(newInputs);
 
-    console.log(newInputs);
+    // console.log(newInputs);
   };
 
   const [files, setFiles] = useState([]);
@@ -113,7 +113,7 @@ const FormPostingThread = () => {
   const addThread = async (formData) => {
     let res = null;
     res = await fgdApi.postThread(formData, token);
-    console.log(res);
+    // console.log(res);
 
     if (res.message === "Success!") {
       await Swal.fire({
@@ -135,8 +135,8 @@ const FormPostingThread = () => {
   }, []);
 
   useEffect(() => {
-    console.log("ini file name", fileName);
-    console.log("ini files", files[0]);
+    // console.log("ini file name", fileName);
+    // console.log("ini files", files[0]);
   });
 
   const handleSubmit = async (e) => {
