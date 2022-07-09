@@ -146,16 +146,43 @@ export default function HomeCard({
     getCommentByIdThread(data.id);
   }, []);
 
-  const handleComment = async (id) => {
-    let res = null;
-    res = await fgdApi.postComment(id, tokenCookies);
-    console.log(res);
+  const [inputs, setInputs] = useState({
+    comment: "",
+  });
+
+  const handleInput = (value, key) => {
+    const newInputs = { ...inputs };
+
+    newInputs[key] = value;
+
+    setInputs(newInputs);
+
+    console.log(newInputs);
   };
 
-  const handleSumbitComment = (e, id) => {
-    e.preventDefault();
+  const handleComment = async (id) => {
+    let res = null;
+    const userComment = {
+      thread_id: id,
+      comment: inputs.comment,
+    };
 
+    if (userComment.comment !== "") {
+      res = await fgdApi.postComment(userComment, tokenCookies);
+      console.log(res);
+    } else {
+      console.log("isi komentar dulu");
+    }
+
+    setInputs({
+      comment: "",
+    });
+  };
+
+  const handleSumbitComment = (id) => {
     handleComment(id);
+
+    getCommentByIdThread(data.id);
   };
 
   return (
@@ -351,12 +378,15 @@ export default function HomeCard({
           <Box display="flex" px="2vw">
             <Avatar alt={data.username} src={data.profile} />
             <TextField
+              name="comment"
               fullWidth
               label=" "
               variant="filled"
               sx={{ ml: "1vw" }}
+              onChange={(e) => handleInput(e.target.value, e.target.name)}
             />
             <IconButton
+              name="button-comment"
               size="large"
               sx={{ ml: "1vw" }}
               onClick={() => handleSumbitComment(data.id)}
