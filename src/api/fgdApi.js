@@ -103,6 +103,7 @@ const fgdApi = {
   },
   postComment: (data, token) => {
     const url = "comment";
+    console.log(url, data, token);
     return axiosClient.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,

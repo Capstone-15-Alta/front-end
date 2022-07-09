@@ -118,7 +118,7 @@ const FormPostingThread = () => {
     if (res.message === "Success!") {
       await Swal.fire({
         title: "Success",
-        text: "Thread Berhasil Dibuat !",
+        text: "Thread Berhasil Diposting !",
         icon: "success",
         confirmButtonText: "OK",
         timer: 1500,

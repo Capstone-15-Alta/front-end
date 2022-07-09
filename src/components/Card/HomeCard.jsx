@@ -178,6 +178,62 @@ export default function HomeCard({
     });
   };
 
+  const [listComment, setListComment] = useState({});
+
+  const getCommentByIdThread = async (id) => {
+    let res = null;
+    res = await fgdApi.getCommentByIdThread(id);
+
+    const data = res.data;
+    console.log("ini ini", data);
+    setListComment(data);
+    // return res.data;
+    console.log("ini data comment by id", listComment);
+  };
+
+  useEffect(() => {
+    getCommentByIdThread(data.id);
+  }, []);
+
+  const [inputs, setInputs] = useState({
+    comment: "",
+  });
+
+  const handleInput = (value, key) => {
+    const newInputs = { ...inputs };
+
+    newInputs[key] = value;
+
+    setInputs(newInputs);
+
+    console.log(newInputs);
+  };
+
+  const handleComment = async (id) => {
+    let res = null;
+    const userComment = {
+      thread_id: id,
+      comment: inputs.comment,
+    };
+
+    if (userComment.comment !== "") {
+      res = await fgdApi.postComment(userComment, tokenCookies);
+      console.log(res);
+    } else {
+      console.log("isi komentar dulu");
+    }
+
+    setInputs({
+      comment: "",
+    });
+  };
+
+  const handleSumbitComment = (id) => {
+    handleComment(id);
+
+    getCommentByIdThread(data.id);
+  };
+
   return (
     <>
       <Box
@@ -415,12 +471,19 @@ export default function HomeCard({
           <Box display="flex" px="2vw">
             <Avatar alt={data.username} src={data.profile} />
             <TextField
+              name="comment"
               fullWidth
               label=" "
               variant="filled"
               sx={{ ml: "1vw" }}
+              onChange={(e) => handleInput(e.target.value, e.target.name)}
             />
-            <IconButton size="large" sx={{ ml: "1vw" }}>
+            <IconButton
+              name="button-comment"
+              size="large"
+              sx={{ ml: "1vw" }}
+              onClick={() => handleSumbitComment(data.id)}
+            >
               <ArrowCircleRightIcon
                 fontSize="large"
                 style={{ color: "#4E9BB9" }}
