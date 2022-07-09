@@ -80,12 +80,6 @@ const Profile = () => {
     setListThread(data);
   };
 
-  const getThreadById = async (id) => {
-    let res = null;
-    res = await fgdApi.getThreadById(id);
-    console.log(res.data);
-  };
-
   useEffect(() => {
     getUserById(userId);
     getThreadByUserId(userId);
