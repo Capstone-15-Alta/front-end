@@ -29,10 +29,6 @@ function ExploreTopik() {
     setData(res?.data);
   };
 
-  useEffect(() => {
-    getCategory();
-  }, []);
-
   const getThreadFirst = async () => {
     let res = null;
     const params = category.categoryYangDipilih;
@@ -40,18 +36,18 @@ function ExploreTopik() {
     // console.log(res.data);
     setListThread(res?.data.content);
   };
+  // const getUser = async () => {
+  //   let res = null;
+  //   const params = {};
+  //   res = await fgdApi.getAllUser(params);
+  //   // console.log(res.data);
+  // };
 
   useEffect(() => {
-    const getUser = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getUser(params);
-      // console.log(res.data);
-    };
-
     console.log(data);
 
-    getUser();
+    // getUser();
+    getCategory();
     getThreadFirst();
     // console.log(listThread);
   }, []);
@@ -79,57 +75,6 @@ function ExploreTopik() {
     console.log(res);
   };
 
-  const deleteUserThread = async (id) => {
-    let res = null;
-
-    try {
-      res = await fgdApi.deleteThread(id, tokenCookies);
-      console.log(res);
-      getThreadFirst();
-      getCategory();
-
-      Swal.fire({
-        title: "Deleted",
-        text: "Thread berhasil dihapus",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (error) {
-      Swal.fire({
-        title: "Failed",
-        text: error.response.data.data,
-        icon: "error",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  };
-
-  const handleDelete = async (id) => {
-    Swal.fire({
-      title: "Apakah kamu Ingin Mengahapus Trhead ?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#26B893",
-      cancelButtonColor: "#73777B",
-      confirmButtonText: "Ya",
-      cancelButtonText: "Tidak",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteUserThread(id);
-      } else {
-        Swal.fire({
-          title: "Canceled",
-          text: "Thread batal dihapus",
-          icon: "error",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
-
   return (
     <>
       <Navigationbar />
@@ -144,6 +89,7 @@ function ExploreTopik() {
                 data.map((val, index) => {
                   return (
                     <button
+                      key={index}
                       className={
                         val.category_name === category.categoryYangDipilih
                           ? "button-active"
@@ -167,7 +113,7 @@ function ExploreTopik() {
                       data={item}
                       likeData={item.likes?.map((like, likeIdx) => like)}
                       handleLike={handleLike}
-                      handleDelete={handleDelete}
+                      getThread={getThreadFirst}
                     />
                   </Box>
                 ))}

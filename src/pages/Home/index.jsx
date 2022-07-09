@@ -89,68 +89,6 @@ const Home = () => {
     console.log(res);
   };
 
-  const deleteUserThread = async (id) => {
-    let res = null;
-
-    try {
-      res = await fgdApi.deleteThread(id, tokenCookies);
-      console.log(res);
-      getThread();
-
-      Swal.fire({
-        title: "Deleted",
-        text: "Thread berhasil dihapus",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (error) {
-      Swal.fire({
-        title: "Failed",
-        text: error.response.data.data,
-        icon: "error",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  };
-
-  const handleDelete = async (id) => {
-    Swal.fire({
-      title: "Apakah kamu Ingin Mengahapus Trhead ?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#26B893",
-      cancelButtonColor: "#73777B",
-      confirmButtonText: "Ya",
-      cancelButtonText: "Tidak",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteUserThread(id);
-      } else {
-        Swal.fire({
-          title: "Canceled",
-          text: "Thread batal dihapus",
-          icon: "error",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
-
-  const followHandleClick = (e, threadUserId) => {
-    e.preventDefault();
-
-    const followUser = async () => {
-      let res = null;
-      res = await fgdApi.followUser(threadUserId, tokenCookies);
-      console.log(res.data);
-    };
-
-    followUser();
-  };
-
   return (
     <>
       <Navigationbar />
@@ -191,7 +129,7 @@ const Home = () => {
                   data={item}
                   likeData={item.likes?.map((like, likeIdx) => like)}
                   handleLike={handleLike}
-                  handleDelete={handleDelete}
+                  getThread={getThread}
                   commentData={item.comments?.map(
                     (comment, commentIdx) => comment
                   )}

@@ -35,9 +35,9 @@ import Swal from "sweetalert2";
 export default function HomeCard({
   data,
   likeData,
-  commentData,
   handleLike,
-  handleDelete,
+  // handleDelete,
+  getThread,
 }) {
   const location = useLocation();
   const path = location.pathname;
@@ -82,7 +82,55 @@ export default function HomeCard({
     },
   ];
 
-  console.log("ini dihome card", data.comments);
+  const deleteUserThread = async (id) => {
+    let res = null;
+
+    try {
+      res = await fgdApi.deleteThread(id, tokenCookies);
+      console.log(res);
+      getThread(userId);
+
+      Swal.fire({
+        title: "Deleted",
+        text: "Thread berhasil dihapus",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Failed",
+        text: error.response.data.data,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Apakah kamu Ingin Mengahapus Trhead ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#26B893",
+      cancelButtonColor: "#73777B",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Tidak",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUserThread(id);
+      } else {
+        Swal.fire({
+          title: "Canceled",
+          text: "Thread batal dihapus",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
 
   const reportUserThread = async (id) => {
     let res = null;
@@ -128,35 +176,6 @@ export default function HomeCard({
         Swal.fire("Batal", "Thread batal direport", "error");
       }
     });
-  };
-
-  const [listComment, setListComment] = useState({});
-
-  const getCommentByIdThread = async (id) => {
-    let res = null;
-    res = await fgdApi.getCommentByIdThread(id);
-
-    const data = res.data;
-    console.log("ini ini", data);
-    setListComment(data);
-    // return res.data;
-    console.log("ini data comment by id", listComment);
-  };
-
-  useEffect(() => {
-    getCommentByIdThread(data.id);
-  }, []);
-
-  const handleComment = async (id) => {
-    let res = null;
-    res = await fgdApi.postComment(id, tokenCookies);
-    console.log(res);
-  };
-
-  const handleSumbitComment = (e, id) => {
-    e.preventDefault();
-
-    handleComment(id);
   };
 
   return (
@@ -237,6 +256,7 @@ export default function HomeCard({
                       }}
                     >
                       {" "}
+                      <MenuItem onClick={handleClose}>Edit</MenuItem>
                       <MenuItem onClick={() => handleDelete(data.id)}>
                         Delete
                       </MenuItem>
@@ -382,14 +402,14 @@ export default function HomeCard({
       </Box>
       {openComment && (
         <>
-          {listComment.map((comment, commentIdx) => (
+          {dataComment.map((data) => (
             <>
-              <Comment comment={comment} key={commentIdx} />
-              {/* {comment.map((data) => (
+              <Comment data={data} />
+              {data.children.map((data) => (
                 <Box ml="2vw">
                   <Comment data={data} />
                 </Box>
-              ))} */}
+              ))}
             </>
           ))}
           <Box display="flex" px="2vw">
@@ -400,11 +420,7 @@ export default function HomeCard({
               variant="filled"
               sx={{ ml: "1vw" }}
             />
-            <IconButton
-              size="large"
-              sx={{ ml: "1vw" }}
-              onClick={() => handleSumbitComment(data.id)}
-            >
+            <IconButton size="large" sx={{ ml: "1vw" }}>
               <ArrowCircleRightIcon
                 fontSize="large"
                 style={{ color: "#4E9BB9" }}
