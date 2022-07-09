@@ -38,32 +38,37 @@ export default function Comment({ comment }) {
   }, []);
 
   return (
-    <Box borderRadius="20px" py="3vh" px="2vw">
+    <Box borderRadius="20px" py="3vh" px="2vw" ml="40px">
       <Grid container>
         <Grid item>
-          <Avatar alt={comment.user.id} src={userAttribute.image} />
+          <Avatar
+            alt={comment.user.id}
+            src={userAttribute.image}
+            style={{ width: "30px", height: "30px" }}
+          />
         </Grid>
         <Grid item xs pl="1vw">
           <Grid container>
             <Grid item xs>
               <Box display="flex">
                 <Box>
-                  <h5>{userAttribute.username}</h5>
+                  <div style={{ fontSize: "18px" }}>
+                    {userAttribute.username}
+                  </div>
                 </Box>
                 {/* {comment.isVerified && (
                   <img src="assets/icon/verified.png" height="20vh" />
                 )} */}
               </Box>
-              <h5 style={{ marginTop: "3vh", color: "#9E9E9E" }}>
+              <div style={{ marginTop: "1vh", fontSize: "14px" }}>
                 {comment.comment}
-              </h5>
+              </div>
             </Grid>
             <Grid item style={greyColor}>
-              <h8> {comment.created_at} </h8>
-              {/* <h6>10.00 pm</h6> */}
+              <div> {comment.created_at.substr(11, 5)} </div>
             </Grid>
           </Grid>
-          <Grid container mt="2vh">
+          <Grid container mt="1vh">
             <Grid item xs>
               <CostumeButton> Reply </CostumeButton>
               <CostumeButton> Share </CostumeButton>

@@ -133,6 +133,7 @@ const Home = () => {
                   commentData={item.comments?.map(
                     (comment, commentIdx) => comment
                   )}
+                  handlePageClick={handlePageClick}
                 />
               </Box>
             ))}

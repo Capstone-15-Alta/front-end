@@ -38,6 +38,7 @@ export default function HomeCard({
   handleLike,
   // handleDelete,
   getThread,
+  handlePageClick,
 }) {
   const location = useLocation();
   const path = location.pathname;
@@ -185,6 +186,7 @@ export default function HomeCard({
     res = await fgdApi.getCommentByIdThread(id);
 
     const data = res.data;
+    console.log("ini id thread", id);
     console.log("ini ini", data);
     setListComment(data);
     // return res.data;
@@ -193,7 +195,7 @@ export default function HomeCard({
 
   useEffect(() => {
     getCommentByIdThread(data.id);
-  }, []);
+  }, [handlePageClick]);
 
   const [inputs, setInputs] = useState({
     comment: "",
@@ -209,7 +211,9 @@ export default function HomeCard({
     console.log(newInputs);
   };
 
-  const handleComment = async (id) => {
+  const handleSumbitComment = async (id, e) => {
+    e.preventDefault();
+
     let res = null;
     const userComment = {
       thread_id: id,
@@ -226,10 +230,6 @@ export default function HomeCard({
     setInputs({
       comment: "",
     });
-  };
-
-  const handleSumbitComment = (id) => {
-    handleComment(id);
 
     getCommentByIdThread(data.id);
   };
@@ -278,7 +278,9 @@ export default function HomeCard({
                   </Link>
                 </Box>
                 <h4 style={{ marginTop: "1rem" }}>{data.title}</h4>
-                <Typography variant="caption">{data.created_at}</Typography>
+                <Typography variant="caption">
+                  {data.created_at.substr(11, 5)}
+                </Typography>
               </Grid>
               <Grid item>
                 {userId == data.user?.id ? (
@@ -458,18 +460,23 @@ export default function HomeCard({
       </Box>
       {openComment && (
         <>
-          {dataComment.map((data) => (
+          {listComment.map((comment, commentIdx) => (
             <>
-              <Comment data={data} />
-              {data.children.map((data) => (
+              <Comment comment={comment} key={commentIdx} />
+              {/* {comment.map((data) => (
                 <Box ml="2vw">
                   <Comment data={data} />
                 </Box>
-              ))}
+              ))} */}
             </>
           ))}
           <Box display="flex" px="2vw">
             <Avatar alt={data.username} src={data.profile} />
+            {/* <input
+              type="text"
+              name="comment"
+              onChange={(e) => handleInput(e.target.value, e.target.name)}
+            /> */}
             <TextField
               name="comment"
               fullWidth
@@ -482,7 +489,7 @@ export default function HomeCard({
               name="button-comment"
               size="large"
               sx={{ ml: "1vw" }}
-              onClick={() => handleSumbitComment(data.id)}
+              onClick={(e) => handleSumbitComment(data.id, e)}
             >
               <ArrowCircleRightIcon
                 fontSize="large"
