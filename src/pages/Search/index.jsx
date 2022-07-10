@@ -36,15 +36,13 @@ const Search = () => {
   const [listThread, setListThread] = useState([]);
 
   const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
+    await fgdApi.likeThread(id, tokenCookies);
   };
 
   useEffect(() => {
     const getUser = async () => {
-      let res = null;
       const params = {};
-      res = await fgdApi.getAllUser(params);
+      await fgdApi.getAllUser(params);
     };
 
     const getThread = async () => {
@@ -112,6 +110,8 @@ const Search = () => {
       getThreadByTitle(inputSearch.title);
     }
   };
+
+  console.log(listThreadSearch);
 
   return (
     <>

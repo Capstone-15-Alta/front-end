@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,7 +13,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
+// import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Comment from "./Comment";
 import TextField from "@mui/material/TextField";
@@ -26,7 +26,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 import Cookies from "js-cookie";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import fgdApi from "../../api/fgdApi";
 
@@ -39,9 +39,9 @@ export default function HomeCard({
   getThread,
   handlePageClick,
 }) {
-  const location = useLocation();
+  // const location = useLocation();
 
-  const path = location.pathname;
+  // const path = location.pathname;
 
   const userId = Cookies.get("id");
 
@@ -63,39 +63,37 @@ export default function HomeCard({
     setAnchorEl(null);
   };
 
-  const ITEM_HEIGHT = 48;
+  // const ITEM_HEIGHT = 48;
 
-  const dataComment = [
-    {
-      username: "Albert Flores",
-      isVerified: true,
-      content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-      timePost: "12 hours ago",
-      profile: "/assets/icon/manProfile.png",
-      children: [
-        {
-          username: "Flores",
-          isVerified: false,
-          content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-          timePost: "12 hours ago",
-          profile: "/assets/icon/manProfile.png",
-        },
-        {
-          username: "Albert",
-          isVerified: true,
-          content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-          timePost: "12 hours ago",
-          profile: "/assets/icon/manProfile.png",
-        },
-      ],
-    },
-  ];
+  // const dataComment = [
+  //   {
+  //     username: "Albert Flores",
+  //     isVerified: true,
+  //     content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
+  //     timePost: "12 hours ago",
+  //     profile: "/assets/icon/manProfile.png",
+  //     children: [
+  //       {
+  //         username: "Flores",
+  //         isVerified: false,
+  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
+  //         timePost: "12 hours ago",
+  //         profile: "/assets/icon/manProfile.png",
+  //       },
+  //       {
+  //         username: "Albert",
+  //         isVerified: true,
+  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
+  //         timePost: "12 hours ago",
+  //         profile: "/assets/icon/manProfile.png",
+  //       },
+  //     ],
+  //   },
+  // ];
 
   const deleteUserThread = async (id) => {
-    let res = null;
-
     try {
-      res = await fgdApi.deleteThread(id, tokenCookies);
+      await fgdApi.deleteThread(id, tokenCookies);
       // console.log(res);
       getThread(userId);
 
@@ -118,8 +116,7 @@ export default function HomeCard({
   };
 
   const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
+    await fgdApi.likeThread(id, tokenCookies);
   };
 
   const handleSave = async (id) => {
@@ -157,14 +154,13 @@ export default function HomeCard({
   };
 
   const reportUserThread = async (id) => {
-    let res = null;
     const data = {
       thread_id: id,
       report: "spam",
     };
 
     try {
-      res = await fgdApi.reportThread(data, tokenCookies);
+      await fgdApi.reportThread(data, tokenCookies);
       // console.log(res.message);
 
       Swal.fire({

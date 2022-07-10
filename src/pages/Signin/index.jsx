@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Container from "react-bootstrap/Container";
 import Grid from "@mui/material/Grid";
@@ -11,19 +11,18 @@ import { Link } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
 import { submitLogin } from "../../store/Login";
-import { setUser } from "../../store/User";
 
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.login);
+  // const { token } = useSelector((state) => state.login);
 
   const navigate = useNavigate();
 
@@ -101,6 +100,13 @@ export default function Login() {
     };
     getLogin();
   };
+
+  useEffect(() => {
+    const getAuth = Cookies.get("token");
+    if (getAuth) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

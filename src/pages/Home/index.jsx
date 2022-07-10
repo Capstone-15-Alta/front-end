@@ -10,20 +10,20 @@ import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
 import TuneIcon from "@mui/icons-material/Tune";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 const Home = () => {
   // const { token } = useSelector((state) => state.login);
-  const tokenCookies = Cookies.get("token");
+  // const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
   // console.log(token);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const fillter = [
     {
       name: "Terbaru",
@@ -50,9 +50,8 @@ const Home = () => {
   const [pageCount, setPageCount] = useState(0);
 
   const getUser = async () => {
-    let res = null;
     const params = {};
-    res = await fgdApi.getAllUser(params);
+    await fgdApi.getAllUser(params);
     // console.log(res.data);
   };
 

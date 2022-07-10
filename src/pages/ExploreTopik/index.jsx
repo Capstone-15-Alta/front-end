@@ -4,13 +4,13 @@ import Footer from "../../components/Footer";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
 import HomeCard from "../../components/Card/HomeCard";
 import "./ExploreTopik.scss";
-import Button from "../../components/Button/Button";
+// import Button from "../../components/Button/Button";
 import Box from "@mui/material/Box";
-import fgdApi from "../../api/fgdApi";
+// import fgdApi from "../../api/fgdApi";
 import categoryApi from "../../api/categoryApi";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 function ExploreTopik() {
   const [data, setData] = useState([]);
@@ -20,7 +20,7 @@ function ExploreTopik() {
     categoryYangDipilih: "",
   });
 
-  const tokenCookies = Cookies.get("token");
+  // const tokenCookies = Cookies.get("token");
 
   const getCategory = async () => {
     let res = null;
@@ -60,7 +60,6 @@ function ExploreTopik() {
 
     const getThread = async () => {
       let res = null;
-      const params = {};
       res = await categoryApi.getThread(value);
       // console.log(res.data);
       setListThread(res?.data.content);
@@ -69,11 +68,11 @@ function ExploreTopik() {
     //
   };
 
-  const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
-    // console.log(res);
-  };
+  // const handleLike = async (id) => {
+  //   let res = null;
+  //   res = await fgdApi.likeThread(id, tokenCookies);
+  //   // console.log(res);
+  // };
 
   return (
     <>

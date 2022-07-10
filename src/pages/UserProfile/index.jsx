@@ -1,6 +1,5 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
@@ -22,7 +21,7 @@ import HeaderLite from "../../components/HeaderProfile/HeaderLite";
 const UserProfile = () => {
   const { id } = useParams();
 
-  const tokenCookies = Cookies.get("token");
+  // const tokenCookies = Cookies.get("token");
   const userId = Cookies.get("id");
 
   const profileData = [
@@ -53,11 +52,11 @@ const UserProfile = () => {
 
   const [listThread, setListThread] = useState([]);
 
-  const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
-    // console.log(res);
-  };
+  // const handleLike = async (id) => {
+  //   let res = null;
+  //   res = await fgdApi.likeThread(id, tokenCookies);
+  //   // console.log(res);
+  // };
   const getUserById = async (id) => {
     let res = null;
     res = await fgdApi.getUserById(id);
