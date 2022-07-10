@@ -22,10 +22,10 @@ const routes = [
     path: "/trending",
     component: HomeTrending,
   },
-  {
-    path: "/login",
-    component: Login,
-  },
+  // {
+  //   path: "/login",
+  //   component: Login,
+  // },
   {
     path: "/lupa-password",
     component: LupaPassword,
@@ -50,10 +50,10 @@ const routes = [
     path: "/edit-profile",
     component: EditProfile,
   },
-  {
-    path: "/register",
-    component: Signup,
-  },
+  // {
+  //   path: "/register",
+  //   component: Signup,
+  // },
   {
     path: "/notifikasi",
     component: Notifikasi,
