@@ -31,30 +31,38 @@ import { useLocation, Link } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 
 import Swal from "sweetalert2";
+import { Toast } from "../Toast/Toast";
 
 export default function HomeCard({
   data,
   likeData,
-  handleLike,
-  // handleDelete,
   getThread,
   handlePageClick,
 }) {
   const location = useLocation();
+
   const path = location.pathname;
+
   const userId = Cookies.get("id");
+
   const userRoles = Cookies.get("roles");
+
   const tokenCookies = Cookies.get("token");
+
   const [openComment, setOpenComment] = useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const ITEM_HEIGHT = 48;
 
   const dataComment = [
@@ -109,6 +117,21 @@ export default function HomeCard({
     }
   };
 
+  const handleLike = async (id) => {
+    let res = null;
+    res = await fgdApi.likeThread(id, tokenCookies);
+  };
+
+  const handleSave = async (id) => {
+    let res = null;
+    res = await fgdApi.saveThread(id, tokenCookies);
+    console.log(res.data);
+    Toast.fire({
+      icon: "success",
+      title: res.data?.is_save ? "Thread disimpan" : "Thread batal disimpan",
+      iconColor: res.data?.is_save ? "" : "red",
+    });
+  };
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Apakah kamu Ingin Mengahapus Trhead ?",
@@ -341,69 +364,30 @@ export default function HomeCard({
             <Grid style={{ marginTop: "0.5rem" }} container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
-                  {likeData.length !== 0 ? (
-                    <>
-                      {likeData.filter((like) => like.user_id == userId)
-                        .length > 0 ? (
-                        <Checkbox
-                          onClick={() => handleLike(data.id)}
-                          icon={
-                            <FavoriteBorderIcon
-                              style={{
-                                color: "#26B893",
-                              }}
-                            />
-                          }
-                          checkedIcon={
-                            <FavoriteIcon
-                              style={{
-                                color: "#26B893",
-                              }}
-                            />
-                          }
-                          defaultChecked={true}
-                        />
-                      ) : (
-                        <Checkbox
-                          onClick={() => handleLike(data.id)}
-                          icon={
-                            <FavoriteBorderIcon
-                              style={{
-                                color: "#26B893",
-                              }}
-                            />
-                          }
-                          checkedIcon={
-                            <FavoriteIcon
-                              style={{
-                                color: "#26B893",
-                              }}
-                            />
-                          }
-                          defaultChecked={false}
-                        />
-                      )}
-                    </>
-                  ) : (
-                    <Checkbox
-                      onClick={() => handleLike(data.id)}
-                      icon={
-                        <FavoriteBorderIcon
-                          style={{
-                            color: "#26B893",
-                          }}
-                        />
-                      }
-                      checkedIcon={
-                        <FavoriteIcon
-                          style={{
-                            color: "#26B893",
-                          }}
-                        />
-                      }
-                      defaultChecked={false}
-                    />
-                  )}
+                  <Checkbox
+                    onClick={() => handleLike(data.id)}
+                    icon={
+                      <FavoriteBorderIcon
+                        style={{
+                          color: "#26B893",
+                        }}
+                      />
+                    }
+                    checkedIcon={
+                      <FavoriteIcon
+                        style={{
+                          color: "#26B893",
+                        }}
+                      />
+                    }
+                    defaultChecked={
+                      likeData.filter((like) => like.user_id == userId).length >
+                      0
+                        ? true
+                        : false
+                    }
+                  />
+
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}
@@ -428,7 +412,9 @@ export default function HomeCard({
                       {/* {data.view} */}120
                     </Typography>
                   </IconButton>
+
                   <Checkbox
+                    onClick={() => handleSave(data.id)}
                     icon={
                       <BookmarkBorderIcon
                         style={{
@@ -443,8 +429,15 @@ export default function HomeCard({
                         }}
                       />
                     }
-                    defaultChecked={false}
+                    defaultChecked={
+                      data.save?.filter(
+                        (savedUser) => savedUser.user_id == userId
+                      ).length > 0
+                        ? true
+                        : false
+                    }
                   />
+
                   <IconButton aria-label="share">
                     <ShareOutlinedIcon
                       style={{

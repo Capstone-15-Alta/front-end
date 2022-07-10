@@ -36,14 +36,14 @@ const Profile = () => {
       key: "following",
     },
     {
-      title: "Likes",
+      title: "Thread",
       number: 11,
-      key: "post",
+      key: "thread",
     },
     {
-      title: "Thread",
+      title: "Tersimpan",
       number: 20,
-      key: "thread",
+      key: "save_thread",
     },
   ]);
   const [userAttribute, setUserAttribute] = useState({});
@@ -65,7 +65,7 @@ const Profile = () => {
     res = await fgdApi.getUserById(id);
 
     const data = res.data;
-    // console.log(data);
+    console.log(data);
     setUserAttribute(data);
     // return res.data;
     // console.log(userAttribute);
@@ -170,16 +170,39 @@ const Profile = () => {
                       title={
                         <>
                           <p>{profileData[2].title}</p>
-                          <p>{userAttribute.total_like_thread}</p>
+                          <p>{listThread.length}</p>
+                        </>
+                      }
+                    >
+                      <div className="tab-item-wrapper">
+                        <div className="threads-tabs card-tabs">
+                          {listThread?.map((item, itemIdx) => (
+                            <HomeCard
+                              key={itemIdx}
+                              data={item}
+                              likeData={item.likes}
+                              // handleDelete={handleDelete}
+                              getThread={getThreadByUserId}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </Tab>{" "}
+                    <Tab
+                      eventKey={profileData[3].key}
+                      title={
+                        <>
+                          <p>{profileData[3].title}</p>
+                          <p>{userAttribute.save_thread?.length}</p>
                         </>
                       }
                     >
                       <div className="tab-item-wrapper">
                         <div className="likes-tabs card-tabs">
-                          {userAttribute.thread_likes?.map((item, itemIdx) => (
+                          {userAttribute.save_thread?.map((item, itemIdx) => (
                             <>
                               {" "}
-                              <h3>{item.thread_id}</h3>
+                              <h3 key={itemIdx}>{item.thread_id}</h3>
                               <CardPost
                                 title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
                                 name="Gde Agung Mandala"
@@ -194,79 +217,10 @@ const Profile = () => {
                               />
                             </>
                           ))}
-
-                          {/* <CardPost
-                            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                            name="Gde Agung Mandala"
-                            dateTime="31-05-2022 19:56"
-                            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                          />
-                          <CardPost
-                            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                            name="Gde Agung Mandala"
-                            dateTime="31-05-2022 19:56"
-                            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                          />
-                          <CardPost
-                            title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                            name="Gde Agung Mandala"
-                            dateTime="31-05-2022 19:56"
-                            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                          /> */}
-                        </div>
-                      </div>
-                    </Tab>
-                    <Tab
-                      eventKey={profileData[3].key}
-                      title={
-                        <>
-                          <p>{profileData[3].title}</p>
-                          <p>{listThread.length}</p>
-                        </>
-                      }
-                    >
-                      <div className="tab-item-wrapper">
-                        <div className="threads-tabs card-tabs">
-                          {listThread?.map((item, itemIdx) => (
-                            <HomeCard
-                              key={itemIdx}
-                              data={item}
-                              likeData={item.likes?.map(
-                                (like, likeIdx) => like
-                              )}
-                              handleLike={handleLike}
-                              // handleDelete={handleDelete}
-                              getThread={getThreadByUserId}
-                            />
-                          ))}
                         </div>
                       </div>
                     </Tab>
                   </Tabs>
-                  {/* {profileData.map((data, dataIdx) => (
-                    <div className="col-md-1 text-center " key={dataIdx}>
-                      <p>{data.title}</p>
-                      <p>{data.number}</p>
-                    </div>
-                  ))} */}
                 </div>
               </div>
             </div>

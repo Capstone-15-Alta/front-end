@@ -36,9 +36,21 @@ const fgdApi = {
     const url = `thread/${id}`;
     return axiosClient.get(url, params);
   },
-  getCategory: (params) => {
-    const url = "category/";
-    return axiosClient.get(url, params);
+  likeThread: (id, token) => {
+    const url = `like/thread/${id}`;
+    return axiosClient.put(url, id, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  saveThread: (id, token) => {
+    const url = `save/thread/${id}`;
+    return axiosClient.put(url, id, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   },
   postThread: (data, token) => {
     const url = "thread";
@@ -47,6 +59,27 @@ const fgdApi = {
         Authorization: `Bearer ${token}`,
       },
     });
+  },
+  deleteThread: (id, token) => {
+    const url = `thread/${id}`;
+    return axiosClient.delete(url, {
+      headers: {
+        Authorization: ` Bearer ${token}`,
+      },
+    });
+  },
+  reportThread: (data, token) => {
+    const url = "report_thread";
+    // console.log(url, data, token);
+    return axiosClient.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getCategory: (params) => {
+    const url = "category/";
+    return axiosClient.get(url, params);
   },
   followUser: (id, token, params) => {
     const url = `follow/user/${id}`;
@@ -72,23 +105,7 @@ const fgdApi = {
       },
     });
   },
-  likeThread: (id, token) => {
-    const url = `like/thread/${id}`;
-    return axiosClient.put(url, id, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  },
-  reportThread: (data, token) => {
-    const url = "report_thread";
-    // console.log(url, data, token);
-    return axiosClient.post(url, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  },
+
   editProfile: (data, token) => {
     const url = "user";
     return axiosClient.put(url, data, {
@@ -114,14 +131,7 @@ const fgdApi = {
     const url = "user/ranking";
     return axiosClient.get(url, params);
   },
-  deleteThread: (id, token) => {
-    const url = `thread/${id}`;
-    return axiosClient.delete(url, {
-      headers: {
-        Authorization: ` Bearer ${token}`,
-      },
-    });
-  },
+
   getThreadByTitle: (params, token) => {
     const url = `thread/search?title=${params}`;
     return axiosClient.get(url, {
