@@ -83,11 +83,6 @@ const Home = () => {
     getThread();
   };
 
-  const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
-  };
-
   return (
     <>
       <Navigationbar />
@@ -127,8 +122,7 @@ const Home = () => {
                 <HomeCard
                   key={item.id}
                   data={item}
-                  likeData={item.likes?.map((like, likeIdx) => like)}
-                  handleLike={handleLike}
+                  likeData={item.likes}
                   getThread={getThread}
                   commentData={item.comments?.map(
                     (comment, commentIdx) => comment

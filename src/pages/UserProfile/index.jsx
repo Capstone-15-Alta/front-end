@@ -258,10 +258,7 @@ const UserProfile = () => {
                             <HomeCard
                               key={itemIdx}
                               data={item}
-                              likeData={item.likes?.map(
-                                (like, likeIdx) => like
-                              )}
-                              handleLike={handleLike}
+                              likeData={item.likes}
                             />
                           ))}
                         </div>
