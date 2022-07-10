@@ -99,7 +99,7 @@ const Profile = () => {
                 <HeaderProfile data={userAttribute} getUserById={getUserById} />
                 <div className=" tab-section row  mb-5">
                   <Tabs
-                    defaultActiveKey="post"
+                    defaultActiveKey="thread"
                     id="uncontrolled-tab-example"
                     className="mb-3 data-number justify-content-center"
                   >

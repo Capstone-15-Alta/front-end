@@ -12,7 +12,7 @@ const fgdApi = {
   getAllUser: (params) => {
     const url = "user/";
     // console.log(params);
-    return axiosClient.get(url + `?page=${params.curentPage}`);
+    return axiosClient.get(url + `?page=${params.x}`);
   },
   getUserById: (id, params) => {
     const url = `user/${id}`;
@@ -22,6 +22,13 @@ const fgdApi = {
     const url = "thread/";
     // console.log(params);
     return axiosClient.get(url + `?page=${params.curentPage}`);
+  },
+  getSearchThread: (params) => {
+    const url = "thread/search/";
+    // console.log(params);
+    return axiosClient.get(
+      url + `?page=${params.curentPage}&title=${params.title}`
+    );
   },
   getLengthThread: (params) => {
     const url = "thread";

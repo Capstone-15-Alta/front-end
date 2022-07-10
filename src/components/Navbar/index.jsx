@@ -14,7 +14,7 @@ import Button from "../Button/Button";
 import { NavDropdown } from "react-bootstrap";
 import fgdApi from "../../api/fgdApi";
 
-const Navbar = () => {
+const Navbar = ({ listThread, setListThread }) => {
   const navigate = useNavigate();
 
   const userId = Cookies.get("id");

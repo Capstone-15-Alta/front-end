@@ -11,7 +11,7 @@ import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
 import TuneIcon from "@mui/icons-material/Tune";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
@@ -22,8 +22,11 @@ const Home = () => {
   // const { token } = useSelector((state) => state.login);
   const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
-  // console.log(token);
+
   const navigate = useNavigate();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const fillter = [
     {
       name: "Terbaru",
@@ -65,18 +68,48 @@ const Home = () => {
     setPageCount(res.data.totalPages);
   };
 
+  const getSearchThread = async () => {
+    let res = null;
+    const params = {
+      title: searchParams.get("title"),
+    };
+    try {
+      res = await fgdApi.getSearchThread(params);
+      setListThread(res.data.content);
+      setPageCount(res.data.totalPages);
+    } catch (error) {
+      console.log(error);
+      setListThread([]);
+      setPageCount(1);
+    }
+  };
+
   useEffect(() => {
     getUser();
-    getThread();
   }, []);
+
+  useEffect(() => {
+    if (searchParams.get("title")) {
+      console.log("masuk");
+      console.log(searchParams.get("title"));
+      getSearchThread();
+    } else {
+      getThread();
+    }
+  }, [searchParams.get("title")]);
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
     console.log(curentPage);
     const getThread = async () => {
       let res = null;
-      const params = { curentPage };
-      res = await fgdApi.getThread(params);
+      if (searchParams.get("title")) {
+        const params = { curentPage, title: searchParams.get("title") };
+        res = await fgdApi.getSearchThread(params);
+      } else {
+        const params = { curentPage };
+        res = await fgdApi.getThread(params);
+      }
       console.log(res.data);
       setListThread(res?.data.content);
     };
@@ -85,7 +118,7 @@ const Home = () => {
 
   return (
     <>
-      <Navigationbar />
+      <Navigationbar listThread={listThread} setListThread={setListThread} />
       <Grid container minHeight="80vh" pt="2vh">
         <Grid item md={3}>
           <SidebarLeft />
