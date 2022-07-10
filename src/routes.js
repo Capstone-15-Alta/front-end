@@ -11,6 +11,7 @@ import EditProfile from "./pages/EditProfile";
 import UserProfile from "./pages/UserProfile";
 import AdminUser from "./pages/AdminUser";
 import Ranking from "./pages/Ranking";
+import Search from "./pages/Search";
 
 const routes = [
   {
@@ -64,6 +65,10 @@ const routes = [
   {
     path: "/admin-user",
     component: AdminUser,
+  },
+  {
+    path: "/search",
+    component: Search,
   },
 ];
 

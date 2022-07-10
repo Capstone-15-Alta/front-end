@@ -14,7 +14,7 @@ import Button from "../Button/Button";
 import { NavDropdown } from "react-bootstrap";
 import fgdApi from "../../api/fgdApi";
 
-const Navbar = () => {
+const Navbar = ({ value, handleInputSearch, handleKeyDown }) => {
   const navigate = useNavigate();
 
   const userId = Cookies.get("id");
@@ -60,7 +60,11 @@ const Navbar = () => {
             <>
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Searchbar />
+                  <Searchbar
+                    value={value}
+                    handleInputSearch={handleInputSearch}
+                    handleKeyDown={handleKeyDown}
+                  />
                 </li>
                 <li className="nav-item">
                   <Link to="/buat-thread">
