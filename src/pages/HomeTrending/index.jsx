@@ -10,14 +10,14 @@ import HomeCard from "../../components/Card/HomeCard";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 
 const Home = () => {
-  const { token } = useSelector((state) => state.login);
+  // const { token } = useSelector((state) => state.login);
   const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
   // console.log(token);
@@ -40,16 +40,14 @@ const Home = () => {
   const [listThread, setListThread] = useState([]);
 
   const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
+    await fgdApi.likeThread(id, tokenCookies);
     // console.log(res);
   };
 
   useEffect(() => {
     const getUser = async () => {
-      let res = null;
       const params = {};
-      res = await fgdApi.getAllUser(params);
+      await fgdApi.getAllUser(params);
       // console.log(res.data);
     };
 

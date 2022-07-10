@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.scss";
 
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/images/logoNavbar.svg";
 
 import IconProfile from "../IconProfile";
