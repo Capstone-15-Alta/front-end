@@ -36,7 +36,7 @@ const AdminUser = () => {
 
     getAllUser();
   };
-  // console.log(allUser);
+  console.log(allUser);
   return (
     <>
       <Navigationbar />

@@ -11,6 +11,8 @@ import EditProfile from "./pages/EditProfile";
 import UserProfile from "./pages/UserProfile";
 import AdminUser from "./pages/AdminUser";
 import Ranking from "./pages/Ranking";
+import AdminKelolaThread from "./pages/AdminKelolaThread";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const routes = [
   {
@@ -64,6 +66,14 @@ const routes = [
   {
     path: "/admin-user",
     component: AdminUser,
+  },
+  {
+    path: "/admin-kelolathread",
+    component: AdminKelolaThread,
+  },
+  {
+    path: "/admin-dashboard",
+    component: AdminDashboard,
   },
 ];
 

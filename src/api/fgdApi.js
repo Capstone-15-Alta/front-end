@@ -12,7 +12,7 @@ const fgdApi = {
   getAllUser: (params) => {
     const url = "user/";
     // console.log(params);
-    return axiosClient.get(url + `?page=${params.x}`);
+    return axiosClient.get(url + `?page=${params.curentPage}`);
   },
   getUserById: (id, params) => {
     const url = `user/${id}`;
