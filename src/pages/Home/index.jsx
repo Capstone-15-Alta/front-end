@@ -31,18 +31,18 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const fillter = [
-    {
-      name: "Terbaru",
-      icon: AccessTimeIcon,
-      link: "/",
-      isActive: true,
-    },
-    {
-      name: "Trending",
-      icon: CallMadeIcon,
-      link: "/trending",
-      isActive: false,
-    },
+    // {
+    //   name: "Terbaru",
+    //   icon: AccessTimeIcon,
+    //   link: "/",
+    //   isActive: true,
+    // },
+    // // {
+    // //   name: "Trending",
+    // //   icon: CallMadeIcon,
+    // //   link: "/trending",
+    // //   isActive: false,
+    // // },
     {
       name: "Kategori",
       icon: TuneIcon,
@@ -135,7 +135,7 @@ const Home = () => {
                   variant={item.isActive === true ? "contained" : "outlined"}
                   sx={{
                     textTransform: "none",
-                    borderRadius: "15px",
+                    borderRadius: "10px",
                     marginRight: "3vw",
                     color: item.isActive ? "white" : "#26B893",
                     bgcolor: item.isActive ? "#26B893" : "white",

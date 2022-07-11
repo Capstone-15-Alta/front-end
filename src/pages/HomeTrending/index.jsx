@@ -12,15 +12,18 @@ import Pagination from "../../components/Pagination";
 import TuneIcon from "@mui/icons-material/Tune";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+// import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+
 import fgdApi from "../../api/fgdApi";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 const Home = () => {
   // const { token } = useSelector((state) => state.login);
-  const tokenCookies = Cookies.get("token");
+  // const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
 
   const navigate = useNavigate();
@@ -32,13 +35,13 @@ const Home = () => {
       name: "Terbaru",
       icon: AccessTimeIcon,
       link: "/",
-      isActive: false,
+      isActive: true,
     },
     {
       name: "Trending",
       icon: CallMadeIcon,
       link: "/trending",
-      isActive: true,
+      isActive: false,
     },
     {
       name: "Kategori",
@@ -53,9 +56,8 @@ const Home = () => {
   const [pageCount, setPageCount] = useState(0);
 
   const getUser = async () => {
-    let res = null;
     const params = {};
-    res = await fgdApi.getAllUser(params);
+    await fgdApi.getAllUser(params);
     // console.log(res.data);
   };
 
@@ -85,21 +87,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const getUser = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getAllUser(params);
-      // console.log(res.data);
-    };
-
-    const getThread = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getThread(params);
-      console.log(" ini listThread", res.data.content);
-      setListThread(res.data.content);
-    };
-
     getUser();
   }, []);
 
@@ -127,15 +114,9 @@ const Home = () => {
       }
       console.log(res.data);
       setListThread(res?.data.content);
-      const params = { curentPage };
-      res = await fgdApi.getThread(params);
-      // console.log(res.data);
-      setListThread(res.data.content);
     };
     getThread();
   };
-
-  console.log("ini list", listThread);
 
   return (
     <>
