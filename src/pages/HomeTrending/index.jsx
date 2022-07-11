@@ -5,24 +5,35 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import HomeCard from "../../components/Card/HomeCard";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
+import TuneIcon from "@mui/icons-material/Tune";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
+import { useNavigate, useSearchParams } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
+
+import Swal from "sweetalert2";
 
 const Home = () => {
-  const { token } = useSelector((state) => state.login);
+  // const { token } = useSelector((state) => state.login);
   const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
-  // console.log(token);
+
+  const navigate = useNavigate();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const fillter = [
-    { name: "Terbaru", icon: AccessTimeIcon, link: "/", isActive: false },
+    {
+      name: "Terbaru",
+      icon: AccessTimeIcon,
+      link: "/",
+      isActive: false,
+    },
     {
       name: "Trending",
       icon: CallMadeIcon,
@@ -31,7 +42,7 @@ const Home = () => {
     },
     {
       name: "Kategori",
-      icon: FormatListBulletedIcon,
+      icon: TuneIcon,
       link: "/explore-topik",
       isActive: false,
     },
@@ -39,48 +50,75 @@ const Home = () => {
 
   const [listThread, setListThread] = useState([]);
 
-  const handleLike = async (id) => {
+  const [pageCount, setPageCount] = useState(0);
+
+  const getUser = async () => {
     let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
-    // console.log(res);
+    const params = {};
+    res = await fgdApi.getAllUser(params);
+    // console.log(res.data);
+  };
+
+  const getThread = async () => {
+    let res = null;
+    const params = {};
+    res = await fgdApi.getThread(params);
+    console.log(res.data);
+    setListThread(res.data.content);
+    setPageCount(res.data.totalPages);
+  };
+
+  const getSearchThread = async () => {
+    let res = null;
+    const params = {
+      title: searchParams.get("title"),
+    };
+    try {
+      res = await fgdApi.getSearchThread(params);
+      setListThread(res.data.content);
+      setPageCount(res.data.totalPages);
+    } catch (error) {
+      console.log(error);
+      setListThread([]);
+      setPageCount(1);
+    }
   };
 
   useEffect(() => {
-    const getUser = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getAllUser(params);
-      // console.log(res.data);
-    };
-
-    const getThread = async () => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getThread(params);
-      // console.log(res.data);
-      setListThread(res?.data);
-    };
-
     getUser();
-    getThread();
   }, []);
+
+  useEffect(() => {
+    if (searchParams.get("title")) {
+      console.log("masuk");
+      console.log(searchParams.get("title"));
+      getSearchThread();
+    } else {
+      getThread();
+    }
+  }, [searchParams.get("title")]);
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-
+    console.log(curentPage);
     const getThread = async () => {
       let res = null;
-      const params = { curentPage };
-      res = await fgdApi.getThread(params);
-      // console.log(res.data);
-      setListThread(res?.data);
+      if (searchParams.get("title")) {
+        const params = { curentPage, title: searchParams.get("title") };
+        res = await fgdApi.getSearchThread(params);
+      } else {
+        const params = { curentPage };
+        res = await fgdApi.getThread(params);
+      }
+      console.log(res.data);
+      setListThread(res?.data.content);
     };
     getThread();
   };
 
   return (
     <>
-      <Navigationbar />
+      <Navigationbar listThread={listThread} setListThread={setListThread} />
       <Grid container minHeight="80vh" pt="2vh">
         <Grid item md={3}>
           <SidebarLeft />
@@ -112,20 +150,24 @@ const Home = () => {
             ))}
           </Box>
           <Box pt="3vh">
-            {listThread.map((item, itemIdx) => (
+            {listThread?.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
                 <HomeCard
-                  key={itemIdx}
+                  key={item.id}
                   data={item}
-                  likeData={item.likes?.map((like, likeIdx) => like)}
-                  handleLike={handleLike}
+                  likeData={item.likes}
+                  getThread={getThread}
+                  commentData={item.comments?.map(
+                    (comment, commentIdx) => comment
+                  )}
+                  handlePageClick={handlePageClick}
                 />
               </Box>
             ))}
             <div>
               <Pagination
                 handlePageClick={handlePageClick}
-                pageCount={listThread.length}
+                pageCount={pageCount}
               />
             </div>
           </Box>
