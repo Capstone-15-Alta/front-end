@@ -138,6 +138,15 @@ const fgdApi = {
     const url = "user/ranking";
     return axiosClient.get(url, params);
   },
+
+  getThreadByTitle: (params, token) => {
+    const url = `thread/search?title=${params}`;
+    return axiosClient.get(url, {
+      headers: {
+        Authorization: ` Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default fgdApi;

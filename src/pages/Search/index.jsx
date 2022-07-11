@@ -5,47 +5,29 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CallMadeIcon from "@mui/icons-material/CallMade";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import HomeCard from "../../components/Card/HomeCard";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
-import TuneIcon from "@mui/icons-material/Tune";
-import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-
-import fgdApi from "../../api/fgdApi";
-// import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
-// import Swal from "sweetalert2";
+import fgdApi from "../../api/fgdApi";
+import Cookies from "js-cookie";
 
-const Home = () => {
-  // const { token } = useSelector((state) => state.login);
-  // const tokenCookies = Cookies.get("token");
-  // console.log(tokenCookies);
-
-  const navigate = useNavigate();
-
-  const [searchParams, setSearchParams] = useSearchParams();
-
+const Search = () => {
+  const tokenCookies = Cookies.get("token");
   const fillter = [
-    {
-      name: "Terbaru",
-      icon: AccessTimeIcon,
-      link: "/",
-      isActive: true,
-    },
+    { name: "Terbaru", icon: AccessTimeIcon, link: "/", isActive: false },
     {
       name: "Trending",
       icon: CallMadeIcon,
       link: "/trending",
-      isActive: false,
+      isActive: true,
     },
     {
       name: "Kategori",
-      icon: TuneIcon,
+      icon: FormatListBulletedIcon,
       link: "/explore-topik",
       isActive: false,
     },
@@ -53,74 +35,91 @@ const Home = () => {
 
   const [listThread, setListThread] = useState([]);
 
-  const [pageCount, setPageCount] = useState(0);
-
-  const getUser = async () => {
-    const params = {};
-    await fgdApi.getAllUser(params);
-    // console.log(res.data);
+  const handleLike = async (id) => {
+    await fgdApi.likeThread(id, tokenCookies);
   };
 
-  const getThread = async () => {
-    let res = null;
-    const params = {};
-    res = await fgdApi.getThread(params);
-    console.log(res.data);
-    setListThread(res.data.content);
-    setPageCount(res.data.totalPages);
-  };
-
-  const getSearchThread = async () => {
-    let res = null;
-    const params = {
-      title: searchParams.get("title"),
+  useEffect(() => {
+    const getUser = async () => {
+      const params = {};
+      await fgdApi.getAllUser(params);
     };
-    try {
-      res = await fgdApi.getSearchThread(params);
+
+    const getThread = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getThread(params);
+      console.log(" ini listThread", res.data.content);
       setListThread(res.data.content);
-      setPageCount(res.data.totalPages);
-    } catch (error) {
-      console.log(error);
-      setListThread([]);
-      setPageCount(1);
-    }
-  };
+    };
 
-  useEffect(() => {
     getUser();
+    getThread();
   }, []);
-
-  useEffect(() => {
-    if (searchParams.get("title")) {
-      console.log("masuk");
-      console.log(searchParams.get("title"));
-      getSearchThread();
-    } else {
-      getThread();
-    }
-  }, [searchParams.get("title")]);
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-    console.log(curentPage);
+
     const getThread = async () => {
       let res = null;
-      if (searchParams.get("title")) {
-        const params = { curentPage, title: searchParams.get("title") };
-        res = await fgdApi.getSearchThread(params);
-      } else {
-        const params = { curentPage };
-        res = await fgdApi.getThread(params);
-      }
-      console.log(res.data);
-      setListThread(res?.data.content);
+      const params = { curentPage };
+      res = await fgdApi.getThread(params);
+      // console.log(res.data);
+      setListThread(res.data.content);
     };
     getThread();
   };
 
+  console.log("ini list", listThread);
+
+  // ini coba search
+
+  const [inputSearch, setInputSearch] = useState({
+    title: "",
+  });
+
+  const handleInputSearch = (value, key) => {
+    const newInputs = { ...inputSearch };
+
+    newInputs[key] = value;
+
+    setInputSearch(newInputs);
+
+    console.log(newInputs);
+  };
+
+  const [listThreadSearch, setListThreadSearch] = useState({});
+
+  const getThreadByTitle = async (title) => {
+    let res = null;
+    res = await fgdApi.getThreadByTitle(title, tokenCookies);
+    console.log(res.data);
+    const data = res.data;
+    setListThreadSearch(data);
+  };
+
+  const handleKeyDown = (event) => {
+    // console.log("User pressed: ", event.key);
+
+    // console.log(message);
+
+    if (event.key === "Enter") {
+      // 👇️ your logic here
+      console.log("Enter key pressed ✅");
+
+      getThreadByTitle(inputSearch.title);
+    }
+  };
+
+  console.log(listThreadSearch);
+
   return (
     <>
-      <Navigationbar listThread={listThread} setListThread={setListThread} />
+      <Navigationbar
+        value={inputSearch.title}
+        handleInputSearch={handleInputSearch}
+        handleKeyDown={handleKeyDown}
+      />
       <Grid container minHeight="80vh" pt="2vh">
         <Grid item md={3}>
           <SidebarLeft />
@@ -155,21 +154,17 @@ const Home = () => {
             {listThread?.map((item, itemIdx) => (
               <Box key={itemIdx} py="4vh">
                 <HomeCard
-                  key={item.id}
+                  key={itemIdx}
                   data={item}
-                  likeData={item.likes}
-                  getThread={getThread}
-                  commentData={item.comments?.map(
-                    (comment, commentIdx) => comment
-                  )}
-                  handlePageClick={handlePageClick}
+                  likeData={item.likes?.map((like, likeIdx) => like)}
+                  handleLike={handleLike}
                 />
               </Box>
             ))}
             <div>
               <Pagination
                 handlePageClick={handlePageClick}
-                pageCount={pageCount}
+                pageCount={listThread.length}
               />
             </div>
           </Box>
@@ -185,4 +180,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Search;

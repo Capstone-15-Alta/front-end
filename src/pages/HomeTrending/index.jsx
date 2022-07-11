@@ -85,6 +85,21 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const getUser = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getAllUser(params);
+      // console.log(res.data);
+    };
+
+    const getThread = async () => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getThread(params);
+      console.log(" ini listThread", res.data.content);
+      setListThread(res.data.content);
+    };
+
     getUser();
   }, []);
 
@@ -112,9 +127,15 @@ const Home = () => {
       }
       console.log(res.data);
       setListThread(res?.data.content);
+      const params = { curentPage };
+      res = await fgdApi.getThread(params);
+      // console.log(res.data);
+      setListThread(res.data.content);
     };
     getThread();
   };
+
+  console.log("ini list", listThread);
 
   return (
     <>

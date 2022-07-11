@@ -1,6 +1,5 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
@@ -16,14 +15,10 @@ import fgdApi from "../../api/fgdApi";
 import HeaderProfile from "../../components/HeaderProfile";
 import HeaderLite from "../../components/HeaderProfile/HeaderLite";
 
-import Swal from "sweetalert2";
-
 import "./Profile.scss";
 import Cookies from "js-cookie";
 
 const Profile = () => {
-  const navigate = useNavigate();
-
   const [profileData, setProfileData] = useState([
     {
       title: "Pengikut",
@@ -51,14 +46,14 @@ const Profile = () => {
   const [listThread, setListThread] = useState([]);
 
   const userId = Cookies.get("id");
-  const tokenCookies = Cookies.get("token");
+  // const tokenCookies = Cookies.get("token");
   // console.log(userId);
 
-  const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
-    // console.log(res);
-  };
+  // const handleLike = async (id) => {
+  //   let res = null;
+  //   res = await fgdApi.likeThread(id, tokenCookies);
+  //   // console.log(res);
+  // };
 
   const getUserById = async (id) => {
     let res = null;

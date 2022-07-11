@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import imgbanner from "../../assets/icon/Login.png";
 import { Link, useNavigate } from "react-router-dom";
 import Form from "../../components/Form";
@@ -9,6 +9,8 @@ import Button from "../../components/Button/Button";
 import fgdApi from "../../api/fgdApi";
 import "./Signup.scss";
 import Swal from "sweetalert2";
+
+import Cookies from "js-cookie";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -70,7 +72,7 @@ const Signup = () => {
       };
       try {
         res = await fgdApi.register(params);
-        // console.log(res.message);
+        console.log(res.message);
 
         Swal.fire({
           title: "Success",
@@ -90,6 +92,13 @@ const Signup = () => {
     };
     getRegister();
   };
+
+  useEffect(() => {
+    const getAuth = Cookies.get("token");
+    if (getAuth) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
@@ -177,7 +186,7 @@ const KontenKiri = () => {
   return (
     <>
       <div className="kiri">
-        <img src={imgbanner} />
+        <img src={imgbanner} alt="banner-profile" />
       </div>
     </>
   );
