@@ -39,7 +39,7 @@ const Ranking = () => {
 
     getAllUser();
   };
-  // console.log(allRanking);
+  console.log(allRanking);
 
   function abbrNum(number, decPlaces) {
     // 2 decimal places => 100, 3 => 1000, etc

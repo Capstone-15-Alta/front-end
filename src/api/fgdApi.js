@@ -136,7 +136,7 @@ const fgdApi = {
   },
   getRanking: (params) => {
     const url = "user/ranking";
-    return axiosClient.get(url, params);
+    return axiosClient.get(url + `?page=${params.curentPage}`);
   },
 };
 
