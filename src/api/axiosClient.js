@@ -27,7 +27,6 @@ const isLocalDev = (isDev) => {
         "Content-Type": "application/json",
         ...(!!token && { Authorization: `Bearer ${token}` }),
       },
-      withCredentials: true,
     };
     axiosConfig = axios.create(config);
   }
