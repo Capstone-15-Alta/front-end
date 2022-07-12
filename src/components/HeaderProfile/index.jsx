@@ -104,27 +104,20 @@ const HeaderProfile = ({ data, getUserById }) => {
   };
   console.log(data);
 
-  const handleToUser = (e, id) => {
+  const handleToUser = async (e, id) => {
     e.preventDefault();
-    const changeRoleUser = async () => {
-      let res = null;
-      res = await fgdApi.changeRoleUser(id, tokenCookies);
-      console.log(res);
-    };
 
-    changeRoleUser(id);
+    let res = null;
+    res = await fgdApi.changeRoleUser(id, tokenCookies);
+
     getUserById(id);
   };
 
-  const handleToModerator = (e, id) => {
+  const handleToModerator = async (e, id) => {
     e.preventDefault();
-    const changeRoleModerator = async () => {
-      let res = null;
-      res = await fgdApi.changeRoleModerator(id, tokenCookies);
-      console.log(res);
-    };
+    let res = null;
+    res = await fgdApi.changeRoleModerator(id, tokenCookies);
 
-    changeRoleModerator(id);
     getUserById(id);
   };
 
@@ -226,15 +219,16 @@ const HeaderProfile = ({ data, getUserById }) => {
                 </div>
               )}
 
-              <div> role : {roles === "ADMIN" ? data.roles : null}</div>
+              {/* <div> role : {roles === "ADMIN" ? data.roles : null}</div> */}
               {data.roles == "Admin" && null}
               {data.roles == "USER" && (
                 <button
                   onClick={(e) => {
                     handleToModerator(e, data.id);
                   }}
+                  className="button-mod"
                 >
-                  jadikan moderator
+                  Jadikan Moderator
                 </button>
               )}
               {data.roles == "MODERATOR" && (
@@ -242,9 +236,10 @@ const HeaderProfile = ({ data, getUserById }) => {
                   onClick={(e) => {
                     handleToUser(e, data.id);
                   }}
+                  className="button-mod"
                 >
                   {" "}
-                  jadikan user
+                  Jadikan User
                 </button>
               )}
             </div>
