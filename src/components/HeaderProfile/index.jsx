@@ -22,7 +22,7 @@ const HeaderProfile = ({ data, getUserById }) => {
   const tokenCookies = Cookies.get("token");
   const userId = Cookies.get("id");
   // console.log(tokenCookies, userId);
-
+  const roles = Cookies.get("roles");
   const [bannerImg, setBannerImg] = useState(banner);
 
   const [photoImg, setPhotoImg] = useState();
@@ -102,7 +102,31 @@ const HeaderProfile = ({ data, getUserById }) => {
     // console.log(res.data);
     getUserById(guestUserId);
   };
-  // console.log(data);
+  console.log(data);
+
+  const handleToUser = (e, id) => {
+    e.preventDefault();
+    const changeRoleUser = async () => {
+      let res = null;
+      res = await fgdApi.changeRoleUser(id, tokenCookies);
+      console.log(res);
+    };
+
+    changeRoleUser(id);
+    getUserById(id);
+  };
+
+  const handleToModerator = (e, id) => {
+    e.preventDefault();
+    const changeRoleModerator = async () => {
+      let res = null;
+      res = await fgdApi.changeRoleModerator(id, tokenCookies);
+      console.log(res);
+    };
+
+    changeRoleModerator(id);
+    getUserById(id);
+  };
 
   return (
     <>
@@ -200,6 +224,28 @@ const HeaderProfile = ({ data, getUserById }) => {
                     />
                   )}
                 </div>
+              )}
+
+              <div> role : {roles === "ADMIN" ? data.roles : null}</div>
+              {data.roles == "Admin" && null}
+              {data.roles == "USER" && (
+                <button
+                  onClick={(e) => {
+                    handleToModerator(e, data.id);
+                  }}
+                >
+                  jadikan moderator
+                </button>
+              )}
+              {data.roles == "MODERATOR" && (
+                <button
+                  onClick={(e) => {
+                    handleToUser(e, data.id);
+                  }}
+                >
+                  {" "}
+                  jadikan user
+                </button>
               )}
             </div>
           </div>

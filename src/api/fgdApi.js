@@ -140,9 +140,25 @@ const fgdApi = {
   },
   getAllReport: (params) => {
     const url = "admin/report";
-    return axiosClient.get(url +`?page=${params.curentPage}`,{
+    return axiosClient.get(url + `?page=${params.curentPage}`, {
       headers: {
         Authorization: `Bearer ${params.token}`,
+      },
+    });
+  },
+  changeRoleModerator: (id, token, params) => {
+    const url = `admin/role/moderator/${id}`;
+    return axiosClient.put(url, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  changeRoleUser: (id, token, params) => {
+    const url = `admin/role/user/${id}`;
+    return axiosClient.put(url, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
   },
