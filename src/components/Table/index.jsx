@@ -29,9 +29,10 @@ const Table = (props) => {
                   <img
                     src={user.image}
                     width={35}
+                    height={35}
                     className="rounded-circle ms-4 me-2"
                     alt=""
-                  />{" "}
+                  />
                   <div>{user.username}</div>
                 </div>
               </td>

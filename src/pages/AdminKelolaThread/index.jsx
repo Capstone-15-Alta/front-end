@@ -83,7 +83,7 @@ const AdminKelolaThread = () => {
                         <div>{item.report}</div>
                       </td>
                       <td>
-                      <Link to={`/thread/${item.thread_id}`}><img src={action} alt="" width={50} /></Link>
+                      <Link to={ item && `/thread/${item.thread_id}`}><img src={action} alt="" width={40} /></Link>
                         
                       </td>
                       <td>
