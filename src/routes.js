@@ -13,6 +13,7 @@ import AdminUser from "./pages/AdminUser";
 import Ranking from "./pages/Ranking";
 import AdminKelolaThread from "./pages/AdminKelolaThread";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminThreadById from "./pages/AdminThreadById";
 
 const routes = [
   {
@@ -74,6 +75,10 @@ const routes = [
   {
     path: "/admin-dashboard",
     component: AdminDashboard,
+  },
+  {
+    path: "/thread/:id",
+    component: AdminThreadById,
   },
 ];
 

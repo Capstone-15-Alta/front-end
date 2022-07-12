@@ -1,12 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminKelolaThread.scss";
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import Navigationbar from "../../components/Navbar";
-
+import Cookies from "js-cookie";
 import fgdApi from "../../api/fgdApi";
 import Pagination from "../../components/Pagination";
+import moment from "moment";
+import action from "../../assets/icon/thread-action-admin.png";
+import { Link } from "react-router-dom";
+
+
 const AdminKelolaThread = () => {
+  const [allReport, setAllReport] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+
+  const token = Cookies.get("token");
+  const userId = Cookies.get("id");
+  const getAllReport = async () => {
+    let res = null;
+    const params = { token: token };
+    res = await fgdApi.getAllReport(params);
+    // console.log(res.data);
+    setAllReport(res.data.content);
+    setPageCount(res.data.totalPages);
+  };
+
+  useEffect(() => {
+    getAllReport();
+  }, []);
+
+  const handlePageClick = (data) => {
+    let curentPage = data.selected;
+    // console.log(curentPage);
+    const getAllReport = async () => {
+      let res = null;
+      const params = { curentPage, token: token };
+      res = await fgdApi.getAllReport(params);
+      // console.log(res.data);
+      setAllReport(res.data.content);
+    };
+
+    getAllReport();
+  };
+  console.log(allReport);
   return (
     <>
       <Navigationbar />
@@ -17,7 +54,7 @@ const AdminKelolaThread = () => {
         </div>
         <div class="col-9">
           <div className="container">
-          <h3>Thread</h3>
+            <h3>Thread</h3>
             <table class="table">
               <thead class="table-light">
                 <tr>
@@ -29,16 +66,40 @@ const AdminKelolaThread = () => {
                 </tr>
               </thead>
               <tbody>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
+                {allReport.map((item, index) => {
+                  return (
+                    <>
+                      <td>
+                        <div>{item.user_id}</div>
+                      </td>
+                      <td>
+                        <div>
+                          {moment(item.report_time).format(
+                            "MMMM Do YYYY, h:mm:ss a"
+                          )}
+                        </div>
+                      </td>
+                      <td>
+                        <div>{item.report}</div>
+                      </td>
+                      <td>
+                      <Link to={`/thread/${item.thread_id}`}><img src={action} alt="" width={50} /></Link>
+                        
+                      </td>
+                      <td>
+                        <div className="status">status</div>
+                      </td>
+                    </>
+                  );
+                })}
               </tbody>
             </table>
           </div>
           <div>
-            <Pagination />
+            <Pagination
+              pageCount={pageCount}
+              handlePageClick={handlePageClick}
+            />
           </div>
         </div>
       </div>

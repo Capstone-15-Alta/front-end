@@ -138,6 +138,14 @@ const fgdApi = {
     const url = "user/ranking";
     return axiosClient.get(url, params);
   },
+  getAllReport: (params) => {
+    const url = "admin/report";
+    return axiosClient.get(url +`?page=${params.curentPage}`,{
+      headers: {
+        Authorization: `Bearer ${params.token}`,
+      },
+    });
+  },
 };
 
 export default fgdApi;
