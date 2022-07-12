@@ -10,17 +10,13 @@ import HomeCard from "../../components/Card/HomeCard";
 import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
-// import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 
-const Home = () => {
-  // const { token } = useSelector((state) => state.login);
+const Search = () => {
   const tokenCookies = Cookies.get("token");
-  // console.log(tokenCookies);
-  // console.log(token);
   const fillter = [
     { name: "Terbaru", icon: AccessTimeIcon, link: "/", isActive: false },
     {
@@ -41,14 +37,12 @@ const Home = () => {
 
   const handleLike = async (id) => {
     await fgdApi.likeThread(id, tokenCookies);
-    // console.log(res);
   };
 
   useEffect(() => {
     const getUser = async () => {
       const params = {};
       await fgdApi.getAllUser(params);
-      // console.log(res.data);
     };
 
     const getThread = async () => {
@@ -78,9 +72,54 @@ const Home = () => {
 
   console.log("ini list", listThread);
 
+  // ini coba search
+
+  const [inputSearch, setInputSearch] = useState({
+    title: "",
+  });
+
+  const handleInputSearch = (value, key) => {
+    const newInputs = { ...inputSearch };
+
+    newInputs[key] = value;
+
+    setInputSearch(newInputs);
+
+    console.log(newInputs);
+  };
+
+  const [listThreadSearch, setListThreadSearch] = useState({});
+
+  const getThreadByTitle = async (title) => {
+    let res = null;
+    res = await fgdApi.getThreadByTitle(title, tokenCookies);
+    console.log(res.data);
+    const data = res.data;
+    setListThreadSearch(data);
+  };
+
+  const handleKeyDown = (event) => {
+    // console.log("User pressed: ", event.key);
+
+    // console.log(message);
+
+    if (event.key === "Enter") {
+      // 👇️ your logic here
+      console.log("Enter key pressed ✅");
+
+      getThreadByTitle(inputSearch.title);
+    }
+  };
+
+  console.log(listThreadSearch);
+
   return (
     <>
-      <Navigationbar />
+      <Navigationbar
+        value={inputSearch.title}
+        handleInputSearch={handleInputSearch}
+        handleKeyDown={handleKeyDown}
+      />
       <Grid container minHeight="80vh" pt="2vh">
         <Grid item md={3}>
           <SidebarLeft />
@@ -141,4 +180,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Search;
