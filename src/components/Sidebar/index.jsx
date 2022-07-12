@@ -5,7 +5,7 @@ import Plus from "../../assets/icon-sidebar/Plus.png";
 import Plus1 from "../../assets/icon-sidebar/Plus (1).png";
 import user from "../../assets/icon-sidebar/user-saran.png";
 import ArrowUp from "../../assets/icon-sidebar/ArrowUp.png";
-import man4 from "../../assets/icon-sidebar/man4.png";
+// import man4 from "../../assets/icon-sidebar/man4.png";
 
 import { data } from "./SidebarData";
 import { Link } from "react-router-dom";
@@ -79,8 +79,7 @@ export const SidebarRight = () => {
   const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();
     // console.log(guestUserId);
-    let res = null;
-    res = await fgdApi.followUser(guestUserId, token);
+    await fgdApi.followUser(guestUserId, token);
     // console.log(res.data);
     getAllUser();
   };

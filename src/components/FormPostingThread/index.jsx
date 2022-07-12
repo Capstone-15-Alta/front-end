@@ -4,7 +4,7 @@ import "./FormPostingThread.scss";
 
 import { useNavigate } from "react-router-dom";
 
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 import { useDropzone } from "react-dropzone";
 
@@ -63,9 +63,9 @@ const FormPostingThread = () => {
     category_id: "",
   });
 
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
-  const [fileName, setFileName] = useState();
+  // const [fileName, setFileName] = useState();
 
   const handleInput = (value, key) => {
     const newInputs = { ...inputs };
