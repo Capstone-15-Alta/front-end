@@ -221,7 +221,7 @@ const HeaderProfile = ({ data, getUserById }) => {
 
               {/* <div> role : {roles === "ADMIN" ? data.roles : null}</div> */}
               {data.roles == "Admin" && null}
-              {data.roles == "USER" && (
+              {roles == "ADMIN" && data.roles == "USER" && (
                 <button
                   onClick={(e) => {
                     handleToModerator(e, data.id);
@@ -231,7 +231,7 @@ const HeaderProfile = ({ data, getUserById }) => {
                   Jadikan Moderator
                 </button>
               )}
-              {data.roles == "MODERATOR" && (
+              {roles == "ADMIN" && data.roles == "MODERATOR" && (
                 <button
                   onClick={(e) => {
                     handleToUser(e, data.id);
