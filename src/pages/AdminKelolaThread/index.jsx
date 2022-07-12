@@ -69,6 +69,7 @@ const AdminKelolaThread = () => {
                 {allReport.map((item, index) => {
                   return (
                     <>
+                     <tr>
                       <td>
                         <div>{item.user_id}</div>
                       </td>
@@ -89,6 +90,7 @@ const AdminKelolaThread = () => {
                       <td>
                         <div className="status">status</div>
                       </td>
+                      </tr>
                     </>
                   );
                 })}
