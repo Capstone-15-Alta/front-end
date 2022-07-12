@@ -111,7 +111,7 @@ export default function Login() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Container>
         <Grid container minHeight="70vh" alignItems="center" marginTop="6rem">
           <Grid item xs={12} md={6}>

@@ -103,7 +103,7 @@ const Signup = () => {
   return (
     <>
       <div className="signup-section col-md-12 ">
-        <Navigationbar />
+        {/* <Navigationbar /> */}
         <div
           className="container"
           style={{ minHeight: "70vh", marginTop: "6rem" }}
