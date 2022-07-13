@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Button from "../Button/Button";
 
 import "./HeaderProfile.scss";
 
 /* Images */
-import banner from "../../assets/images/capung.png";
-import foto from "../../assets/images/foto.jpg";
+// import banner from "../../assets/images/capung.png";
+// import foto from "../../assets/images/foto.jpg";
 import { Link, useLocation, useParams } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
@@ -23,9 +23,9 @@ const HeaderProfile = ({ data, getUserById }) => {
   const userId = Cookies.get("id");
   // console.log(tokenCookies, userId);
 
-  const [bannerImg, setBannerImg] = useState(banner);
+  // const [bannerImg, setBannerImg] = useState(banner);
 
-  const [photoImg, setPhotoImg] = useState();
+  // const [photoImg, setPhotoImg] = useState();
 
   const handleClickImage = () => {
     imageRef.current.click();
@@ -40,11 +40,10 @@ const HeaderProfile = ({ data, getUserById }) => {
     // console.log(fileBanner);
 
     try {
-      let res = null;
       const formData = new FormData();
       formData.set("file", fileBanner);
 
-      res = await fgdApi.uploadBanner(tokenCookies, formData);
+      await fgdApi.uploadBanner(tokenCookies, formData);
       // console.log(res);
       getUserById(userId);
 
@@ -69,11 +68,10 @@ const HeaderProfile = ({ data, getUserById }) => {
     // console.log(filePhoto);
 
     try {
-      let res = null;
       const formData = new FormData();
       formData.set("file", filePhoto);
 
-      res = await fgdApi.uploadPhoto(tokenCookies, formData);
+      await fgdApi.uploadPhoto(tokenCookies, formData);
       // console.log(res);
       getUserById(userId);
       Swal.fire({
@@ -97,8 +95,7 @@ const HeaderProfile = ({ data, getUserById }) => {
 
   const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();
-    let res = null;
-    res = await fgdApi.followUser(guestUserId, tokenCookies);
+    await fgdApi.followUser(guestUserId, tokenCookies);
     // console.log(res.data);
     getUserById(guestUserId);
   };
@@ -112,7 +109,7 @@ const HeaderProfile = ({ data, getUserById }) => {
             style={{ backgroundImage: `url(${data.image_cover})` }}
             className="banner-image"
           ></div>
-          {path === "/profile" || "edit-profile" ? (
+          {path === "/profile" || "/edit-profile" ? (
             <>
               <Button
                 type="button"

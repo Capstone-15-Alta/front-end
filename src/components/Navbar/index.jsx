@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Navbar.scss";
 
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/images/logoNavbar.svg";
 
 import IconProfile from "../IconProfile";
@@ -60,11 +60,7 @@ const Navbar = ({ value, handleInputSearch, handleKeyDown }) => {
             <>
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Searchbar
-                    value={value}
-                    handleInputSearch={handleInputSearch}
-                    handleKeyDown={handleKeyDown}
-                  />
+                  <Searchbar />
                 </li>
                 <li className="nav-item">
                   <Link to="/buat-thread">

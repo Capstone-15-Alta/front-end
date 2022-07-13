@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material";
 import React from "react";
-import Icon from "../../assets/images/icon-profile.png";
+// import Icon from "../../assets/images/icon-profile.png";
 import Button from "../Button/Button";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
@@ -12,8 +12,7 @@ const HeaderLite = ({ name, email, gambar, user, guestId, getUserById }) => {
 
   const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();
-    let res = null;
-    res = await fgdApi.followUser(guestUserId, tokenCookies);
+    await fgdApi.followUser(guestUserId, tokenCookies);
     // console.log(res.data);
     getUserById(userId);
   };
@@ -30,7 +29,7 @@ const HeaderLite = ({ name, email, gambar, user, guestId, getUserById }) => {
           </div>
           <div className="editBtn col-md-3 ms-auto">
             {user.user_following?.filter(
-              (is_follow) => is_follow.user_followed.id == guestId
+              (is_follow) => is_follow.user_followed?.id == guestId
             ).length > 0 ? (
               <Button
                 type="button"

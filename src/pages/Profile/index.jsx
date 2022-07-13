@@ -19,7 +19,7 @@ import "./Profile.scss";
 import Cookies from "js-cookie";
 
 const Profile = () => {
-  const [profileData, setProfileData] = useState([
+  const profileData = [
     {
       title: "Pengikut",
       number: 5,
@@ -40,7 +40,7 @@ const Profile = () => {
       number: 20,
       key: "save_thread",
     },
-  ]);
+  ];
   const [userAttribute, setUserAttribute] = useState({});
 
   const [listThread, setListThread] = useState([]);
@@ -173,6 +173,7 @@ const Profile = () => {
                         <div className="threads-tabs card-tabs">
                           {listThread?.map((item, itemIdx) => (
                             <HomeCard
+                              getUserById={getUserById}
                               key={itemIdx}
                               data={item}
                               likeData={item.likes}

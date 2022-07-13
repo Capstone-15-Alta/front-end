@@ -2,49 +2,49 @@ import axiosClient from "./axiosClient";
 
 const fgdApi = {
   login: (params) => {
-    const url = "auth/login";
+    const url = "api/v1/auth/login";
     return axiosClient.post(url, params);
   },
   register: (params) => {
-    const url = "auth/register";
+    const url = "api/v1/auth/register";
     return axiosClient.post(url, params);
   },
   getAllUser: (params) => {
-    const url = "user/";
+    const url = "api/v1/user/";
     // console.log(params);
     return axiosClient.get(url + `?page=${params.x}`);
   },
   getUserById: (id, params) => {
-    const url = `user/${id}`;
+    const url = `api/v1/user/${id}`;
     return axiosClient.get(url, params);
   },
   getThread: (params) => {
-    const url = "thread/";
+    const url = "api/v1/thread/";
     // console.log(params);
     return axiosClient.get(url + `?page=${params.curentPage}`);
   },
   getSearchThread: (params) => {
-    const url = "thread/search/";
+    const url = "api/v1/thread/search/";
     // console.log(params);
     return axiosClient.get(
       url + `?page=${params.curentPage}&title=${params.title}`
     );
   },
   getLengthThread: (params) => {
-    const url = "thread";
+    const url = "api/v1/thread";
     // console.log(params);
     return axiosClient.get(url, params);
   },
   getThreadByUserId: (id, params) => {
-    const url = `thread/user/${id}`;
+    const url = `api/v1/thread/user/${id}`;
     return axiosClient.get(url, params);
   },
   getThreadById: (id, params) => {
-    const url = `thread/${id}`;
+    const url = `api/v1/thread/${id}`;
     return axiosClient.get(url, params);
   },
   likeThread: (id, token) => {
-    const url = `like/thread/${id}`;
+    const url = `api/v1/like/thread/${id}`;
     return axiosClient.put(url, id, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -52,7 +52,7 @@ const fgdApi = {
     });
   },
   saveThread: (id, token) => {
-    const url = `save/thread/${id}`;
+    const url = `api/v1/save/thread/${id}`;
     return axiosClient.put(url, id, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ const fgdApi = {
     });
   },
   postThread: (data, token) => {
-    const url = "thread";
+    const url = "api/v1/thread";
     return axiosClient.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -68,7 +68,7 @@ const fgdApi = {
     });
   },
   deleteThread: (id, token) => {
-    const url = `thread/${id}`;
+    const url = `api/v1/thread/${id}`;
     return axiosClient.delete(url, {
       headers: {
         Authorization: ` Bearer ${token}`,
@@ -76,7 +76,7 @@ const fgdApi = {
     });
   },
   reportThread: (data, token) => {
-    const url = "report_thread";
+    const url = "api/v1/report_thread";
     // console.log(url, data, token);
     return axiosClient.post(url, data, {
       headers: {
@@ -85,11 +85,11 @@ const fgdApi = {
     });
   },
   getCategory: (params) => {
-    const url = "category/";
+    const url = "api/v1/category/";
     return axiosClient.get(url, params);
   },
   followUser: (id, token, params) => {
-    const url = `follow/user/${id}`;
+    const url = `api/v1/follow/user/${id}`;
     return axiosClient.put(url, params, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -97,7 +97,7 @@ const fgdApi = {
     });
   },
   uploadPhoto: (token, data) => {
-    const url = `user/photo`;
+    const url = `api/v1/user/photo`;
     return axiosClient.put(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -105,7 +105,7 @@ const fgdApi = {
     });
   },
   uploadBanner: (token, data) => {
-    const url = `user/cover`;
+    const url = `api/v1/user/cover`;
     return axiosClient.put(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -114,7 +114,7 @@ const fgdApi = {
   },
 
   editProfile: (data, token) => {
-    const url = "user";
+    const url = "api/v1/user";
     return axiosClient.put(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -122,11 +122,11 @@ const fgdApi = {
     });
   },
   getCommentByIdThread: (id) => {
-    const url = `comment/thread/${id}`;
+    const url = `api/v1/comment/thread/${id}`;
     return axiosClient.get(url);
   },
   postComment: (data, token) => {
-    const url = "comment";
+    const url = "api/v1/comment";
     // console.log(url, data, token);
     return axiosClient.post(url, data, {
       headers: {
@@ -135,12 +135,12 @@ const fgdApi = {
     });
   },
   getRanking: (params) => {
-    const url = "user/ranking";
+    const url = "api/v1/user/ranking";
     return axiosClient.get(url, params);
   },
 
   getThreadByTitle: (params, token) => {
-    const url = `thread/search?title=${params}`;
+    const url = `api/v1/thread/search?title=${params}`;
     return axiosClient.get(url, {
       headers: {
         Authorization: ` Bearer ${token}`,

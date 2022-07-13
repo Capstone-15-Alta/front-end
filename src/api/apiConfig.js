@@ -1,5 +1,5 @@
 const apiConfig = {
-  baseUrl: "http://8.219.84.81/api/v1/",
+  baseUrl: process.env.REACT_APP_BASE_URL,
   //   apiKey: "....",
 
   //   w500Image: (imgPath) => `https://image.tmdb.org/t/p/w500/${imgPath}`,

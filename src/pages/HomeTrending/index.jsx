@@ -16,14 +16,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 import fgdApi from "../../api/fgdApi";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
 // import Swal from "sweetalert2";
 
 const Home = () => {
   // const { token } = useSelector((state) => state.login);
-  // const tokenCookies = Cookies.get("token");
+  const tokenCookies = Cookies.get("token");
   // console.log(tokenCookies);
 
   const navigate = useNavigate();
@@ -84,6 +84,11 @@ const Home = () => {
       setListThread([]);
       setPageCount(1);
     }
+  };
+
+  const handleLike = async (id) => {
+    await fgdApi.likeThread(id, tokenCookies);
+    // console.log(res);
   };
 
   useEffect(() => {

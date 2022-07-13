@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "./Notifikasi.scss";
 
 import Navigationbar from "../../components/Navbar";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
+import { SidebarLeft } from "../../components/Sidebar";
 import Notification from "../../components/Notification";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button/Button";
