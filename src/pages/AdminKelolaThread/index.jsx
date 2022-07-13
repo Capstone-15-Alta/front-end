@@ -10,7 +10,6 @@ import moment from "moment";
 import action from "../../assets/icon/thread-action-admin.png";
 import { Link } from "react-router-dom";
 
-
 const AdminKelolaThread = () => {
   const [allReport, setAllReport] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -69,27 +68,31 @@ const AdminKelolaThread = () => {
                 {allReport.map((item, index) => {
                   return (
                     <>
-                     <tr>
-                      <td>
-                        <div>{item.user_id}</div>
-                      </td>
-                      <td>
-                        <div>
-                          {moment(item.report_time).format(
-                            "MMMM Do YYYY, h:mm:ss a"
-                          )}
-                        </div>
-                      </td>
-                      <td>
-                        <div>{item.report}</div>
-                      </td>
-                      <td>
-                      <Link to={ item && `/thread/${item.thread_id}`}><img src={action} alt="" width={40} /></Link>
-                        
-                      </td>
-                      <td>
-                        <div className="status">status</div>
-                      </td>
+                      <tr>
+                        <td>
+                          <div className="profile">
+                            <img src={item.user.image} alt="" width={30} height={30} className="image" />
+                            <p className="username"> {item.user.username}</p>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            {moment(item.report_time).format(
+                              "MMMM Do YYYY, h:mm:ss a"
+                            )}
+                          </div>
+                        </td>
+                        <td>
+                          <div>{item.report}</div>
+                        </td>
+                        <td>
+                          <Link to={item && `/thread/${item.thread.id}`}>
+                            <img src={action} alt="" width={40} />
+                          </Link>
+                        </td>
+                        <td>
+                          <div className="status">status</div>
+                        </td>
                       </tr>
                     </>
                   );
