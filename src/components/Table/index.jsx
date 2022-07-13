@@ -2,9 +2,12 @@ import React from "react";
 import "./Table.scss";
 import Plus from "../../assets/icon/table-icon.png";
 import Plus1 from "../../assets/icon/status-active.png";
+import { Link } from "react-router-dom";
 
+import Cookies from "js-cookie";
 const Table = (props) => {
   // console.log(props.data)
+  const userId = Cookies.get("id");
   return (
     <table class="table">
       <thead class="table-light">
@@ -26,9 +29,10 @@ const Table = (props) => {
                   <img
                     src={user.image}
                     width={35}
+                    height={35}
                     className="rounded-circle ms-4 me-2"
                     alt=""
-                  />{" "}
+                  />
                   <div>{user.username}</div>
                 </div>
               </td>
@@ -37,10 +41,11 @@ const Table = (props) => {
               <td>{user.total_threads}</td>
 
               <td>
-                <img src={Plus} width={35} alt="" />
+                <Link to={userId ==user.id ? "/profile" : `/user/${user.id}`}><img src={Plus} width={35} alt="" /></Link>
+                
               </td>
               <td>
-                <img src={Plus1} width={60} alt="" />
+                <div className="status">{user.roles}</div>
               </td>
             </tr>
           );
