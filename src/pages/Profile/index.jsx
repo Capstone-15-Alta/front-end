@@ -1,6 +1,5 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 /* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
@@ -16,15 +15,11 @@ import fgdApi from "../../api/fgdApi";
 import HeaderProfile from "../../components/HeaderProfile";
 import HeaderLite from "../../components/HeaderProfile/HeaderLite";
 
-import Swal from "sweetalert2";
-
 import "./Profile.scss";
 import Cookies from "js-cookie";
 
 const Profile = () => {
-  const navigate = useNavigate();
-
-  const [profileData, setProfileData] = useState([
+  const profileData = [
     {
       title: "Pengikut",
       number: 5,
@@ -45,20 +40,20 @@ const Profile = () => {
       number: 20,
       key: "save_thread",
     },
-  ]);
+  ];
   const [userAttribute, setUserAttribute] = useState({});
 
   const [listThread, setListThread] = useState([]);
 
   const userId = Cookies.get("id");
-  const tokenCookies = Cookies.get("token");
+  // const tokenCookies = Cookies.get("token");
   // console.log(userId);
 
-  const handleLike = async (id) => {
-    let res = null;
-    res = await fgdApi.likeThread(id, tokenCookies);
-    // console.log(res);
-  };
+  // const handleLike = async (id) => {
+  //   let res = null;
+  //   res = await fgdApi.likeThread(id, tokenCookies);
+  //   // console.log(res);
+  // };
 
   const getUserById = async (id) => {
     let res = null;
@@ -178,6 +173,7 @@ const Profile = () => {
                         <div className="threads-tabs card-tabs">
                           {listThread?.map((item, itemIdx) => (
                             <HomeCard
+                              getUserById={getUserById}
                               key={itemIdx}
                               data={item}
                               likeData={item.likes}

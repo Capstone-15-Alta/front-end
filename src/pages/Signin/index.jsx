@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Container from "react-bootstrap/Container";
 import Grid from "@mui/material/Grid";
@@ -11,19 +11,18 @@ import { Link } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
 import { submitLogin } from "../../store/Login";
-import { setUser } from "../../store/User";
 
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.login);
+  // const { token } = useSelector((state) => state.login);
 
   const navigate = useNavigate();
 
@@ -62,49 +61,57 @@ export default function Login() {
     Cookies.set("roles", res.data?.roles);
   };
 
+  const getLogin = async () => {
+    let res = null;
+    const params = {
+      username: inputs[0].value,
+      password: inputs[1].value,
+    };
+    try {
+      res = await fgdApi.login(params);
+      // console.log(res);
+      const token = res.data.token;
+      const userId = res.data.id;
+      dispatch(submitLogin({ token: token, id: userId }));
+
+      Swal.fire({
+        title: "Success",
+        text: "Yeay login berhasil",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
+      getUserById(res.data.id);
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    } catch (error) {
+      Swal.fire({
+        title: "Failed",
+        text: "Akun tidak terdaftar / Password salah",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    const getLogin = async () => {
-      let res = null;
-      const params = {
-        username: inputs[0].value,
-        password: inputs[1].value,
-      };
-      try {
-        res = await fgdApi.login(params);
-        // console.log(res);
-        const token = res.data.token;
-        const userId = res.data.id;
-        dispatch(submitLogin({ token: token, id: userId }));
-
-        Swal.fire({
-          title: "Success",
-          text: "Yeay login berhasil",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
-
-        getUserById(res.data.id);
-
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
-      } catch (error) {
-        Swal.fire({
-          title: "Failed",
-          text: "Akun tidak terdaftar / Password salah",
-          icon: "error",
-          confirmButtonText: "OK",
-        });
-      }
-    };
     getLogin();
   };
 
+  useEffect(() => {
+    const getAuth = Cookies.get("token");
+    if (getAuth) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Container>
         <Grid container minHeight="70vh" alignItems="center" marginTop="6rem">
           <Grid item xs={12} md={6}>
