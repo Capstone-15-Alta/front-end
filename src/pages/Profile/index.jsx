@@ -80,6 +80,8 @@ const Profile = () => {
     getThreadByUserId(userId);
   }, []);
 
+  console.log("ini user atribut", userAttribute);
+
   return (
     <>
       <div className="profile-section">
@@ -94,7 +96,7 @@ const Profile = () => {
                 <HeaderProfile data={userAttribute} getUserById={getUserById} />
                 <div className=" tab-section row  mb-5">
                   <Tabs
-                    defaultActiveKey="thread"
+                    defaultActiveKey="post"
                     id="uncontrolled-tab-example"
                     className="mb-3 data-number justify-content-center"
                   >
@@ -173,7 +175,6 @@ const Profile = () => {
                         <div className="threads-tabs card-tabs">
                           {listThread?.map((item, itemIdx) => (
                             <HomeCard
-                              getUserById={getUserById}
                               key={itemIdx}
                               data={item}
                               likeData={item.likes}

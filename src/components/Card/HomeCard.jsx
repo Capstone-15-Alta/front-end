@@ -134,7 +134,7 @@ export default function HomeCard({
   };
   const handleDelete = async (id) => {
     Swal.fire({
-      title: "Apakah kamu Ingin Mengahapus Trhead ?",
+      title: "Apakah Kamu Ingin Menghapus Thread ?",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#26B893",

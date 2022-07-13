@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+
+import "./Home.scss";
+
 import Grid from "@mui/material/Grid";
 import Footer from "../../components/Footer";
 import Box from "@mui/material/Box";
@@ -164,7 +167,7 @@ const Home = () => {
                 />
               </Box>
             ))}
-            <div>
+            <div className="thread-pagination">
               <Pagination
                 handlePageClick={handlePageClick}
                 pageCount={pageCount}
