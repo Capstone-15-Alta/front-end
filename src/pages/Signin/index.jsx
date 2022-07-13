@@ -146,7 +146,7 @@ export default function Login() {
                     <Form.Group
                       key={inputIdx}
                       className="mb-3"
-                      controlId="formBasicEmail"
+                      controlId={"formBasicEmail" + inputIdx}
                     >
                       <Form.Label style={{ color: "#26B893" }}>
                         {input.label}
