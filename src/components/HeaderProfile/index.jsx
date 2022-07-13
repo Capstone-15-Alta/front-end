@@ -109,7 +109,7 @@ const HeaderProfile = ({ data, getUserById }) => {
             style={{ backgroundImage: `url(${data.image_cover})` }}
             className="banner-image"
           ></div>
-          {path === "/profile" || "edit-profile" ? (
+          {path === "/profile" || "/edit-profile" ? (
             <>
               <Button
                 type="button"
