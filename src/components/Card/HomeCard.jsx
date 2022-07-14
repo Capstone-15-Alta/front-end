@@ -25,7 +25,7 @@ import ReportIcon from "@mui/icons-material/Report";
 import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
@@ -395,7 +395,7 @@ export default function HomeCard({
                   <IconButton
                     color="error"
                     aria-label="delete"
-                    onClick={() =>handleDelete(data.id)}
+                    onClick={() => handleDelete(data.id)}
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -424,8 +424,8 @@ export default function HomeCard({
                       />
                     }
                     defaultChecked={
-                      likeData.filter((like) => like.user_id == userId).length >
-                      0
+                      likeData.filter((like) => like?.user_id == userId)
+                        .length > 0
                         ? true
                         : false
                     }

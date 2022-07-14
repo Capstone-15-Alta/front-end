@@ -18,6 +18,10 @@ const fgdApi = {
     const url = `api/v1/user/${id}`;
     return axiosClient.get(url, params);
   },
+  getUserSaveThread: (id) => {
+    const url = `api/v1/save/user/${id}`;
+    return axiosClient.get(url);
+  },
   getThread: (params) => {
     const url = "api/v1/thread/";
     // console.log(params);
@@ -136,7 +140,7 @@ const fgdApi = {
   },
   getRanking: (params) => {
     const url = "api/v1/user/ranking";
-    return axiosClient.get(url+ `?page=${params.curentPage}`);
+    return axiosClient.get(url + `?page=${params.curentPage}`);
   },
 
   getThreadByTitle: (params, token) => {

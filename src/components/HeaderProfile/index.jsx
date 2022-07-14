@@ -101,7 +101,7 @@ const HeaderProfile = ({ data, getUserById }) => {
     // console.log(res.data);
     getUserById(guestUserId);
   };
-  console.log(data);
+  // console.log(data);
 
   const handleToUser = async (e, id) => {
     e.preventDefault();
