@@ -12,7 +12,7 @@ const fgdApi = {
   getAllUser: (params) => {
     const url = "api/v1/user/";
     // console.log(params);
-    return axiosClient.get(url + `?page=${params.x}`);
+    return axiosClient.get(url + `?page=${params.curentPage}`);
   },
   getUserById: (id, params) => {
     const url = `api/v1/user/${id}`;
@@ -136,7 +136,7 @@ const fgdApi = {
   },
   getRanking: (params) => {
     const url = "api/v1/user/ranking";
-    return axiosClient.get(url, params);
+    return axiosClient.get(url+ `?page=${params.curentPage}`);
   },
 
   getThreadByTitle: (params, token) => {
@@ -144,6 +144,30 @@ const fgdApi = {
     return axiosClient.get(url, {
       headers: {
         Authorization: ` Bearer ${token}`,
+      },
+    });
+  },
+  getAllReport: (params) => {
+    const url = "api/v1/admin/report";
+    return axiosClient.get(url + `?page=${params.curentPage}`, {
+      headers: {
+        Authorization: `Bearer ${params.token}`,
+      },
+    });
+  },
+  changeRoleModerator: (id, token, params) => {
+    const url = `api/v1/admin/role/moderator/${id}`;
+    return axiosClient.put(url, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  changeRoleUser: (id, token, params) => {
+    const url = `api/v1/admin/role/user/${id}`;
+    return axiosClient.put(url, params, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
   },

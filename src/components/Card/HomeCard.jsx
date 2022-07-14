@@ -25,6 +25,7 @@ import ReportIcon from "@mui/icons-material/Report";
 import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
@@ -385,6 +386,19 @@ export default function HomeCard({
                       </MenuItem>
                     </Menu>
                   </div>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid item>
+                {userRoles === "ADMIN" ? (
+                  <IconButton
+                    color="error"
+                    aria-label="delete"
+                    onClick={() =>handleDelete(data.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 ) : (
                   ""
                 )}
