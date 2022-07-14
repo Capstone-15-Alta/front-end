@@ -195,21 +195,16 @@ const Profile = () => {
                     >
                       <div className="tab-item-wrapper">
                         <div className="likes-tabs card-tabs">
-                          {userAttribute.save_thread?.map((item, itemIdx) => (
+                          {userAttribute?.save_thread?.map((item, itemIdx) => (
                             <>
                               {" "}
-                              <h3 key={itemIdx}>{item.thread_id}</h3>
-                              <CardPost
-                                title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                                name="Gde Agung Mandala"
-                                dateTime="31-05-2022 19:56"
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
+                              <HomeCard
+                                getUserById={getUserById}
+                                key={itemIdx}
+                                data={item?.thread}
+                                likeData={item?.thread?.likes}
+                                // handleDelete={handleDelete}
+                                getThread={getThreadByUserId}
                               />
                             </>
                           ))}

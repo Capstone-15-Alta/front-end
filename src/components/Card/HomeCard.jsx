@@ -67,32 +67,6 @@ export default function HomeCard({
 
   // const ITEM_HEIGHT = 48;
 
-  // const dataComment = [
-  //   {
-  //     username: "Albert Flores",
-  //     isVerified: true,
-  //     content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //     timePost: "12 hours ago",
-  //     profile: "/assets/icon/manProfile.png",
-  //     children: [
-  //       {
-  //         username: "Flores",
-  //         isVerified: false,
-  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //         timePost: "12 hours ago",
-  //         profile: "/assets/icon/manProfile.png",
-  //       },
-  //       {
-  //         username: "Albert",
-  //         isVerified: true,
-  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //         timePost: "12 hours ago",
-  //         profile: "/assets/icon/manProfile.png",
-  //       },
-  //     ],
-  //   },
-  // ];
-
   const deleteUserThread = async (id) => {
     try {
       await fgdApi.deleteThread(id, tokenCookies);

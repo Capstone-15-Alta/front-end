@@ -57,7 +57,7 @@ const UserProfile = () => {
     res = await fgdApi.getUserById(id);
 
     const data = res.data;
-    // console.log(data);
+    console.log(data);
     setUserAttribute(data);
     // return res.data;
     // console.log(userAttribute);

@@ -62,13 +62,13 @@ export const SidebarRight = () => {
 
   const token = Cookies.get("token");
 
-  const id = Cookies.get("id");
+  const userId = Cookies.get("id");
 
   const getAllUser = async () => {
     let res = null;
     const params = {};
     res = await fgdApi.getAllUser(params);
-    // console.log(res.data);
+    console.log(res.data);
     setAllUser(res.data.content);
   };
 
@@ -104,7 +104,7 @@ export const SidebarRight = () => {
                 <p className="name">{val.username}</p>
               </Link>
               {val.user_followers?.filter(
-                (is_follow) => is_follow.user_follower.id == id
+                (user) => user.user_follower.id == userId
               ).length > 0 ? (
                 <button
                   className="button"
