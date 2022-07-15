@@ -1,19 +1,19 @@
 import Home from "./pages/Home";
 import HomeTrending from "./pages/HomeTrending";
-import Login from "./pages/Signin";
+// import Login from "./pages/Signin";
 import LupaPassword from "./pages/ForgotPassword";
 import BuatThread from "./pages/BuatThread";
 import ExploreTopik from "./pages/ExploreTopik";
 import Notifikasi from "./pages/Notifikasi";
 import Profile from "./pages/Profile";
-import Signup from "./pages/Signup";
+// import Signup from "./pages/Signup";
 import EditProfile from "./pages/EditProfile";
 import UserProfile from "./pages/UserProfile";
-import AdminUser from "./pages/AdminUser";
+// import AdminUser from "./pages/AdminUser";
 import Ranking from "./pages/Ranking";
-import AdminKelolaThread from "./pages/AdminKelolaThread";
-import AdminDashboard from "./pages/AdminDashboard";
-import AdminThreadById from "./pages/AdminThreadById";
+// import AdminKelolaThread from "./pages/AdminKelolaThread";
+// import AdminDashboard from "./pages/AdminDashboard";
+// import AdminThreadById from "./pages/AdminThreadById";
 
 
 
