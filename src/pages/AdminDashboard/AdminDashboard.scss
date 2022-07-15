@@ -1,0 +1,19 @@
+@use "../../scss/" as *;
+
+.row {
+    margin: 0 !important;
+  }
+  
+  .col-3 {
+    padding: 0 !important;
+  }
+
+
+.container {
+    margin-top: 10rem;
+}
+
+.chart2{
+  margin-top: 4rem;
+  width: 500px;
+}
