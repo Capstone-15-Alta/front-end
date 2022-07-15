@@ -66,22 +66,22 @@ const routes = [
     path: "/ranking",
     component: Ranking,
   },
-  {
-    path: "/admin-user",
-    component: AdminUser,
-  },
-  {
-    path: "/admin-kelolathread",
-    component: AdminKelolaThread,
-  },
-  {
-    path: "/admin-dashboard",
-    component: AdminDashboard,
-  },
-  {
-    path: "/thread/:id",
-    component: AdminThreadById,
-  },
+  // {
+  //   path: "/admin-user",
+  //   component: AdminUser,
+  // },
+  // {
+  //   path: "/admin-kelolathread",
+  //   component: AdminKelolaThread,
+  // },
+  // {
+  //   path: "/admin-dashboard",
+  //   component: AdminDashboard,
+  // },
+  // {
+  //   path: "/thread/:id",
+  //   component: AdminThreadById,
+  // },
 ];
 
 export default routes;
