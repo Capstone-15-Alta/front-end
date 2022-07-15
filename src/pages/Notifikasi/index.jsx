@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./Notifikasi.scss";
 
@@ -8,7 +8,12 @@ import Notification from "../../components/Notification";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button/Button";
 
+import fgdApi from "../../api/fgdApi";
+import Cookies from "js-cookie";
+
 const Notifikasi = () => {
+  const token = Cookies.get("token");
+
   const listNotifType = [
     {
       title: "Semua",
@@ -80,6 +85,19 @@ const Notifikasi = () => {
     },
   ];
 
+  const [listNotif, setListNotif] = useState([]);
+
+  const getNotification = async () => {
+    let res = null;
+    res = await fgdApi.getNotification(token);
+    console.log(res.data.content);
+    setListNotif(res.data.content);
+  };
+
+  useEffect(() => {
+    getNotification();
+  }, []);
+
   return (
     <div className="notification-section">
       <Navigationbar />
@@ -97,7 +115,7 @@ const Notifikasi = () => {
                   key={itemIdx}
                 />
               ))}
-              {listNotifications.map((item, itemIdx) => (
+              {listNotif.map((item, itemIdx) => (
                 <Notification data={item} key={itemIdx} />
               ))}
             </div>

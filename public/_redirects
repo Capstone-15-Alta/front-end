@@ -1,2 +1,4 @@
 /api/* http://8.219.84.81/api/:splat 200!
+/api/images/* http://8.219.84.81/api/images/:splat 200!
 /* /index.html 200
+

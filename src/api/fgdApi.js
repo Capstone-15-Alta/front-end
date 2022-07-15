@@ -71,7 +71,7 @@ const fgdApi = {
     const url = `api/v1/thread/${id}`;
     return axiosClient.delete(url, {
       headers: {
-        Authorization: ` Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   },
@@ -143,7 +143,16 @@ const fgdApi = {
     const url = `api/v1/thread/search?title=${params}`;
     return axiosClient.get(url, {
       headers: {
-        Authorization: ` Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getNotification: (token) => {
+    const url = "api/v1/notification";
+    // console.log(data);
+    return axiosClient.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
   },
