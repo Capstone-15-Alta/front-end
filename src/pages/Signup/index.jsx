@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import imgbanner from "../../assets/icon/Login.png";
 import { Link, useNavigate } from "react-router-dom";
-import Form from "../../components/Form";
-import Navigationbar from "../../components/Navbar";
+// import Form from "../../components/Form";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button/Button";
 
 import fgdApi from "../../api/fgdApi";
 import "./Signup.scss";
 import Swal from "sweetalert2";
+
+import { Formik, Form } from "formik";
+import CustomInput from "../../components/Form/CustomInput";
+import { registSchemas } from "../../components/Form/Schemas";
 
 import Cookies from "js-cookie";
 
@@ -40,57 +43,43 @@ const Signup = () => {
       label: "Ketik Ulang Sandi",
       type: "password",
       placeholder: "Re-type your password",
-      name: "re-password",
+      name: "passwordConfirmation",
       value: "",
     },
   ]);
 
   // console.log(data);
 
-  const onChangeHandler = (e) => {
-    setInputs(
-      inputs.map((input) => {
-        if (input.name === e.target.name) {
-          input.value = e.target.value;
-        }
-        return input;
-      })
-    );
-    // console.log(inputs[2].value === inputs[3].value);
-  };
-
-  const handleSubmitForm = async (e) => {
-    e.preventDefault();
-
-    const getRegister = async () => {
-      let res = null;
-      const params = {
-        email: inputs[1].value,
-        password: inputs[2].value,
-        total_user_followers: 0,
-        username: inputs[0].value,
-      };
-      try {
-        res = await fgdApi.register(params);
-        console.log(res.message);
-
-        Swal.fire({
-          title: "Success",
-          text: "Yeay akun berhasil terdaftar",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
-      } catch (error) {
-        Swal.fire({
-          title: "Failed",
-          text: error.response.data.data,
-          icon: "error",
-          confirmButtonText: "OK",
-        });
-      }
-      navigate("/login");
+  const getRegister = async (values) => {
+    let res = null;
+    const params = {
+      email: values.email,
+      password: values.password,
+      total_user_followers: 0,
+      username: values.username,
     };
-    getRegister();
+    try {
+      res = await fgdApi.register(params);
+      console.log(res.message);
+
+      Swal.fire({
+        title: "Success",
+        text: "Yeay akun berhasil terdaftar",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(navigate("/login"));
+    } catch (error) {
+      Swal.fire({
+        title: "Failed",
+        text: error.response.data.data,
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+  const onSubmitHandler = async (values, actions) => {
+    console.log(values);
+    getRegister(values);
   };
 
   useEffect(() => {
@@ -103,7 +92,7 @@ const Signup = () => {
   return (
     <>
       <div className="signup-section col-md-12 ">
-        <Navigationbar />
+        {/* <Navigationbar /> */}
         <div
           className="container"
           style={{ minHeight: "70vh", marginTop: "6rem" }}
@@ -120,7 +109,43 @@ const Signup = () => {
                     <p className="halo"> Halo lagi, Anda telah dirindukan!</p>
 
                     <div className="form-section pt-3">
-                      <form onSubmit={handleSubmitForm}>
+                      <Formik
+                        initialValues={{
+                          username: "",
+                          email: "",
+                          password: "",
+                        }}
+                        validationSchema={registSchemas}
+                        onSubmit={onSubmitHandler}
+                        enableReinitialize={true}
+                      >
+                        {(props) => (
+                          <Form className="row g-3">
+                            {inputs.map((input, inputIdx) => (
+                              <div key={inputIdx} className="konten-form ">
+                                <CustomInput
+                                  label={input.label}
+                                  name={input.name}
+                                  type={input.type}
+                                  placeholder={input.placeholder}
+                                  classInput="form-control"
+                                  classLabel="form-label"
+                                />
+                              </div>
+                            ))}
+
+                            <div>
+                              <Button
+                                title="Daftar"
+                                type="submit"
+                                className={`submit-regist btn  `}
+                              />
+                            </div>
+                          </Form>
+                        )}
+                      </Formik>
+
+                      {/* <form onSubmit={handleSubmitForm}>
                         {inputs.map((input, inputIdx) => (
                           <div key={inputIdx} className="konten-form mb-3">
                             <Form
@@ -162,7 +187,7 @@ const Signup = () => {
                               : " "
                           }`}
                         />
-                      </form>
+                      </form> */}
                       <p style={{ color: "#959AA1" }} className="text-center">
                         sudah punya akun?{" "}
                         <Link style={{ color: "#26B893" }} to="/login">

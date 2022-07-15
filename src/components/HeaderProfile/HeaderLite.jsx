@@ -29,7 +29,7 @@ const HeaderLite = ({ name, email, gambar, user, guestId, getUserById }) => {
           </div>
           <div className="editBtn col-md-3 ms-auto">
             {user.user_following?.filter(
-              (is_follow) => is_follow.user_followed.id == guestId
+              (is_follow) => is_follow.user_followed?.id == guestId
             ).length > 0 ? (
               <Button
                 type="button"

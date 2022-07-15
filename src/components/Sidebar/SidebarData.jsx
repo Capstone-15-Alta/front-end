@@ -16,10 +16,13 @@ import hover3 from "../../assets/icon-sidebar/Vector (6).png";
 import hover4 from "../../assets/icon-sidebar/Vector (7).png";
 import hover5 from "../../assets/icon-sidebar/ranking.png";
 
+import dashboard from  "../../assets/icon-sidebar/dashboard.png"
+import dashboard2 from  "../../assets/icon-sidebar/dashboard-active.png"
+import kelola from  "../../assets/icon-sidebar/kelola.png"
+import kelola2 from  "../../assets/icon-sidebar/kelola-active.png"
 
-
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import user from  "../../assets/icon-sidebar/user.png"
+import user2 from  "../../assets/icon-sidebar/user-active.png"
 
 export let data = {
   left: [
@@ -81,4 +84,31 @@ export let data = {
       link: "/link",
     },
   ],
+
+  admin : [
+    {
+      title: "Dashboard",
+      icon: <img src={dashboard} alt="" width={20} />,
+      icon2: <img src={dashboard2} alt="" width={20} />,
+      link: "/admin-dashboard",
+    },
+    {
+      title: "Kelola Thread",
+      icon: <img src={kelola} alt="" width={20} />,
+      icon2: <img src={kelola2} alt="" width={20} />,
+      link: "/admin-kelolathread",
+    },
+    {
+      title: "User",
+      icon: <img src={user} alt="" width={20} />,
+      icon2: <img src={user2} alt="" width={20} />,
+      link: "/admin-user",
+    },
+    {
+      title: "Admin",
+      icon: <img src={logo4} alt="" width={20} />,
+      icon2: <img src={hover2} alt="" width={20} />,
+      link: "/profile",
+    },
+  ]
 };

@@ -22,8 +22,10 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import Checkbox from "@mui/material/Checkbox";
 
 import ReportIcon from "@mui/icons-material/Report";
+import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
@@ -38,6 +40,7 @@ export default function HomeCard({
   likeData,
   getThread,
   handlePageClick,
+  getUserById,
 }) {
   // const location = useLocation();
 
@@ -64,32 +67,6 @@ export default function HomeCard({
   };
 
   // const ITEM_HEIGHT = 48;
-
-  // const dataComment = [
-  //   {
-  //     username: "Albert Flores",
-  //     isVerified: true,
-  //     content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //     timePost: "12 hours ago",
-  //     profile: "/assets/icon/manProfile.png",
-  //     children: [
-  //       {
-  //         username: "Flores",
-  //         isVerified: false,
-  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //         timePost: "12 hours ago",
-  //         profile: "/assets/icon/manProfile.png",
-  //       },
-  //       {
-  //         username: "Albert",
-  //         isVerified: true,
-  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //         timePost: "12 hours ago",
-  //         profile: "/assets/icon/manProfile.png",
-  //       },
-  //     ],
-  //   },
-  // ];
 
   const deleteUserThread = async (id) => {
     try {
@@ -128,6 +105,7 @@ export default function HomeCard({
       title: res.data?.is_save ? "Thread disimpan" : "Thread batal disimpan",
       iconColor: res.data?.is_save ? "" : "red",
     });
+    getUserById(userId);
   };
   const handleDelete = async (id) => {
     Swal.fire({
@@ -153,10 +131,10 @@ export default function HomeCard({
     });
   };
 
-  const reportUserThread = async (id) => {
+  const reportUserThread = async (id, reported) => {
     const data = {
       thread_id: id,
-      report: "spam",
+      report: reported,
     };
 
     try {
@@ -179,7 +157,7 @@ export default function HomeCard({
     }
   };
 
-  const handleReport = (id) => {
+  const handleReport = (id, reported) => {
     Swal.fire({
       title: "Yakin report thread ini?",
       text: "Thread akan dimasukkan kedalam list report!",
@@ -191,7 +169,7 @@ export default function HomeCard({
       cancelButtonText: "Tidak",
     }).then((result) => {
       if (result.isConfirmed) {
-        reportUserThread(id);
+        reportUserThread(id, reported);
       } else {
         Swal.fire("Batal", "Thread batal direport", "error");
       }
@@ -310,7 +288,7 @@ export default function HomeCard({
                       aria-controls={open ? "long-menu" : undefined}
                       aria-expanded={open ? "true" : undefined}
                       aria-haspopup="true"
-                      onClick={handleClick}
+                      // onClick={handleClick}
                     >
                       <MoreHoriztIcon
                         fontSize="large"
@@ -345,12 +323,81 @@ export default function HomeCard({
               </Grid>
               <Grid item>
                 {userRoles === "MODERATOR" ? (
+                  <div className="reports-menu">
+                    <IconButton
+                      aria-label="more"
+                      id="long-button"
+                      aria-controls={open ? "long-menu" : undefined}
+                      aria-expanded={open ? "true" : undefined}
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                    >
+                      <ReportOutlinedIcon
+                        fontSize="large"
+                        style={{ color: "#FC1F1F" }}
+                      />
+                    </IconButton>
+                    <Menu
+                      id="long-menu"
+                      MenuListProps={{
+                        "aria-labelledby": "long-button",
+                      }}
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleClose}
+                      PaperProps={{
+                        style: {
+                          // maxHeight: ITEM_HEIGHT * 4.5,
+                          minWidth: "10ch",
+                        },
+                      }}
+                    >
+                      <MenuItem
+                        disabled={true}
+                        style={{
+                          color: "#2C3131",
+                          fontWeight: "bold",
+                          fontSize: "1.25rem",
+                        }}
+                      >
+                        Pilih Laporan Anda
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => handleReport(data.id, "Berkata Kasar")}
+                      >
+                        Berkata Kasar
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => handleReport(data.id, "Mengandung Sara")}
+                      >
+                        Mengandung Sara
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => handleReport(data.id, "Mengandung Hoax")}
+                      >
+                        Mengandung Hoax
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() =>
+                          handleReport(data.id, "Mengandung Keributan")
+                        }
+                      >
+                        Mengandung Keributan
+                      </MenuItem>
+                    </Menu>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid item>
+                {userRoles === "ADMIN" ? (
                   <IconButton
                     color="error"
                     aria-label="delete"
-                    onClick={() => handleReport(data.id)}
+                    onClick={() => handleDelete(data.id)}
                   >
-                    <ReportIcon />
+                    <DeleteIcon />
                   </IconButton>
                 ) : (
                   ""
@@ -377,8 +424,8 @@ export default function HomeCard({
                       />
                     }
                     defaultChecked={
-                      likeData.filter((like) => like.user_id == userId).length >
-                      0
+                      likeData.filter((like) => like?.user_id == userId)
+                        .length > 0
                         ? true
                         : false
                     }
@@ -427,7 +474,7 @@ export default function HomeCard({
                     }
                     defaultChecked={
                       data.save?.filter(
-                        (savedUser) => savedUser.user_id == userId
+                        (savedUser) => savedUser.user?.id == userId
                       ).length > 0
                         ? true
                         : false

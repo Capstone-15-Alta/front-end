@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.scss";
 
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/images/logoNavbar.svg";
 
 import IconProfile from "../IconProfile";
@@ -13,7 +14,7 @@ import Button from "../Button/Button";
 import { NavDropdown } from "react-bootstrap";
 import fgdApi from "../../api/fgdApi";
 
-const Navbar = ({ value, handleInputSearch, handleKeyDown }) => {
+const Navbar = ({ listThread, setListThread }) => {
   const navigate = useNavigate();
 
   const userId = Cookies.get("id");
@@ -59,11 +60,7 @@ const Navbar = ({ value, handleInputSearch, handleKeyDown }) => {
             <>
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Searchbar
-                    value={value}
-                    handleInputSearch={handleInputSearch}
-                    handleKeyDown={handleKeyDown}
-                  />
+                  <Searchbar />
                 </li>
                 <li className="nav-item">
                   <Link to="/buat-thread">
