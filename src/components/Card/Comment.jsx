@@ -52,7 +52,12 @@ export default function Comment({ comment }) {
             <Grid item xs>
               <Box display="flex">
                 <Box>
-                  <div style={{ fontSize: "18px" }}>
+                  <div
+                    style={{
+                      fontSize: "1.125rem",
+                      fontWeight: "500",
+                    }}
+                  >
                     {userAttribute.username}
                   </div>
                 </Box>
@@ -60,12 +65,27 @@ export default function Comment({ comment }) {
                   <img src="assets/icon/verified.png" height="20vh" />
                 )} */}
               </Box>
-              <div style={{ marginTop: "1vh", fontSize: "14px" }}>
+              <div
+                style={{
+                  marginTop: "1vh",
+                  fontSize: "1.25rem",
+                  fontWeight: "400",
+                }}
+              >
                 {comment.comment}
               </div>
             </Grid>
             <Grid item style={greyColor}>
-              <div> {comment.created_at.substr(11, 5)} </div>
+              <div
+                style={{
+                  fontSize: "1.125rem",
+                  fontWeight: "400",
+                  fontStyle: "italic",
+                }}
+              >
+                {" "}
+                {comment.created_at.substr(11, 5)}{" "}
+              </div>
             </Grid>
           </Grid>
           <Grid container mt="1vh">

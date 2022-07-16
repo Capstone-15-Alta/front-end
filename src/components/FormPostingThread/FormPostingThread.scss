@@ -8,13 +8,15 @@
     .user-form-post-thread {
       padding-top: 2.376rem;
 
-      .user-icon {
-        margin-left: 2rem;
+      .user-pict {
+        margin-top: 0.45rem;
+        margin-left: 1rem;
+        padding-left: 1.95rem;
       }
 
       .user-name-and-email {
         margin-top: 0.2rem;
-        margin-left: 1rem;
+        // margin-left: 0.5rem;
 
         .user-name {
           font-weight: 500;
@@ -28,7 +30,7 @@
         }
 
         .user-email {
-          margin-top: -0.5rem;
+          margin-top: -0.8rem;
           font-weight: 500;
           font-size: 0.75rem;
           line-height: 18px;
@@ -49,9 +51,10 @@
       .options-thread-categories {
         padding-left: 0px;
         padding-right: 0px;
+        margin-right: 1.95rem;
 
         .select-option-category {
-          width: 206px;
+          // width: 206px;
           height: 45px;
           border: 1px solid #7dd4be;
           border-radius: 10px;

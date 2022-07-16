@@ -7,9 +7,15 @@ import Navigationbar from "../../components/Navbar";
 import Table from "../../components/Table";
 import fgdApi from "../../api/fgdApi";
 import Pagination from "../../components/Pagination";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
 const AdminUser = () => {
   const [allUser, setAllUser] = useState([]);
   const [pageCount, setPageCount] = useState(0);
+
+  const navigate = useNavigate();
+
   const getAllUser = async () => {
     let res = null;
     const params = {};
@@ -37,6 +43,14 @@ const AdminUser = () => {
     getAllUser();
   };
   // console.log(allUser);
+
+  useEffect(() => {
+    const getRoles = Cookies.get("roles");
+    if (getRoles != "ADMIN") {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <>
       <Navigationbar />

@@ -62,7 +62,7 @@ const Profile = () => {
     res = await fgdApi.getUserById(id);
 
     const data = res.data;
-    console.log(data);
+    // console.log(data);
     setUserAttribute(data);
     // return res.data;
     // console.log(userAttribute);
@@ -71,7 +71,7 @@ const Profile = () => {
   const getUserSaveThread = async () => {
     let res = null;
     res = await fgdApi.getUserSaveThread(userId);
-    console.log(res.data);
+    // console.log(res.data);
     setListSaveThread(res.data);
   };
 
@@ -81,7 +81,7 @@ const Profile = () => {
     res = await fgdApi.getThreadByUserId(id);
     //console.log(res.data);
     const data = res?.data.content;
-    console.log(data);
+    // console.log(data);
     setListThread(data);
   };
 
@@ -105,7 +105,7 @@ const Profile = () => {
                 <HeaderProfile data={userAttribute} getUserById={getUserById} />
                 <div className=" tab-section row  mb-5">
                   <Tabs
-                    defaultActiveKey="thread"
+                    defaultActiveKey="post"
                     id="uncontrolled-tab-example"
                     className="mb-3 data-number justify-content-center"
                   >
@@ -127,6 +127,7 @@ const Profile = () => {
                                 key={itemIdx}
                               >
                                 <HeaderLite
+                                  key={itemIdx}
                                   getUserById={getUserById}
                                   user={userAttribute}
                                   name={item.user_follower?.username}
@@ -158,6 +159,7 @@ const Profile = () => {
                                 key={itemIdx}
                               >
                                 <HeaderLite
+                                  key={itemIdx}
                                   getUserById={getUserById}
                                   user={userAttribute}
                                   name={item.user_followed?.username}
@@ -185,6 +187,7 @@ const Profile = () => {
                           {listThread?.map((item, itemIdx) => (
                             <div key={itemIdx}>
                               <HomeCard
+                                key={itemIdx}
                                 getUserById={getUserById}
                                 data={item}
                                 likeData={item?.likes}
@@ -209,9 +212,9 @@ const Profile = () => {
                         <div className="likes-tabs card-tabs">
                           {listSaveThread.map((item, itemIdx) => (
                             <>
-                              {" "}
                               <div key={itemIdx}>
                                 <HomeCard
+                                  key={itemIdx}
                                   getUserById={getUserById}
                                   data={item?.thread}
                                   likeData={item.thread?.likes}

@@ -2,4 +2,28 @@
 
 .content-section {
   margin-top: 10rem !important;
+
+  .button {
+    color: $main-color;
+    background-color: white;
+    border: 1px solid #26b893;
+    border-radius: 8px;
+    text-align: center;
+    padding: 9.5px 9px;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 28px;
+  }
+
+  .button-active {
+    color: white;
+    background-color: $main-color;
+    border: 1px solid #26b893;
+    border-radius: 8px;
+    text-align: center;
+    padding: 9.5px 9px;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 28px;
+  }
 }
