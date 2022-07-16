@@ -119,6 +119,13 @@ const Home = () => {
     getThread();
   };
 
+  useEffect(() => {
+    const getRoles = Cookies.get("roles");
+    if (getRoles == "ADMIN") {
+      navigate("/admin-dashboard");
+    }
+  }, []);
+
   return (
     <>
       <Navigationbar listThread={listThread} setListThread={setListThread} />

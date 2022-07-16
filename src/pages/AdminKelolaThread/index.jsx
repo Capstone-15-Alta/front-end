@@ -9,10 +9,13 @@ import Pagination from "../../components/Pagination";
 import moment from "moment";
 import action from "../../assets/icon/thread-action-admin.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AdminKelolaThread = () => {
   const [allReport, setAllReport] = useState([]);
   const [pageCount, setPageCount] = useState(0);
+
+  const navigate = useNavigate();
 
   const token = Cookies.get("token");
   const userId = Cookies.get("id");
@@ -43,6 +46,14 @@ const AdminKelolaThread = () => {
     getAllReport();
   };
   console.log(allReport);
+
+  useEffect(() => {
+    const getRoles = Cookies.get("roles");
+    if (getRoles != "ADMIN") {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <>
       <Navigationbar />
@@ -71,7 +82,13 @@ const AdminKelolaThread = () => {
                       <tr>
                         <td>
                           <div className="profile">
-                            <img src={item.user.image} alt="" width={30} height={30} className="image" />
+                            <img
+                              src={item.user.image}
+                              alt=""
+                              width={30}
+                              height={30}
+                              className="image"
+                            />
                             <p className="username"> {item.user.username}</p>
                           </div>
                         </td>

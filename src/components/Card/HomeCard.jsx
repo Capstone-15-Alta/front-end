@@ -35,6 +35,8 @@ import fgdApi from "../../api/fgdApi";
 import Swal from "sweetalert2";
 import { Toast } from "../Toast/Toast";
 
+import axiosClient from "../../api/axiosClient";
+
 export default function HomeCard({
   data,
   likeData,
@@ -60,6 +62,18 @@ export default function HomeCard({
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const [anchorElement, setAnchorElement] = React.useState(null);
+
+  const openReport = Boolean(anchorElement);
+
+  const handleClickReport = (event) => {
+    setAnchorElement(event.currentTarget);
+  };
+
+  const handleCloseReport = () => {
+    setAnchorElement(null);
   };
 
   const handleClose = () => {
@@ -183,11 +197,7 @@ export default function HomeCard({
     res = await fgdApi.getCommentByIdThread(id);
 
     const data = res.data;
-    // console.log("ini id thread", id);
-    // console.log("ini ini", data);
     setListComment(data);
-    // return res.data;
-    // console.log("ini data comment by id", listComment);
   };
 
   useEffect(() => {
@@ -231,6 +241,63 @@ export default function HomeCard({
     getCommentByIdThread(data.id);
   };
 
+  const currentUserId = Cookies.get("id");
+
+  const [currentUser, setCurrentUser] = useState();
+
+  const getUserByCurrentId = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id);
+
+    const data = res.data;
+    setCurrentUser(data);
+  };
+
+  useEffect(() => {
+    getUserByCurrentId(currentUserId);
+  }, []);
+
+  // const [imageUrl, setImageUrl] = React.useState("");
+
+  // useEffect(() => {
+  //   if (data.user.image) {
+  //     const url = data.user.image.slice(19);
+
+  //     setImageUrl(url);
+  //   }
+  // }, [data.user.image]);
+
+  const [readMore, setReadMore] = useState(false);
+  const extraContent = (
+    <div>
+      {data.image ? (
+        <Box
+          component="img"
+          sx={{
+            height: 233,
+            width: 350,
+            maxHeight: { xs: 233, md: 167 },
+            maxWidth: { xs: 350, md: 250 },
+          }}
+          alt={data.title}
+          src={data.image}
+          style={{ marginTop: "0.5rem" }}
+        />
+      ) : (
+        ""
+      )}
+
+      <p
+        className="extra-content"
+        style={{ fontSize: "1.25rem", fontWeight: "400", marginTop: "1.25rem" }}
+      >
+        {data.description}
+      </p>
+    </div>
+  );
+
+  const linkName = readMore ? "Sembunyikan" : "Lihat Detail";
+
   return (
     <>
       <Box
@@ -250,6 +317,15 @@ export default function HomeCard({
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <Avatar alt={data.username} src={data.user?.image} />
+              {/* {!!imageUrl ? (
+                <Avatar
+                  className="foto"
+                  alt={data.username}
+                  src={axiosClient.get(imageUrl)}
+                />
+              ) : (
+                <p>loading</p>
+              )} */}
             </Link>
           </Grid>
           <Grid item xs pl="1vw">
@@ -274,10 +350,36 @@ export default function HomeCard({
                     </Box>
                   </Link>
                 </Box>
-                <h4 style={{ marginTop: "1rem" }}>{data.title}</h4>
-                <Typography variant="caption">
+                <h4
+                  style={{
+                    marginTop: "1rem",
+                    fontSize: "1.375rem",
+                    fontWeight: "500",
+                  }}
+                >
+                  {data.title}
+                </h4>
+                <Typography
+                  variant="caption"
+                  style={{ fontSize: "1.125rem", marginRight: "0.493rem" }}
+                >
                   {data.created_at.substr(11, 5)}
                 </Typography>
+                {readMore && extraContent}
+                <span
+                  className="read-more-link"
+                  style={{
+                    fontSize: "0.875rem",
+                    color: "#017EFA",
+                    cursor: "pointer",
+                    fontWeight: "500",
+                  }}
+                  onClick={() => {
+                    setReadMore(!readMore);
+                  }}
+                >
+                  {linkName}
+                </span>
               </Grid>
               <Grid item>
                 {userId == data.user?.id ? (
@@ -288,7 +390,7 @@ export default function HomeCard({
                       aria-controls={open ? "long-menu" : undefined}
                       aria-expanded={open ? "true" : undefined}
                       aria-haspopup="true"
-                      // onClick={handleClick}
+                      onClick={handleClick}
                     >
                       <MoreHoriztIcon
                         fontSize="large"
@@ -310,7 +412,6 @@ export default function HomeCard({
                         },
                       }}
                     >
-                      {" "}
                       <MenuItem onClick={handleClose}>Edit</MenuItem>
                       <MenuItem onClick={() => handleDelete(data.id)}>
                         Delete
@@ -325,12 +426,12 @@ export default function HomeCard({
                 {userRoles === "MODERATOR" ? (
                   <div className="reports-menu">
                     <IconButton
-                      aria-label="more"
-                      id="long-button"
-                      aria-controls={open ? "long-menu" : undefined}
-                      aria-expanded={open ? "true" : undefined}
+                      aria-label="moree"
+                      id="long-buttonn"
+                      aria-controls={openReport ? "long-menuu" : undefined}
+                      aria-expanded={openReport ? "true" : undefined}
                       aria-haspopup="true"
-                      onClick={handleClick}
+                      onClick={handleClickReport}
                     >
                       <ReportOutlinedIcon
                         fontSize="large"
@@ -338,13 +439,13 @@ export default function HomeCard({
                       />
                     </IconButton>
                     <Menu
-                      id="long-menu"
+                      id="long-menuu"
                       MenuListProps={{
-                        "aria-labelledby": "long-button",
+                        "aria-labelledby": "long-buttonn",
                       }}
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
+                      anchorEl={anchorElement}
+                      open={openReport}
+                      onClose={handleCloseReport}
                       PaperProps={{
                         style: {
                           // maxHeight: ITEM_HEIGHT * 4.5,
@@ -430,7 +531,17 @@ export default function HomeCard({
                         : false
                     }
                   />
-
+                  <Typography
+                    variant="caption"
+                    style={{
+                      marginTop: "0.55rem",
+                      color: "rgba(0, 0, 0, 0.54)",
+                      fontWeight: "500",
+                      fontSize: "1.125rem",
+                    }}
+                  >
+                    {data.thread_likes}
+                  </Typography>
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}
@@ -440,6 +551,16 @@ export default function HomeCard({
                         color: "#26B893",
                       }}
                     />
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        ml: "1vw",
+                        fontWeight: "500",
+                        fontSize: "1.125rem",
+                      }}
+                    >
+                      {data.total_comments}
+                    </Typography>
                   </IconButton>
                 </Stack>
               </Grid>
@@ -507,7 +628,7 @@ export default function HomeCard({
             </div>
           ))}
           <Box display="flex" px="2vw">
-            <Avatar alt={data.username} src={data.profile} />
+            <Avatar alt={currentUser.username} src={currentUser.image} />
             {/* <input
               type="text"
               name="comment"

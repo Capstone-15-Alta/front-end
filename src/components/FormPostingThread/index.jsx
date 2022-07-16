@@ -125,6 +125,15 @@ const FormPostingThread = () => {
         timerProgressBar: true,
       });
       navigate("/");
+    } else {
+      Swal.fire({
+        title: "Failed",
+        text: "Pastikan File Yang Anda Upload adalah Gambar",
+        icon: "error",
+        confirmButtonText: "OK",
+        timer: 1500,
+        timerProgressBar: true,
+      });
     }
   };
 
@@ -148,6 +157,20 @@ const FormPostingThread = () => {
     formData.append("file", files[0]);
 
     addThread(formData);
+
+    // if (files[0] !== null) {
+    //   if (parseInt(files[0].size) < 1048576) {
+    //   } else {
+    //     Swal.fire({
+    //       title: "Failed",
+    //       text: "Pastikan Size Gambar Tidak Melebihi 1Mb",
+    //       icon: "error",
+    //       confirmButtonText: "OK",
+    //     });
+    //   }
+    // } else {
+    //   console.log("files kosong");
+    // }
   };
 
   const handleReset = (e) => {
@@ -209,11 +232,14 @@ const FormPostingThread = () => {
         />
       </div>
 
-      <section className="container container-dropzone">
+      <section
+        className="container container-dropzone"
+        style={{ marginTop: "0px" }}
+      >
         <div {...getRootProps({ className: "dropzone" })}>
           <input {...getInputProps()} />
           <p className="place-image text-center py-5">
-            Drag 'n' drop some files here, or click to select files
+            Drag dan drop beberapa file di sini, atau klik untuk memilih file
           </p>
         </div>
         <aside className="thumbsContainer">{thumbs}</aside>
@@ -221,7 +247,12 @@ const FormPostingThread = () => {
 
       <div className="button-area">
         <Button title="Posting" type="submit" className="btn-form-posting" />
-        <Button title="Kembali" type="reset" className="btn-form-kembali" />
+        <Button
+          title="Kembali"
+          type="reset"
+          className="btn-form-kembali"
+          onClick={() => navigate("/")}
+        />
       </div>
     </form>
   );

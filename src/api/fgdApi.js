@@ -184,6 +184,24 @@ const fgdApi = {
       },
     });
   },
+  readNotificationAll: (token) => {
+    const url = `api/v1/notification/readall`;
+    // console.log(data);
+    return axiosClient.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  readNotificationById: (id, token) => {
+    const url = `api/v1/notification/${id}`;
+    // console.log(data);
+    return axiosClient.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export default fgdApi;

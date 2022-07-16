@@ -17,19 +17,19 @@ const Notifikasi = () => {
   const listNotifType = [
     {
       title: "Semua",
-      class: "btn-notif btn-notif-semua",
+      class: "semua",
     },
     {
       title: "Belum Dibaca",
-      class: "btn-notif btn-notif-belum-dibaca",
+      class: "belum-dibaca",
     },
     {
       title: "Baca Semuanya",
-      class: "btn-notif btn-notif-baca-semua",
+      class: "baca-semua",
     },
     {
       title: "Hapus Semuanya",
-      class: "btn-notif btn-notif-hapus-semua",
+      class: "hapus-semua",
     },
   ];
 
@@ -85,12 +85,32 @@ const Notifikasi = () => {
     },
   ];
 
+  const [category, setCategory] = useState({
+    categoryYangDipilih: "",
+  });
+
+  const readNotificationAll = async () => {
+    let res = null;
+    res = await fgdApi.readNotificationAll(token);
+    console.log("ini read", res.data.content);
+  };
+
+  const handleCategory = (value) => {
+    setCategory({
+      categoryYangDipilih: value,
+    });
+
+    // if (value == "baca-semua") {
+    //   readNotificationAll();
+    // }
+  };
+
   const [listNotif, setListNotif] = useState([]);
 
   const getNotification = async () => {
     let res = null;
     res = await fgdApi.getNotification(token);
-    console.log(res.data.content);
+    console.log("ini notif", res.data.content);
     setListNotif(res.data.content);
   };
 
@@ -108,13 +128,32 @@ const Notifikasi = () => {
           </div>
           <div className="content-section col-9 container-fluid">
             <div className="col-10">
-              {listNotifType.map((item, itemIdx) => (
+              {/* {listNotifType.map((item, itemIdx) => (
                 <Button
                   title={item.title}
                   className={item.class}
                   key={itemIdx}
                 />
-              ))}
+              ))} */}
+              {listNotifType &&
+                listNotifType.map((val, index) => {
+                  return (
+                    <button
+                      key={index}
+                      style={{ marginBottom: "2rem" }}
+                      className={
+                        val.class === category.categoryYangDipilih
+                          ? "button-active"
+                          : "button"
+                      }
+                      onClick={() => {
+                        handleCategory(val.class);
+                      }}
+                    >
+                      {val.title}
+                    </button>
+                  );
+                })}
               {listNotif.map((item, itemIdx) => (
                 <Notification data={item} key={itemIdx} />
               ))}
