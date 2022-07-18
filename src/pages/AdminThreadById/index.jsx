@@ -10,15 +10,15 @@ const AdminThreadById = () => {
   const { id } = useParams();
   const [threadById, setThreadById] = useState();
 
-  const getThreadById = async (id) => {
-    let res = null;
-    const params = {};
-    res = await fgdApi.getThreadById(id);
-    const data = res?.data;
-    setThreadById(data);
-  };
+  
   useEffect(() => {
-   
+    const getThreadById = async (id) => {
+      let res = null;
+      const params = {};
+      res = await fgdApi.getThreadById(id);
+      const data = res?.data;
+      setThreadById(data);
+    };
 
     getThreadById(id);
   }, []);

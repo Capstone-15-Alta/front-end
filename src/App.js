@@ -30,7 +30,7 @@ function App() {
               <Route path="/admin-dashboard" element={<AdminDashboard /> } />
               <Route path="/admin-user" element={<AdminUser/> } />
               <Route path="/admin-kelolathread" element={<AdminKelolaThread/> } />
-              <Route path="/thread/:id" element={<AdminThreadById/> } />
+              <Route path="thread/:id" element={<AdminThreadById/> } />
             </Route>
 
             

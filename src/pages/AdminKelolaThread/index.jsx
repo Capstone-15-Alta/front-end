@@ -86,7 +86,7 @@ const AdminKelolaThread = () => {
                           <div>{item.report}</div>
                         </td>
                         <td>
-                          <Link to={item && `/thread/${item.thread.id}`}>
+                          <Link to={`/thread/${item.thread.id}`}>
                             <img src={action} alt="" width={40} />
                           </Link>
                         </td>
