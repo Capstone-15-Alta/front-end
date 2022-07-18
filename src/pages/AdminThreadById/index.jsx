@@ -23,7 +23,7 @@ const AdminThreadById = () => {
     getThreadById(id);
   }, []);
 
-  console.log(threadById);
+  // console.log(threadById);
 
   return (
     <>
