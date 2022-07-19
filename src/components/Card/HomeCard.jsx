@@ -25,6 +25,7 @@ import ReportIcon from "@mui/icons-material/Report";
 import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
@@ -66,32 +67,6 @@ export default function HomeCard({
   };
 
   // const ITEM_HEIGHT = 48;
-
-  // const dataComment = [
-  //   {
-  //     username: "Albert Flores",
-  //     isVerified: true,
-  //     content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //     timePost: "12 hours ago",
-  //     profile: "/assets/icon/manProfile.png",
-  //     children: [
-  //       {
-  //         username: "Flores",
-  //         isVerified: false,
-  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //         timePost: "12 hours ago",
-  //         profile: "/assets/icon/manProfile.png",
-  //       },
-  //       {
-  //         username: "Albert",
-  //         isVerified: true,
-  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //         timePost: "12 hours ago",
-  //         profile: "/assets/icon/manProfile.png",
-  //       },
-  //     ],
-  //   },
-  // ];
 
   const deleteUserThread = async (id) => {
     try {
@@ -415,6 +390,19 @@ export default function HomeCard({
                   ""
                 )}
               </Grid>
+              <Grid item>
+                {userRoles === "ADMIN" ? (
+                  <IconButton
+                    color="error"
+                    aria-label="delete"
+                    onClick={() => handleDelete(data.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                ) : (
+                  ""
+                )}
+              </Grid>
             </Grid>
             <Grid style={{ marginTop: "0.5rem" }} container>
               <Grid item xs>
@@ -436,8 +424,8 @@ export default function HomeCard({
                       />
                     }
                     defaultChecked={
-                      likeData.filter((like) => like.user_id == userId).length >
-                      0
+                      likeData.filter((like) => like?.user_id == userId)
+                        .length > 0
                         ? true
                         : false
                     }

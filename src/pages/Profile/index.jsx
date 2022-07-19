@@ -45,6 +45,8 @@ const Profile = () => {
 
   const [listThread, setListThread] = useState([]);
 
+  const [listSaveThread, setListSaveThread] = useState([]);
+
   const userId = Cookies.get("id");
   // const tokenCookies = Cookies.get("token");
   // console.log(userId);
@@ -66,18 +68,27 @@ const Profile = () => {
     // console.log(userAttribute);
   };
 
+  const getUserSaveThread = async () => {
+    let res = null;
+    res = await fgdApi.getUserSaveThread(userId);
+    console.log(res.data);
+    setListSaveThread(res.data);
+  };
+
   const getThreadByUserId = async (id) => {
     let res = null;
 
     res = await fgdApi.getThreadByUserId(id);
     //console.log(res.data);
     const data = res?.data.content;
+    console.log(data);
     setListThread(data);
   };
 
   useEffect(() => {
     getUserById(userId);
     getThreadByUserId(userId);
+    getUserSaveThread();
   }, []);
 
   return (
@@ -172,14 +183,15 @@ const Profile = () => {
                       <div className="tab-item-wrapper">
                         <div className="threads-tabs card-tabs">
                           {listThread?.map((item, itemIdx) => (
-                            <HomeCard
-                              getUserById={getUserById}
-                              key={itemIdx}
-                              data={item}
-                              likeData={item.likes}
-                              // handleDelete={handleDelete}
-                              getThread={getThreadByUserId}
-                            />
+                            <div key={itemIdx}>
+                              <HomeCard
+                                getUserById={getUserById}
+                                data={item}
+                                likeData={item?.likes}
+                                // handleDelete={handleDelete}
+                                getThread={getThreadByUserId}
+                              />
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -195,22 +207,18 @@ const Profile = () => {
                     >
                       <div className="tab-item-wrapper">
                         <div className="likes-tabs card-tabs">
-                          {userAttribute.save_thread?.map((item, itemIdx) => (
+                          {listSaveThread.map((item, itemIdx) => (
                             <>
                               {" "}
-                              <h3 key={itemIdx}>{item.thread_id}</h3>
-                              <CardPost
-                                title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                                name="Gde Agung Mandala"
-                                dateTime="31-05-2022 19:56"
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                              />
+                              <div key={itemIdx}>
+                                <HomeCard
+                                  getUserById={getUserById}
+                                  data={item?.thread}
+                                  likeData={item.thread?.likes}
+                                  // handleDelete={handleDelete}
+                                  getThread={getThreadByUserId}
+                                />
+                              </div>
                             </>
                           ))}
                         </div>
