@@ -9,7 +9,6 @@ import adminImage from "../../assets/icon-sidebar/admin-image-left.png";
 import { data } from "./SidebarData";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-
 import fgdApi from "../../api/fgdApi";
 import { Avatar } from "@mui/material";
 
@@ -23,9 +22,6 @@ export const SidebarLeft = () => {
         <ul>
           <p className="menu">MENU</p>
           {data.left.map((val, index) => {
-            // token
-            //   ? (data.left[4].link = "/profile")
-            //   : (data.left[4].link = "/login");
             return (
               <Link to={val.link} key={index}>
                 <li
@@ -39,7 +35,6 @@ export const SidebarLeft = () => {
                       ? val.icon2
                       : val.icon}
                   </div>
-
                   <div className="text">{val.title}</div>
                 </li>
               </Link>
@@ -63,9 +58,6 @@ export const SidebarLeft = () => {
         <ul>
           <p className="menu">MENU</p>
           {data.admin.map((val, index) => {
-            // token
-            //   ? (data.left[4].link = "/profile")
-            //   : (data.left[4].link = "/login");
             return (
               <Link to={val.link} key={index}>
                 <li
@@ -79,14 +71,12 @@ export const SidebarLeft = () => {
                       ? val.icon2
                       : val.icon}
                   </div>
-
                   <div className="text">{val.title}</div>
                 </li>
               </Link>
             );
           })}
         </ul>
-
         <div className="sidebar-group">
           <img src={adminImage} alt="" width={200} />
         </div>
@@ -97,9 +87,7 @@ export const SidebarLeft = () => {
 
 export const SidebarRight = () => {
   const [allUser, setAllUser] = useState([]);
-
   const token = Cookies.get("token");
-
   const userId = Cookies.get("id");
 
   const getAllUser = async () => {
@@ -116,13 +104,10 @@ export const SidebarRight = () => {
 
   const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();
-    // console.log(guestUserId);
     await fgdApi.followUser(guestUserId, token);
-    // console.log(res.data);
     getAllUser();
   };
 
-  // console.log(allUser);
   return (
     <div className="sidebar-right">
       <div className="saran-group">

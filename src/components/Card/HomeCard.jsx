@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-// import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,29 +12,20 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-// import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Comment from "./Comment";
 import TextField from "@mui/material/TextField";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-
 import Checkbox from "@mui/material/Checkbox";
-
-import ReportIcon from "@mui/icons-material/Report";
 import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import DeleteIcon from "@mui/icons-material/Delete";
-
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
-
 import fgdApi from "../../api/fgdApi";
-
 import Swal from "sweetalert2";
 import { Toast } from "../Toast/Toast";
-
-import axiosClient from "../../api/axiosClient";
 
 export default function HomeCard({
   data,
@@ -44,29 +34,29 @@ export default function HomeCard({
   handlePageClick,
   getUserById,
 }) {
-  // const location = useLocation();
-
-  // const path = location.pathname;
-
   const userId = Cookies.get("id");
-
   const userRoles = Cookies.get("roles");
-
   const tokenCookies = Cookies.get("token");
+  const currentUserId = Cookies.get("id");
+
+  const [currentUser, setCurrentUser] = useState();
+  const [listComment, setListComment] = useState({});
 
   const [openComment, setOpenComment] = useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const open = Boolean(anchorEl);
+
+  const [anchorElement, setAnchorElement] = React.useState(null);
+  const openReport = Boolean(anchorElement);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const [anchorElement, setAnchorElement] = React.useState(null);
-
-  const openReport = Boolean(anchorElement);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleClickReport = (event) => {
     setAnchorElement(event.currentTarget);
@@ -76,16 +66,9 @@ export default function HomeCard({
     setAnchorElement(null);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // const ITEM_HEIGHT = 48;
-
   const deleteUserThread = async (id) => {
     try {
       await fgdApi.deleteThread(id, tokenCookies);
-      // console.log(res);
       getThread(userId);
 
       Swal.fire({
@@ -121,6 +104,7 @@ export default function HomeCard({
     });
     getUserById(userId);
   };
+
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Apakah Kamu Ingin Menghapus Thread ?",
@@ -153,8 +137,6 @@ export default function HomeCard({
 
     try {
       await fgdApi.reportThread(data, tokenCookies);
-      // console.log(res.message);
-
       Swal.fire({
         title: "Reported",
         text: "Berhasil report thread",
@@ -190,12 +172,9 @@ export default function HomeCard({
     });
   };
 
-  const [listComment, setListComment] = useState({});
-
   const getCommentByIdThread = async (id) => {
     let res = null;
     res = await fgdApi.getCommentByIdThread(id);
-
     const data = res.data;
     setListComment(data);
   };
@@ -210,17 +189,12 @@ export default function HomeCard({
 
   const handleInput = (value, key) => {
     const newInputs = { ...inputs };
-
     newInputs[key] = value;
-
     setInputs(newInputs);
-
-    // console.log(newInputs);
   };
 
   const handleSumbitComment = async (id, e) => {
     e.preventDefault();
-
     let res = null;
     const userComment = {
       thread_id: id,
@@ -241,13 +215,9 @@ export default function HomeCard({
     getCommentByIdThread(data.id);
   };
 
-  const currentUserId = Cookies.get("id");
-
-  const [currentUser, setCurrentUser] = useState();
-
   const getUserByCurrentId = async (id) => {
     let res = null;
-    res = await fgdApi.getUserById(id);
+    res = await fgdApi.getUserById(id, tokenCookies);
 
     const data = res.data;
     setCurrentUser(data);
@@ -256,16 +226,6 @@ export default function HomeCard({
   useEffect(() => {
     getUserByCurrentId(currentUserId);
   }, []);
-
-  // const [imageUrl, setImageUrl] = React.useState("");
-
-  // useEffect(() => {
-  //   if (data.user.image) {
-  //     const url = data.user.image.slice(19);
-
-  //     setImageUrl(url);
-  //   }
-  // }, [data.user.image]);
 
   const [readMore, setReadMore] = useState(false);
   const extraContent = (
@@ -286,7 +246,6 @@ export default function HomeCard({
       ) : (
         ""
       )}
-
       <p
         className="extra-content"
         style={{ fontSize: "1.25rem", fontWeight: "400", marginTop: "1.25rem" }}
@@ -300,16 +259,9 @@ export default function HomeCard({
 
   return (
     <>
-      <Box
-        // borderRadius="5px"
-        py="2rem"
-        px="2vw"
-        sx={{ borderBottom: 1, borderColor: "grey.500" }}
-        /*boxShadow={1}*/
-      >
+      <Box py="2rem" px="2vw" sx={{ borderBottom: 1, borderColor: "grey.500" }}>
         <Grid container>
           <Grid item>
-            {/* <Avatar alt={data.username} src={data.profile} /> */}{" "}
             <Link
               to={
                 userId == data.user?.id ? "/profile" : `/user/${data.user?.id}`
@@ -317,15 +269,6 @@ export default function HomeCard({
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <Avatar alt={data.username} src={data.user?.image} />
-              {/* {!!imageUrl ? (
-                <Avatar
-                  className="foto"
-                  alt={data.username}
-                  src={axiosClient.get(imageUrl)}
-                />
-              ) : (
-                <p>loading</p>
-              )} */}
             </Link>
           </Grid>
           <Grid item xs pl="1vw">
@@ -407,7 +350,6 @@ export default function HomeCard({
                       onClose={handleClose}
                       PaperProps={{
                         style: {
-                          // maxHeight: ITEM_HEIGHT * 4.5,
                           minWidth: "10ch",
                         },
                       }}
@@ -448,7 +390,6 @@ export default function HomeCard({
                       onClose={handleCloseReport}
                       PaperProps={{
                         style: {
-                          // maxHeight: ITEM_HEIGHT * 4.5,
                           minWidth: "10ch",
                         },
                       }}

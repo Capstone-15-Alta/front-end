@@ -1,8 +1,5 @@
 import React from "react";
-
 import "./Notification.scss";
-
-import Button from "../Button/Button";
 
 const Notification = ({ data }) => {
   const isRead = data.is_read;

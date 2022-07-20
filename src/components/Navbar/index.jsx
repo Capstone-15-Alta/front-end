@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.scss";
-
 import { useNavigate } from "react-router-dom";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../assets/images/logoNavbar.svg";
-
 import IconProfile from "../IconProfile";
-
 import Cookies from "js-cookie";
-
 import Searchbar from "../Searchbar";
 import Button from "../Button/Button";
 import { NavDropdown } from "react-bootstrap";
@@ -16,15 +12,14 @@ import fgdApi from "../../api/fgdApi";
 
 const Navbar = ({ listThread, setListThread }) => {
   const navigate = useNavigate();
-
   const userId = Cookies.get("id");
+  const token = Cookies.get("token");
   const [isLogin, setIsLogin] = useState(false);
   const [data, setData] = useState(null);
 
   const getUserById = async (id) => {
     let res = null;
-    res = await fgdApi.getUserById(id);
-    // console.log(res.data);
+    res = await fgdApi.getUserById(id, token);
     setData(res.data);
   };
 
@@ -43,7 +38,6 @@ const Navbar = ({ listThread, setListThread }) => {
         <Link className="navbar-brand navBrand" to="/">
           <img src={logo} alt="logo" className="navLogo" />
         </Link>
-
         <button
           className="navbar-toggler"
           type="button"

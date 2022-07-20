@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-
 import "./Home.scss";
-
 import Grid from "@mui/material/Grid";
 import Footer from "../../components/Footer";
 import Box from "@mui/material/Box";
@@ -13,22 +11,19 @@ import { SidebarLeft, SidebarRight } from "../../components/Sidebar/index";
 import Navigationbar from "../../components/Navbar";
 import Pagination from "../../components/Pagination";
 import TuneIcon from "@mui/icons-material/Tune";
-import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
-import Swal from "sweetalert2";
-
 const Home = () => {
-  // const { token } = useSelector((state) => state.login);
-  const tokenCookies = Cookies.get("token");
-  // console.log(tokenCookies);
-
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [listThread, setListThread] = useState([]);
+
+  const [pageCount, setPageCount] = useState(0);
 
   const fillter = [
     {
@@ -51,22 +46,15 @@ const Home = () => {
     },
   ];
 
-  const [listThread, setListThread] = useState([]);
-
-  const [pageCount, setPageCount] = useState(0);
-
   const getUser = async () => {
-    let res = null;
     const params = {};
-    res = await fgdApi.getAllUser(params);
-    // console.log(res.data);
+    await fgdApi.getAllUser(params);
   };
 
   const getThread = async () => {
     let res = null;
     const params = {};
     res = await fgdApi.getThread(params);
-    console.log(res.data);
     setListThread(res.data.content);
     setPageCount(res.data.totalPages);
   };
@@ -182,12 +170,10 @@ const Home = () => {
             </div>
           </Box>
         </Grid>
-
         <Grid item md={3} pl="2vw" mt="5rem">
           <SidebarRight />
         </Grid>
       </Grid>
-
       <Footer />
     </>
   );

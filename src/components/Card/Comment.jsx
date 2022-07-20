@@ -2,35 +2,21 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
-// import Typography from "@mui/material/Typography";
-// import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-// import IconButton from "@mui/material/IconButton";
-// import Stack from "@mui/material/Stack";
-// import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
-// import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-// import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-// import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
-// import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import CostumeButton from "../Button/CostumeButton";
-
+import Cookies from "js-cookie";
 import fgdApi from "../../api/fgdApi";
 
 export default function Comment({ comment }) {
-  const greyColor = { color: "#9E9E9E" };
-
-  // console.log("ini di comment", comment);
-
   const [userAttribute, setUserAttribute] = useState({});
+
+  const greyColor = { color: "#9E9E9E" };
+  const token = Cookies.get("token");
 
   const getUserById = async (id) => {
     let res = null;
-    res = await fgdApi.getUserById(id);
-
+    res = await fgdApi.getUserById(id, token);
     const data = res.data;
-    // console.log(data);
     setUserAttribute(data);
-    // return res.data;
-    // console.log("ini data user di comment", userAttribute);
   };
 
   useEffect(() => {
@@ -61,9 +47,6 @@ export default function Comment({ comment }) {
                     {userAttribute.username}
                   </div>
                 </Box>
-                {/* {comment.isVerified && (
-                  <img src="assets/icon/verified.png" height="20vh" />
-                )} */}
               </Box>
               <div
                 style={{

@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Signin";
 import Signup from "./pages/Signup";
 import PrivateRoutes from "./PrivateRoutes";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                 key={index}
               />
             ))}
+            <Route path="/user/:id" element={<UserProfile />} />
           </Route>
         </Routes>
       </BrowserRouter>

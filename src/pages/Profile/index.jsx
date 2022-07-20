@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-
-/* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
-
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/Footer";
-import CardPost from "../../components/CardPost";
 import HomeCard from "../../components/Card/HomeCard";
-
 import fgdApi from "../../api/fgdApi";
-
 import HeaderProfile from "../../components/HeaderProfile";
 import HeaderLite from "../../components/HeaderProfile/HeaderLite";
-
 import "./Profile.scss";
 import Cookies from "js-cookie";
 
 const Profile = () => {
+  const token = Cookies.get("token");
+
   const profileData = [
     {
       title: "Pengikut",
@@ -48,40 +42,26 @@ const Profile = () => {
   const [listSaveThread, setListSaveThread] = useState([]);
 
   const userId = Cookies.get("id");
-  // const tokenCookies = Cookies.get("token");
-  // console.log(userId);
-
-  // const handleLike = async (id) => {
-  //   let res = null;
-  //   res = await fgdApi.likeThread(id, tokenCookies);
-  //   // console.log(res);
-  // };
+  const tokenCookies = Cookies.get("token");
 
   const getUserById = async (id) => {
     let res = null;
-    res = await fgdApi.getUserById(id);
-
+    res = await fgdApi.getUserById(id, tokenCookies);
     const data = res.data;
-    // console.log(data);
     setUserAttribute(data);
-    // return res.data;
-    // console.log(userAttribute);
   };
 
   const getUserSaveThread = async () => {
     let res = null;
     res = await fgdApi.getUserSaveThread(userId);
-    // console.log(res.data);
     setListSaveThread(res.data);
   };
 
   const getThreadByUserId = async (id) => {
     let res = null;
 
-    res = await fgdApi.getThreadByUserId(id);
-    //console.log(res.data);
+    res = await fgdApi.getThreadByUserId(id, token);
     const data = res?.data.content;
-    // console.log(data);
     setListThread(data);
   };
 
@@ -191,7 +171,6 @@ const Profile = () => {
                                 getUserById={getUserById}
                                 data={item}
                                 likeData={item?.likes}
-                                // handleDelete={handleDelete}
                                 getThread={getThreadByUserId}
                               />
                             </div>
@@ -218,7 +197,6 @@ const Profile = () => {
                                   getUserById={getUserById}
                                   data={item?.thread}
                                   likeData={item.thread?.likes}
-                                  // handleDelete={handleDelete}
                                   getThread={getThreadByUserId}
                                 />
                               </div>

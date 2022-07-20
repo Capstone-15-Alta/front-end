@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Navigationbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
+import { SidebarLeft } from "../../components/Sidebar";
 import Pagination from "../../components/Pagination";
 import gold from "../../assets/icon/ranking-gold.png";
-import man from "../../assets/icon/manProfile.png";
 import love from "../../assets/icon/love.png";
 import hair from "../../assets/icon/hair.png";
 import fgdApi from "../../api/fgdApi";
@@ -17,7 +16,6 @@ const Ranking = () => {
     let res = null;
     const params = {};
     res = await fgdApi.getRanking(params);
-    // console.log(res.data);
     setAllRanking(res.data.content);
     setPageCount(res.data.totalPages);
   };
@@ -28,18 +26,15 @@ const Ranking = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-    // console.log(curentPage);
     const getAllUser = async () => {
       let res = null;
       const params = { curentPage };
       res = await fgdApi.getRanking(params);
-      // console.log(res.data);
       setAllRanking(res.data.content);
     };
 
     getAllUser();
   };
-  // console.log(allRanking);
 
   function abbrNum(number, decPlaces) {
     // 2 decimal places => 100, 3 => 1000, etc

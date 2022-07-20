@@ -34,12 +34,10 @@ const AdminKelolaThread = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-    // console.log(curentPage);
     const getAllReport = async () => {
       let res = null;
       const params = { curentPage, token: token };
       res = await fgdApi.getAllReport(params);
-      // console.log(res.data);
       setAllReport(res.data.content);
     };
 
@@ -57,7 +55,6 @@ const AdminKelolaThread = () => {
   return (
     <>
       <Navigationbar />
-
       <div class="row">
         <div class="col-3">
           <SidebarLeft />
@@ -125,7 +122,6 @@ const AdminKelolaThread = () => {
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );

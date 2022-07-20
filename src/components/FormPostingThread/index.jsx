@@ -1,48 +1,44 @@
 import React, { useState, useEffect } from "react";
-
 import "./FormPostingThread.scss";
-
 import { useNavigate } from "react-router-dom";
-
-// import { useSelector } from "react-redux";
-
 import { useDropzone } from "react-dropzone";
-
 import Cookies from "js-cookie";
-
 import Users from "../Users";
-
 import Button from "../Button/Button";
-
 import Swal from "sweetalert2";
-
 import fgdApi from "../../api/fgdApi";
-
 import moment from "moment";
-
 import "moment/locale/id";
 
 const FormPostingThread = () => {
   const [threadCategory, setThreadCategory] = useState([]);
 
+  const [userAttribute, setUserAttribute] = useState({});
+
+  const [inputs, setInputs] = useState({
+    title: "",
+    description: "",
+    category_id: "",
+  });
+
+  const [files, setFiles] = useState([]);
+
   const navigate = useNavigate();
-
   const token = Cookies.get("token");
-
   const userId = Cookies.get("id");
-
   const time = moment().format("LT");
 
-  const [userAttribute, setUserAttribute] = useState({});
+  const handleInput = (value, key) => {
+    const newInputs = { ...inputs };
+    newInputs[key] = value;
+    setInputs(newInputs);
+  };
 
   const getUserById = async (id) => {
     let res = null;
-    res = await fgdApi.getUserById(id);
-
+    res = await fgdApi.getUserById(id, token);
     const data = res.data;
-    // console.log(data);
     setUserAttribute(data);
-    // console.log("ini user attribut", userAttribute);
   };
 
   const getCategory = async () => {
@@ -57,28 +53,7 @@ const FormPostingThread = () => {
     getCategory();
   }, []);
 
-  const [inputs, setInputs] = useState({
-    title: "",
-    description: "",
-    category_id: "",
-  });
-
-  // const [message, setMessage] = useState("");
-
-  // const [fileName, setFileName] = useState();
-
-  const handleInput = (value, key) => {
-    const newInputs = { ...inputs };
-
-    newInputs[key] = value;
-
-    setInputs(newInputs);
-
-    // console.log(newInputs);
-  };
-
-  const [files, setFiles] = useState([]);
-
+  // Dropzone Hanlder
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/*": [],
@@ -100,7 +75,6 @@ const FormPostingThread = () => {
         <img
           src={file.preview}
           className="imgs"
-          // Revoke data uri after image is loaded
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
           }}
@@ -110,10 +84,14 @@ const FormPostingThread = () => {
     </div>
   ));
 
+  // Get Image and Preview It
+  useEffect(() => {
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
   const addThread = async (formData) => {
     let res = null;
     res = await fgdApi.postThread(formData, token);
-    // console.log(res);
 
     if (res.message === "Success!") {
       await Swal.fire({
@@ -137,40 +115,12 @@ const FormPostingThread = () => {
     }
   };
 
-  useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-    // console.log(files);
-    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
-  }, []);
-
-  useEffect(() => {
-    // console.log("ini file name", fileName);
-    // console.log("ini files", files[0]);
-  });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
-
     formData.append("json", JSON.stringify(inputs));
     formData.append("file", files[0]);
-
     addThread(formData);
-
-    // if (files[0] !== null) {
-    //   if (parseInt(files[0].size) < 1048576) {
-    //   } else {
-    //     Swal.fire({
-    //       title: "Failed",
-    //       text: "Pastikan Size Gambar Tidak Melebihi 1Mb",
-    //       icon: "error",
-    //       confirmButtonText: "OK",
-    //     });
-    //   }
-    // } else {
-    //   console.log("files kosong");
-    // }
   };
 
   const handleReset = (e) => {
@@ -186,7 +136,6 @@ const FormPostingThread = () => {
       <div className="user-profile-section">
         <div className="row user-form-post-thread">
           <Users data={userAttribute} />
-
           <div className="col-2  ms-4 time-post">
             <p className="time-to-post">Hari ini, {time}</p>
           </div>

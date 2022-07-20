@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
-
 import "./AdminDashboard.scss";
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import Navigationbar from "../../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import Table from "../../components/Table";
-import fgdApi from "../../api/fgdApi";
-import Pagination from "../../components/Pagination";
 import { Line, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -100,7 +96,6 @@ const AdminDashboard = () => {
   return (
     <>
       <Navigationbar />
-
       <div class="row">
         <div class="col-3">
           <SidebarLeft />
@@ -111,13 +106,11 @@ const AdminDashboard = () => {
               <Line data={data} />
             </div>
             <div className="chart2">
-              {" "}
               <Doughnut data={data2} />
             </div>
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );

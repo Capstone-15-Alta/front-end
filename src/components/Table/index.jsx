@@ -1,12 +1,10 @@
 import React from "react";
 import "./Table.scss";
 import Plus from "../../assets/icon/table-icon.png";
-import Plus1 from "../../assets/icon/status-active.png";
 import { Link } from "react-router-dom";
 
 import Cookies from "js-cookie";
 const Table = (props) => {
-  // console.log(props.data)
   const userId = Cookies.get("id");
   return (
     <table class="table">
@@ -41,8 +39,9 @@ const Table = (props) => {
               <td>{user.total_threads}</td>
 
               <td>
-                <Link to={userId ==user.id ? "/profile" : `/user/${user.id}`}><img src={Plus} width={35} alt="" /></Link>
-                
+                <Link to={userId == user.id ? "/profile" : `/user/${user.id}`}>
+                  <img src={Plus} width={35} alt="" />
+                </Link>
               </td>
               <td>
                 <div className="status">{user.roles}</div>

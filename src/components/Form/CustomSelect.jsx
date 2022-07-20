@@ -3,8 +3,6 @@ import { useField } from "formik";
 
 const CustomSelect = ({ label, classLabel, classSelect, ...props }) => {
   const [field, meta] = useField(props);
-  // console.log("field", field);
-  // console.log("meta", meta);
   return (
     <>
       <label className={classLabel}>{label}</label>

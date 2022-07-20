@@ -7,7 +7,6 @@ const categoryApi = {
   },
   getThread: (value) => {
     const url = `api/v1/thread/?category=${value}`;
-    // console.log(value)
     return axiosClient.get(url);
   },
 };

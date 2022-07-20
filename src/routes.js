@@ -15,8 +15,6 @@ import AdminKelolaThread from "./pages/AdminKelolaThread";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminThreadById from "./pages/AdminThreadById";
 
-
-
 const routes = [
   {
     path: "/",
@@ -46,10 +44,10 @@ const routes = [
     path: "/profile",
     component: Profile,
   },
-  {
-    path: "/user/:id",
-    component: UserProfile,
-  },
+  // {
+  //   path: "/user/:id",
+  //   component: UserProfile,
+  // },
   {
     path: "/edit-profile",
     component: EditProfile,

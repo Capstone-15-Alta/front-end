@@ -11,21 +11,18 @@ import Cookies from "js-cookie";
 const AdminThreadById = () => {
   const { id } = useParams();
   const [threadById, setThreadById] = useState();
-
   const navigate = useNavigate();
 
   const getThreadById = async (id) => {
     let res = null;
-    const params = {};
     res = await fgdApi.getThreadById(id);
     const data = res?.data;
     setThreadById(data);
   };
+
   useEffect(() => {
     getThreadById(id);
   }, []);
-
-  console.log(threadById);
 
   useEffect(() => {
     const getRoles = Cookies.get("roles");
@@ -37,7 +34,6 @@ const AdminThreadById = () => {
   return (
     <>
       <Navigationbar />
-
       <div className="row">
         <div className="col-3">
           <SidebarLeft />
@@ -56,7 +52,6 @@ const AdminThreadById = () => {
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
