@@ -190,6 +190,7 @@ const Profile = () => {
                                 likeData={item?.likes}
                                 // handleDelete={handleDelete}
                                 getThread={getThreadByUserId}
+                                getUserSaveThread={getUserSaveThread}
                               />
                             </div>
                           ))}
@@ -206,7 +207,7 @@ const Profile = () => {
                       }
                     >
                       <div className="tab-item-wrapper">
-                        <div className="likes-tabs card-tabs">
+                        <div className="saved-tabs card-tabs">
                           {listSaveThread.map((item, itemIdx) => (
                             <>
                               {" "}
@@ -217,6 +218,7 @@ const Profile = () => {
                                   likeData={item.thread?.likes}
                                   // handleDelete={handleDelete}
                                   getThread={getThreadByUserId}
+                                  getUserSaveThread={getUserSaveThread}
                                 />
                               </div>
                             </>

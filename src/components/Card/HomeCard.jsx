@@ -41,6 +41,7 @@ export default function HomeCard({
   getThread,
   handlePageClick,
   getUserById,
+  getUserSaveThread,
 }) {
   // const location = useLocation();
 
@@ -94,6 +95,7 @@ export default function HomeCard({
 
   const handleLike = async (id) => {
     await fgdApi.likeThread(id, tokenCookies);
+    getThread();
   };
 
   const handleSave = async (id) => {
@@ -106,6 +108,7 @@ export default function HomeCard({
       iconColor: res.data?.is_save ? "" : "red",
     });
     getUserById(userId);
+    getUserSaveThread(userId);
   };
   const handleDelete = async (id) => {
     Swal.fire({
@@ -229,6 +232,7 @@ export default function HomeCard({
     });
 
     getCommentByIdThread(data.id);
+    getThread();
   };
 
   return (
@@ -321,6 +325,7 @@ export default function HomeCard({
                   ""
                 )}
               </Grid>
+
               <Grid item>
                 {userRoles === "MODERATOR" ? (
                   <div className="reports-menu">
@@ -390,6 +395,7 @@ export default function HomeCard({
                   ""
                 )}
               </Grid>
+
               <Grid item>
                 {userRoles === "ADMIN" ? (
                   <IconButton
@@ -407,30 +413,35 @@ export default function HomeCard({
             <Grid style={{ marginTop: "0.5rem" }} container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
-                  <Checkbox
-                    onClick={() => handleLike(data.id)}
-                    icon={
-                      <FavoriteBorderIcon
-                        style={{
-                          color: "#26B893",
-                        }}
-                      />
-                    }
-                    checkedIcon={
-                      <FavoriteIcon
-                        style={{
-                          color: "#26B893",
-                        }}
-                      />
-                    }
-                    defaultChecked={
-                      likeData.filter((like) => like?.user_id == userId)
-                        .length > 0
-                        ? true
-                        : false
-                    }
-                  />
-
+                  <div>
+                    {" "}
+                    <Checkbox
+                      onClick={() => handleLike(data.id)}
+                      icon={
+                        <FavoriteBorderIcon
+                          style={{
+                            color: "#26B893",
+                          }}
+                        />
+                      }
+                      checkedIcon={
+                        <FavoriteIcon
+                          style={{
+                            color: "#26B893",
+                          }}
+                        />
+                      }
+                      defaultChecked={
+                        likeData.filter((like) => like?.user_id == userId)
+                          .length > 0
+                          ? true
+                          : false
+                      }
+                    />
+                    <Typography variant="caption">
+                      {data.thread_likes}
+                    </Typography>
+                  </div>
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}
@@ -439,7 +450,10 @@ export default function HomeCard({
                       style={{
                         color: "#26B893",
                       }}
-                    />
+                    />{" "}
+                    <Typography variant="caption" sx={{ ml: "0.5vw" }}>
+                      {data.total_comments}
+                    </Typography>
                   </IconButton>
                 </Stack>
               </Grid>
@@ -451,7 +465,7 @@ export default function HomeCard({
                         color: "#26B893",
                       }}
                     />
-                    <Typography variant="caption" sx={{ ml: "1vw" }}>
+                    <Typography variant="caption" sx={{ ml: "0.5vw" }}>
                       {/* {data.view} */}120
                     </Typography>
                   </IconButton>

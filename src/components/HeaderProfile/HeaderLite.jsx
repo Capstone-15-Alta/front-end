@@ -18,7 +18,7 @@ const HeaderLite = ({ name, email, gambar, user, guestId, getUserById }) => {
   };
   return (
     <>
-      <div className="col-md-8  ">
+      <div className="col-md-8   mb-3">
         <div className="d-flex ">
           <div className="photo-user col-md-1">
             <Avatar alt={name} src={gambar} />
