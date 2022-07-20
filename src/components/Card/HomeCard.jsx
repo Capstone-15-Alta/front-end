@@ -466,7 +466,7 @@ export default function HomeCard({
                       }}
                     />
                     <Typography variant="caption" sx={{ ml: "0.5vw" }}>
-                      {/* {data.view} */}120
+                      {data.view?.views}
                     </Typography>
                   </IconButton>
 
