@@ -454,7 +454,7 @@ export default function HomeCard({
                     icon={
                       <FavoriteBorderIcon
                         style={{
-                          color: "#d20f5c",
+                          color: "#26B893",
                         }}
                       />
                     }

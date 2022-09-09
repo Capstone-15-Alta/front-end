@@ -152,7 +152,7 @@ const FormPostingThread = () => {
                 Pilih Kategori
               </option>
               {threadCategory.map((item, itemIdx) => (
-                <option key={itemIdx} value={item.id}>
+                <option  key={itemIdx} value={item.id}>
                   {item.category_name}
                 </option>
               ))}
