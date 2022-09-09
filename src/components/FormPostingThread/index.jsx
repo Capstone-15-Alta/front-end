@@ -1,48 +1,44 @@
 import React, { useState, useEffect } from "react";
-
 import "./FormPostingThread.scss";
-
 import { useNavigate } from "react-router-dom";
-
-// import { useSelector } from "react-redux";
-
 import { useDropzone } from "react-dropzone";
-
 import Cookies from "js-cookie";
-
 import Users from "../Users";
-
 import Button from "../Button/Button";
-
 import Swal from "sweetalert2";
-
 import fgdApi from "../../api/fgdApi";
-
 import moment from "moment";
-
 import "moment/locale/id";
 
 const FormPostingThread = () => {
   const [threadCategory, setThreadCategory] = useState([]);
 
+  const [userAttribute, setUserAttribute] = useState({});
+
+  const [inputs, setInputs] = useState({
+    title: "",
+    description: "",
+    category_id: "",
+  });
+
+  const [files, setFiles] = useState([]);
+
   const navigate = useNavigate();
-
   const token = Cookies.get("token");
-
   const userId = Cookies.get("id");
-
   const time = moment().format("LT");
 
-  const [userAttribute, setUserAttribute] = useState({});
+  const handleInput = (value, key) => {
+    const newInputs = { ...inputs };
+    newInputs[key] = value;
+    setInputs(newInputs);
+  };
 
   const getUserById = async (id) => {
     let res = null;
-    res = await fgdApi.getUserById(id);
-
+    res = await fgdApi.getUserById(id, token);
     const data = res.data;
-    // console.log(data);
     setUserAttribute(data);
-    // console.log("ini user attribut", userAttribute);
   };
 
   const getCategory = async () => {
@@ -57,28 +53,7 @@ const FormPostingThread = () => {
     getCategory();
   }, []);
 
-  const [inputs, setInputs] = useState({
-    title: "",
-    description: "",
-    category_id: "",
-  });
-
-  // const [message, setMessage] = useState("");
-
-  // const [fileName, setFileName] = useState();
-
-  const handleInput = (value, key) => {
-    const newInputs = { ...inputs };
-
-    newInputs[key] = value;
-
-    setInputs(newInputs);
-
-    // console.log(newInputs);
-  };
-
-  const [files, setFiles] = useState([]);
-
+  // Dropzone Hanlder
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/*": [],
@@ -100,7 +75,6 @@ const FormPostingThread = () => {
         <img
           src={file.preview}
           className="imgs"
-          // Revoke data uri after image is loaded
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
           }}
@@ -110,10 +84,14 @@ const FormPostingThread = () => {
     </div>
   ));
 
+  // Get Image and Preview It
+  useEffect(() => {
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
   const addThread = async (formData) => {
     let res = null;
     res = await fgdApi.postThread(formData, token);
-    // console.log(res);
 
     if (res.message === "Success!") {
       await Swal.fire({
@@ -125,28 +103,23 @@ const FormPostingThread = () => {
         timerProgressBar: true,
       });
       navigate("/");
+    } else {
+      Swal.fire({
+        title: "Failed",
+        text: "Pastikan File Yang Anda Upload adalah Gambar",
+        icon: "error",
+        confirmButtonText: "OK",
+        timer: 1500,
+        timerProgressBar: true,
+      });
     }
   };
 
-  useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-    // console.log(files);
-    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
-  }, []);
-
-  useEffect(() => {
-    // console.log("ini file name", fileName);
-    // console.log("ini files", files[0]);
-  });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
-
     formData.append("json", JSON.stringify(inputs));
     formData.append("file", files[0]);
-
     addThread(formData);
   };
 
@@ -163,7 +136,6 @@ const FormPostingThread = () => {
       <div className="user-profile-section">
         <div className="row user-form-post-thread">
           <Users data={userAttribute} />
-
           <div className="col-2  ms-4 time-post">
             <p className="time-to-post">Hari ini, {time}</p>
           </div>
@@ -180,7 +152,7 @@ const FormPostingThread = () => {
                 Pilih Kategori
               </option>
               {threadCategory.map((item, itemIdx) => (
-                <option key={itemIdx} value={item.id}>
+                <option  key={itemIdx} value={item.id}>
                   {item.category_name}
                 </option>
               ))}
@@ -209,11 +181,14 @@ const FormPostingThread = () => {
         />
       </div>
 
-      <section className="container container-dropzone">
+      <section
+        className="container container-dropzone"
+        style={{ marginTop: "0px" }}
+      >
         <div {...getRootProps({ className: "dropzone" })}>
           <input {...getInputProps()} />
           <p className="place-image text-center py-5">
-            Drag 'n' drop some files here, or click to select files
+            Drag dan drop beberapa file di sini, atau klik untuk memilih file
           </p>
         </div>
         <aside className="thumbsContainer">{thumbs}</aside>
@@ -221,7 +196,12 @@ const FormPostingThread = () => {
 
       <div className="button-area">
         <Button title="Posting" type="submit" className="btn-form-posting" />
-        <Button title="Kembali" type="reset" className="btn-form-kembali" />
+        <Button
+          title="Kembali"
+          type="reset"
+          className="btn-form-kembali"
+          onClick={() => navigate("/")}
+        />
       </div>
     </form>
   );

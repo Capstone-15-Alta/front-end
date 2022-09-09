@@ -22,9 +22,10 @@
     border: solid $main-color;
     border-width: 1.5px;
     border-radius: 5px;
-    width: 6rem;
+    max-width: 8rem;
     height: 2.5rem;
     text-align: center;
+    overflow: hidden;
   }
 
   .button-active {
@@ -35,6 +36,7 @@
     border-radius: 5px;
     width: 6rem;
     text-align: center;
+    overflow: hidden;
   }
 }
 

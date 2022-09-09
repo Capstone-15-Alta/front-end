@@ -1,10 +1,8 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-import "./Pagination.scss"
-
+import "./Pagination.scss";
 
 const Pagination = (props) => {
-  
   return (
     <>
       <ReactPaginate

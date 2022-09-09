@@ -1,17 +1,6 @@
 import axios from "axios";
-import queryString from "query-string";
-
 import apiConfig from "./apiConfig";
-
 import Cookies from "js-cookie";
-
-// const axiosClient = axios.create({
-//   baseURL: apiConfig.baseUrl,
-//   headers: {
-//     "content-Type": "application/json",
-//   },
-//   paramsSerializer: (params) => queryString.stringify({ ...params }),
-// });
 
 const token = Cookies.get("token");
 

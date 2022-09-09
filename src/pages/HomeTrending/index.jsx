@@ -24,8 +24,6 @@ import { Link } from "react-router-dom";
 const Home = () => {
   // const { token } = useSelector((state) => state.login);
   const tokenCookies = Cookies.get("token");
-  // console.log(tokenCookies);
-
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,12 +53,15 @@ const Home = () => {
 
   const [pageCount, setPageCount] = useState(0);
 
+<<<<<<< HEAD
   const getUser = async () => {
     const params = {};
     await fgdApi.getAllUser(params);
     // console.log(res.data);
   };
 
+=======
+>>>>>>> 760adccf5357e6bd8b21a71482fceb907bf0a028
   const getThread = async () => {
     let res = null;
     const params = {};
@@ -86,12 +87,15 @@ const Home = () => {
     }
   };
 
-  const handleLike = async (id) => {
-    await fgdApi.likeThread(id, tokenCookies);
-    // console.log(res);
-  };
-
   useEffect(() => {
+<<<<<<< HEAD
+=======
+    const getUser = async () => {
+      const params = {};
+      await fgdApi.getAllUser(params);
+    };
+
+>>>>>>> 760adccf5357e6bd8b21a71482fceb907bf0a028
     getUser();
   }, []);
 
@@ -117,7 +121,6 @@ const Home = () => {
         const params = { curentPage };
         res = await fgdApi.getThread(params);
       }
-      console.log(res.data);
       setListThread(res?.data.content);
     };
     getThread();
@@ -179,12 +182,10 @@ const Home = () => {
             </div>
           </Box>
         </Grid>
-
         <Grid item md={3} pl="2vw" mt="5rem">
           <SidebarRight />
         </Grid>
       </Grid>
-
       <Footer />
     </>
   );

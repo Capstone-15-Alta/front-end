@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import "./Searchbar.scss";
-
 import iconSearch from "../../assets/icon/iconSearch.png";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { setIn } from "formik";
 
 const Searchbar = () => {
   const [input, setInput] = useState("");
-
   const navigate = useNavigate();
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       navigate({
@@ -19,6 +17,7 @@ const Searchbar = () => {
       });
     }
   };
+
   return (
     <div className="input-search">
       <input

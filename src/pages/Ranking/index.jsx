@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Navigationbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { SidebarLeft, SidebarRight } from "../../components/Sidebar";
+import { SidebarLeft } from "../../components/Sidebar";
 import Pagination from "../../components/Pagination";
 import gold from "../../assets/icon/ranking-gold.png";
-import man from "../../assets/icon/manProfile.png";
 import love from "../../assets/icon/love.png";
 import hair from "../../assets/icon/hair.png";
 import fgdApi from "../../api/fgdApi";
@@ -12,12 +11,11 @@ import "./Ranking.scss";
 const Ranking = () => {
   const [allRanking, setAllRanking] = useState([]);
   const [pageCount, setPageCount] = useState(0);
-
+  const [current, setCurrent] = useState()
   const getAllRanking = async () => {
     let res = null;
     const params = {};
     res = await fgdApi.getRanking(params);
-    // console.log(res.data);
     setAllRanking(res.data.content);
     setPageCount(res.data.totalPages);
   };
@@ -28,18 +26,16 @@ const Ranking = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-    // console.log(curentPage);
+   
     const getAllUser = async () => {
       let res = null;
       const params = { curentPage };
       res = await fgdApi.getRanking(params);
-      // console.log(res.data);
       setAllRanking(res.data.content);
     };
 
     getAllUser();
   };
-  // console.log(allRanking);
 
   function abbrNum(number, decPlaces) {
     // 2 decimal places => 100, 3 => 1000, etc
@@ -75,6 +71,11 @@ const Ranking = () => {
 
     return number;
   }
+  function IndexRank(index){
+   
+    return index 
+  }
+  
   return (
     <>
       <Navigationbar />
@@ -85,7 +86,7 @@ const Ranking = () => {
         <div className="col-9">
           <div className="content">
             <h3>
-              Ranking User{" "}
+              Ranking User
               <i>
                 <img src={gold} alt="" width={30} />
               </i>
@@ -94,7 +95,7 @@ const Ranking = () => {
               {allRanking.map((item, index) => {
                 return (
                   <div className="ranking-item" key={index}>
-                    <div className="index">{index + 1}</div>
+                    <div className="index">{IndexRank(index + 1)}</div>
                     <div className="image">
                       <img
                         src={item.image}
@@ -113,13 +114,15 @@ const Ranking = () => {
                     <div className="follow">
                       {item.total_user_following} Mengikuti
                     </div>
-                    <div className="total_like">
+                    <div className="total_like ">
+                    <p>Total Like</p>
                       <i>
                         <img src={love} alt="" width={20} />
-                      </i>{" "}
+                      </i> 
                       {abbrNum(item.total_like_thread, 0)}
                     </div>
                     <div className="total_thread">
+                    <p>Total Post</p>
                       <i>
                         <img src={hair} alt="" width={20} />
                       </i>
