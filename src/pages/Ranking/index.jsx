@@ -11,7 +11,7 @@ import "./Ranking.scss";
 const Ranking = () => {
   const [allRanking, setAllRanking] = useState([]);
   const [pageCount, setPageCount] = useState(0);
-
+  const [current, setCurrent] = useState()
   const getAllRanking = async () => {
     let res = null;
     const params = {};
@@ -26,6 +26,7 @@ const Ranking = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
+   
     const getAllUser = async () => {
       let res = null;
       const params = { curentPage };
@@ -70,6 +71,11 @@ const Ranking = () => {
 
     return number;
   }
+  function IndexRank(index){
+   
+    return index 
+  }
+  
   return (
     <>
       <Navigationbar />
@@ -80,7 +86,7 @@ const Ranking = () => {
         <div className="col-9">
           <div className="content">
             <h3>
-              Ranking User{" "}
+              Ranking User
               <i>
                 <img src={gold} alt="" width={30} />
               </i>
@@ -89,7 +95,7 @@ const Ranking = () => {
               {allRanking.map((item, index) => {
                 return (
                   <div className="ranking-item" key={index}>
-                    <div className="index">{index + 1}</div>
+                    <div className="index">{IndexRank(index + 1)}</div>
                     <div className="image">
                       <img
                         src={item.image}
@@ -108,13 +114,15 @@ const Ranking = () => {
                     <div className="follow">
                       {item.total_user_following} Mengikuti
                     </div>
-                    <div className="total_like">
+                    <div className="total_like ">
+                    <p>Total Like</p>
                       <i>
                         <img src={love} alt="" width={20} />
-                      </i>{" "}
+                      </i> 
                       {abbrNum(item.total_like_thread, 0)}
                     </div>
                     <div className="total_thread">
+                    <p>Total Post</p>
                       <i>
                         <img src={hair} alt="" width={20} />
                       </i>

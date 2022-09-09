@@ -62,7 +62,7 @@ const Notifikasi = () => {
           </div>
           <div className="content-section col-9 container-fluid">
             <div className="col-10">
-              {listNotifType &&
+              {/* {listNotifType &&
                 listNotifType.map((val, index) => {
                   return (
                     <button
@@ -80,7 +80,7 @@ const Notifikasi = () => {
                       {val.title}
                     </button>
                   );
-                })}
+                })} */}
               {listNotif.map((item, itemIdx) => (
                 <Notification data={item} key={itemIdx} />
               ))}

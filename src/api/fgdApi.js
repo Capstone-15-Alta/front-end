@@ -144,6 +144,10 @@ const fgdApi = {
     const url = "api/v1/user/ranking";
     return axiosClient.get(url + `?page=${params.curentPage}`);
   },
+  getAllRanking: (params) => {
+    const url = "api/v1/user/ranking";
+    return axiosClient.get(url);
+  },
 
   getThreadByTitle: (params, token) => {
     const url = `api/v1/thread/search?title=${params}`;

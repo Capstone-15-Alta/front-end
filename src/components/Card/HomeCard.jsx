@@ -256,7 +256,7 @@ export default function HomeCard({
   );
 
   const linkName = readMore ? "Sembunyikan" : "Lihat Detail";
-
+  console.log(data);
   return (
     <>
       <Box py="2rem" px="2vw" sx={{ borderBottom: 1, borderColor: "grey.500" }}>
@@ -454,14 +454,14 @@ export default function HomeCard({
                     icon={
                       <FavoriteBorderIcon
                         style={{
-                          color: "#26B893",
+                          color: "#d20f5c",
                         }}
                       />
                     }
                     checkedIcon={
                       <FavoriteIcon
                         style={{
-                          color: "#26B893",
+                          color: "#d20f5c",
                         }}
                       />
                     }
@@ -507,16 +507,7 @@ export default function HomeCard({
               </Grid>
               <Grid item>
                 <Stack spacing={2} direction="row">
-                  <IconButton aria-label="view">
-                    <VisibilityOutlinedIcon
-                      style={{
-                        color: "#26B893",
-                      }}
-                    />
-                    <Typography variant="caption" sx={{ ml: "1vw" }}>
-                      {/* {data.view} */}120
-                    </Typography>
-                  </IconButton>
+                  
 
                   <Checkbox
                     onClick={() => handleSave(data.id)}
@@ -543,13 +534,13 @@ export default function HomeCard({
                     }
                   />
 
-                  <IconButton aria-label="share">
+                  {/* <IconButton aria-label="share">
                     <ShareOutlinedIcon
                       style={{
                         color: "#26B893",
                       }}
                     />
-                  </IconButton>
+                  </IconButton> */}
                 </Stack>
               </Grid>
             </Grid>

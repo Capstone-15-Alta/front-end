@@ -64,13 +64,13 @@ const Notification = ({ data }) => {
                 <p className="date-notif">{data.created_at.substr(0, 10)}</p>
               </div>
             </div>
-            <div className="col-1">
+            {/* <div className="col-1">
               <img
                 src="/assets/icon/rubbish.png"
                 alt="rubbish-images"
                 className="delete-image"
               />
-            </div>
+            </div> */}
           </div>
         </div>
       )}

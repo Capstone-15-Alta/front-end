@@ -71,13 +71,13 @@ export default function Comment({ comment }) {
               </div>
             </Grid>
           </Grid>
-          <Grid container mt="1vh">
+          {/* <Grid container mt="1vh">
             <Grid item xs>
               <CostumeButton> Reply </CostumeButton>
               <CostumeButton> Share </CostumeButton>
               <CostumeButton> Report </CostumeButton>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </Box>
