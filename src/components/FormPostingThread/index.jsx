@@ -23,6 +23,14 @@ const FormPostingThread = () => {
 
   const [files, setFiles] = useState([]);
 
+  const [countdown, setCountdown] = useState({
+    months: undefined,
+    days: undefined,
+    hours: undefined,
+    minutes: undefined,
+    seconds: undefined,
+  });
+
   const navigate = useNavigate();
   const token = Cookies.get("token");
   const userId = Cookies.get("id");
@@ -40,6 +48,31 @@ const FormPostingThread = () => {
     const data = res.data;
     setUserAttribute(data);
   };
+
+  const currentTime = moment().valueOf(); // current time to milliseconds
+  console.log("waktu sekarang ", moment().valueOf());
+
+  const eventTime = 1668877200000;
+  console.log(
+    "waktu target ",
+    moment(1668877200000, "x").format("DD MMM YYYY hh:mm a")
+  );
+  const diffTime = eventTime - currentTime;
+  let duration = moment.duration(diffTime);
+  const interval = 1000;
+
+  useEffect(() => {
+    setInterval(() => {
+      duration = moment.duration(duration - interval, "milliseconds");
+      setCountdown({
+        months: duration.months(),
+        days: duration.days(),
+        hours: duration.hours(),
+        minutes: duration.minutes(),
+        seconds: duration.seconds(),
+      });
+    }, interval);
+  }, []);
 
   const getCategory = async () => {
     let res = null;
@@ -137,7 +170,11 @@ const FormPostingThread = () => {
         <div className="row user-form-post-thread">
           <Users data={userAttribute} />
           <div className="col-2  ms-4 time-post">
-            <p className="time-to-post">Hari ini, {time}</p>
+            <p className="time-to-post">
+              Hari ini, {countdown.months} bulan, {countdown.days} hari,{" "}
+              {countdown.hours} jam, {countdown.minutes} menit,{" "}
+              {countdown.seconds} detik
+            </p>
           </div>
           <div className="col-3 options-thread-categories ms-auto">
             <select
@@ -152,7 +189,7 @@ const FormPostingThread = () => {
                 Pilih Kategori
               </option>
               {threadCategory.map((item, itemIdx) => (
-                <option  key={itemIdx} value={item.id}>
+                <option key={itemIdx} value={item.id}>
                   {item.category_name}
                 </option>
               ))}

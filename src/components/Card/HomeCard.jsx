@@ -455,7 +455,6 @@ export default function HomeCard({
             <Grid style={{ marginTop: "0.5rem" }} container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
-<<<<<<< HEAD
                   <div>
                     {" "}
                     <Checkbox
@@ -485,7 +484,6 @@ export default function HomeCard({
                       {data.thread_likes}
                     </Typography>
                   </div>
-=======
                   <Checkbox
                     onClick={() => handleLike(data.id)}
                     icon={
@@ -520,7 +518,6 @@ export default function HomeCard({
                   >
                     {data.thread_likes}
                   </Typography>
->>>>>>> 760adccf5357e6bd8b21a71482fceb907bf0a028
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}
@@ -529,11 +526,8 @@ export default function HomeCard({
                       style={{
                         color: "#26B893",
                       }}
-<<<<<<< HEAD
                     />{" "}
-                    <Typography variant="caption" sx={{ ml: "0.5vw" }}>
-=======
-                    />
+                    {/* <Typography variant="caption" sx={{ ml: "0.5vw" }}/> */}
                     <Typography
                       variant="caption"
                       sx={{
@@ -542,7 +536,6 @@ export default function HomeCard({
                         fontSize: "1.125rem",
                       }}
                     >
->>>>>>> 760adccf5357e6bd8b21a71482fceb907bf0a028
                       {data.total_comments}
                     </Typography>
                   </IconButton>
@@ -550,7 +543,6 @@ export default function HomeCard({
               </Grid>
               <Grid item>
                 <Stack spacing={2} direction="row">
-<<<<<<< HEAD
                   <IconButton aria-label="view">
                     <VisibilityOutlinedIcon
                       style={{
@@ -561,9 +553,6 @@ export default function HomeCard({
                       {data.view?.views}
                     </Typography>
                   </IconButton>
-=======
-                  
->>>>>>> 760adccf5357e6bd8b21a71482fceb907bf0a028
 
                   <Checkbox
                     onClick={() => handleSave(data.id)}

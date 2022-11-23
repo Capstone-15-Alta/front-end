@@ -53,15 +53,12 @@ const Home = () => {
 
   const [pageCount, setPageCount] = useState(0);
 
-<<<<<<< HEAD
   const getUser = async () => {
     const params = {};
     await fgdApi.getAllUser(params);
     // console.log(res.data);
   };
 
-=======
->>>>>>> 760adccf5357e6bd8b21a71482fceb907bf0a028
   const getThread = async () => {
     let res = null;
     const params = {};
@@ -88,14 +85,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-<<<<<<< HEAD
-=======
-    const getUser = async () => {
-      const params = {};
-      await fgdApi.getAllUser(params);
-    };
-
->>>>>>> 760adccf5357e6bd8b21a71482fceb907bf0a028
     getUser();
   }, []);
 

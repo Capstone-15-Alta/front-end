@@ -13,39 +13,24 @@ const AdminThreadById = () => {
   const [threadById, setThreadById] = useState();
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-  
-  useEffect(() => {
-    const getThreadById = async (id) => {
-      let res = null;
-      const params = {};
-      res = await fgdApi.getThreadById(id);
-      const data = res?.data;
-      setThreadById(data);
-    };
-=======
   const getThreadById = async (id) => {
     let res = null;
     res = await fgdApi.getThreadById(id);
     const data = res?.data;
     setThreadById(data);
   };
->>>>>>> 760adccf5357e6bd8b21a71482fceb907bf0a028
-
   useEffect(() => {
     getThreadById(id);
   }, []);
 
-<<<<<<< HEAD
   // console.log(threadById);
-=======
+
   useEffect(() => {
     const getRoles = Cookies.get("roles");
     if (getRoles != "ADMIN") {
       navigate("/login");
     }
   }, []);
->>>>>>> 760adccf5357e6bd8b21a71482fceb907bf0a028
 
   return (
     <>
