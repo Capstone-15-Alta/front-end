@@ -1,38 +1,43 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+} from "@reduxjs/toolkit";
+import axios from "axios";
 
-const initialValue = [
-  {
-    id: uuidv4(),
-  },
-];
+export const saveThread = createAsyncThunk(
+  "threads/saveThread",
+  async ({ formData, token }) => {
+    const response = await axios.post(
+      "http://8.219.84.81/api/v1/thread",
+      {
+        formData,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
+const threadEntity = createEntityAdapter({
+  selectId: (thread) => thread.id,
+});
 
 export const threadsReducer = createSlice({
   name: "threads",
-  initialState: {
-    threads: initialValue,
-  },
-  reducers: {
-    submitThread: (state, action) => {
-      state.threads = [...state.threads, action.payload];
-    },
-    handleDelete: (state, action) => {
-      state.threads = state.threads.filter(
-        (thread) => thread.id !== action.payload
-      );
-    },
-    handleUpdate: (state, action) => {
-      state.threads = state.threads.map((thread) => {
-        if (thread.id === action.payload) {
-          thread.completed = !thread.completed;
-        }
-        return thread;
-      });
+  initialState: threadEntity.getInitialState(),
+  extraReducers: {
+    [saveThread.fulfilled]: (state, action) => {
+      threadEntity.addOne(state, action.payload);
     },
   },
 });
 
-export const { submitThread, handleDelete, handleUpdate } =
-  threadsReducer.actions;
-
+export const threadSelectors = threadEntity.getSelectors(
+  (state) => state.thread
+);
 export default threadsReducer.reducer;

@@ -9,9 +9,11 @@ import Profile from "./pages/Profile";
 // import Signup from "./pages/Signup";
 import EditProfile from "./pages/EditProfile";
 import UserProfile from "./pages/UserProfile";
-import AdminUser from "./pages/AdminUser";
+// import AdminUser from "./pages/AdminUser";
 import Ranking from "./pages/Ranking";
-import Search from "./pages/Search";
+// import AdminKelolaThread from "./pages/AdminKelolaThread";
+// import AdminDashboard from "./pages/AdminDashboard";
+// import AdminThreadById from "./pages/AdminThreadById";
 
 const routes = [
   {
@@ -42,10 +44,10 @@ const routes = [
     path: "/profile",
     component: Profile,
   },
-  {
-    path: "/user/:id",
-    component: UserProfile,
-  },
+  // {
+  //   path: "/user/:id",
+  //   component: UserProfile,
+  // },
   {
     path: "/edit-profile",
     component: EditProfile,
@@ -62,14 +64,22 @@ const routes = [
     path: "/ranking",
     component: Ranking,
   },
-  {
-    path: "/admin-user",
-    component: AdminUser,
-  },
-  {
-    path: "/search",
-    component: Search,
-  },
+  // {
+  //   path: "/admin-user",
+  //   component: AdminUser,
+  // },
+  // {
+  //   path: "/admin-kelolathread",
+  //   component: AdminKelolaThread,
+  // },
+  // {
+  //   path: "/admin-dashboard",
+  //   component: AdminDashboard,
+  // },
+  // {
+  //   path: "/thread/:id",
+  //   component: AdminThreadById,
+  // },
 ];
 
 export default routes;

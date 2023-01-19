@@ -1,13 +1,12 @@
 import React from "react";
-
 import "./Notification.scss";
 
-import Button from "../Button/Button";
-
 const Notification = ({ data }) => {
+  const isRead = data.is_read;
+
   return (
     <>
-      {data.type === "comment" ? (
+      {isRead ? (
         <div className="comment-notif">
           <div className="row">
             <div className="col-11">
@@ -20,17 +19,14 @@ const Notification = ({ data }) => {
                   />
                 </div>
                 <div className="header-section">
-                  <h2 className="header-text">
-                    {data.username}
-                    {data.action}
-                  </h2>
+                  <h2 className="header-text">{data.title}</h2>
                 </div>
               </div>
               <div className="mid-section">
-                <p className="desc-notif">{data.comment}</p>
+                <p className="desc-notif">{data.message}</p>
               </div>
               <div className="bottom-section">
-                <p className="date-notif">{data.commentTime}</p>
+                <p className="date-notif">{data.created_at.substr(0, 10)}</p>
               </div>
             </div>
             <div className="col-1">
@@ -43,7 +39,10 @@ const Notification = ({ data }) => {
           </div>
         </div>
       ) : (
-        <div className="follow-notif">
+        <div
+          className="comment-notif"
+          style={{ backgroundColor: "rgba(38, 184, 147, 0.1)" }}
+        >
           <div className="row">
             <div className="col-11">
               <div className="top-section">
@@ -55,37 +54,23 @@ const Notification = ({ data }) => {
                   />
                 </div>
                 <div className="header-section">
-                  <h2 className="header-text">
-                    {data.username}
-                    {data.action}
-                  </h2>
+                  <h2 className="header-text">{data.title}</h2>
                 </div>
               </div>
               <div className="mid-section">
-                <div className="desc-notif mt-2 mb-3">
-                  <Button
-                    title="Terima"
-                    type="button"
-                    className="btn-follow-terima"
-                  />
-                  <Button
-                    title="Tolak"
-                    type="button"
-                    className="btn-follow-tolak"
-                  />
-                </div>
+                <p className="desc-notif">{data.message}</p>
               </div>
               <div className="bottom-section">
-                <p className="date-notif">{data.commentTime}</p>
+                <p className="date-notif">{data.created_at.substr(0, 10)}</p>
               </div>
             </div>
-            <div className="col-1">
+            {/* <div className="col-1">
               <img
                 src="/assets/icon/rubbish.png"
                 alt="rubbish-images"
                 className="delete-image"
               />
-            </div>
+            </div> */}
           </div>
         </div>
       )}

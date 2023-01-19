@@ -3,7 +3,7 @@ import React from "react";
 const Form = ({ inputs, submit, changeHandler, btnTitle, type }) => {
   return (
     <>
-      <label>{inputs.label}</label>
+      <label>{inputs.type}</label>
       <br />
       <input
         required

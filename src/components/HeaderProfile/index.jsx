@@ -1,11 +1,6 @@
 import React, { useRef } from "react";
 import Button from "../Button/Button";
-
 import "./HeaderProfile.scss";
-
-/* Images */
-// import banner from "../../assets/images/capung.png";
-// import foto from "../../assets/images/foto.jpg";
 import { Link, useLocation, useParams } from "react-router-dom";
 import fgdApi from "../../api/fgdApi";
 import Cookies from "js-cookie";
@@ -21,11 +16,7 @@ const HeaderProfile = ({ data, getUserById }) => {
 
   const tokenCookies = Cookies.get("token");
   const userId = Cookies.get("id");
-  // console.log(tokenCookies, userId);
-
-  // const [bannerImg, setBannerImg] = useState(banner);
-
-  // const [photoImg, setPhotoImg] = useState();
+  const roles = Cookies.get("roles");
 
   const handleClickImage = () => {
     imageRef.current.click();
@@ -37,14 +28,11 @@ const HeaderProfile = ({ data, getUserById }) => {
 
   const handleUploadBanner = async (e) => {
     const fileBanner = e.target.files[0];
-    // console.log(fileBanner);
 
     try {
       const formData = new FormData();
       formData.set("file", fileBanner);
-
       await fgdApi.uploadBanner(tokenCookies, formData);
-      // console.log(res);
       getUserById(userId);
 
       Swal.fire({
@@ -65,14 +53,10 @@ const HeaderProfile = ({ data, getUserById }) => {
 
   const handleUploadImage = async (e) => {
     const filePhoto = e.target.files[0];
-    // console.log(filePhoto);
-
     try {
       const formData = new FormData();
       formData.set("file", filePhoto);
-
       await fgdApi.uploadPhoto(tokenCookies, formData);
-      // console.log(res);
       getUserById(userId);
       Swal.fire({
         title: "Success",
@@ -88,18 +72,27 @@ const HeaderProfile = ({ data, getUserById }) => {
         confirmButtonText: "OK",
       });
     }
-
-    // Cookies.set("data", JSON.stringify(data));
-    // console.log(filePhoto);
   };
 
   const followHandleClick = async (e, guestUserId) => {
     e.preventDefault();
     await fgdApi.followUser(guestUserId, tokenCookies);
-    // console.log(res.data);
     getUserById(guestUserId);
   };
-  // console.log(data);
+
+  const handleToUser = async (e, id) => {
+    e.preventDefault();
+    let res = null;
+    res = await fgdApi.changeRoleUser(id, tokenCookies);
+    getUserById(id);
+  };
+
+  const handleToModerator = async (e, id) => {
+    e.preventDefault();
+    let res = null;
+    res = await fgdApi.changeRoleModerator(id, tokenCookies);
+    getUserById(id);
+  };
 
   return (
     <>
@@ -109,7 +102,7 @@ const HeaderProfile = ({ data, getUserById }) => {
             style={{ backgroundImage: `url(${data.image_cover})` }}
             className="banner-image"
           ></div>
-          {path === "/profile" || "edit-profile" ? (
+          {path === "/profile" || "/edit-profile" ? (
             <>
               <Button
                 type="button"
@@ -197,6 +190,28 @@ const HeaderProfile = ({ data, getUserById }) => {
                     />
                   )}
                 </div>
+              )}
+              {data.roles == "Admin" && null}
+              {roles == "ADMIN" && data.roles == "USER" && (
+                <button
+                  onClick={(e) => {
+                    handleToModerator(e, data.id);
+                  }}
+                  className="button-mod"
+                >
+                  Jadikan Moderator
+                </button>
+              )}
+              {roles == "ADMIN" && data.roles == "MODERATOR" && (
+                <button
+                  onClick={(e) => {
+                    handleToUser(e, data.id);
+                  }}
+                  className="button-mod"
+                >
+                  {" "}
+                  Jadikan User
+                </button>
               )}
             </div>
           </div>

@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./AdminUser.scss";
-
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import Navigationbar from "../../components/Navbar";
 import Table from "../../components/Table";
 import fgdApi from "../../api/fgdApi";
 import Pagination from "../../components/Pagination";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
 const AdminUser = () => {
   const [allUser, setAllUser] = useState([]);
   const [pageCount, setPageCount] = useState(0);
+  const navigate = useNavigate();
+
   const getAllUser = async () => {
     let res = null;
     const params = {};
     res = await fgdApi.getAllUser(params);
-    // console.log(res.data);
     setAllUser(res.data.content);
     setPageCount(res.data.totalPages);
   };
@@ -25,22 +28,26 @@ const AdminUser = () => {
 
   const handlePageClick = (data) => {
     let curentPage = data.selected;
-    // console.log(curentPage);
     const getAllUser = async () => {
       let res = null;
       const params = { curentPage };
       res = await fgdApi.getAllUser(params);
-      // console.log(res.data);
       setAllUser(res.data.content);
     };
 
     getAllUser();
   };
-  // console.log(allUser);
+
+  useEffect(() => {
+    const getRoles = Cookies.get("roles");
+    if (getRoles != "ADMIN") {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <>
       <Navigationbar />
-
       <div class="row">
         <div class="col-3">
           <SidebarLeft />
@@ -60,7 +67,6 @@ const AdminUser = () => {
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );

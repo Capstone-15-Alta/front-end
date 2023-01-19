@@ -21,15 +21,14 @@ h3{
 .ranking{
     display: flex;
     flex-direction:column;
+    margin-bottom: 4rem;
 
     .ranking-item{
         display: flex;
         justify-content: space-between;
         padding: 2rem;
         align-items: center;
-        border-style: solid;
-        border-width: 1px;
-        border-color: #7DD4BE;
+        
         width: 925px;
         height: 70px;
         margin-bottom: 1rem;
@@ -42,8 +41,10 @@ h3{
         }
 
         .username{
-          min-width: 70px;
+          min-width: 100px;
           max-width: 70px;
+          overflow: hidden;
+          height: 2rem;
         }
 
         .image{
@@ -56,6 +57,20 @@ h3{
             color: white;
             text-align: center;
             border-radius: 50px;
+        }
+
+        .total_like {
+          display: flex;
+          p{
+            margin-right: 6px;
+          }
+        }
+
+        .total_thread{
+          display: flex;
+          p{
+            margin-right: 6px;
+          }
         }
 
         

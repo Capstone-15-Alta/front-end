@@ -1,7 +1,5 @@
 import React from "react";
-
 import "./Users.scss";
-
 import IconProfile from "../IconProfile";
 
 const Users = ({ data }) => {

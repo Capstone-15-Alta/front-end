@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-// import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,23 +12,18 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-// import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Comment from "./Comment";
 import TextField from "@mui/material/TextField";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-
 import Checkbox from "@mui/material/Checkbox";
-
-import ReportIcon from "@mui/icons-material/Report";
+import ReportOutlinedIcon from "@mui/icons-material/ReportOutlined";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
-
 import fgdApi from "../../api/fgdApi";
-
 import Swal from "sweetalert2";
 import { Toast } from "../Toast/Toast";
 
@@ -38,22 +32,24 @@ export default function HomeCard({
   likeData,
   getThread,
   handlePageClick,
+  getUserById,
+  getUserSaveThread,
 }) {
-  // const location = useLocation();
-
-  // const path = location.pathname;
-
   const userId = Cookies.get("id");
-
   const userRoles = Cookies.get("roles");
-
   const tokenCookies = Cookies.get("token");
+  const currentUserId = Cookies.get("id");
+
+  const [currentUser, setCurrentUser] = useState();
+  const [listComment, setListComment] = useState({});
 
   const [openComment, setOpenComment] = useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const open = Boolean(anchorEl);
+
+  const [anchorElement, setAnchorElement] = React.useState(null);
+  const openReport = Boolean(anchorElement);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,38 +59,17 @@ export default function HomeCard({
     setAnchorEl(null);
   };
 
-  // const ITEM_HEIGHT = 48;
+  const handleClickReport = (event) => {
+    setAnchorElement(event.currentTarget);
+  };
 
-  // const dataComment = [
-  //   {
-  //     username: "Albert Flores",
-  //     isVerified: true,
-  //     content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //     timePost: "12 hours ago",
-  //     profile: "/assets/icon/manProfile.png",
-  //     children: [
-  //       {
-  //         username: "Flores",
-  //         isVerified: false,
-  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //         timePost: "12 hours ago",
-  //         profile: "/assets/icon/manProfile.png",
-  //       },
-  //       {
-  //         username: "Albert",
-  //         isVerified: true,
-  //         content: "Pixel Buds Pro : Apakah Mampu Melawan AirPods Pro ?",
-  //         timePost: "12 hours ago",
-  //         profile: "/assets/icon/manProfile.png",
-  //       },
-  //     ],
-  //   },
-  // ];
+  const handleCloseReport = () => {
+    setAnchorElement(null);
+  };
 
   const deleteUserThread = async (id) => {
     try {
       await fgdApi.deleteThread(id, tokenCookies);
-      // console.log(res);
       getThread(userId);
 
       Swal.fire({
@@ -117,6 +92,7 @@ export default function HomeCard({
 
   const handleLike = async (id) => {
     await fgdApi.likeThread(id, tokenCookies);
+    getThread();
   };
 
   const handleSave = async (id) => {
@@ -128,10 +104,13 @@ export default function HomeCard({
       title: res.data?.is_save ? "Thread disimpan" : "Thread batal disimpan",
       iconColor: res.data?.is_save ? "" : "red",
     });
+    getUserById(userId);
+    getUserSaveThread(userId);
   };
+
   const handleDelete = async (id) => {
     Swal.fire({
-      title: "Apakah kamu Ingin Mengahapus Trhead ?",
+      title: "Apakah Kamu Ingin Menghapus Thread ?",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#26B893",
@@ -153,16 +132,14 @@ export default function HomeCard({
     });
   };
 
-  const reportUserThread = async (id) => {
+  const reportUserThread = async (id, reported) => {
     const data = {
       thread_id: id,
-      report: "spam",
+      report: reported,
     };
 
     try {
       await fgdApi.reportThread(data, tokenCookies);
-      // console.log(res.message);
-
       Swal.fire({
         title: "Reported",
         text: "Berhasil report thread",
@@ -179,7 +156,7 @@ export default function HomeCard({
     }
   };
 
-  const handleReport = (id) => {
+  const handleReport = (id, reported) => {
     Swal.fire({
       title: "Yakin report thread ini?",
       text: "Thread akan dimasukkan kedalam list report!",
@@ -191,25 +168,18 @@ export default function HomeCard({
       cancelButtonText: "Tidak",
     }).then((result) => {
       if (result.isConfirmed) {
-        reportUserThread(id);
+        reportUserThread(id, reported);
       } else {
         Swal.fire("Batal", "Thread batal direport", "error");
       }
     });
   };
 
-  const [listComment, setListComment] = useState({});
-
   const getCommentByIdThread = async (id) => {
     let res = null;
     res = await fgdApi.getCommentByIdThread(id);
-
     const data = res.data;
-    // console.log("ini id thread", id);
-    // console.log("ini ini", data);
     setListComment(data);
-    // return res.data;
-    // console.log("ini data comment by id", listComment);
   };
 
   useEffect(() => {
@@ -222,17 +192,12 @@ export default function HomeCard({
 
   const handleInput = (value, key) => {
     const newInputs = { ...inputs };
-
     newInputs[key] = value;
-
     setInputs(newInputs);
-
-    // console.log(newInputs);
   };
 
   const handleSumbitComment = async (id, e) => {
     e.preventDefault();
-
     let res = null;
     const userComment = {
       thread_id: id,
@@ -251,20 +216,56 @@ export default function HomeCard({
     });
 
     getCommentByIdThread(data.id);
+    getThread();
   };
 
+  const getUserByCurrentId = async (id) => {
+    let res = null;
+    res = await fgdApi.getUserById(id, tokenCookies);
+
+    const data = res.data;
+    setCurrentUser(data);
+  };
+
+  useEffect(() => {
+    getUserByCurrentId(currentUserId);
+  }, []);
+
+  const [readMore, setReadMore] = useState(false);
+  const extraContent = (
+    <div>
+      {data.image ? (
+        <Box
+          component="img"
+          sx={{
+            height: 233,
+            width: 350,
+            maxHeight: { xs: 233, md: 167 },
+            maxWidth: { xs: 350, md: 250 },
+          }}
+          alt={data.title}
+          src={data.image}
+          style={{ marginTop: "0.5rem" }}
+        />
+      ) : (
+        ""
+      )}
+      <p
+        className="extra-content"
+        style={{ fontSize: "1.25rem", fontWeight: "400", marginTop: "1.25rem" }}
+      >
+        {data.description}
+      </p>
+    </div>
+  );
+
+  const linkName = readMore ? "Sembunyikan" : "Lihat Detail";
+  console.log(data);
   return (
     <>
-      <Box
-        // borderRadius="5px"
-        py="2rem"
-        px="2vw"
-        sx={{ borderBottom: 1, borderColor: "grey.500" }}
-        /*boxShadow={1}*/
-      >
+      <Box py="2rem" px="2vw" sx={{ borderBottom: 1, borderColor: "grey.500" }}>
         <Grid container>
           <Grid item>
-            {/* <Avatar alt={data.username} src={data.profile} /> */}{" "}
             <Link
               to={
                 userId == data.user?.id ? "/profile" : `/user/${data.user?.id}`
@@ -296,10 +297,36 @@ export default function HomeCard({
                     </Box>
                   </Link>
                 </Box>
-                <h4 style={{ marginTop: "1rem" }}>{data.title}</h4>
-                <Typography variant="caption">
+                <h4
+                  style={{
+                    marginTop: "1rem",
+                    fontSize: "1.375rem",
+                    fontWeight: "500",
+                  }}
+                >
+                  {data.title}
+                </h4>
+                <Typography
+                  variant="caption"
+                  style={{ fontSize: "1.125rem", marginRight: "0.493rem" }}
+                >
                   {data.created_at.substr(11, 5)}
                 </Typography>
+                {readMore && extraContent}
+                <span
+                  className="read-more-link"
+                  style={{
+                    fontSize: "0.875rem",
+                    color: "#017EFA",
+                    cursor: "pointer",
+                    fontWeight: "500",
+                  }}
+                  onClick={() => {
+                    setReadMore(!readMore);
+                  }}
+                >
+                  {linkName}
+                </span>
               </Grid>
               <Grid item>
                 {userId == data.user?.id ? (
@@ -327,12 +354,10 @@ export default function HomeCard({
                       onClose={handleClose}
                       PaperProps={{
                         style: {
-                          // maxHeight: ITEM_HEIGHT * 4.5,
                           minWidth: "10ch",
                         },
                       }}
                     >
-                      {" "}
                       <MenuItem onClick={handleClose}>Edit</MenuItem>
                       <MenuItem onClick={() => handleDelete(data.id)}>
                         Delete
@@ -343,14 +368,84 @@ export default function HomeCard({
                   ""
                 )}
               </Grid>
+
               <Grid item>
                 {userRoles === "MODERATOR" ? (
+                  <div className="reports-menu">
+                    <IconButton
+                      aria-label="moree"
+                      id="long-buttonn"
+                      aria-controls={openReport ? "long-menuu" : undefined}
+                      aria-expanded={openReport ? "true" : undefined}
+                      aria-haspopup="true"
+                      onClick={handleClickReport}
+                    >
+                      <ReportOutlinedIcon
+                        fontSize="large"
+                        style={{ color: "#FC1F1F" }}
+                      />
+                    </IconButton>
+                    <Menu
+                      id="long-menuu"
+                      MenuListProps={{
+                        "aria-labelledby": "long-buttonn",
+                      }}
+                      anchorEl={anchorElement}
+                      open={openReport}
+                      onClose={handleCloseReport}
+                      PaperProps={{
+                        style: {
+                          minWidth: "10ch",
+                        },
+                      }}
+                    >
+                      <MenuItem
+                        disabled={true}
+                        style={{
+                          color: "#2C3131",
+                          fontWeight: "bold",
+                          fontSize: "1.25rem",
+                        }}
+                      >
+                        Pilih Laporan Anda
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => handleReport(data.id, "Berkata Kasar")}
+                      >
+                        Berkata Kasar
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => handleReport(data.id, "Mengandung Sara")}
+                      >
+                        Mengandung Sara
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => handleReport(data.id, "Mengandung Hoax")}
+                      >
+                        Mengandung Hoax
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() =>
+                          handleReport(data.id, "Mengandung Keributan")
+                        }
+                      >
+                        Mengandung Keributan
+                      </MenuItem>
+                    </Menu>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </Grid>
+
+              <Grid item>
+                {userRoles === "ADMIN" ? (
                   <IconButton
                     color="error"
                     aria-label="delete"
-                    onClick={() => handleReport(data.id)}
+                    onClick={() => handleDelete(data.id)}
                   >
-                    <ReportIcon />
+                    <DeleteIcon />
                   </IconButton>
                 ) : (
                   ""
@@ -360,6 +455,35 @@ export default function HomeCard({
             <Grid style={{ marginTop: "0.5rem" }} container>
               <Grid item xs>
                 <Stack spacing={2} direction="row">
+                  <div>
+                    {" "}
+                    <Checkbox
+                      onClick={() => handleLike(data.id)}
+                      icon={
+                        <FavoriteBorderIcon
+                          style={{
+                            color: "#26B893",
+                          }}
+                        />
+                      }
+                      checkedIcon={
+                        <FavoriteIcon
+                          style={{
+                            color: "#26B893",
+                          }}
+                        />
+                      }
+                      defaultChecked={
+                        likeData.filter((like) => like?.user_id == userId)
+                          .length > 0
+                          ? true
+                          : false
+                      }
+                    />
+                    <Typography variant="caption">
+                      {data.thread_likes}
+                    </Typography>
+                  </div>
                   <Checkbox
                     onClick={() => handleLike(data.id)}
                     icon={
@@ -372,18 +496,28 @@ export default function HomeCard({
                     checkedIcon={
                       <FavoriteIcon
                         style={{
-                          color: "#26B893",
+                          color: "#d20f5c",
                         }}
                       />
                     }
                     defaultChecked={
-                      likeData.filter((like) => like.user_id == userId).length >
-                      0
+                      likeData.filter((like) => like?.user_id == userId)
+                        .length > 0
                         ? true
                         : false
                     }
                   />
-
+                  <Typography
+                    variant="caption"
+                    style={{
+                      marginTop: "0.55rem",
+                      color: "rgba(0, 0, 0, 0.54)",
+                      fontWeight: "500",
+                      fontSize: "1.125rem",
+                    }}
+                  >
+                    {data.thread_likes}
+                  </Typography>
                   <IconButton
                     aria-label="comment"
                     onClick={() => setOpenComment(!openComment)}
@@ -392,7 +526,18 @@ export default function HomeCard({
                       style={{
                         color: "#26B893",
                       }}
-                    />
+                    />{" "}
+                    {/* <Typography variant="caption" sx={{ ml: "0.5vw" }}/> */}
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        ml: "1vw",
+                        fontWeight: "500",
+                        fontSize: "1.125rem",
+                      }}
+                    >
+                      {data.total_comments}
+                    </Typography>
                   </IconButton>
                 </Stack>
               </Grid>
@@ -404,8 +549,8 @@ export default function HomeCard({
                         color: "#26B893",
                       }}
                     />
-                    <Typography variant="caption" sx={{ ml: "1vw" }}>
-                      {/* {data.view} */}120
+                    <Typography variant="caption" sx={{ ml: "0.5vw" }}>
+                      {data.view?.views}
                     </Typography>
                   </IconButton>
 
@@ -427,20 +572,20 @@ export default function HomeCard({
                     }
                     defaultChecked={
                       data.save?.filter(
-                        (savedUser) => savedUser.user_id == userId
+                        (savedUser) => savedUser.user?.id == userId
                       ).length > 0
                         ? true
                         : false
                     }
                   />
 
-                  <IconButton aria-label="share">
+                  {/* <IconButton aria-label="share">
                     <ShareOutlinedIcon
                       style={{
                         color: "#26B893",
                       }}
                     />
-                  </IconButton>
+                  </IconButton> */}
                 </Stack>
               </Grid>
             </Grid>
@@ -460,7 +605,7 @@ export default function HomeCard({
             </div>
           ))}
           <Box display="flex" px="2vw">
-            <Avatar alt={data.username} src={data.profile} />
+            <Avatar alt={currentUser.username} src={currentUser.image} />
             {/* <input
               type="text"
               name="comment"

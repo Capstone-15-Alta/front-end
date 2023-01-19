@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-
-/* React Bootstrap */
 import { Tabs, Tab } from "react-bootstrap";
-
 import Navigationbar from "../../components/Navbar";
 import { SidebarLeft } from "../../components/Sidebar";
 import Footer from "../../components/Footer";
-import CardPost from "../../components/CardPost";
 import HomeCard from "../../components/Card/HomeCard";
-
 import fgdApi from "../../api/fgdApi";
-
 import HeaderProfile from "../../components/HeaderProfile";
 import HeaderLite from "../../components/HeaderProfile/HeaderLite";
-
 import "./Profile.scss";
 import Cookies from "js-cookie";
 
 const Profile = () => {
+  const token = Cookies.get("token");
+
   const profileData = [
     {
       title: "Pengikut",
@@ -45,32 +39,28 @@ const Profile = () => {
 
   const [listThread, setListThread] = useState([]);
 
-  const userId = Cookies.get("id");
-  // const tokenCookies = Cookies.get("token");
-  // console.log(userId);
+  const [listSaveThread, setListSaveThread] = useState([]);
 
-  // const handleLike = async (id) => {
-  //   let res = null;
-  //   res = await fgdApi.likeThread(id, tokenCookies);
-  //   // console.log(res);
-  // };
+  const userId = Cookies.get("id");
+  const tokenCookies = Cookies.get("token");
 
   const getUserById = async (id) => {
     let res = null;
-    res = await fgdApi.getUserById(id);
-
+    res = await fgdApi.getUserById(id, tokenCookies);
     const data = res.data;
-    console.log(data);
     setUserAttribute(data);
-    // return res.data;
-    // console.log(userAttribute);
+  };
+
+  const getUserSaveThread = async () => {
+    let res = null;
+    res = await fgdApi.getUserSaveThread(userId);
+    setListSaveThread(res.data);
   };
 
   const getThreadByUserId = async (id) => {
     let res = null;
 
-    res = await fgdApi.getThreadByUserId(id);
-    //console.log(res.data);
+    res = await fgdApi.getThreadByUserId(id, token);
     const data = res?.data.content;
     setListThread(data);
   };
@@ -78,6 +68,7 @@ const Profile = () => {
   useEffect(() => {
     getUserById(userId);
     getThreadByUserId(userId);
+    getUserSaveThread();
   }, []);
 
   return (
@@ -116,6 +107,7 @@ const Profile = () => {
                                 key={itemIdx}
                               >
                                 <HeaderLite
+                                  key={itemIdx}
                                   getUserById={getUserById}
                                   user={userAttribute}
                                   name={item.user_follower?.username}
@@ -147,6 +139,7 @@ const Profile = () => {
                                 key={itemIdx}
                               >
                                 <HeaderLite
+                                  key={itemIdx}
                                   getUserById={getUserById}
                                   user={userAttribute}
                                   name={item.user_followed?.username}
@@ -172,13 +165,16 @@ const Profile = () => {
                       <div className="tab-item-wrapper">
                         <div className="threads-tabs card-tabs">
                           {listThread?.map((item, itemIdx) => (
-                            <HomeCard
-                              key={itemIdx}
-                              data={item}
-                              likeData={item.likes}
-                              // handleDelete={handleDelete}
-                              getThread={getThreadByUserId}
-                            />
+                            <div key={itemIdx}>
+                              <HomeCard
+                                key={itemIdx}
+                                getUserById={getUserById}
+                                data={item}
+                                likeData={item?.likes}
+                                getThread={getThreadByUserId}
+                                getUserSaveThread={getUserSaveThread}
+                              />
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -193,23 +189,19 @@ const Profile = () => {
                       }
                     >
                       <div className="tab-item-wrapper">
-                        <div className="likes-tabs card-tabs">
-                          {userAttribute.save_thread?.map((item, itemIdx) => (
+                        <div className="saved-tabs card-tabs">
+                          {listSaveThread.map((item, itemIdx) => (
                             <>
-                              {" "}
-                              <h3 key={itemIdx}>{item.thread_id}</h3>
-                              <CardPost
-                                title="Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                                name="Gde Agung Mandala"
-                                dateTime="31-05-2022 19:56"
-                                description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ullam
-                              ratione dolorum temporibus vero tenetur sapiente quam similique iste
-                              dolorem unde accusamus eligendi a animi, ipsa harum, impedit
-                              recusandae assumenda. Lorem ipsum dolor sit amet, consectetur
-                              adipisicing elit. Ad sint eligendi doloremque magnam similique, quam
-                              mollitia molestias obcaecati libero minima quibusdam atque ex ea velit
-                              iusto placeat molestiae facere unde?"
-                              />
+                              <div key={itemIdx}>
+                                <HomeCard
+                                  key={itemIdx}
+                                  getUserById={getUserById}
+                                  data={item?.thread}
+                                  likeData={item.thread?.likes}
+                                  getThread={getThreadByUserId}
+                                  getUserSaveThread={getUserSaveThread}
+                                />
+                              </div>
                             </>
                           ))}
                         </div>
